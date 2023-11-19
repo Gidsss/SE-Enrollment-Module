@@ -19,6 +19,8 @@ class AuthController extends Controller{
         return view('register');
     }
 
+    //tumetesting lang ako
+
 }
 
 

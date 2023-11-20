@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use Illuminate\Database\Migrations\Migration;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login', [AuthController::class, 'login']);
-Route::get('forgot-password', [AuthController::class, 'forgot_password']);
-Route::get('register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'login']);
+Route::get('/forgot-password', [AuthController::class, 'forgot_password']);
+Route::get('/register', [AuthController::class, 'register']);

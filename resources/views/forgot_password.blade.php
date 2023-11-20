@@ -61,6 +61,7 @@
 </div>
 <!-- /.login-box -->
 
+<div>ttry q lang uli</div>
 <!-- jQuery -->
 <script src="{{ url('public/backend/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->

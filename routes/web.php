@@ -18,8 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/dashboard', function () {
-    return view('admin.dashboard');
+Route::get('student/dashboard', function () {
+    return view('student.dashboard');
+});
+
+Route::get('student/students/list', function () {
+    return view('student.students.list');
 });
 
 Route::get('login', [AuthController::class, 'login']);

@@ -14,10 +14,6 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('student/dashboard', function () {
     return view('student.dashboard');
 });
@@ -26,6 +22,8 @@ Route::get('student/students/list', function () {
     return view('student.students.list');
 });
 
-Route::get('login', [AuthController::class, 'login']);
+Route::get('/', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'AuthLogin']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('forgot-password', [AuthController::class, 'forgot_password']);
 Route::get('register', [AuthController::class, 'register']);

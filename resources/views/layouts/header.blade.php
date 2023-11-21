@@ -95,12 +95,12 @@
             <img src="{{url('public/backend/dist/img/user2.jpg')}}" alt="">2021-10687
             </a>
             <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; right: 100px; transform: translate3d(50px, 40px, 0px);">
-            <a class="dropdown-item" href="javascript:;"> Profile</a>
+            <a class="dropdown-item" href="javascript:;">Profile</a>
             <a class="dropdown-item" href="javascript:;">
             <span>Settings</span>
             </a>
             <a class="dropdown-item" href="javascript:;">Help</a>
-            <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+            <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-sign-out pull-right"></i>Log Out</a>
         </div>
     </li>
     </ul>

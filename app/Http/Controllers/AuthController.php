@@ -1,14 +1,37 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-
-class AuthController extends Controller{
-
-    public function login(Request $request)
+class AuthController extends Controller
+{
+    public function login()
     {
-        return view('login');
+        if (Auth::check()) {
+            return redirect()->intended('student/dashboard');
+        }
+
+        return view('auth.login');
+    }
+
+    public function AuthLogin(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $remember = !empty($request->remember);
+
+        if (Auth::attempt($credentials, $remember)) {
+            return redirect()->intended('student/dashboard');
+        } else {
+            return redirect()->back()->with('error', 'Wrong credentials. Please try again!');
+        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect(url(''));
     }
     public function forgot_password(Request $request)
     {

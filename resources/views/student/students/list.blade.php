@@ -1,8 +1,7 @@
 @extends('layouts.app') 
 
 @section('content')
-<!-- Specific CSS -->
-<link rel="stylesheet" href="{{ url('/resources/css/app.css') }}"> 
+
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ url('public/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ url('public/backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -55,10 +54,7 @@
 <script src="{{ url('public/backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url('public/backend/dist/js/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ url('public/backend/dist/js/demo.js') }} "></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ url('public/backend/dist/js/pages/dashboard.js') }}"></script>
+
 
 <!-- Script for push menu -->
 <script>

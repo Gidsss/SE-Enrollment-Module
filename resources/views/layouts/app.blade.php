@@ -44,7 +44,7 @@
 
   
 </div>
-<!-- ./wrapper -->
+
 
 <!-- jQuery -->
 <script src="{{ url('public/backend/plugins/jquery/jquery.min.js') }}"></script>

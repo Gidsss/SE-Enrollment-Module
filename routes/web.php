@@ -13,13 +13,31 @@ use App\Http\Controllers\AuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('student/students/list', function () {
+    return view('student.students.list');
+});
 
 Route::get('student/dashboard', function () {
     return view('student.dashboard');
 });
+/* dapat admin ung student for all di pa napapalitan */
 
-Route::get('student/students/list', function () {
-    return view('student.students.list');
+Route::group(['middleware' => 'admin'], function (){
+    Route::get('admin/dashboard', function () {
+        return view('student.dashboard');
+    });
+});
+
+Route::group(['middleware' => 'chairperson'], function (){
+    Route::get('chairperson/dashboard', function () {
+        return view('student.dashboard');
+    });
+});
+
+Route::group(['middleware' => 'student'], function (){
+    Route::get('student/dashboard', function () {
+        return view('student.dashboard');
+    });
 });
 
 Route::get('/', [AuthController::class, 'login']);

@@ -10,7 +10,18 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) {
-            return redirect()->intended('student/dashboard');
+            if(Auth::user()->user_type == 1)
+            {
+                return redirect()->intended('admin/dashboard');
+            }
+            else if(Auth::user()->user_type == 2)
+            {
+                return redirect()->intended('chairperson/dashboard');
+            }
+            else if(Auth::user()->user_type == 3)
+            {
+                return redirect()->intended('student/dashboard');
+            }
         }
 
         return view('auth.login');
@@ -22,8 +33,20 @@ class AuthController extends Controller
         $remember = !empty($request->remember);
 
         if (Auth::attempt($credentials, $remember)) {
-            return redirect()->intended('student/dashboard');
-        } else {
+            if(Auth::user()->user_type == 1)
+            {
+                return redirect()->intended('admin/dashboard');
+            }
+            else if(Auth::user()->user_type == 2)
+            {
+                return redirect()->intended('chairperson/dashboard');
+            }
+            else if(Auth::user()->user_type == 3)
+            {
+                return redirect()->intended('student/dashboard');
+            }
+        } 
+        else {
             return redirect()->back()->with('error', 'Wrong credentials. Please try again!');
         }
     }

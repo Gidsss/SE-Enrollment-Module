@@ -5,12 +5,6 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -47,7 +41,7 @@
           <a href="#" class="dropdown-item">
             
         <!-- Calendar -->
-            <div class ="media">
+          <div class ="media">
             <i class="far fa-calendar img-size-40 mr-3"></i>
             <div class="media-body">
                 <h3 class="dropdown-item-title">
@@ -57,9 +51,8 @@
                 <p class="text-sm">Check out the upcoming events on the calendar.</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> Just Now</p>
             </div>
-            </a>
         </div>
-        
+        </a>
         <!-- Calendar End -->
     </div>
          
@@ -97,17 +90,6 @@
         </a>
       </li>
 
-     <!-- User Panel
-    <li class="nav-item">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="{{url('public/backend/dist/img/user2.jpg')}}" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">Gideon Salangsang</a>
-            </div>
-        </div>
-    </li> -->
     <li class="nav-item dropdown open" style="padding-left: 15px; top: 5px;">
         <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
             <img src="{{url('public/backend/dist/img/user2.jpg')}}" alt="">2021-10687
@@ -161,7 +143,7 @@
             </a>
           </li>
             <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Information
@@ -196,7 +178,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Services
@@ -206,7 +188,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="pages/layout/top-nav.html" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Enrollment</p>
                 </a>

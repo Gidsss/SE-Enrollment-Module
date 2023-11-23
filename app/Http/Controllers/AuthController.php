@@ -51,6 +51,21 @@ class AuthController extends Controller
         }
     }
 
+    public function schedule(Request $request)
+    {
+        return view('student/regular_schedule');
+    }
+
+    public function assessment(Request $request)
+    {
+        return view('student/view_assessment');
+    }
+
+    public function download_ser(Request $request)
+    {
+        return view('student/download_ser');
+    }
+
     public function logout()
     {
         Auth::logout();

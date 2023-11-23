@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+ 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-LQJzBrrqfmyPXYjXvKXt8CvHv5bFIYt9qBqYRg0cFxJ+98FZBvFZ52EGEWk3HPlbeXmFfZl6Ko25Xme+ERyI2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
-
+    
     <style>
         .custom-bg-color {
             background-color: #5074bc;
@@ -27,7 +28,6 @@
             background-color: #2D349A;
             z-index: 0;
         }
-
         .connector-gray {
             position: absolute;
             top: 75%;
@@ -37,35 +37,7 @@
             background-color: gray;
             z-index: 0;
         }
-        /* Generic button styling */
-        .btn {
-        display: inline-block;
-        font-weight: 400;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        user-select: none;
-        border: 1px solid transparent;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        border-radius: 0.25rem;
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-
-        /* Primary button styling */
-        .btn-primary {
-        color: #fff;
-        background-color: #007bff;
-        border-color: #007bff;
-        }
-
-        /* Float to the right */
-        .float-right {
-        float: right;
-        }
-
+      
     </style>
 
     <!-- Content Wrapper. Contains page content -->

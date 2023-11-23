@@ -65,6 +65,13 @@ class AuthController extends Controller
         return view('register');
     }
 
+    public function schedule(Request $request)
+    {
+        return view('regular_schedule');
+    }
+
+
+
 }
 
 

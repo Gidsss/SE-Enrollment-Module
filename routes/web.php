@@ -17,8 +17,12 @@ Route::get('student/students/list', function () {
     return view('student.students.list');
 });
 
-Route::get('student/dashboard', function () {
-    return view('student.dashboard');
+Route::get('student/students/list', function () {
+    return view('student.students.list');
+});
+
+Route::get('student/regular_schedule', function () {
+    return view('student.regular_schedule');
 });
 /* dapat admin ung student for all di pa napapalitan */
 
@@ -41,7 +45,7 @@ Route::group(['middleware' => 'student'], function (){
 });
 
 Route::get('/', [AuthController::class, 'login']);
-Route::post('login', [AuthController::class, 'AuthLogin']);
+Route::post('/login', [AuthController::class, 'AuthLogin']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('forgot-password', [AuthController::class, 'forgot_password']);
-Route::get('register', [AuthController::class, 'register']);
+Route::get('/forgot-password', [AuthController::class, 'forgot_password']);
+Route::get('/register', [AuthController::class, 'register']);

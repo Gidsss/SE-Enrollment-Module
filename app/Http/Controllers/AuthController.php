@@ -69,6 +69,16 @@ class AuthController extends Controller
     {
         return view('regular_schedule');
     }
+    public function assessment(Request $request)
+    {
+        return view('regular_assessment');
+    }
+
+    public function ser(Request $request)
+    {
+        return view('regular_ser');
+    }
+
 
 
 

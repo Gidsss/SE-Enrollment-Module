@@ -24,6 +24,14 @@ Route::get('student/students/list', function () {
 Route::get('student/regular_schedule', function () {
     return view('student.regular_schedule');
 });
+
+Route::get('student/regular_assessment', function () {
+    return view('student.regular_assessment');
+});
+
+Route::get('student/regular_ser', function () {
+    return view('student.regular_ser');
+});
 /* dapat admin ung student for all di pa napapalitan */
 
 Route::group(['middleware' => 'admin'], function (){

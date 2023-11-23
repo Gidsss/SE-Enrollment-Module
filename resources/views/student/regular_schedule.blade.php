@@ -96,7 +96,7 @@
     <script>
     function handleClick(event) {
         // Handle the click event here
-        alert("Clicked!"); // You can replace this with your own logic
+        window.location.href = "http://localhost/enrollmentmod/student/regular_assessment";
         event.preventDefault(); // Prevent the default behavior of the anchor tag
     }
     document.addEventListener('DOMContentLoaded', function () {

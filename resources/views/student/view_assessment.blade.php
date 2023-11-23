@@ -22,7 +22,7 @@
             position: absolute;
             top: 75%;
             left: calc(15ch + 220px);
-            width: 247px;
+            width: 255px;
             height: 5px;
             background-color: #2D349A;
             z-index: 0;
@@ -31,7 +31,7 @@
         .connector-gray {
             position: absolute;
             top: 75%;
-            left: calc(49ch + 248px);
+            left: calc(49ch + 254px);
             width: 240px;
             height: 5px;
             background-color: gray;
@@ -106,25 +106,24 @@
             <div style="width:145ch; height:10ch; color: #2D349A; position: relative;">
                 <br>
                 <a href="#" onclick="handleScheduleClick(event)" style="text-decoration: none;">
-                <span style="position: absolute; top: 1cm; left: 15ch; font-family: sans-serif; font-size: 35px; font-weight: bold;">
+                <span style="position: absolute; top: 1cm; left: 12ch; font-family: Inter, sans-serif; font-size: 35px; font-weight: bold;">
                     <i class="fas fa-circle" style="font-size: 50px; color: #2D349A "></i>
                     <span style="position: absolute; top: 47.5%; left: 47.5%; transform: translate(-50%, -50%); color: white; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">1</span>
                 </span>
     </a>
                 
                 <a href="#" onclick="handleAssessmentClick(event)" style="text-decoration: none;">
-                <span style="position: absolute; top: 1cm; left: 30ch; font-family: sans-serif; font-size: 35px; font-weight: bold;">
-                    <i class="fas fa-circle" style="font-size: 54px; color: #2D349A"></i>
+                <span style="position: absolute; top: 1cm; left: 24.5ch; font-family: Inter, sans-serif; font-size: 35px; font-weight: bold;">
+                    <i class="fas fa-circle" style="font-size: 54px; color: #2D349A; "></i>
                     <span style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); color: white; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">2</span>
-                </span> 
+                </span>            
                 </a>
 
                 <a href="#" onclick="handleSERClick(event)" style="text-decoration: none;">
-                <span style="position: absolute; top: 1cm; left: 45ch; font-family: sans-serif; font-size: 35px; font-weight: bold;">
+                <span style="position: absolute; top: 1cm; left: 36.5ch; font-family: Inter, sans-serif; font-size: 35px; font-weight: bold;">
                     <i class="far fa-circle" style="font-size: 54px;color: grey"></i>
                     <span style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">3</span>
                 </span>
-    </a>
                 <!-- Connectors -->
                 <div class="connector-blue"></div>
                 <div class="connector-gray"></div>

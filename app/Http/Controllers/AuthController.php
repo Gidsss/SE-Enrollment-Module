@@ -1,14 +1,60 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-
-class AuthController extends Controller{
-
-    public function login(Request $request)
+class AuthController extends Controller
+{
+    public function login()
     {
-        return view('login');
+        if (Auth::check()) {
+            if(Auth::user()->user_type == 1)
+            {
+                return redirect()->intended('admin/dashboard');
+            }
+            else if(Auth::user()->user_type == 2)
+            {
+                return redirect()->intended('chairperson/dashboard');
+            }
+            else if(Auth::user()->user_type == 3)
+            {
+                return redirect()->intended('student/dashboard');
+            }
+        }
+
+        return view('auth.login');
+    }
+
+    public function AuthLogin(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $remember = !empty($request->remember);
+
+        if (Auth::attempt($credentials, $remember)) {
+            if(Auth::user()->user_type == 1)
+            {
+                return redirect()->intended('admin/dashboard');
+            }
+            else if(Auth::user()->user_type == 2)
+            {
+                return redirect()->intended('chairperson/dashboard');
+            }
+            else if(Auth::user()->user_type == 3)
+            {
+                return redirect()->intended('student/dashboard');
+            }
+        } 
+        else {
+            return redirect()->back()->with('error', 'Wrong credentials. Please try again!');
+        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect(url(''));
     }
     public function forgot_password(Request $request)
     {
@@ -18,6 +64,23 @@ class AuthController extends Controller{
     {
         return view('register');
     }
+
+    public function schedule(Request $request)
+    {
+        return view('regular_schedule');
+    }
+    public function assessment(Request $request)
+    {
+        return view('regular_assessment');
+    }
+
+    public function ser(Request $request)
+    {
+        return view('regular_ser');
+    }
+
+
+
 
 }
 

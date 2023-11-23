@@ -86,7 +86,7 @@
             <br><br>
             <div class="status-card" style="width:20ch; height:4ch; position: absolute; top: 3.5ch; right: 22ch; border: .25px solid #000; 
             display: flex; justify-content: center; align-items: center;">
-                <p style="margin-left: .2rem; margin-top: 1rem;">Status: Enlisted <i class="fas fa-circle" style="color: yellow"></i></p>
+                <p style="margin-left: .2rem; margin-top: 1rem;">Status: Enrolled <i class="fas fa-circle" style="color: green"></i></p>
             </div>
 
             <button type="button" class="btn btn-primary float-right" style="color: #2D349A; position: absolute; top: 3.5ch; right: 2ch; width: 150px; height: 4ch;">

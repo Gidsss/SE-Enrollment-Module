@@ -52,7 +52,7 @@
 
 
 
-        <div class="card" style="max-width: 100%; height: auto; color: #2D349A; position: relative;">
+        <div class="card" style="max-width:100%; height:auto; color: #2D349A; position: relative;">
         <br>
         <span style="position: absolute; top: 0.90ch; left: 1ch; font-family: Inter, sans-serif; font-size: 35px; font-weight: bold;">Enrollment</span>   
             <br><br>
@@ -140,7 +140,7 @@
         function handleClick(event) {
             // Handle the click event here
             event.preventDefault(); // Prevent the default behavior of the anchor tag
-            window.location.href = '{{ route("view_assessment") }}';
+            window.location.href = '{{ route("regular_assessment") }}';
         }
         document.addEventListener('DOMContentLoaded', function () {
             // Replace the following array with your custom headers, background colors, and text colors

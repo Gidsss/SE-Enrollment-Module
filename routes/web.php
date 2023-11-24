@@ -25,13 +25,13 @@ Route::get('student/regular_schedule', function() {
     return view('student.regular_schedule');
 })->name('regular_schedule');
 
-Route::get('student/view_assessment', function() {
-    return view('student.view_assessment');
-})->name('view_assessment');
+Route::get('student/regular_assessment', function() {
+    return view('student.regular_assessment');
+})->name('regular_assessment');
 
-Route::get('student/download_ser', function() {
-    return view('student.download_ser');
-})->name('download_ser');
+Route::get('student/regular_ser', function() {
+    return view('student.regular_ser');
+})->name('regular_ser');
 /* dapat admin ung student for all di pa napapalitan */
 
 Route::group(['middleware' => 'admin'], function (){

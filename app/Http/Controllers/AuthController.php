@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    /* Login System Controller */
     public function login()
     {
         if (Auth::check()) {
@@ -51,19 +52,34 @@ class AuthController extends Controller
         }
     }
 
-    public function schedule(Request $request)
+    public function reg_schedule(Request $request)
     {
         return view('student/regular_schedule');
     }
 
-    public function assessment(Request $request)
+    public function reg_assessment(Request $request)
     {   
         return view('student/regular_assessment');
     }
 
-    public function ser(Request $request)
+    public function reg_ser(Request $request)
     {
         return view('student/regular_ser');
+    }
+
+    public function irreg_schedule(Request $request)
+    {
+        return view('irregstudent/irreg_schedule');
+    }
+
+    public function irreg_assessment(Request $request)
+    {
+        return view('irregstudent/irreg_assessment');
+    }
+
+    public function irreg_ser(Request $request)
+    {
+        return view('irregstudent/irreg_ser');
     }
 
     public function logout()

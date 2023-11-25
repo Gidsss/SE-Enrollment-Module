@@ -32,6 +32,19 @@ Route::get('student/regular_assessment', function() {
 Route::get('student/regular_ser', function() {
     return view('student.regular_ser');
 })->name('regular_ser');
+
+Route::get('irregularstudent/irreg_schedule', function() {
+    return view('irregularstudent.irreg_schedule');
+})->name('irreg_schedule');
+
+Route::get('irregularstudent/irreg_assessment', function() {
+    return view('irregularstudent.irreg_assessment');
+})->name('irreg_assessment');
+
+Route::get('irregularstudent/irreg_ser', function() {
+    return view('irregularstudent.irreg_ser');
+})->name('irreg_ser');
+
 /* dapat admin ung student for all di pa napapalitan */
 
 Route::group(['middleware' => 'admin'], function (){

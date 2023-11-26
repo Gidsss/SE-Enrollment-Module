@@ -77,12 +77,12 @@
     <div class="card" style="max-width: 100%; height: 100ch; color: #2D349A; position: relative;">
         <div style="width:145ch; height:10ch; color: #2D349A; position: relative;">
             <br>
-            <a href="#" onclick="handleSchedClick(event)" style="text-decoration: none;">
+            
             <span style="position: absolute; top: 1cm; left: 12ch; font-family: Inter, sans-serif; font-size: 35px; font-weight: bold;">
                 <i class="fas fa-circle" style="font-size: 50px; color: #2D349A;"></i>
                 <span style="position: absolute; top: 47.5%; left: 47.5%; transform: translate(-50%, -50%); color: white; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">1</span>
             </span>
-</a>
+
 
             
             <span style="position: absolute; top: 1cm; left: 24.5ch; font-family: Inter, sans-serif; font-size: 35px; font-weight: bold;">
@@ -108,7 +108,7 @@
 
 <!-- component -->
 <section class="content">
-<div class="card" style="position:absolute; left:35%; top:1.75in; width:35%; border-radius: 10px; border: 1px solid black;">
+<div class="card" style="position:absolute; left:68%; top:1.75in; width:35%; border-radius: 10px; border: 1px solid black;">
     <div class="flex flex-col justify-center items-center gap-2">
         <span class="font-semibold text-black" style="color: #000; font-size: 20px; text-decoration: underline; position: relative; left: 3%; top: 9px;">TUITION FEE</span>
         <div class="flex flex-col gap-3 pb-6 pt-2 text-xs" style="width: 50%;">
@@ -139,6 +139,9 @@
             <table >
                 <tbody id="table-other-fees">
                 </tbody>
+                <button type="button" class="btn btn-primary" style="color: #2D349A; position: absolute; bottom: 10px; left: 20px; width: 120px; height: 4ch;">
+        <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 14px;"></i>
+        <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 14px;">Save a Copy</span>
             </table>
         </div>
         <div class="broken-line"></div>
@@ -148,13 +151,97 @@
 
 </div>
   </div>
+  <div class="card" style="position:absolute; left:3%; top:1.75in; width:60%; border-radius: 10px; border: 1px solid black;">
+    <div class="flex flex-col justify-center items-center gap-2">
+        <span class="font-semibold text-black" style="color: #000; font-size: 20px; text-decoration: underline; position: relative; left: 3%; top: 9px;">STUDY PLAN</span>
+        <div class="flex flex-col gap-3 pb-6 pt-2 text-xs" style="width: 50%;">
+        <div class="broken-line"></div>
+            <table>
+            <tr>
+            <td style="height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="position: relative; color: black; font-family: Inter, regular; font-size: 20px; left:20px;">ONLINE</td>
+            </tr>
+            <tr>
+            <td style="height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="position: relative; color: black;font-family: Inter, regular; font-size: 18px; left: 20px;">Submitted Online: November 21, 2023</td>
+            </tr>
+            <tr>
+            <td style="position: relative; color: black;font-family: Inter, regular; font-size: 18px; left: 20px;">Approved Online: November 22, 2023</td>
+            </tr>
+            <tr>
+            <td style="height: 20px;"></td>
+             </tr>
+            <tr>
+                <td style="position: relative; font-family: Inter, regular;color: black; font-size: 20px; left:20px;">ONSITE</td>
+            </tr>
+            <tr>
+            <td style="height: 20px;"></td>
+            </tr>
+            <tr>
+                <td style="position: relative; font-family: Inter, regular;color: black; font-size: 18px; left:20px;">Submitted Onsite: November 23, 2023</td>
+            </tr>
+            <tr>
+                <td style="position: relative; font-family: Inter, regular;color: black; font-size: 18px; left:20px;">Approved Onsite: November 23, 2023</td>
+            </tr>
+            </table>
+        </div>
+        <div class="broken-line"></div>
+        <table>
+        <tr>
+            <td style="height: 20px;"></td>
+             </tr>
+            <tr>
+                <td style="position: relative; font-family: Inter, regular;color: black; font-size: 20px; left:20px;">Remarks: Remarks here</td>
+                <td style="position: relative; font-family: Inter, regular;color: black; font-size: 20px; left:180px;">Study Plan Status:<strong> Approved</strong></td>
+            </tr>
+            <tr>
+            <tr>
+            <td style="height: 20px;"></td>
+             </tr>
+            <td style="position: relative; font-family: Inter, regular;color: black; font-size: 20px; left:20px;"></td>
+            
+            <td style="position: relative; font-family: Inter, regular;color: black; font-size: 20px; left:180px;">APPROVED BY:</td>
+            <tr>
+            <td style="height: 20px;"></td>
+             </tr>
+            </tr>
+            <tr>
+            <td style="position: relative; font-family: Inter, regular;color: black; font-size: 20px; left:20px;"></td>
+            <td style="position: relative; font-family: Inter, regular;color: black; font-size: 20px; left:180px;">Name of Advising Body</td>
+            </tr>
+            <tr>
+            <td style="position: relative; font-family: Inter, regular;color: black; font-size: 20px; left:20px;"></td>
+            <td style="position: relative; font-family: Inter, regular;color: black; font-size: 20px; left:180px;">Position</td>
+            </tr>
+            <tr>
+            <td style="height: 60px;"></td>
+             </tr>
+            <tr>
+        <td colspan="4">
+            <!-- Add your button here -->
+            <button type="button" class="btn btn-primary" style="color: #2D349A; position: absolute; bottom: 10px; left: 20px; width: 150px; height: 4ch;">
+        <i class="fas fa-download" style="color: white; margin-right: .5rem; top: -0.2rem; position: relative;"></i>
+        <span style="color: white;  margin-right: 0.5rem; top: -0.2rem; position: relative;">Save a Copy</span>
+        </td>
+    </tr>
+    
+        </table>
+        
+    </div>  
+
+</div>
+  </div>
 </section>
     <script>
-    function handleSchedClick(event) {
-        // Handle the click event here
-        window.location.href = '{{ route("irreg_schedule") }}';
-        event.preventDefault(); // Prevent the default behavior of the anchor tag
-    }
+    // function handleSchedClick(event) {
+    //     // Handle the click event here
+    //     window.location.href = '{{ route("irreg_schedule") }}';
+    //     event.preventDefault(); // Prevent the default behavior of the anchor tag
+    // }
     function handleSERClick(event) {
         // Handle the click event here
         window.location.href = '{{ route("irreg_ser") }}';
@@ -184,6 +271,9 @@
         { other_fees: 'Ang Pamantasan Fee', other_amount: '50.00' },
         { other_fees: 'Supreme Student Council', other_amount: '246.00' },
     ];
+    
+    
+
     function adjustPosition(tableBody, tableData, columnPositions) {
     // Create and add tr elements for each row in the table body
     tableData.forEach(function (data) {
@@ -192,6 +282,7 @@
         Object.values(data).forEach(function (value, cellIndex) {
             var td = document.createElement('td');
             td.textContent = value;
+            td.Style.fontFamily = 'Inter, regular';
             td.style.color = 'black'; // Set the text color to black
             td.style.fontSize = '15px'; // Adjust the font size as needed
             // Calculate the left position for each cell in the specified column

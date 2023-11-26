@@ -168,8 +168,8 @@
                     <span style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Follow steps one to five below. Failure to comply with a step prohibits you from proceeding forward the enrollment process.</span>    
                 </div>            
 
-                <!-- Main content -->
-                <section class="content">
+            <!-- Main content -->
+            <section class="content">
                 <!-- Step 1 -->
                 <div class="card custom-table-container">
                 <div class="card-body">
@@ -322,8 +322,47 @@
 
                 
 
-                </section>
+            </section>
+            <!-- Modal for Alert -->
+            <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="alertModalLabel">Alert</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Complete all the steps before proceeding to the assessment.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+            </div>
 
+            <!-- Modal for Confirmation -->
+            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>All steps have been completed. Please ensure that the information you have submitted is accurate. Once submitted, you will be unable to revisit this page.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Yes</button>
+                    </div>
+                </div>
+            </div>
+            </div>
 
 
         </div>
@@ -378,15 +417,22 @@
         var handleAssessmentClickEnabled = false;
 
         function handleAssessmentClick(event) {
-            // Handle the click event here
-            if (handleAssessmentClickEnabled) {
-                window.location.href = '{{ route("irreg_assessment") }}';
-                event.preventDefault(); // Prevent the default behavior of the anchor tag
-            } else {
-                alert("Complete all the steps before proceeding to the assessment.");
-            }
+        // Handle the click event here
+        if (handleAssessmentClickEnabled) {
+            // Open the confirmation modal
+            $('#confirmationModal').modal('show');
+            event.preventDefault(); // Prevent the default behavior of the anchor tag
+        } else {
+            // Open the alert modal
+            $('#alertModal').modal('show');
         }
-       
+        }
+
+        function submitForm() {
+        // Add logic to submit the form or redirect to the assessment page
+        window.location.href = '{{ route("irreg_assessment") }}';
+        }
+
         function showCheckmark(step) {
             // Assuming the step-checkmark element is a child of the accordion button
             var checkmark = acc[step - 1].querySelector(".step-checkmark");

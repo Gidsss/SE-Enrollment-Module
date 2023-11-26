@@ -282,9 +282,9 @@
         Object.values(data).forEach(function (value, cellIndex) {
             var td = document.createElement('td');
             td.textContent = value;
-            td.Style.fontFamily = 'Inter, regular';
+            td.style.fontFamily = 'Inter, sans-serif';
             td.style.color = 'black'; // Set the text color to black
-            td.style.fontSize = '15px'; // Adjust the font size as needed
+            td.style.fontSize = '16.2px'; // Adjust the font size as needed
             // Calculate the left position for each cell in the specified column
             var leftChange = 0;
             for (var i = 0; i < columnPositions.length; i++) {

@@ -130,13 +130,12 @@
                     </div>
                    
                 </section>
-                
         </div>
     
         
     </div>
      
-        <script>
+    <script>
         function handleClick(event) {
             // Handle the click event here
             event.preventDefault(); // Prevent the default behavior of the anchor tag
@@ -192,7 +191,6 @@
             });
         });
         </script>
-
 
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>

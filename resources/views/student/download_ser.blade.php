@@ -7,7 +7,8 @@
 
     <style>
         .custom-bg-color {
-            background-color: #5074bc;
+            background-color: #f8f4f4
+            ;
         }
         .custom-table-container {
             position: absolute;
@@ -132,31 +133,16 @@
                     <span style="position: absolute; top: 45%; left: 85.2%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Download SER</span>
                 </div>
 
-                <div class="card custom-bg-color" style="position: absolute; top: 170px; left: 13%; width: 85%; height: 60%">
-                    <span style="position: absolute; top: 0.90ch; left: 1ch; font-family: sans-serif; font-size: 20px; color: white">A.Y 2022 - 2023, Term 1</span>    
-                </div>            
+                <div class="card custom-bg-color" style="position: absolute; top: 150px; left: 13%; width: 85%; height: 70%">
+                    <span style="position: absolute; top: 0.90ch; left: 1ch; font-family: sans-serif; font-size: 15px; color: black"><i class="fa fa-exclamation-circle" style="color:black; position: relative  left    "aria-hidden="true"></i>                
+                        Please save a copy of your Student Enrollment Record (SER) to be officially enrolled, and be added to your subject's MS Teams. 
+                        The Start of classes will be on August 29, 2023.</span>    
+                </div>           
+                 <!-- <object data="http://localhost/enrollmentmod/reg-form.pdf" type="application/pdf" width="80%" height="500px" style="position: absolute; top: 220px; left: 16%;"> -->
+                <object data="http://localhost/enrollmentmod/generate-pdf" type="application/pdf" width="80%" height="500px" style="position: absolute; top: 220px; left: 16%;">
+                </object>
 
-                 <!-- Main content -->
-                 <section class="content">
-                    <div class="card custom-table-container">
-                        <div class="card-body">
-                            <table class="table custom-table">
-                                <thead>
-                                    <tr id="table-headers">
-                                        <!-- Header content and background color will be dynamically added here using JavaScript -->
-                                    </tr>
-                                </thead>
-                                <tbody id="table-body">
-                                    <!-- Table body content goes here -->
-                                </tbody>
-                            </table>
-                            
-                        </div>
-                        
-                    </div>
-                   
-                </section>
-                
+                 
         </div>
     
         
@@ -173,55 +159,6 @@
             event.preventDefault(); // Prevent the default behavior of the anchor tag
             window.location.href = '{{ route("regular_schedule") }}';
         }
-        document.addEventListener('DOMContentLoaded', function () {
-            // Replace the following array with your custom headers, background colors, and text colors
-            var customHeaders = [
-                { text: 'Class Code', bgColor: '#f0f4fc', textColor: 'black' },
-                { text: 'Section', bgColor: '#f0f4fc', textColor: 'black' },
-                { text: 'Subject Title', bgColor: '#f0f4fc', textColor: 'black' },
-                { text: 'Units', bgColor: '#f0f4fc', textColor: 'black' },
-                { text: 'Schedule', bgColor: '#f0f4fc', textColor: 'black' },
-                { text: 'Room', bgColor: '#f0f4fc', textColor: 'black' }
-            ];
-
-            var tableHeaders = document.getElementById('table-headers');
-            var tableBody = document.getElementById('table-body');
-
-            // Create and add th elements for each header with custom background color and text color
-            customHeaders.forEach(function (header) {
-                var th = document.createElement('th');
-                th.textContent = header.text;
-                th.style.backgroundColor = header.bgColor;
-                th.style.color = header.textColor;
-                tableHeaders.appendChild(th);
-            });
-
-            // Example data for the table body
-            var tableData = [
-                { classCode: 'CSC 0311', section: '2', subjectTitle: 'Programming Languages (lec)', units: '2', schedule: 'T 6:00p-9:00p', room: 'F2F COMP LAB 4' },
-                { classCode: 'CSC 0312', section: '2', subjectTitle: 'Programming Languages (lab)', units: '2', schedule: 'F 1:00p-3:00p', room: 'F2F GCA 306' },
-                { classCode: 'CSC 0312.1', section: '2', subjectTitle: 'Software Engineering (lec)', units: '3', schedule: 'W 2:00p-5:00p', room: 'F2F COMP LAB 3' },
-                { classCode: 'CSC 0313', section: '2', subjectTitle: 'Software Engineering (lab)', units: '2', schedule: 'Th 1:00p-3:00p', room: 'F2F COMP LAB 1' },
-                { classCode: 'CSC 0313.1', section: '2', subjectTitle: 'Operating System (lec)', units: '3', schedule: 'Th 4:00p-6:00p', room: 'F2F COMP LAB 1' },
-                { classCode: 'CSC 0314', section: '2', subjectTitle: 'Operating System (lab)', units: '2', schedule: 'Th 1:00p-3:00p', room: 'F2F COMP LAB 1' },
-                { classCode: 'CSC 0314.1', section: '2', subjectTitle: 'Intelligent System (lec)', units: '3', schedule: 'M 9:00a-12:00p', room: 'F2F GV 311' },
-                { classCode: 'CSC 0315', section: '2', subjectTitle: 'Intelligent System (lab)', units: '2', schedule: 'W 12:00p-2:00p', room: 'F2F COMP LAB 4' },
-                { classCode: 'CSC 0315.1', section: '2', subjectTitle: 'Intelligent System (lab)', units: '2', schedule: 'M 1:00p-4:00p', room: 'F2F COMP LAB 4' }
-            ];
-
-            // Create and add tr elements for each row in the table body
-            tableData.forEach(function (data) {
-                var tr = document.createElement('tr');
-                // Create and add td elements for each cell in the row
-                Object.values(data).forEach(function (value) {
-                    var td = document.createElement('td');
-                    td.textContent = value;
-                    td.style.color = 'black'; // Set the text color to black
-                    tr.appendChild(td);
-                });
-                tableBody.appendChild(tr);
-            });
-        });
         </script>
 
 

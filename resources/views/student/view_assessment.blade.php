@@ -65,6 +65,16 @@
         .float-right {
         float: right;
         }
+        .broken-line {
+        width: 95%;
+        border-bottom: 2.5px dashed grey;
+        white-space: pre;
+        font-family: monospace;
+        position: absolute;
+        margin-left: 10px;
+        margin-right: 10px;
+        }
+
 
     </style>
 
@@ -124,7 +134,7 @@
                     <i class="far fa-circle" style="font-size: 54px;color: grey"></i>
                     <span style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">3</span>
                 </span>
-    </a>
+                </a>
                 <!-- Connectors -->
                 <div class="connector-blue"></div>
                 <div class="connector-gray"></div>
@@ -134,69 +144,49 @@
                     <span style="position: absolute; top: 45%; left: 49%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">View Assessment</span>
                     <span style="position: absolute; top: 45%; left: 85.2%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Download SER</span>
                 </div>
-                <div class="card custom-bg-color" style="position: absolute; top: 170px; left: 13%; width: 85%; height: 60%">
-                    <span style="position: absolute; top: 0.90ch; left: 1ch; font-family: sans-serif; font-size: 20px; color: white">A.Y 2022 - 2023, Term 1</span>    
-                </div>      
-                    
+
 
                 <!-- Main content -->
-                <section class="content">
-               
-                    <div class="card custom-table-container">
-                    
-                        <div class="card-body">
-                            
-                        <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">PAYMENTS</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <table class="table table-sm">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Category</th>
-                      <th>Fee</th>
-                      <th style="width: 40px">Label</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Tuition Fee(15 units)</td>
-                      <td>18000</td>
-                      <td><span class="badge bg-danger">55%</span></td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Miscellaneous Fees</td>
-                      <td>10000</td>
-                      <td><span class="badge bg-warning">70%</span></td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Laboratory Fee</td>
-                      <td>2500</td>
-                      <td><span class="badge bg-primary">30%</span></td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Total Amount</td>
-                      <td>30500</td>
-                      <td><span class="badge bg-success">90%</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-                            
+                <div class="card" style="position:absolute; left:35%; top:1.75in; width:35%; border-radius: 10px; border: 1px solid black;">
+                    <div class="flex flex-col justify-center items-center gap-2">
+                        <span class="font-semibold text-black" style="color: #000; font-size: 20px; text-decoration: underline; position: relative; left: 3%; top: 9px;">TUITION FEE</span>
+                        <div class="flex flex-col gap-3 pb-6 pt-2 text-xs" style="width: 50%;">
+                            <table>
+                                <tbody id="table-tuition-fees">
+                                </tbody>
+                            </table>
                         </div>
-                        
-                    </div>
+                        <div class="broken-line"></div>
+                        <span class="font-semibold text-black" style="color: #000; font-size: 20px; text-decoration: underline; position: relative; left: 3%; top: 9px;">MISCELLANEOUS FEE</span>
+                        <div class="flex flex-col gap-3 pb-6 pt-2 text-xs">
+                            <table >
+                                <tbody id="table-misc-fees">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="broken-line"></div>
+                        <span class="font-semibold text-black" style="color: #000; font-size: 20px; text-decoration: underline; position: relative; left: 3%; top: 9px;">LABORATORY FEE</span>
+                        <div class="flex flex-col gap-3 pb-6 pt-2 text-xs">
+                            <table >
+                                <tbody id="table-lab-fees">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="broken-line"></div>
+                        <span class="font-semibold text-black" style="color: #000; font-size: 20px; text-decoration: underline; position: relative; left: 3%; top: 9px;">OTHER FEES</span>
+                        <div class="flex flex-col gap-3 pb-6 pt-2 text-xs">
+                            <table >
+                                <tbody id="table-other-fees">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="broken-line"></div>
+                        <span class="font-semibold text-black" style="color: #000; font-size: 15px; position: relative; left: 172px; ">Total Amount: 22,156.00</span><br>
+                        <span class="font-semibold text-black" style="color: #000; font-size: 15px; position: relative; left: 172px; ">Payment Status: <b> Covered <br> by CHED Unifast(RA 10931)</b></span>
+                    </div>  
                    
-                </section>
+                </div>
+
                 
         </div>
     
@@ -219,6 +209,75 @@
             event.preventDefault(); // Prevent the default behavior of the anchor tag
             window.location.href = '{{ route("download_ser") }}';
         }
+        var tableBody1 = document.getElementById('table-misc-fees');
+    var tableData1 = [
+        { misc_fees: 'Cultural Activity', misc_amount: '74.00' },
+        { misc_fees: 'Library Fee', misc_amount: '732.00' },
+        { misc_fees: 'Medical/Dental Fee', misc_amount: '293.00' },
+        { misc_fees: 'Guidance Fee', misc_amount: '146.00' },
+        { misc_fees: 'Athletic Fee without PE', misc_amount: '117.00' },
+        { misc_fees: 'Student Welfare', misc_amount: '74.00' },
+        { misc_fees: 'Registration Fee', misc_amount: '1,510.00' }
+    ];
+
+    var tableBody2 = document.getElementById('table-tuition-fees');
+    var tableData2 = [
+        { tuition_fees: 'Cultural Activity', tuition_amount: '18,000.00' }
+    ];
+
+    var tableBody3 = document.getElementById('table-lab-fees');
+    var tableData3 = [
+        { lab_fees: 'Category 3 Laboratory', lab_amount: '2,400.00' }
+    ];
+
+    var tableBody4 = document.getElementById('table-other-fees');
+    var tableData4 = [
+        { other_fees: 'Development Fund', other_amount: '146.00' },
+        { other_fees: 'Ang Pamantasan Fee', other_amount: '50.00' },
+        { other_fees: 'Supreme Student Council', other_amount: '246.00' },
+    ];
+    function adjustPosition(tableBody, tableData, columnPositions) {
+    // Create and add tr elements for each row in the table body
+    tableData.forEach(function (data) {
+        var tr = document.createElement('tr');
+
+        // Create and add td elements for each cell in the row
+        Object.values(data).forEach(function (value, cellIndex) {
+            var td = document.createElement('td');
+            td.textContent = value;
+            td.style.color = 'black'; // Set the text color to black
+            td.style.fontSize = '15px'; // Adjust the font size as needed
+
+            // Calculate the left position for each cell in the specified column
+            var leftChange = 0;
+            for (var i = 0; i < columnPositions.length; i++) {
+                if (cellIndex === columnPositions[i].columnIndex) {
+                    leftChange = columnPositions[i].leftChange;
+                    break;
+                }
+            }
+
+            // Set left position for each cell
+            td.style.position = 'relative';
+            td.style.left = leftChange + 'px';
+            tr.appendChild(td);
+        });
+
+        tableBody.appendChild(tr);
+    });
+}
+
+    // Define an array of objects to store column index and left change
+    var columnPositions = [
+        { columnIndex: 0, leftChange: 15 },
+        { columnIndex: 1, leftChange: 100 }
+    ];
+
+    // Adjust position for the specified columns
+    adjustPosition(tableBody1, tableData1, columnPositions);
+    adjustPosition(tableBody2, tableData2, columnPositions);
+    adjustPosition(tableBody3, tableData3, columnPositions);
+    adjustPosition(tableBody4, tableData4, columnPositions);
         </script>
 
 

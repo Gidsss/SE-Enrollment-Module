@@ -60,7 +60,7 @@
         function handleClick(event) {
             // Handle the click event here
             event.preventDefault(); // Prevent the default behavior of the anchor tag
-            window.location.href = '{{ route("view_assessment") }}';
+            window.location.href = '{{ route("regular_assessment") }}';
         }
         document.addEventListener('DOMContentLoaded', function () 
         {

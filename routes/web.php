@@ -55,6 +55,7 @@ Route::group(['middleware' => 'admin'], function (){
 
 Route::get('/generate-pdf', [AuthController::class,'genpdf']);
 
+
 Route::group(['middleware' => 'chairperson'], function (){
     Route::get('chairperson/dashboard', function () {
         return view('student.dashboard');

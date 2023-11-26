@@ -145,8 +145,8 @@
             </table>
         </div>
         <div class="broken-line"></div>
-        <span class="font-semibold text-black" style="color: #000; font-size: 15px; position: relative; left: 172px; ">Total Amount: 22,156.00</span><br>
-        <span class="font-semibold text-black" style="color: #000; font-size: 15px; position: relative; left: 172px; ">Payment Status: <b> Covered <br> by CHED Unifast(RA 10931)</b></span>
+        <span class="font-semibold text-black" style="color: #000; font-size: 16.5px; position: relative; left: 172px; ">Total Amount: 22,156.00</span><br>
+        <span class="font-semibold text-black" style="color: #000; font-size: 16.5px; position: relative; left: 172px; ">Payment Status: <b> Covered <br> by CHED Unifast(RA 10931)</b></span>
     </div>  
 
 </div>

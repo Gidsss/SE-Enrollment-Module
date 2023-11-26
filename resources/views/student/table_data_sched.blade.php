@@ -1,30 +1,26 @@
 <!-- Dito sa blade na to yung magiging laman ng pdf  -->
 
-
-
+@extends('layouts.table')
+@section('content')
     <style>
+        
         .custom-bg-color {
             background-color: #5074bc;
         }
         .custom-table-container {
             position: absolute;
-            top: 230px; /* Change this value to adjust the top position */
-            left: 13%; /* Change this value to adjust the left position */
+            top: 20px; /* Change this value to adjust the top position */
+            left: 6%; /* Change this value to adjust the left position */
             width: 85%; /* Adjust the width of the container */
             background-color: white !important;
             border-radius: 10px; /* Adjust the radius for rounded edges */
             border: 1px solid #ccc; /* Adjust the border color and thickness */
         }
-
-      
     </style>
                 <!-- Main content -->
                 <section class="content">
-               
                     <div id="myDiv" class="card custom-table-container">
-                    
                         <div class="card-body">
-               
                             <table class="table custom-table">
                                 <thead>
                                     <tr id="table-headers">
@@ -42,18 +38,11 @@
                                             <td>{{ $data['room'] }}</td>
                                         </tr>
                                     @endforeach
-                            </table>
-                            
-                        </div>
-                        
-                    </div>
-                   
-                </section>
-
-                
+                            </table>           
+                        </div>           
+                    </div>       
+                </section>       
         </div>
-    
-        
     </div>
      
         <script>
@@ -87,3 +76,4 @@
             });
         });
         </script>
+@endsection

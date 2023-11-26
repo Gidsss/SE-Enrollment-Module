@@ -213,54 +213,49 @@
                 <!-- Step 2 -->
                 <div class="card custom-table-container">
                 <div class="card-body">
-                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">2. Requirements and Reminders
+                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">2. Download Curriculum Checklist
                 <i class="fas fa-check-circle step-checkmark" style="font-size: 27px;"></i>
                 </button>
                     
                     <!-- Detailed information for Step 2 -->
                     <div class="panel">
-                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black;">Download Curriculum Checklist</p>
-                        <!-- Content for letter 'a' -->
-                        <p>&nbsp;&nbsp;a. Students of respective degree programs must strictly observe the prescribed curriculum.</p>
-                        <!-- Content for letter 'b' -->
-                        <p>&nbsp;&nbsp;b. Each Department shall issue a Curriculum checklist/ Course Prospectus to the student, which shall be used <p>&nbsp;&nbsp;until he/she graduates.</p></p>
-                        <!-- Content for letter 'c' -->
-                        <p>&nbsp;&nbsp;c. Students must enroll their subjects as scheduled on a particular semester/term with consideration of the <p>&nbsp;&nbsp;required pre-requisites prior to enrolling.</p></p>
-                        <!-- Content for letter 'd' -->
-                        <p>&nbsp;&nbsp;d. To avoid re-enrolling a completed subject, the respective Deans must ensure that the student has properly <p>&nbsp;&nbsp;accomplished the “Curriculum checklist/ Course Prospectus”.</p></p>
-                        <!-- Content for letter 'e' -->
-                        <p>&nbsp;&nbsp;e. As an irregular student, it is required of you to submit your Study Plan containing a personalized curriculum of <p>&nbsp;&nbsp;courses to be taken based on the Curriculum checklist/ Course Prospectus provided to you by your department.</p></p>
-                        <!-- Content for letter 'f' -->
-                        <p>&nbsp;&nbsp;f. Enlistment procedures of irregular students will be similar to enlistment of Physical Education (PE) courses. <p>&nbsp;&nbsp;But this time, all courses will be enlisted by the student as per their approved Study Plan.</p></p>
-                        <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(2)">Proceed to Curriculum Checklist</button>
-                        </div>
+                        <br>
+                        <button type="button"  onclick="proceedToNextStep(2)" class="btn btn-primary float-right" style="color: #2D349A; position: relative; bottom: 0px; left: 5px; width: 120px; height: 4ch;">
+        <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
+        <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
+                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Curriculum Checklist</p>
+                        <object data="http://localhost/enrollmentmod/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
+                        </object>
+                        
+                           
+                        
                     </div>
                 </div>
             </div>
                 <!-- Step 3 -->
                 <div class="card custom-table-container">
                 <div class="card-body">
-                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">3. Requirements and Reminders
+                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">3. Create your Study Plan
                 <i class="fas fa-check-circle step-checkmark" style="font-size: 27px;"></i>
                 </button>
                     <!-- Detailed information for Step 3 -->
                     <div class="panel">
-                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black;">Download Curriculum Checklist</p>
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black;">Guidelines for Study Plans</p>
                         <!-- Content for letter 'a' -->
-                        <p>&nbsp;&nbsp;a. Students of respective degree programs must strictly observe the prescribed curriculum.</p>
-                        <!-- Content for letter 'b' -->
-                        <p>&nbsp;&nbsp;b. Each Department shall issue a Curriculum checklist/ Course Prospectus to the student, which shall be used <p>&nbsp;&nbsp;until he/she graduates.</p></p>
-                        <!-- Content for letter 'c' -->
-                        <p>&nbsp;&nbsp;c. Students must enroll their subjects as scheduled on a particular semester/term with consideration of the <p>&nbsp;&nbsp;required pre-requisites prior to enrolling.</p></p>
-                        <!-- Content for letter 'd' -->
-                        <p>&nbsp;&nbsp;d. To avoid re-enrolling a completed subject, the respective Deans must ensure that the student has properly <p>&nbsp;&nbsp;accomplished the “Curriculum checklist/ Course Prospectus”.</p></p>
-                        <!-- Content for letter 'e' -->
-                        <p>&nbsp;&nbsp;e. As an irregular student, it is required of you to submit your Study Plan containing a personalized curriculum of <p>&nbsp;&nbsp;courses to be taken based on the Curriculum checklist/ Course Prospectus provided to you by your department.</p></p>
-                        <!-- Content for letter 'f' -->
-                        <p>&nbsp;&nbsp;f. Enlistment procedures of irregular students will be similar to enlistment of Physical Education (PE) courses. <p>&nbsp;&nbsp;But this time, all courses will be enlisted by the student as per their approved Study Plan.</p></p>
+                        <p class="body-font">&nbsp;&nbsp;a. Arrange your study plan considering the availability of courses. Major-specific subjects are exclusively offered in particular semesters.</p>
+                    <!-- Content for letter 'b' -->
+                    <p class="body-font">&nbsp;&nbsp;b. Mandatory major subjects should be taken during the designated semester they are available.</p>
+                    <!-- Content for letter 'c' -->
+                    <p class="body-font">&nbsp;&nbsp;c. A subject cannot be taken if it is a prerequisite for a previously failed subject. Ensure successful completion of prerequisites before enrolling in advanced courses.</p>
+                    <!-- Content for letter 'd' -->
+                    <p class="body-font">&nbsp;&nbsp;d. Failed prerequisites must be retaken and successfully completed before proceeding to higher-level courses.</p>
+                    <!-- Content for letter 'e' -->
+                    <p class="body-font">&nbsp;&nbsp;e. The upcoming semester should be the first one accounted for in your study plan. Plan your courses according to the sequence recommended by the academic curriculum.</p>
+                    <!-- Content for letter 'f' -->
+                    <p class="body-font">&nbsp;&nbsp;f. Overloaded unit enrollments are permissible only for students approaching graduation, subject to approval.</p>
+                    <p class="body-font">&nbsp;&nbsp;g. Underloaded units should also be verified by the college chairperson to ensure compliance with program requirements.</p>
                         <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)">Proceed to Curriculum Checklist</button>
+                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)">Proceed to Submission of Documents</button>
                         </div>
                     </div>
                 </div>
@@ -268,26 +263,37 @@
             <!-- Step 4 -->
             <div class="card custom-table-container">
                 <div class="card-body">
-                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">4. Requirements and Reminders
+                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">4. Submit Curriculum Checklist and Study Plan
                 <i class="fas fa-check-circle step-checkmark" style="font-size: 27px;"></i>
                 </button>
                     <!-- Detailed information for Step 4-->
                     <div class="panel">
-                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black;">Download Curriculum Checklist</p>
-                        <!-- Content for letter 'a' -->
-                        <p>&nbsp;&nbsp;a. Students of respective degree programs must strictly observe the prescribed curriculum.</p>
-                        <!-- Content for letter 'b' -->
-                        <p>&nbsp;&nbsp;b. Each Department shall issue a Curriculum checklist/ Course Prospectus to the student, which shall be used <p>&nbsp;&nbsp;until he/she graduates.</p></p>
-                        <!-- Content for letter 'c' -->
-                        <p>&nbsp;&nbsp;c. Students must enroll their subjects as scheduled on a particular semester/term with consideration of the <p>&nbsp;&nbsp;required pre-requisites prior to enrolling.</p></p>
-                        <!-- Content for letter 'd' -->
-                        <p>&nbsp;&nbsp;d. To avoid re-enrolling a completed subject, the respective Deans must ensure that the student has properly <p>&nbsp;&nbsp;accomplished the “Curriculum checklist/ Course Prospectus”.</p></p>
-                        <!-- Content for letter 'e' -->
-                        <p>&nbsp;&nbsp;e. As an irregular student, it is required of you to submit your Study Plan containing a personalized curriculum of <p>&nbsp;&nbsp;courses to be taken based on the Curriculum checklist/ Course Prospectus provided to you by your department.</p></p>
-                        <!-- Content for letter 'f' -->
-                        <p>&nbsp;&nbsp;f. Enlistment procedures of irregular students will be similar to enlistment of Physical Education (PE) courses. <p>&nbsp;&nbsp;But this time, all courses will be enlisted by the student as per their approved Study Plan.</p></p>
+                            <div class="form-group">
+                            <label for="exampleInputFile">Follow the format: LastName_FirstName_Checklist</label>
+                            <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')">
+                                <label class="custom-file-label" for="exampleInputFile1">Upload Curriculum Checklist</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">Follow the format: LastName_FirstName_StudyPlan</label>
+                            <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')">
+                                <label class="custom-file-label" for="exampleInputFile2">Upload Study Plan</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                            </div>
+                        </div>
                         <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)">Proceed to Curriculum Checklist</button>
+                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)">Submit Uploaded Documents</button>
                         </div>
                     </div>
                 </div>
@@ -295,26 +301,18 @@
             <!-- Step 5 -->
             <div class="card custom-table-container">
                 <div class="card-body">
-                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">5. Requirements and Reminders
+                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">5. Await Approval
                 <i class="fas fa-check-circle step-checkmark" style="font-size: 27px;"></i>
                 </button>
                     <!-- Detailed information for Step 5-->
                     <div class="panel">
-                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black;">Download Curriculum Checklist</p>
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: #AB830F;">For Checking</strong></p>
                         <!-- Content for letter 'a' -->
-                        <p>&nbsp;&nbsp;a. Students of respective degree programs must strictly observe the prescribed curriculum.</p>
+                        <p class="body-font">&nbsp;&nbsp;a. Submitted documents will be checked by corresponding department chairperson.</p>
                         <!-- Content for letter 'b' -->
-                        <p>&nbsp;&nbsp;b. Each Department shall issue a Curriculum checklist/ Course Prospectus to the student, which shall be used <p>&nbsp;&nbsp;until he/she graduates.</p></p>
-                        <!-- Content for letter 'c' -->
-                        <p>&nbsp;&nbsp;c. Students must enroll their subjects as scheduled on a particular semester/term with consideration of the <p>&nbsp;&nbsp;required pre-requisites prior to enrolling.</p></p>
-                        <!-- Content for letter 'd' -->
-                        <p>&nbsp;&nbsp;d. To avoid re-enrolling a completed subject, the respective Deans must ensure that the student has properly <p>&nbsp;&nbsp;accomplished the “Curriculum checklist/ Course Prospectus”.</p></p>
-                        <!-- Content for letter 'e' -->
-                        <p>&nbsp;&nbsp;e. As an irregular student, it is required of you to submit your Study Plan containing a personalized curriculum of <p>&nbsp;&nbsp;courses to be taken based on the Curriculum checklist/ Course Prospectus provided to you by your department.</p></p>
-                        <!-- Content for letter 'f' -->
-                        <p>&nbsp;&nbsp;f. Enlistment procedures of irregular students will be similar to enlistment of Physical Education (PE) courses. <p>&nbsp;&nbsp;But this time, all courses will be enlisted by the student as per their approved Study Plan.</p></p>
+                        <p class="body-font">&nbsp;&nbsp;b. Refresh this page from time-to-time to know the status of your Study Plan. </p>
                         <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(5)">Proceed to Curriculum Checklist</button>
+                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(5)">Change status to for submission onsite</button>
                         </div>
                     </div>
                 </div>
@@ -440,6 +438,11 @@
                 checkmark.style.display = "inline"; // Show the checkmark
             }
         }
+
+        function updateLabel(inputId) {
+        var fileName = $('#' + inputId).val().split('\\').pop();
+        $('label[for=' + inputId + ']').text(fileName);
+    }
         </script>
 <!-- include Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>

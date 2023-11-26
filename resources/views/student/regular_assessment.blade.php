@@ -139,6 +139,9 @@
             <table >
                 <tbody id="table-other-fees">
                 </tbody>
+                <button type="button" class="btn btn-primary" style="color: #2D349A; position: absolute; bottom: 10px; left: 20px; width: 120px; height: 4ch;">
+        <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 14px;"></i>
+        <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 14px;">Save a Copy</span></button>
             </table>
         </div>
         <div class="broken-line"></div>
@@ -193,7 +196,7 @@
             var td = document.createElement('td');
             td.textContent = value;
             td.style.color = 'black'; // Set the text color to black
-            td.style.fontSize = '15px'; // Adjust the font size as needed
+            td.style.fontSize = '16.2px'; // Adjust the font size as needed
             // Calculate the left position for each cell in the specified column
             var leftChange = 0;
             for (var i = 0; i < columnPositions.length; i++) {

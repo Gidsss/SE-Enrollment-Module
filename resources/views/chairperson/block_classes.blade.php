@@ -72,6 +72,34 @@
         background-color: #BCBCBC;
         color: black;
     }
+
+    body {
+            display: flex;
+            margin: 0;
+        }
+
+        #accordion-container {
+            display: flex;
+        }
+
+        .accordion-button {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-right: none;
+            background-color: #f1f1f1;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            flex-grow: 1;
+        }
+
+        .active {
+            background-color: #ddd;
+        }
 </style>
     <!-- <div class="card" style="width:13.03in; height:10ch; background-color: #2D349A; position: relative;"> -->
     
@@ -101,10 +129,10 @@
         </div>
 
         <div class="nav-bar">
-        <div class="nav-item page-item">
+        <div class="nav-item">
             <a href="" class="nav-link">Class Creation</a>
         </div>
-        <div class="nav-item">
+        <div class="nav-item page-item">
             <a href="" class="nav-link">Block Management</a>
         </div>
         <div class="nav-item">
@@ -152,7 +180,21 @@
 
 <!-- component -->
 <section class="content">
-<div class="card" style="position:absolute; left:35%; top:1.75in; width:35%; border-radius: 10px; border: 1px solid black;">
+<div class="card" style="position:absolute; left:35%; top:1.75in; width:30%; border-radius: 10px; border: 1px solid black;">
+<div id="accordion-container">
+    <div class="accordion-button" onclick="toggleAccordion('content1')">Button 1</div>
+    <div id="content1" class="accordion-content">
+        <h2>Content for Button 1</h2>
+        <p>This is the detailed content for Button 1.</p>
+    </div>
+
+    <div class="accordion-button" onclick="toggleAccordion('content2')">Button 2</div>
+    <div id="content2" class="accordion-content">
+        <h2>Content for Button 2</h2>
+        <p>This is the detailed content for Button 2.</p>
+    </div>
+<!-- </div>
+<div class="card" style="position:absolute; left:35%; top:1.75in; width:30%; border-radius: 10px; border: 1px solid black;">
     <div class="flex flex-col justify-center items-center gap-2">
         <span class="font-semibold text-black" style="color: #000; font-size: 20px; text-decoration: underline; position: relative; left: 3%; top: 9px;">TUITION FEE</span>
         <div class="flex flex-col gap-3 pb-6 pt-2 text-xs" style="width: 50%;">
@@ -191,9 +233,19 @@
     </div>  
 
 </div>
-  </div>
+  </div> -->
 </section>
     <script>
+     function toggleAccordion(contentId) {
+        var content = document.getElementById(contentId);
+        var buttons = document.querySelectorAll('.accordion-content');
+
+        buttons.forEach(function (element) {
+            element.style.display = 'none';
+        });
+
+        content.style.display = 'block';
+    }
     function handleSchedClick(event) {
         // Handle the click event here
         window.location.href = '{{ route("regular_schedule") }}';

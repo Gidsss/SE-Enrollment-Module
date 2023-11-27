@@ -108,7 +108,7 @@
 
 <!-- component -->
 <section class="content">
-<div class="card" style="position:absolute; left:68%; top:1.75in; width:35%; border-radius: 10px; border: 1px solid black;">
+<div class="card" style="position:absolute; left:70%; top:1.75in; width:35%; border-radius: 10px; border: 1px solid black;">
     <div class="flex flex-col justify-center items-center gap-2">
         <span class="font-semibold text-black" style="color: #000; font-size: 20px; text-decoration: underline; position: relative; left: 3%; top: 9px;">TUITION FEE</span>
         <div class="flex flex-col gap-3 pb-6 pt-2 text-xs" style="width: 50%;">

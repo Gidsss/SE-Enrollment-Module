@@ -48,6 +48,12 @@ Route::get('irregularstudent/irreg_ser', function() {
 Route::get('chairperson/create_class', function() {
     return view('chairperson.create_class');
 });
+
+Route::get('chairperson/block_classes', function() {
+    return view('chairperson.block_classes');
+});
+
+
 /* dapat admin ung student for all di pa napapalitan */
 
 Route::group(['middleware' => 'admin'], function (){

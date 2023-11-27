@@ -36,7 +36,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('public/backend/dist/img/plmlogo.png') }}" alt="AdminLTELogo" height="300" width="300">
+    <img class="animation__shake" src="{{ asset('public/backend/dist/img/plmlogo.png') }}" alt="AdminLTELogo" height="180" width="180">
   </div>
   <!-- Content Wrapper. Page content -->
   @yield('content')

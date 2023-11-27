@@ -45,6 +45,9 @@ Route::get('irregularstudent/irreg_ser', function() {
     return view('irregularstudent.irreg_ser');
 })->name('irreg_ser');
 
+Route::get('chairperson/create_class', function() {
+    return view('chairperson.create_class');
+});
 /* dapat admin ung student for all di pa napapalitan */
 
 Route::group(['middleware' => 'admin'], function (){

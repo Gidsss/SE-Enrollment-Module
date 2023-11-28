@@ -128,45 +128,10 @@
     .active {
             background-color: #ddd;
     }
-    /* Modal styles */
-    /* .modal {
-        display: none;
-        position: fixed; 
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.5);
-    }
-
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        text-align: center;
-    }
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    } */
 </style>
-    <!-- <div class="card" style="width:13.03in; height:10ch; background-color: #2D349A; position: relative;"> -->
    <!-- Welcome Modal -->
-<div id="myModal" class="modal" style="display: none;  position: fixed; z-index: 1; left: 0;  top: 0;  width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);">
+<div id="myModal" class="modal" style="display: none;  position: fixed; z-index: 1; left: 0;  top: 0;  width: 100%; height: 100%; overflow: auto;
+        background-color: rgba(0,0,0,0.5);">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -318,10 +283,12 @@
         'Third Year': 0,
         'Fourth Year': 0
     };
+    let activeAccordionContent = null;
 
     function createAccordionClosure(year, blockCount) {
         return function () {
             toggleAccordion(`${year.toLowerCase().replace(' ', '-')}--content${blockCount}`);
+            activeAccordionContent = document.getElementById(`${year.toLowerCase().replace(' ', '-')}--content${blockCount}`)
         };
     }
 
@@ -384,9 +351,6 @@
         // Append content to the right card
         document.getElementById('right-card').appendChild(accordionContent);
 
-        // Create form and table within accordion content
-        // const form = document.createElement('form');
-
          // Create card and table within accordion content
         const card = document.createElement('div');
         card.className = 'card';
@@ -447,63 +411,69 @@
     }
     // Function to handle saving the class details
     function saveClassDetails() {
-    // Retrieve values from form fields
-    const classNumber = document.getElementById('classNumber').value;
-    const className = document.getElementById('className').value;
-    const section = document.getElementById('section').value;
-    const units = document.getElementById('units').value;
-    const schedule = document.getElementById('schedule').value;
-    const slots = document.getElementById('slots').value;
+        if (activeAccordionContent) {
+            // Find the table within the active accordion content
+            const table = activeAccordionContent.querySelector('.table');
 
-    // Create a new row in the table
-    const table = document.querySelector('#right-card .table');
-    const newRow = table.insertRow(-1); // -1 appends a new row at the end
+            if (table) {
+                // Retrieve values from form fields
+                const classNumber = document.getElementById('classNumber').value;
+                const className = document.getElementById('className').value;
+                const section = document.getElementById('section').value;
+                const units = document.getElementById('units').value;
+                const schedule = document.getElementById('schedule').value;
+                const slots = document.getElementById('slots').value;
 
-    // Array of header texts
-    const headers = ['#', 'Class', 'Sec', 'Units', 'Schedule', 'Slots'];
+                // Create a new row in the table
+                const newRow = table.insertRow(-1); // -1 appends a new row at the end
 
-    // Set additional styles for the cells (you can adjust as needed)
-    const cellStyle = 'border: 1px solid #ccc; padding: 8px; text-align: center;';
+                // Array of header texts
+                const headers = ['#', 'Class', 'Sec', 'Units', 'Schedule', 'Slots'];
 
-    // Loop through headers to create cells
-    for (let j = 0; j < headers.length; j++) {
-        const td = document.createElement('td');
-        td.setAttribute('style', cellStyle);
+                // Set additional styles for the cells (you can adjust as needed)
+                const cellStyle = 'border: 1px solid #ccc; padding: 8px; text-align: center;';
 
-        // Set the values of the cells based on the header
-        switch (headers[j]) {
-            case '#':
-                td.textContent = classNumber;
-                break;
-            case 'Class':
-                td.textContent = className;
-                break;
-            case 'Sec':
-                td.textContent = section;
-                break;
-            case 'Units':
-                td.textContent = units;
-                break;
-            case 'Schedule':
-                td.textContent = schedule;
-                break;
-            case 'Slots':
-                td.textContent = slots;
-                break;
-            default:
-                // Handle default case if needed
-                break;
+                // Loop through headers to create cells
+                for (let j = 0; j < headers.length; j++) {
+                    const td = document.createElement('td');
+                    td.setAttribute('style', cellStyle);
+
+                    // Set the values of the cells based on the header
+                    switch (headers[j]) {
+                        case '#':
+                            td.textContent = classNumber;
+                            break;
+                        case 'Class':
+                            td.textContent = className;
+                            break;
+                        case 'Sec':
+                            td.textContent = section;
+                            break;
+                        case 'Units':
+                            td.textContent = units;
+                            break;
+                        case 'Schedule':
+                            td.textContent = schedule;
+                            break;
+                        case 'Slots':
+                            td.textContent = slots;
+                            break;
+                        default:
+                            // Handle default case if needed
+                            break;
+                    }
+
+                    // Append the cell to the row
+                    newRow.appendChild(td);
+                }
+
+                // Close the modal
+                $('#addClassModal').modal('hide');
+
+                // Clear the form
+                document.getElementById('addClassForm').reset();
+            }
         }
-
-        // Append the cell to the row
-        newRow.appendChild(td);
-    }
-
-    // Close the modal
-    $('#addClassModal').modal('hide');
-
-    // Clear the form
-    document.getElementById('addClassForm').reset();
     }
         // Get the modal element
     const modal = document.getElementById('myModal');

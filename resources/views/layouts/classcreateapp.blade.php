@@ -4,7 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PLM Chairperson | Page</title>
+  <title>PLM Chairperson | Class Creation</title>
+
+  <!-- Add Bootstrap JS and CSS (assuming Bootstrap is used) // line 10-13 dito yung para sa paglagay ng dropdown sa text box-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,17 +36,12 @@
   <!-- Image styles -->
   <link rel="stylesheet" href="{{ url('public/backend/dist/css/img.css') }}">
 </head>
-<style>
-  html {
-    background-color: #F6F6F6;
-    }
-</style>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('public/backend/dist/img/plmlogo.png') }}" alt="AdminLTELogo" height="180" width="180">
+    <img class="animation__shake" src="{{ asset('public/backend/dist/img/plmlogo.png') }}" alt="AdminLTELogo" height="300" width="300">
   </div>
   <!-- Content Wrapper. Page content -->
   @yield('content')
@@ -57,7 +57,7 @@
   $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-
+<script src="{{ url('public/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url('public/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> 
 <!-- DataTables  & Plugins -->
 <script src="{{ url('public/backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -92,6 +92,8 @@
 <script src="{{ url('public/backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url('public/backend/dist/js/adminlte.js') }}"></script>
+<link rel="stylesheet" href="path/to/bootstrap-datetimepicker.min.css" />
+<script src="path/to/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 </body>
-</html>

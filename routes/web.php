@@ -53,6 +53,9 @@ Route::get('chairperson/block_classes', function() {
     return view('chairperson.block_classes');
 });
 
+Route::get('chairperson/student_enlistment', function() {
+    return view('chairperson.student_enlistment');
+});
 
 /* dapat admin ung student for all di pa napapalitan */
 

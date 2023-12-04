@@ -87,6 +87,16 @@
             left: 40px;
     }
 
+    #left-card1 {
+            padding: 20px;
+            border: 1px solid #ccc;
+            width: 250px;
+            position: absolute;
+            top: 503px;
+            left: 40px;
+    }
+
+
     #right-card {
             position: absolute;
             top: 150px;
@@ -203,6 +213,57 @@
     </div>
 </div>
 <div id="right-card"></div>
+<div id="left-card1" class="card">
+     <div class="year-container">
+        <p style="font-size: 28px; font-family: Inter; font-weight: bold;">Enlisted</p>
+        <p style="margin: 0px">Villaviza, Joseph Miguel Z. Baleña, Mark Vincent B.</p>
+        <p style="margin: 0px">Dela Cruz, Juan G.</p>
+        <p style="margin: 0px">Clara, Maria Kristine B.</p>
+    </div> 
+</div>
+<!-- Add Class Modal -->
+<div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="addClassModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addClassModalLabel">Add Class</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                 </div> 
+                <div class="modal-body">
+                    <!-- Add your form elements here -->
+                  <form id="addClassForm">
+                        <div class="form-group">
+                            <label for="studentNumber">#</label>
+                            <input type="text" class="form-control" id="studentNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentID">Student Id</label>
+                            <input type="text" class="form-control" id="studentID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentName">Student Name</label>
+                            <input type="text" class="form-control" id="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="yearLevel">Year Level</label>
+                            <input type="text" class="form-control" id="yearLevel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="block">Block</label>
+                            <input type="text" class="form-control" id="block" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveClassDetails()">Add Class</button> 
+                </div>
+            </div>
+        </div>
+</div>
+
 
 
     <script>
@@ -218,111 +279,199 @@
     }
 
     const years = ['First Year', 'Second Year', 'Third Year', 'Fourth Year'];
-    
+
     const accordionContainer = document.getElementById('accordion-container');
     const rightCard = document.getElementById('right-card');
 
-    years.forEach((year, index) => {
-        // Create accordion button
-        const accordionButton = document.createElement('div');
-        accordionButton.className = 'accordion-button';
-        accordionButton.textContent = `${year}`;
-        accordionButton.onclick = () => toggleAccordion(`year-content-${index}`);
+years.forEach((year, index) => {
+    // Create accordion button
+    const accordionButton = document.createElement('div');
+    accordionButton.className = 'accordion-button';
+    accordionButton.textContent = `${year}`;
+    accordionButton.onclick = () => toggleAccordion(`year-content-${index}`);
 
-        // Create accordion content
-        const accordionContent = document.createElement('div');
-        accordionContent.id = `year-content-${index}`;
-        accordionContent.className = 'accordion-content';
-        accordionContent.style.display = 'none'; // Hide the content by default
+    // Create accordion content
+    const accordionContent = document.createElement('div');
+    accordionContent.id = `year-content-${index}`;
+    accordionContent.className = 'accordion-content';
+    accordionContent.style.display = 'none'; // Hide the content by default
+    
 
-        // Set content text
-        accordionContent.textContent = `${year} Student Enlistment`;
-        accordionContent.style.fontSize = '48px';
-        accordionContent.style.fontFamily = 'Inter, sans-serif';
+    // Set content text
+    accordionContent.textContent = `${year} Student Enlistment`;
+    accordionContent.style.fontSize = '48px';
+    accordionContent.style.fontFamily = 'Inter, sans-serif';
 
-        // Append elements to the containers
-        accordionContainer.appendChild(accordionButton);
-        rightCard.appendChild(accordionContent);
+    // Create a button and append it next to the heading
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Add class';
+    addButton.type = 'button';
+    addButton.className = 'btn';
+    addButton.setAttribute('data-toggle', 'modal'); // Add this line
+    addButton.setAttribute('data-target', '#addClassModal'); // Add this line
+    addButton.style.fontSize = '14px';
+    addButton.style.fontFamily = 'Inter, sans-serif';
+    addButton.style.backgroundColor = 'white';
+    addButton.style.color = 'black';
+    addButton.style.border = '1.5px solid #000';
+    addButton.style.boxSizing = 'border-box'; // Set box-sizing to border-box
+    addButton.style.marginLeft = '40px'; // Reset margin
+    addButton.style.marginBottom = '10px'; // Reset margin
+    addButton.style.padding = '6px 12px';
+    
+    accordionContent.appendChild(addButton);
+
+
+    // Create form and table within accordion content
+    const table = document.createElement('table');
+    table.className = 'table'; 
+    table.style.width = '900px'; // Set the width of the table
+    table.style.borderCollapse = 'collapse';
+    table.style.borderRadius = '12.033px'; // Added border-radius
+    table.style.background = 'var(--White-Default, #FFF)'; // Added background
+    table.style.boxShadow = '0px 6.01667px 18.05px 0px #D6D7D8'; // Added box-shadow
+
+
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+
+    const headers = ['#', 'Student ID', 'Student Name', 'Year Level', 'Block'];
+
+    // Create table headers
+    headers.forEach(headerText => {
+            const th = document.createElement('th');
+            th.textContent = headerText;
+            th.style.border = 'none';
+            th.style.padding = '8px'; // Adjusted padding value
+            th.style.textAlign = 'center';
+            th.style.fontFamily = 'Inter, bold';
+            th.style.fontSize = '20px';
+            headerRow.appendChild(th);
+});
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Append the table to the accordion content
+    accordionContent.appendChild(table);
+
+    // Append elements to the containers
+    accordionContainer.appendChild(accordionButton);
+    rightCard.appendChild(accordionContent);
+});
+let activeAccordionContent = null;
+function toggleAccordion(contentId) {
+    const content = document.getElementById(contentId);
+
+    // Hide all content elements
+    const allContents = document.querySelectorAll('.accordion-content');
+    allContents.forEach((element) => {
+        element.style.display = 'none';
     });
 
-    function toggleAccordion(contentId) {
-        const content = document.getElementById(contentId);
+    // Show the selected content
+    content.style.display = 'block';
 
-        // Hide all content elements
-        const allContents = document.querySelectorAll('.accordion-content');
-        allContents.forEach((element) => {
-            element.style.display = 'none';
-        });
+    // Set active accordion
+    activeAccordionContent = content;
 
-        // Show the selected content
-        content.style.display = 'block';
+}
+    function addClass() {
+        // Show the "Add Class" modal
+        $('#addClassModal').modal('show');
+    }
+    function closeModal() {
+    // Close the modal
+    $('#addClassModal').modal('hide');
     }
     // Function to handle saving the class details
+    
     function saveClassDetails() {
-        if (activeAccordionContent) {
-            // Find the table within the active accordion content
-            const table = activeAccordionContent.querySelector('.table');
+    if (activeAccordionContent) {
+        // Find the table within the active accordion content
+        const table = activeAccordionContent.querySelector('.table');
 
-            if (table) {
-                // Retrieve values from form fields
-                const classNumber = document.getElementById('classNumber').value;
-                const className = document.getElementById('className').value;
-                const section = document.getElementById('section').value;
-                const units = document.getElementById('units').value;
-                const schedule = document.getElementById('schedule').value;
-                const slots = document.getElementById('slots').value;
+        if (table) {
+            // Retrieve values from form fields
+            const studentNumber = document.getElementById('studentNumber').value;
+            const studentID = document.getElementById('studentID').value;
+            const studentName = document.getElementById('studentName').value;
+            const yearLevel = document.getElementById('yearLevel').value;
 
-                // Create a new row in the table
-                const newRow = table.insertRow(-1); // -1 appends a new row at the end
+            // Create a new row in the table
+            const newRow = table.insertRow(-1); // -1 appends a new row at the end
 
-                // Array of header texts
-                const headers = ['#', 'Class', 'Sec', 'Units', 'Schedule', 'Slots'];
+            // Array of header texts
+            const headers = ['#', 'Student ID', 'Student Name', 'Year Level', 'Block'];
 
-                // Set additional styles for the cells (you can adjust as needed)
-                const cellStyle = 'border: 1px solid #ccc; padding: 8px; text-align: center;';
+            // Set additional styles for the cells (you can adjust as needed)
+            const cellStyle = 'border: none; text-align: center;';
 
-                // Loop through headers to create cells
-                for (let j = 0; j < headers.length; j++) {
-                    const td = document.createElement('td');
-                    td.setAttribute('style', cellStyle);
+            // Loop through headers to create cells
+            for (let j = 0; j < headers.length; j++) {
+                const td = document.createElement('td');
+                td.setAttribute('style', cellStyle);
 
-                    // Set the values of the cells based on the header
-                    switch (headers[j]) {
-                        case '#':
-                            td.textContent = classNumber;
-                            break;
-                        case 'Class':
-                            td.textContent = className;
-                            break;
-                        case 'Sec':
-                            td.textContent = section;
-                            break;
-                        case 'Units':
-                            td.textContent = units;
-                            break;
-                        case 'Schedule':
-                            td.textContent = schedule;
-                            break;
-                        case 'Slots':
-                            td.textContent = slots;
-                            break;
-                        default:
-                            // Handle default case if needed
-                            break;
-                    }
+                // Set the values of the cells based on the header
+                switch (headers[j]) {
+                    case '#':
+                        td.textContent = studentNumber;
+                        break;
+                    case 'Student ID':
+                        td.textContent = studentID;
+                        break;
+                    case 'Student Name':
+                        td.textContent = studentName;
+                        break;
+                    case 'Year Level':
+                        td.textContent = yearLevel;
+                        break;
+                    case 'Block':
+                        // Create a button for each 'Block' cell
+                        const button = document.createElement('button');
+                        button.textContent = 'Assign';
+                        button.className = 'btn';
+                        button.style.fontSize = '14px';
+                        button.style.fontFamily = 'Inter, sans-serif';
+                        button.style.backgroundColor = 'white';
+                        button.style.color = 'black';
+                        button.style.border = '1.5px solid #000';
+                        button.style.boxSizing = 'border-box';
+                        button.style.marginBottom = '45px';
+                        button.style.padding = '6px 12px';
 
-                    // Append the cell to the row
-                    newRow.appendChild(td);
+                        // Button click event to generate a random block and update the cell
+                        button.onclick = function () {
+                            const randomBlock = Math.floor(Math.random() * 4) + 1;
+                            td.textContent = randomBlock;
+                            alert(`Assigned Block: ${randomBlock}`);
+                        };
+
+                        // Append the button to the 'Block' cell
+                        td.appendChild(button);
+                        break;
+                    default:
+                        // Handle default case if needed
+                        break;
                 }
 
-                // Close the modal
-                $('#addClassModal').modal('hide');
+                // Apply additional styles to the cell
+                td.style.fontSize = '20px';
+                td.style.fontFamily = 'Inter, light';
+                td.style.textAlign = 'center';
 
-                // Clear the form
-                document.getElementById('addClassForm').reset();
+                // Append the cell to the row
+                newRow.appendChild(td);
             }
+
+            // Close the modal
+            $('#addClassModal').modal('hide');
+
+            // Clear the form
+            document.getElementById('addClassForm').reset();
         }
     }
+}
     // Get the modal element
     const modal = document.getElementById('myModal');
 
@@ -336,12 +485,16 @@
         modal.style.display = 'none';
     }
     
+    
     </script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
 
+<!-- jQuery -->
+<script src="{{ url('public/backend/plugins/jquery/jquery.min.js') }}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ url('public/backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ url('public/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 @endsection
 

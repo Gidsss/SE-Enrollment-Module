@@ -223,7 +223,7 @@
     </div>
     <div id="right-card">
     </div>
-<!-- Modal -->
+<!-- Add Class Modal -->
 <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="addClassModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

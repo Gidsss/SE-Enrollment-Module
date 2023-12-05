@@ -82,19 +82,19 @@
                 <span style="color: white; position: absolute; top: 32%; left: 94%; font-family: Inter, sans-serif; font-size: 16px; font-weight: bold; cursor: pointer;">Logout<i class="fas fa-sign-out-alt" style="color: white; left:5%; position: relative;"></i></span>
             </a>
         </div>
-<div class="nav-bar">
-   <div class="nav-item page-item">
-       <a href="" class="nav-link">Class Creation</a>
-   </div>
-   <div class="nav-item">
-       <a href="http://localhost/enrollmentmod/chairperson/block_classes" class="nav-link">Block Management</a>
-   </div>
-   <div class="nav-item">
-       <a href="" class="nav-link">Student Enlistment</a>
-   </div>
-   <div class="nav-item">
-       <a href="" class="nav-link">Transaction</a>
-   </div>
+        <div class="nav-bar">
+        <div class="nav-item page-item">
+            <a href="http://localhost/enrollmentmod/chairperson/create_class" class="nav-link">Class Creation</a>
+        </div>
+        <div class="nav-item ">
+            <a href="http://localhost/enrollmentmod/chairperson/block_classes" class="nav-link">Block Management</a>
+        </div>
+        <div class="nav-item ">
+            <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
+        </div>
+        <div class="nav-item">
+            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transaction</a>
+        </div>
 </div>
 <div style="width: 100%; height: 10%; text-align: right; padding-right: 0px; color: black; font-size: 20px; font-family: Inter; line-height: 33px; font-weight: 200; word-wrap: break-word; position: relative;">
             <div style="display: flex; align-items: right; padding-left: 1190px; background-color: #F6F6F6;">

@@ -180,16 +180,16 @@
 
         <div class="nav-bar">
         <div class="nav-item">
-            <a href="" class="nav-link">Class Creation</a>
+            <a href="http://localhost/enrollmentmod/chairperson/create_class" class="nav-link">Class Creation</a>
         </div>
         <div class="nav-item page-item">
-            <a href="" class="nav-link">Block Management</a>
+            <a href="http://localhost/enrollmentmod/chairperson/block_classes" class="nav-link">Block Management</a>
+        </div>
+        <div class="nav-item ">
+            <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item">
-            <a href="" class="nav-link">Student Enlistment</a>
-        </div>
-        <div class="nav-item">
-            <a href="" class="nav-link">Transaction</a>
+            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transaction</a>
         </div>
 </div>
      <!-- Components header -->

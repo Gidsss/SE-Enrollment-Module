@@ -57,6 +57,9 @@ Route::get('chairperson/student_enlistment', function() {
     return view('chairperson.student_enlistment');
 });
 
+Route::get('chairperson/student_transaction', function() {
+    return view('chairperson.transaction');
+});
 /* dapat admin ung student for all di pa napapalitan */
 
 Route::group(['middleware' => 'admin'], function (){

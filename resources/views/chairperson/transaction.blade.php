@@ -133,20 +133,19 @@
             <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item page-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transaction</a>
+            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Validation</a>
         </div>
 </div>
      <!-- Components header -->
         <div style="width: 100%; height: 10%; text-align: right; padding-right: 0px; color: black; font-size: 20px; font-family: Inter; line-height: 33px; font-weight: 200; word-wrap: break-word; position: relative;">
-            <div style="display: flex; align-items: right; padding-left: 1058px; background-color: #F6F6F6;">
-                <span>Home / Enrollment / Transactions / Study Plan</span>
+            <div style="display: flex; align-items: right; padding-left: 1230px; background-color: #F6F6F6;">
+                <span>Home / Enrollment / Validations</span>
             </div>
             <div style="flex-grow: 1; height: 1px; border: 1px rgba(0, 0, 0, 0.20) solid;"></div>
         </div>
 
         <!-- Main components -->
-        <p style="font-size: 28px; font-family: Inter; font-weight: bold; position: absolute; top: 225px; left: 100px;">Year Level </p>
-        <p style="font-size: 28px; font-family: Inter; font-weight: bold; position: absolute; top: 225px; left:250px;color:grey">| Transaction</p>
+       
         <p style="font-size: 32px; font-family: Inter; font-weight: bold; position: absolute; top: 280px; left:100px">List of Study Plan Validations</p>
         
 

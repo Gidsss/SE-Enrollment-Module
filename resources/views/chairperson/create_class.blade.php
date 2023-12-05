@@ -59,7 +59,7 @@
 </style>
 
 <div style="width:1536px; height:auto; background-color: #30349c; position: relative;">
-            <img src="{{ asset('public/backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
+<img src="{{ asset('public/backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
             <span style="color: #d4a404; position: absolute; top: 22%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">PAMANTASAN NG LUNGSOD NG MAYNILA</span>
             <span style="color: white; position: absolute; top: 47%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">UNIVERSITY OF THE CITY OF MANILA</span>
             <br><br><br>
@@ -93,7 +93,7 @@
             <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transaction</a>
+            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Validation</a>
         </div>
 </div>
 <div style="width: 100%; height: 10%; text-align: right; padding-right: 0px; color: black; font-size: 20px; font-family: Inter; line-height: 33px; font-weight: 200; word-wrap: break-word; position: relative;">

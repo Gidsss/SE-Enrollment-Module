@@ -12,17 +12,17 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) {
-            if(Auth::user()->user_type == 1)
+            if(Auth::user()->user_type == 1) // For testing purposes only
             {
-                return redirect()->intended('admin/dashboard');
+                return redirect()->intended('chairperson/create_class'); 
             }
-            else if(Auth::user()->user_type == 2)
+            else if(Auth::user()->user_type == 2) // For testing purposes only
             {
-                return redirect()->intended('chairperson/dashboard');
+                return redirect()->intended('student/regular_schedule');
             }
-            else if(Auth::user()->user_type == 3)
+            else if(Auth::user()->user_type == 3) // For testing purposes only
             {
-                return redirect()->intended('student/dashboard');
+                return redirect()->intended('irregularstudent/irreg_schedule');
             }
         }
 
@@ -35,17 +35,17 @@ class AuthController extends Controller
         $remember = !empty($request->remember);
 
         if (Auth::attempt($credentials, $remember)) {
-            if(Auth::user()->user_type == 1)
+            if(Auth::user()->user_type == 1) // Chairperson
             {
-                return redirect()->intended('admin/dashboard');
+                return redirect()->intended('chairperson/create_class');
             }
-            else if(Auth::user()->user_type == 2)
+            else if(Auth::user()->user_type == 2) // Regular Student
             {
-                return redirect()->intended('chairperson/dashboard');
+                return redirect()->intended('student/regular_schedule');
             }
-            else if(Auth::user()->user_type == 3)
+            else if(Auth::user()->user_type == 3) // Irregular Student
             {
-                return redirect()->intended('student/dashboard');
+                return redirect()->intended('irregularstudent/irreg_schedule');
             }
         } 
         else {

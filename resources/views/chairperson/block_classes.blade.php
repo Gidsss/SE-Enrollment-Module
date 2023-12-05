@@ -189,7 +189,7 @@
             <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transaction</a>
+            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Validation</a>
         </div>
 </div>
      <!-- Components header -->

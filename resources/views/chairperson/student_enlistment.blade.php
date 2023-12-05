@@ -139,26 +139,7 @@
             background-color: #ddd;
     }
 </style>
-   <!-- Welcome Modal -->
-<div id="myModal" class="modal" style="display: none;  position: fixed; z-index: 1; left: 0;  top: 0;  width: 100%; height: 100%; overflow: auto;
-        background-color: rgba(0,0,0,0.5);">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Welcome, Mx. Chairperson!</h5>
-                <button type="button" class="close" onclick="closeModal1()" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Please choose blocks from the left.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal1()">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div style="width:1536px; height:auto; background-color: #30349c; position: relative;">
             <img src="{{ asset('public/backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
             <span style="color: #d4a404; position: absolute; top: 22%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">PAMANTASAN NG LUNGSOD NG MAYNILA</span>
@@ -195,7 +176,7 @@
             <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transaction</a>
+            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Validation</a>
         </div>
 </div>
      <!-- Components header -->

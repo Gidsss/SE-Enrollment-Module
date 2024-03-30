@@ -41,8 +41,8 @@ class StudentsComponent extends Component
         $this->getPaginatedStudents();
     }
 
-    public $sortColumn; // Default sorting column
-    public $sortDirection; // Default sorting direction
+    public $sortColumn = 'student_name'; // Default sorting column
+    public $sortDirection = 'asc'; // Default sorting direction
 
     public function sortStudents($column)
     {
@@ -93,27 +93,24 @@ class StudentsComponent extends Component
         }
     
     public function getPaginatedStudentsByName($orderByDirection, $offset)
-    {
-        // Fetch students sorted by student name
-        return Student::orderBy('student_name', $orderByDirection)
-            ->orderByRaw('ISNULL(student_block) ' . $orderByDirection)
-            ->skip($offset)
-            ->take($this->perPage)
-            ->get();
-    }
-    
+        {
+            // Fetch students sorted by student name, prioritizing null values
+             return Student::orderByRaw('IF(student_block IS NULL, 0, 1), student_name ' . $orderByDirection)
+                ->skip($offset)
+                ->take($this->perPage)
+                ->get();
+        }
+                        
     public function getPaginatedStudentsByBlock($orderByDirection, $offset)
-    {
-        // Fetch students sorted by student block
-        return Student::orderByRaw('ISNULL(student_block) ' . $orderByDirection)
-            ->orderBy('student_block', $orderByDirection)
-            ->orderBy('student_name', $orderByDirection)
-            ->skip($offset)
-            ->take($this->perPage)
-            ->get();
-    }
-
-    
+        {
+            // Fetch students sorted by student block
+            return Student::orderByRaw('IF(student_block IS NULL, 0, 1), student_block ' . $orderByDirection) // Prioritize null values for student_block
+                ->orderBy('student_name', 'asc') // Always sort student names in ascending order for consistent behavior
+                ->skip($offset)
+                ->take($this->perPage)
+                ->get();
+        }
+        
     // Method for alphabetical assignment
     public function assignBlockSectionsAlphabetically()
     {
@@ -169,7 +166,7 @@ class StudentsComponent extends Component
         $students = Student::all();
 
         // Total number of students to be assigned
-        $totalStudents = $students->count();
+        $students->count();
 
         // Create a copy of block capacities to avoid indirect modification error
         $modifiedBlockCapacities = $blockCapacities->toArray();
@@ -201,7 +198,6 @@ class StudentsComponent extends Component
 
     }
         
- 
     public function toggleStudentSelection($studentId)
     {
         if (in_array($studentId, $this->selectedStudents)) {
@@ -257,7 +253,7 @@ class StudentsComponent extends Component
         $this->validate([
             'commonBlockCapacity' => 'required|numeric|min:1', // Validate common block capacity
         ]);
-
+        
         // Save common block capacity to the database for all blocks
         foreach ([1, 2, 3, 4] as $block) {
             BlockCapacity::updateOrCreate(
@@ -267,7 +263,7 @@ class StudentsComponent extends Component
         }
 
         // Flash success message
-        session()->flash('message', 'Common block capacity saved successfully.');
+        session()->flash('message', 'All blocks capacity saved successfully.');
 
         $this->dispatch('close-modal');
     }
@@ -319,35 +315,6 @@ class StudentsComponent extends Component
     public function updated($field)
     {
         $this->validateOnly($field, $this->rules);
-    }
-
-    public function storeStudentData()
-    {
-        $this->validate($this->rules);
-
-        Student::create([
-            'student_id' => $this->student_id,
-            'student_name' => $this->student_name,
-            'student_type' => $this->student_type,
-            'student_block' => $this->student_block,
-        ]);
-
-        session()->flash('message', 'New student has been added successfully');
-        $this->resetInputs();
-    }
-
-    public function resetInputs()
-    {
-        $this->student_id = '';
-        $this->student_name = '';
-        $this->student_type = '';
-        $this->student_block = '';
-        $this->student_edit_id = '';
-    }
-
-    public function close()
-    {
-        $this->resetInputs();
     }
 
     public function editStudents($id)
@@ -438,13 +405,9 @@ class StudentsComponent extends Component
             $this->dispatch('close-view-student-modal');
         }
 
-        
-        public function render()
+    public function render()
         {
-            return view('livewire.students-component', [
-                'students' => $this->students,
-                'lastPage' => $this->lastPage
-            ])->layout('livewire.layouts.base');
+            return view('livewire.students-component')->layout('livewire.layouts.base');
         }
 }
 

@@ -313,7 +313,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="blockCapacityModalLabel">Set Common Block Capacity</h5>
+                <h5 class="modal-title" id="blockCapacityModalLabel">Block Capacity</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -321,10 +321,10 @@
             <div class="modal-body">
                 <!-- Input field for common block capacity -->
                 <div class="form-group">
-                    <label for="commonBlockCapacity">Common Block Capacity:</label>
-                    <input type="number" class="form-control" id="commonBlockCapacity" wire:model.defer="commonBlockCapacity" min="1">
+                    <label for="commonBlockCapacity">Input the number of students per block:</label>
+                    <input type="text" class="form-control" id="commonBlockCapacity" onkeypress="return isNumeric(event)" wire:model.defer="commonBlockCapacity" min="1">     
                     @error('commonBlockCapacity')
-                        <span class="text-danger">{{ $message }}</span>
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
@@ -373,6 +373,20 @@
         window.addEventListener('open-bulk-edit-modal', event => {
         $('#bulkEditStudentModal').modal('show');
         });
+
+        window.addEventListener('open-block-capacity-modal', event => {
+        $('#blockCapacityModal').modal('show');
+        });
+
+        // Function to check if the input is a number or not (for block capacity)
+        function isNumeric(event) {
+        const charCode = event.which ? event.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+            }
     </script>
     
 @endpush

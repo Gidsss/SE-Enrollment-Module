@@ -13,9 +13,9 @@ class StudentsComponent extends Component
 {
     use WithPagination;
     
-    public $student_id, $student_name, $year_level, $student_type, $student_block;
+    public $student_id, $student_name, $student_type, $student_block;
     public $student_edit_id, $student_delete_id;
-    public $view_student_id, $view_student_name, $view_student_year_level, $view_student_type, $view_student_block;
+    public $view_student_id, $view_student_name, $view_student_type, $view_student_block;
     public $bulk_student_block, $students, $lastPage;
     public $bulkEditStudentIds = [];
     public $selectedStudents = [];
@@ -23,13 +23,13 @@ class StudentsComponent extends Component
     public $perPage = 10;
     public $currentPage = 1;
     public $numStudents;
-    public $blockCapacities; // Variable to store the block capacity input by the user
+    public $blockCapacities = []; // Variable to store the block capacity input by the user
+    public $commonBlockCapacity;
 
     // Input fields validation rules
     protected $rules = [
         'student_id' => 'required|unique:students|numeric',
         'student_name' => 'required|string|max:255',
-        'year_level' => 'required|integer',
         'student_type' => 'required|string|max:255',
         'student_block' => 'required|integer',
     ];
@@ -113,83 +113,63 @@ class StudentsComponent extends Component
             ->get();
     }
 
-    public function openAlphabeticalEnlistmentModal()
-    {
-        $this->reset(['numStudents']);
-        $this->dispatch('open-alphabetical-enlistment-modal');
-    }
-
-    public function openRandomEnlistmentModal()
-    {
-        $this->reset(['numStudents']);
-        $this->dispatch('open-random-enlistment-modal');
-    }
     
     // Method for alphabetical assignment
     public function assignBlockSectionsAlphabetically()
     {
-        // Define block sections
-        $blocks = [
-            'A' => 1,
-            'H' => 2,
-            'N' => 3,
-            'T' => 4,
-        ];
+        // Retrieve block capacities
+        $blockCapacities = BlockCapacity::pluck('capacity', 'block');
     
-        // Validate input field
-        $this->validate([
-            'numStudents' => 'required|numeric|min:0|max:40',
-        ], [
-            'numStudents.max' => 'You cannot assign more than 40 students alphabetically.',
-        ]);
-    
-        // Retrieve students sorted alphabetically by their names
+        // Retrieve all students sorted alphabetically by their names
         $students = Student::orderBy('student_name')->get();
     
-        // Assign block sections based on alphabetical ranges
-        $count = 0;
+        // Total number of students to be assigned
+        $totalStudents = $students->count();
+    
+        // Initialize variables
+        $assignedBlocks = [];
+    
+        // Initialize $assignedBlocks with all block indices
+        foreach ($blockCapacities as $block => $capacity) {
+            $assignedBlocks[$block] = 0;
+        }
+    
+        $currentBlock = 1;
+    
+        // Iterate over each student
         foreach ($students as $student) {
-            $firstLetter = strtoupper(substr($student->student_name, 0, 1));
-            $assignedBlock = null;
-    
-            foreach ($blocks as $letter => $block) {
-                if ($firstLetter >= $letter && $this->isBlockAvailable($block)) {
-                    $assignedBlock = $block;
-                    break;
-                }
+            // Check if the current block has reached its capacity
+            if (!isset($blockCapacities[$currentBlock]) || $assignedBlocks[$currentBlock] >= $blockCapacities[$currentBlock]) {
+                // Move to the next block
+                $currentBlock++;
             }
     
-            // Update student's block section if a block is available
-            if ($assignedBlock) {
-                $student->update(['student_block' => $assignedBlock]);
-                $count++; // Increment the count of assigned students
+            // Check if the current block exceeds the total number of blocks
+            if ($currentBlock > count($blockCapacities)) {
+                break; // Stop assigning students if all blocks are full
             }
+    
+            // Assign the student to the current block
+            $student->update(['student_block' => $currentBlock]);
+    
+            // Increment the count of assigned students for the current block
+            $assignedBlocks[$currentBlock]++;
         }
     
         // Flash success message
         session()->flash('message', 'Block sections assigned alphabetically based on surname.');
-    
-        // Close modal
-        $this->dispatch('close-modal');
     }
 
     public function assignBlockSectionsRandomly()
     {
-        // Validate input field
-        $this->validate([
-            'numStudents' => 'required|numeric|min:0|max:40',
-        ], [
-            'numStudents.max' => 'You cannot assign more than 40 students randomly.',
-        ]);
-
         // Retrieve block capacities
         $blockCapacities = BlockCapacity::pluck('capacity', 'block');
 
-        // Total number of students to be assigned
-        $totalStudents = min($this->numStudents, $blockCapacities->sum());
+        // Retrieve all students
+        $students = Student::all();
 
-        // Retrieve students in random order
-        $students = Student::inRandomOrder()->limit($totalStudents)->get();
+        // Total number of students to be assigned
+        $totalStudents = $students->count();
 
         // Create a copy of block capacities to avoid indirect modification error
         $modifiedBlockCapacities = $blockCapacities->toArray();
@@ -219,8 +199,6 @@ class StudentsComponent extends Component
         // Flash success message
         session()->flash('message', 'Block sections assigned randomly.');
 
-        // Close modal
-        $this->dispatch('close-modal');
     }
         
  
@@ -254,65 +232,45 @@ class StudentsComponent extends Component
     }
     public function applyBulkEdit()
     {
-        // Validate input field
-        $this->validate([
-            'bulk_student_block' => 'required|numeric|min:1|max:4',
-        ]);
-
-        $selectedBlock = $this->bulk_student_block;
-
-        // Check if the selected block is available and has capacity
-        if (!$this->isBlockAvailable($selectedBlock)) {
-            session()->flash('error', 'Selected block is already full.');
-            return;
-        }
-
-        // Apply changes to selected students if there is capacity in the block
+        // Apply changes to selected students without considering block capacity
         foreach ($this->bulkEditStudentIds as $studentId) {
-            // Check if the block still has capacity before updating
-            if ($this->isBlockAvailable($selectedBlock)) {
-                $student = Student::findOrFail($studentId);
-                $student->update([
-                    'student_block' => $selectedBlock,
-                ]);
-            } else {
-                session()->flash('error', 'Selected block no longer has available capacity.');
-                return;
-            }
+            $student = Student::findOrFail($studentId);
+            $student->update([
+                'student_block' => $this->bulk_student_block,
+            ]);
         }
-
+    
         // Flash success message
         session()->flash('message', 'Batch assignment applied successfully.');
-
+    
         // Clear bulk edit properties
         $this->bulk_student_block = '';
         $this->bulkEditStudentIds = [];
-
+    
         // Close bulk edit modal
         $this->dispatch('close-modal');
     }
     // Method to save block capacities
-    public function saveBlockCapacity()
+    public function saveCommonBlockCapacity()
     {
         // Validate input
         $this->validate([
-            'blockCapacities.*' => 'required|numeric|min:1', // Validate each block capacity
+            'commonBlockCapacity' => 'required|numeric|min:1', // Validate common block capacity
         ]);
 
-        // Save block capacities to the database
-        foreach ($this->blockCapacities as $block => $capacity) {
+        // Save common block capacity to the database for all blocks
+        foreach ([1, 2, 3, 4] as $block) {
             BlockCapacity::updateOrCreate(
                 ['block' => $block],
-                ['capacity' => $capacity]
+                ['capacity' => $this->commonBlockCapacity]
             );
         }
 
         // Flash success message
-        session()->flash('message', 'Block capacities saved successfully.');
+        session()->flash('message', 'Common block capacity saved successfully.');
 
         $this->dispatch('close-modal');
     }
-
    
     // Method to check if a block is available based on its capacity
     private function isBlockAvailable($block)
@@ -370,7 +328,6 @@ class StudentsComponent extends Component
         Student::create([
             'student_id' => $this->student_id,
             'student_name' => $this->student_name,
-            'year_level' => $this->year_level,
             'student_type' => $this->student_type,
             'student_block' => $this->student_block,
         ]);
@@ -383,7 +340,6 @@ class StudentsComponent extends Component
     {
         $this->student_id = '';
         $this->student_name = '';
-        $this->year_level = '';
         $this->student_type = '';
         $this->student_block = '';
         $this->student_edit_id = '';
@@ -401,7 +357,6 @@ class StudentsComponent extends Component
         $this->student_edit_id = $student->id;
         $this->student_id = $student->student_id;
         $this->student_name = $student->student_name;
-        $this->year_level = $student->year_level;
         $this->student_type = $student->student_type;
         $this->student_block = $student->student_block;
 
@@ -414,7 +369,6 @@ class StudentsComponent extends Component
         $this->validate([
              'student_id' => 'required|unique:students,student_id,'.$this->student_edit_id,
             'student_name' => 'required',
-            'year_level' => 'required|numeric',
             'student_type' => 'required|string|max:255',
             'student_block' => 'required|numeric',
         ]);
@@ -426,7 +380,6 @@ class StudentsComponent extends Component
         $student->update([
             'student_id' => $this->student_id,
             'student_name' => $this->student_name,
-            'year_level' => $this->year_level,
             'student_type' => $this->student_type,
             'student_block' => $this->student_block,
         ]);
@@ -469,7 +422,6 @@ class StudentsComponent extends Component
 
         $this->view_student_id = $student->student_id;
         $this->view_student_name = $student->student_name;
-        $this->view_student_year_level = $student->year_level;
         $this->view_student_type = $student->student_type;
         $this->view_student_block = $student->student_block;
 
@@ -480,7 +432,6 @@ class StudentsComponent extends Component
         {
             $this->view_student_id = '';
             $this->view_student_name = '';
-            $this->view_student_year_level = '';
             $this->view_student_type = '';
             $this->view_student_block = '';
 

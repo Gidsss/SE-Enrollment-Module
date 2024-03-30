@@ -10,11 +10,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 style="float: left;"><strong>All Students</strong></h5>
-                        <button class="btn btn-sm btn-primary" style="float: right;" data-toggle="modal" data-target="#addStudentModal">Add New Student</button>
+
                         <button type="button" class="btn btn-primary"style="float: right;" data-toggle="modal" data-target="#bulkEditStudentModal" wire:click="selectStudentsForBulkEdit">Batch Assign</button>
-                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#alphabeticalEnlistmentModal" wire:click="openAlphabeticalEnlistmentModal">Assign Blocks Alphabetically</button>
-                        <button type="button" class="btn btn-primary"style="float: right;"  data-toggle="modal" data-target="#randomEnlistmentModal" wire:click="openRandomEnlistmentModal">Assign Blocks Randomly</button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#blockCapacityModal">Set Block Capacity</button>
+                        <button type="button" class="btn btn-primary" style="float: right;" wire:click="assignBlockSectionsAlphabetically(4)">Assign Blocks Alphabetically</button>
+                        <button type="button" class="btn btn-primary"style="float: right;"  data-toggle="modal" wire:click="assignBlockSectionsRandomly">Assign Blocks Randomly</button>
+                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#blockCapacityModal">Set Block Capacity</button>
                     </div>
                     <div class="card-body">
                         @if (session()->has('message'))
@@ -25,7 +25,6 @@
                             <thead>
                                 <tr>
                                <th></th>
-                               <th>#</th>
                                 <th>Student ID</th>
                                 <th>Student Name
                                 <button class="btn btn-sm btn-link" wire:click="sortStudents('student_name', 'asc')" wire:loading.attr="disabled">
@@ -35,7 +34,7 @@
                                         <i class="fa fa-arrow-down"></i>
                                     </button>
                                 </th>
-                                <th>Year Level</th>
+                               
                                 <th>Student Type</th>
                                 <th>Block
                                 <button class="btn btn-sm btn-link" wire:click="sortStudents('student_block')" wire:loading.attr="disabled">
@@ -54,10 +53,10 @@
                                 @foreach ($students as $student)
                                     <tr>
                                         <td><input type="checkbox" wire:model="selectedStudents" value="{{ $student->id }}"></td>
-                                        <td>{{ $student->id }}</td>
+                                        
                                             <td>{{ $student->student_id }}</td>
                                             <td>{{ $student->student_name }}</td>
-                                            <td>{{ $student->year_level }}</td>
+                                          
                                             <td>{{ $student->student_type }}</td>
                                             <td>{{ $student->student_block }}</td>
                                             <td style="text-align: center;">
@@ -97,81 +96,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div wire:ignore.self class="modal fade" id="addStudentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add New Student</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form wire:submit.prevent="storeStudentData">
-                        <div class="form-group row">
-                            <label for="student_id" class="col-3">Student ID</label>
-                            <div class="col-9">
-                                <input type="number" id="student_id" class="form-control" wire:model="student_id">
-                                @error('student_id')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="student_name" class="col-3">Student Name</label>
-                            <div class="col-9">
-                                <input type="text" id="student_name" class="form-control" wire:model="student_name">
-                                @error('student_name')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="year_level" class="col-3">Year Level</label>
-                            <div class="col-9">
-                                <input type="number" id="year_level" class="form-control" wire:model="year_level">
-                                @error('year_level')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="student_type" class="col-3">Student Type</label>
-                            <div class="col-9">
-                                <input type="text" id="student_type" class="form-control" wire:model="student_type">
-                                @error('student_type')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="student_block" class="col-3">Block</label>
-                            <div class="col-9">
-                                <input type="number" id="phone" class="form-control" wire:model="student_block">
-                                @error('student_block')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-3"></label>
-                            <div class="col-9">
-                                <button type="submit" class="btn btn-sm btn-primary">Add Student</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- Modals -->
     <div wire:ignore.self class="modal fade" id="editStudentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -187,7 +112,7 @@
                         <div class="form-group row">
                             <label for="student_id" class="col-3">Student ID</label>
                             <div class="col-9">
-                                <input type="number" id="student_id" class="form-control" wire:model="student_id">
+                                <input type="number" id="student_id" class="form-control" wire:model="student_id" disabled>
                                 @error('student_id')
                                     <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
@@ -197,27 +122,18 @@
                         <div class="form-group row">
                             <label for="student_name" class="col-3">Student Name</label>
                             <div class="col-9">
-                                <input type="text" id="student_name" class="form-control" wire:model="student_name">
+                                <input type="text" id="student_name" class="form-control" wire:model="student_name" disabled>
                                 @error('student_name')
                                     <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="year_level" class="col-3">Year Level</label>
-                            <div class="col-9">
-                                <input type="number" id="year_level" class="form-control" wire:model="year_level">
-                                @error('year_level')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
+        
                         <div class="form-group row">
                             <label for="student_type" class="col-3">Student Type</label>
                             <div class="col-9">
-                                <input type="text" id="student_type" class="form-control" wire:model="student_type">
+                                <input type="text" id="student_type" class="form-control" wire:model="student_type" disabled>
                                 @error('student_type')
                                     <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
@@ -285,11 +201,6 @@
                             <tr>
                                 <th>Student Name: </th>
                                 <td>{{ $view_student_name }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Year Level: </th>
-                                <td>{{ $view_student_year_level }}</td>
                             </tr>
 
                             <tr>
@@ -396,35 +307,34 @@
             </div>
         </div>
     </div>
-    <!-- Modal for setting block capacity -->
-    <div class="modal fade" id="blockCapacityModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="blockCapacityModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="blockCapacityModalLabel">Set Block Capacity</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+
+<!-- Modal for setting common block capacity -->
+<div class="modal fade" id="blockCapacityModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="blockCapacityModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="blockCapacityModalLabel">Set Common Block Capacity</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Input field for common block capacity -->
+                <div class="form-group">
+                    <label for="commonBlockCapacity">Common Block Capacity:</label>
+                    <input type="number" class="form-control" id="commonBlockCapacity" wire:model.defer="commonBlockCapacity" min="1">
+                    @error('commonBlockCapacity')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-                <div class="modal-body">
-                    <!-- Input fields for block capacities -->
-                    @foreach([1, 2, 3, 4] as $block)
-                    <div class="form-group">
-                        <label for="blockCapacity{{$block}}">Block {{$block}} Capacity:</label>
-                        <input type="number" class="form-control" id="blockCapacity{{$block}}" wire:model.defer="blockCapacities.{{$block}}" min="1">
-                        @error('blockCapacities.' . $block)
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    @endforeach
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:click="saveBlockCapacity">Save</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" wire:click="saveCommonBlockCapacity">Save</button>
             </div>
         </div>
     </div>
+</div>
 
 </div>
 

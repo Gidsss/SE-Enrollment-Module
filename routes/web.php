@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Livewire\StudentsComponent;
+
+
+Route::get('/students', StudentsComponent::class);
 
 /*
 |--------------------------------------------------------------------------

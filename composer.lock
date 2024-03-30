@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd118bdfb974d6f2d3dd9b5eec179a5f",
+    "content-hash": "458fefd0f8faef35c64d8966ed1e1198",
     "packages": [
         {
             "name": "barryvdh/laravel-snappy",
@@ -1049,94 +1049,6 @@
             "time": "2023-08-27T10:19:19+00:00"
         },
         {
-            "name": "h4cc/wkhtmltoimage-amd64",
-            "version": "0.12.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/h4cc/wkhtmltoimage-amd64.git",
-                "reference": "c4e33f635207af89a704205b8902fb5715ca88be"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/h4cc/wkhtmltoimage-amd64/zipball/c4e33f635207af89a704205b8902fb5715ca88be",
-                "reference": "c4e33f635207af89a704205b8902fb5715ca88be",
-                "shasum": ""
-            },
-            "bin": [
-                "bin/wkhtmltoimage-amd64"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL Version 3"
-            ],
-            "authors": [
-                {
-                    "name": "Julius Beckmann",
-                    "email": "github@h4cc.de"
-                }
-            ],
-            "description": "Convert html to image using webkit (qtwebkit). Static linked linux binary for amd64 systems.",
-            "homepage": "http://wkhtmltopdf.org/",
-            "keywords": [
-                "binary",
-                "convert",
-                "image",
-                "snapshot",
-                "thumbnail",
-                "wkhtmltoimage"
-            ],
-            "support": {
-                "issues": "https://github.com/h4cc/wkhtmltoimage-amd64/issues",
-                "source": "https://github.com/h4cc/wkhtmltoimage-amd64/tree/master"
-            },
-            "time": "2018-01-15T07:23:40+00:00"
-        },
-        {
-            "name": "h4cc/wkhtmltoimage-i386",
-            "version": "0.12.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/h4cc/wkhtmltoimage-i386.git",
-                "reference": "64f7a1c7d1e42d6741e22a080206c00c4899e88b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/h4cc/wkhtmltoimage-i386/zipball/64f7a1c7d1e42d6741e22a080206c00c4899e88b",
-                "reference": "64f7a1c7d1e42d6741e22a080206c00c4899e88b",
-                "shasum": ""
-            },
-            "bin": [
-                "bin/wkhtmltoimage-i386"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL Version 3"
-            ],
-            "authors": [
-                {
-                    "name": "Julius Beckmann",
-                    "email": "github@h4cc.de"
-                }
-            ],
-            "description": "Convert html to image using webkit (qtwebkit). Static linked linux binary for i386 systems.",
-            "homepage": "http://wkhtmltopdf.org/",
-            "keywords": [
-                "binary",
-                "convert",
-                "image",
-                "snapshot",
-                "thumbnail",
-                "wkhtmltoimage"
-            ],
-            "support": {
-                "issues": "https://github.com/h4cc/wkhtmltoimage-i386/issues",
-                "source": "https://github.com/h4cc/wkhtmltoimage-i386/tree/master"
-            },
-            "time": "2018-01-15T07:28:21+00:00"
-        },
-        {
             "name": "h4cc/wkhtmltopdf-amd64",
             "version": "0.12.4",
             "source": {
@@ -2153,35 +2065,36 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v3.2.1",
+            "version": "v3.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "95083c0b61c1910ad28c4628e0dfa9c227eb1c41"
+                "reference": "c65b3f0798ab2c9338213ede3588c3cdf4e6fcc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/95083c0b61c1910ad28c4628e0dfa9c227eb1c41",
-                "reference": "95083c0b61c1910ad28c4628e0dfa9c227eb1c41",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/c65b3f0798ab2c9338213ede3588c3cdf4e6fcc0",
+                "reference": "c65b3f0798ab2c9338213ede3588c3cdf4e6fcc0",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "^10.0",
-                "illuminate/support": "^10.0",
-                "illuminate/validation": "^10.0",
+                "illuminate/database": "^10.0|^11.0",
+                "illuminate/routing": "^10.0|^11.0",
+                "illuminate/support": "^10.0|^11.0",
+                "illuminate/validation": "^10.0|^11.0",
                 "league/mime-type-detection": "^1.9",
                 "php": "^8.1",
-                "symfony/http-kernel": "^6.2"
+                "symfony/http-kernel": "^6.2|^7.0"
             },
             "require-dev": {
                 "calebporzio/sushi": "^2.1",
-                "laravel/framework": "^10.0",
+                "laravel/framework": "^10.0|^11.0",
                 "laravel/prompts": "^0.1.6",
                 "mockery/mockery": "^1.3.1",
-                "orchestra/testbench": "^8.0",
-                "orchestra/testbench-dusk": "^8.0",
-                "phpunit/phpunit": "^9.0",
-                "psy/psysh": "@stable"
+                "orchestra/testbench": "8.20.0|^9.0",
+                "orchestra/testbench-dusk": "8.20.0|^9.0",
+                "phpunit/phpunit": "^10.4",
+                "psy/psysh": "^0.11.22|^0.12"
             },
             "type": "library",
             "extra": {
@@ -2215,7 +2128,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v3.2.1"
+                "source": "https://github.com/livewire/livewire/tree/v3.4.9"
             },
             "funding": [
                 {
@@ -2223,7 +2136,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-20T17:05:06+00:00"
+            "time": "2024-03-14T14:03:32+00:00"
         },
         {
             "name": "monolog/monolog",

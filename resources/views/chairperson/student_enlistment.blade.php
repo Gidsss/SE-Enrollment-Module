@@ -141,7 +141,7 @@
 </style>
 
 <div style="width:1536px; height:auto; background-color: #30349c; position: relative;">
-            <img src="{{ asset('public/backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
+            <img src="{{ asset('backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
             <span style="color: #d4a404; position: absolute; top: 22%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">PAMANTASAN NG LUNGSOD NG MAYNILA</span>
             <span style="color: white; position: absolute; top: 47%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">UNIVERSITY OF THE CITY OF MANILA</span>
             <br><br><br>
@@ -471,11 +471,11 @@ function toggleAccordion(contentId) {
 
 
 <!-- jQuery -->
-<script src="{{ url('public/backend/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ url('backend/plugins/jquery/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="{{ url('public/backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ url('backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{ url('public/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 @endsection
 

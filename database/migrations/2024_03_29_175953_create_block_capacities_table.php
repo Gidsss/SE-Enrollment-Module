@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('block_capacities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('block')->unique();
+            $table->unsignedInteger('year');
+            $table->unsignedInteger('block');
             $table->unsignedInteger('capacity')->nullable();
             $table->timestamps();
         });

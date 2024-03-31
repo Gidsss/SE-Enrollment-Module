@@ -1,12 +1,13 @@
 <?php
 
+use App\Livewire\FirstYearContainer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Livewire\StudentsComponent;
-
+use App\Livewire\StudentEnlistment;
 
 Route::get('/students', StudentsComponent::class);
-
+Route::get('chairperson/student_enlistment', StudentEnlistment::class);
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,9 +58,7 @@ Route::get('chairperson/block_classes', function() {
     return view('chairperson.block_classes');
 });
 
-Route::get('chairperson/student_enlistment', function() {
-    return view('chairperson.student_enlistment');
-});
+
 
 Route::get('chairperson/student_transaction', function() {
     return view('chairperson.transaction');

@@ -28,6 +28,7 @@ class StudentFactory extends Factory
         'student_id' => $this->faker->unique()->randomNumber(8),
         'student_name' => "$lastName, $firstName $middleInitial",
         'student_type' => $this->faker->randomElement(['Regular', 'Irregular']),
+        'year_level' => $this->faker->numberBetween(1, 4),
     ];
 }
 }

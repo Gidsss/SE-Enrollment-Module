@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('student_id')->unique();
             $table->string('student_name', 255);
             $table->string('student_type', 255);
+            $table->integer('year_level');
             $table->integer('student_block')->nullable();
             $table->timestamps();
         });

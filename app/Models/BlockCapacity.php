@@ -9,7 +9,7 @@ class BlockCapacity extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['block', 'capacity'];
+    protected $fillable = ['year', 'block', 'capacity'];
 
     protected $table = 'block_capacities';
 }

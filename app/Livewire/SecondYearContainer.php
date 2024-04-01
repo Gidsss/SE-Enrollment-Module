@@ -215,23 +215,43 @@ class SecondYearContainer extends Component
 
     public function selectStudentsForBulkEdit()
     {
-        // Check if more than one student is selected
-        if (count($this->selectedStudents) > 1) {
-            // Store the selected student IDs in the component property for later use
-            $this->bulkEditStudentIds = $this->selectedStudents;
-
-            // Now, open the bulk edit modal
-            $this->dispatch('open-bulk-edit-modal');
-        } elseif (count($this->selectedStudents) === 1) {
-            // Show an error message indicating that multiple students need to be selected
-            session()->flash('error', 'Please select more than one student for batch assignment.');
-        } else {
+        // Check if at least one student is selected
+        if (count($this->selectedStudents) < 1) {
             // Show an error message indicating that no students are selected
             session()->flash('error', 'Please select at least one student for batch assignment.');
+            return;
         }
+    
+        // Check if more than one student is selected
+        if (count($this->selectedStudents) === 1) {
+            // Show an error message indicating that multiple students need to be selected
+            session()->flash('error', 'Please select more than one student for batch assignment.');
+            return;
+        }
+    
+        // Store the selected student IDs in the component property for later use
+        $this->bulkEditStudentIds = $this->selectedStudents;
+    
+        // Now, open the bulk edit modal
+        $this->dispatch('open-bulk-edit-modal');
     }
+    
     public function applyBulkEdit()
     {
+        // Validate if bulk_student_block is not empty
+        $this->validate([
+            'bulk_student_block' => 'required',
+        ], [
+            'bulk_student_block.required' => 'The block field is required.',
+        ]);
+    
+        // Check if any students are selected for bulk edit
+        if (count($this->bulkEditStudentIds) < 1) {
+            // Show an error message indicating that no students are selected
+            session()->flash('error', 'Please select at least one student for batch assignment.');
+            return;
+        }
+    
         // Apply changes to selected students without considering block capacity
         foreach ($this->bulkEditStudentIds as $studentId) {
             $student = Student::findOrFail($studentId);

@@ -12,11 +12,6 @@
     <!-- Livewire styles -->
     @livewireStyles
 
-    <style>
-        html {
-            background-color: #F6F6F6;
-        }
-    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -78,8 +73,10 @@
             loadYearLevelScripts(year);
         });
     });
-        </script>
+    </script>
+    
 @stack('scripts')
-    @livewireScripts
+
+@livewireScripts
 </body>
 </html>

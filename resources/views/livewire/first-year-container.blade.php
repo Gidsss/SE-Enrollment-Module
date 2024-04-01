@@ -61,8 +61,9 @@
                                             <td>{{ $student->student_block }}</td>
                                             <td style="text-align: center;">
                                                
-                                                <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View</button>
-                                                <button class="btn btn-sm btn-danger" wire:click="deleteConfirmation({{ $student->id }})">Delete</button>
+                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
+
+                                                
                                             </td>
                                         </tr>
                                     @endforeach
@@ -196,11 +197,15 @@
             </div>
             <div class="modal-body">
                 
-                        @if(session()->has('error'))
+                            @if (session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @elseif (session()->has('error'))
                         <div class="alert alert-danger">
                             {{ session('error') }}
                         </div>
-                        @endif
+                    @endif
                         <!-- Input field for batch assigning of student_block -->
                 <div class="form-group">
                     <label for="bulk_student_block">Block</label>

@@ -124,6 +124,11 @@
             font-family: Inter;
     }
 
+    .accordion-button.active {
+    background-color: #A0A0A0;
+    color: #FFF; 
+    }
+
     .accordion-content {
             display: none;
             padding: 10px;
@@ -136,6 +141,9 @@
     .text-first-year {
             font-size: 48px;
             font-family: 'Inter', sans-serif; 
+    }
+    html {
+            background-color: #F6F6F6;
     }
     
 </style>
@@ -271,6 +279,16 @@
     });
 
     function toggleAccordion(index) {
+        // Remove active class from all accordion buttons
+        const allButtons = document.querySelectorAll('.accordion-button');
+        allButtons.forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Add active class to the clicked button
+        const clickedButton = document.querySelectorAll('.accordion-button')[index];
+        clickedButton.classList.add('active');
+
         // Hide all Livewire component containers
         const allContainers = document.querySelectorAll('.livewire-component');
         allContainers.forEach(container => {

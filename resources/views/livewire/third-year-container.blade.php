@@ -61,8 +61,9 @@
                                             <td>{{ $student->student_block }}</td>
                                             <td style="text-align: center;">
                                                
-                                                <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View</button>
-                                                <button class="btn btn-sm btn-danger" wire:click="deleteConfirmation({{ $student->id }})">Delete</button>
+                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
+
+                                               
                                             </td>
                                         </tr>
                                     @endforeach

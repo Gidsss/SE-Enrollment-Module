@@ -103,7 +103,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Student</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeBulkEditModal">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -153,7 +153,7 @@
                         <div class="form-group row">
                             <label for="" class="col-3"></label>
                             <div class="col-9">
-                            
+                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" wire:click="closeBulkEditModal">Close</button>
                                 <button type="submit" class="btn btn-sm btn-primary">Edit Student</button>
                             </div>
                         </div>

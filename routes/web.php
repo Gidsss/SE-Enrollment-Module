@@ -3,13 +3,11 @@
 use App\Livewire\FirstYearContainer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Livewire\StudentsComponent;
 use App\Livewire\StudentEnlistment;
 use App\Livewire\Transactions;
 use App\Livewire\StudyPlanValidations;
 use App\Livewire\ShiftingRequestsValidations;
 
-Route::get('/students', StudentsComponent::class);
 Route::get('/chairperson/student_enlistment', StudentEnlistment::class);
 Route::get('/chairperson/student_transaction', Transactions::class);
 Route::get('/chairperson/student_transaction/study_plan_validations', StudyPlanValidations::class)->name('study_plan_validations');

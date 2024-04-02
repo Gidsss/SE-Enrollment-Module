@@ -1,152 +1,4 @@
-<!-- Parent Component for Student Enlistment -->
-<style>
-     .custom-table-container {
-        position: absolute;
-        top: 230px; /* Change this value to adjust the top position */
-        left: 13%; /* Change this value to adjust the left position */
-        width: 85%; /* Adjust the width of the container */
-        background-color: white !important;
-        border-radius: 10px; /* Adjust the radius for rounded edges */
-        border: 1px solid #ccc; /* Adjust the border color and thickness */
-    }
-    .broken-line {
-        width: 95%;
-        border-bottom: 2.5px dashed grey;
-        white-space: pre;
-        font-family: monospace;
-        position: absolute;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    .connector-blue {
-        position: absolute;
-        top: 75%;
-        left: calc(15ch + 220px);
-        width: 255px;
-        height: 5px;
-        background-color: #2D349A;
-        z-index: 0;
-    }
-        
-    .connector-gray {
-        position: absolute;
-        top: 75%;
-        left: calc(49ch + 254px);
-        width: 237px;
-        height: 5px;
-        background-color: gray;
-        z-index: 0;
-    }
-    .nav-bar {
-        max-width: 100%;
-        height: 50px;
-        background-color: #e0dcdc;
-        position: relative;
-    }
-    .nav-link {
-        color: black;
-        font-family: Inter, sans-serif;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        text-decoration: none;
-        display: block;
-        line-height: 50px;
-        padding: 0px 125px;
-    }
-    .nav-item {
-        display: inline-block;
-        height: 50px;
-    }
-    .nav-item:hover .nav-link {
-        background-color: #BCBCBC;
-        color: black;
-    }
-    .page-item .nav-link {
-        background-color: #BCBCBC;
-        color: black;
-    }
-
-    body {
-            display: flex;
-            margin: 0;
-        }
-
-    #left-card {
-            padding: 20px;
-            border: 1px solid #ccc;
-            width: 250px;
-            position: absolute;
-            top: 180px;
-            left: 40px;
-    }
-
-    #left-card1 {
-            padding: 20px;
-            border: 1px solid #ccc;
-            width: 250px;
-            position: absolute;
-            top: 503px;
-            left: 40px;
-    }
-
-
-    #right-card {
-            position: absolute;
-            top: 120px;
-            left: 280px;
-            padding: 8px;
-            flex-grow: 1;
-            display: block;
-            width: 80%;
-    }
-    .message {
-            position: absolute;
-            top: 200px;
-            left: 250px;
-            font-size: 18px;
-            color: #777;
-            text-align: center;
-            display: block;
-            border: 1px solid #ccc;
-    }
-
-    .year-container {
-            margin-bottom: 10px;
-    }
-
-    .accordion-button {
-            cursor: pointer;
-            padding: 10px;
-            background-color: #E3E3E3;
-            margin-bottom: 5px;
-            border-radius: 6px;
-            font-family: Inter;
-    }
-
-    .accordion-button.active {
-    background-color: #A0A0A0;
-    color: #FFF; 
-    }
-
-    .accordion-content {
-            display: none;
-            padding: 10px;
-            margin-bottom: 5px;
-    }
-
-    .active {
-            background-color: #ddd;
-    }
-    .text-first-year {
-            font-size: 48px;
-            font-family: 'Inter', sans-serif; 
-    }
-    html {
-            background-color: #F6F6F6;
-    }
-    
-</style>
+<!-- Parent Component for 1st to 4th Year Container (Student Enlistment) -->
 <div>
 <div style="width:1536px; height:auto; background-color: #30349c; position: relative;">
             <img src="{{ asset('backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
@@ -184,7 +36,7 @@
             <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Validation</a>
+            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transactions</a>
         </div>
 </div>
      <!-- Components header -->
@@ -219,10 +71,7 @@
             </div>
         </div>
         
-          <!-- <button class="accordion-button" onclick="toggleAccordion('first-year')">First Year</button>
-            <button class="accordion-button" onclick="toggleAccordion('second-year')">Second Year</button>
-            <button class="accordion-button" onclick="toggleAccordion('third-year')">Third Year</button>
-            <button class="accordion-button" onclick="toggleAccordion('fourth-year')">Fourth Year</button> -->
+    
  <!-- Welcome Modal -->
  <div id="welcomeModal" class="modal" style="display: none;  position: fixed; z-index: 1; left: 0;  top: 0;  width: 100%; height: 100%; overflow: auto;
         background-color: rgba(0,0,0,0.5);">
@@ -248,7 +97,7 @@
 
 
 
-    <script>
+<script>
     function handleSchedClick(event) {
         // Handle the click event here
         window.location.href = '{{ route("regular_schedule") }}';
@@ -304,17 +153,6 @@
             console.error(`Livewire component container with ID ${selectedContainerId} not found.`);
         }
     }
-    // function toggleAccordion(yearLevel) {
-    //         // Hide all Livewire component containers
-    //         const allContainers = document.querySelectorAll('.livewire-component');
-    //         allContainers.forEach(container => {
-    //             container.style.display = 'none';
-    //         });
-
-    //         // Show the selected Livewire component container
-    //         const selectedContainer = document.getElementById(yearLevel + '-container');
-    //         selectedContainer.style.display = 'block';
-    //     }
     // Get the modal element
     const modal = document.getElementById('welcomeModal');
 
@@ -328,4 +166,47 @@
         modal.style.display = 'none';
     }
     
-    </script>
+    let previousYearLevel = null;
+
+    function loadYearLevelScripts(year) {
+        // Remove scripts for the previously clicked year level
+        if (previousYearLevel !== null) {
+            removeYearLevelScripts(previousYearLevel);
+        }
+
+        // Load scripts for the selected year level
+        const script = document.createElement('script');
+        script.src = `/js/year${year}.js`; // Assuming your script files are named yearFirst.js etc.
+        script.setAttribute('data-year-level', year); // Set a custom attribute to identify the script by year level
+        document.body.appendChild(script);
+
+        // Update the previousYearLevel variable
+        previousYearLevel = year;
+    }
+
+    function removeYearLevelScripts(year) {
+        // Select all scripts with data-year-level attribute equal to the year level
+        const scripts = document.querySelectorAll(`script[data-year-level="${year}"]`);
+
+        // Remove each script
+        scripts.forEach(script => {
+            console.log('Removing script:', script.src);
+            script.parentNode.removeChild(script);
+        });
+    }
+
+    // Attach the loadYearLevelScripts function to the click event of accordion buttons
+    const accordionButtons = document.querySelectorAll('.accordion-button');
+    accordionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const year = this.textContent.trim().split(' ')[0]; // Extract the year level from the button text
+            loadYearLevelScripts(year);
+        });
+    });
+    
+</script>
+
+    <script src="{{ asset('js/yearFirst.js') }}"></script>
+    <script src="{{ asset('js/yearSecond.js') }}"></script>
+    <script src="{{ asset('js/yearThird.js') }}"></script>
+    <script src="{{ asset('js/yearFourth.js') }}"></script>

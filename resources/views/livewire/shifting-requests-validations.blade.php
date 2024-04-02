@@ -1,8 +1,58 @@
+
 <div>
+<div style="width:1536px; height:auto; background-color: #30349c; position: relative;">
+            <img src="{{ asset('backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
+            <span style="color: #d4a404; position: absolute; top: 22%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">PAMANTASAN NG LUNGSOD NG MAYNILA</span>
+            <span style="color: white; position: absolute; top: 47%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">UNIVERSITY OF THE CITY OF MANILA</span>
+            <br><br><br>
+            <a href="" style="text-decoration: none;">
+                <span style="color: white; position: absolute; top: 32%; left: 56.5%; font-family: Inter, sans-serif; font-size: 16px; font-weight: bold; cursor: pointer;">Schedules</span>
+            </a>
+            <a href="" style="text-decoration: none;">
+                <span style="color: white; position: absolute; top: 32%; left: 63.5%; font-family: Inter, sans-serif; font-size: 16px; font-weight: bold; cursor: pointer;">Student Records</span>
+            </a>
+            <a href="" style="text-decoration: none;">
+                <span style="color: white; position: absolute; top: 32%; left: 73.5%; font-family: Inter, sans-serif; font-size: 16px; font-weight: bold; cursor: pointer;">Enrollment</span>
+            </a>
+            <a href="" style="text-decoration: none;">
+                <span style="color: white; position: absolute; top: 32%; left: 80.5%; font-family: Inter, sans-serif; font-size: 16px; font-weight: bold; cursor: pointer;">Print Forms</span>
+            </a>
+            <a href="" style="text-decoration: none;">
+                <span style="color: white; position: absolute; top: 32%; left: 88%; font-family: Inter, sans-serif; font-size: 16px; font-weight: bold; cursor: pointer;">Utilities</span>
+            </a>
+            <a href="" style="text-decoration: none;">
+                <span style="color: white; position: absolute; top: 32%; left: 94%; font-family: Inter, sans-serif; font-size: 16px; font-weight: bold; cursor: pointer;">Logout<i class="fas fa-sign-out-alt" style="color: white; left:5%; position: relative;"></i></span>
+            </a>
+        </div>
+
+        <div class="nav-bar">
+        <div class="nav-item">
+            <a href="http://localhost/enrollmentmod/chairperson/create_class" class="nav-link">Class Creation</a>
+        </div>
+        <div class="nav-item ">
+            <a href="http://localhost/enrollmentmod/chairperson/block_classes" class="nav-link">Block Management</a>
+        </div>
+        <div class="nav-item">
+            <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
+        </div>
+        <div class="nav-item page-item">
+            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transactions</a>
+        </div>
+
+     <!-- Components header -->
+        <div style="width: 100%; height: 10%; text-align: right; padding-right: 0px; color: black; font-size: 20px; font-family: Inter; line-height: 33px; font-weight: 200; word-wrap: break-word; position: relative;">
+            <div style="display: flex; align-items: right; padding-left: 1210px; background-color: #F6F6F6;">
+                <span>Home / Enrollment / Transactions</span>
+            </div>
+            <div style="flex-grow: 1; height: 1px; border: 1px rgba(0, 0, 0, 0.20) solid;"></div>
+        </div>
+        </div>
+        <!-- Main components -->
+        
     <div class="container mt-5">
-        <div class="row mb-5">
-            <div class="col-md-12 text-center">
-                <h3><strong>Student Enlistment</strong></h3>
+        <div class="row mb-1">
+            <div class="col-md-12">
+                <p class="text-first-year"><strong>Shifting Requests</strong></p>
             </div>
         </div>
         <div class="row">
@@ -16,12 +66,12 @@
                         <button type="button" class="btn btn-primary"style="float: right;"  data-toggle="modal" wire:click="assignBlockSectionsRandomly">Assign Blocks Randomly</button>
                         <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#blockCapacityModal">Set Block Capacity</button>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="background-color: #F6F6F6;">
                         @if (session()->has('message'))
                             <div class="alert alert-success text-center">{{ session('message') }}</div>
                         @endif
-
-                        <table class="table table-bordered">
+                        <div class="table-responsive">
+                        <table class="table ">
                             <thead>
                                 <tr>
                                <th></th>
@@ -56,13 +106,13 @@
                                         
                                             <td>{{ $student->student_id }}</td>
                                             <td>{{ $student->student_name }}</td>
-                                          
                                             <td>{{ $student->student_type }}</td>
                                             <td>{{ $student->student_block }}</td>
                                             <td style="text-align: center;">
-                                                <button class="btn btn-sm btn-secondary" wire:click="viewStudentDetails({{ $student->id }})">View</button>
-                                                <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">Edit</button>
-                                                <button class="btn btn-sm btn-danger" wire:click="deleteConfirmation({{ $student->id }})">Delete</button>
+                                               
+                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
+
+                                                
                                             </td>
                                         </tr>
                                     @endforeach
@@ -73,6 +123,7 @@
                                 @endif
                             </tbody>
                         </table>
+</div>
             <!-- Pagination Controls -->
     
             <nav aria-label="Page navigation example">
@@ -102,7 +153,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Student</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeBulkEditModal">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -152,6 +203,7 @@
                         <div class="form-group row">
                             <label for="" class="col-3"></label>
                             <div class="col-9">
+                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" wire:click="closeBulkEditModal">Close</button>
                                 <button type="submit" class="btn btn-sm btn-primary">Edit Student</button>
                             </div>
                         </div>
@@ -181,43 +233,7 @@
         </div>
     </div>
 
-    <div wire:ignore.self class="modal fade" id="viewStudentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Student Information</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeViewStudentModal">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <th>Student ID: </th>
-                                <td>{{ $view_student_id }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Student Name: </th>
-                                <td>{{ $view_student_name }}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Student Type: </th>
-                                <td>{{ $view_student_type}}</td>
-                            </tr>
-
-                            <tr>
-                                <th>Student Block: </th>
-                                <td>{{ $view_student_block}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- Batch Assign Modal -->
     <div wire:ignore.self class="modal fade" id="bulkEditStudentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -230,11 +246,15 @@
             </div>
             <div class="modal-body">
                 
-                        @if(session()->has('error'))
+                            @if (session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @elseif (session()->has('error'))
                         <div class="alert alert-danger">
                             {{ session('error') }}
                         </div>
-                        @endif
+                    @endif
                         <!-- Input field for batch assigning of student_block -->
                 <div class="form-group">
                     <label for="bulk_student_block">Block</label>
@@ -252,61 +272,7 @@
     </div>
     </div>
     <!-- Alphabetical Modal -->
-    <div wire:ignore.self class="modal fade" id="alphabeticalEnlistmentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="alphabeticalEnlistmentModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-           
-                <div class="modal-header">
-                    <h5 class="modal-title" id="alphabeticalEnlistmentModalLabel">Assign Blocks Alphabetically</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="numStudents">Number of students:</label>
-                        <input type="number" class="form-control" id="numStudents" wire:model="numStudents" min="1">.
-                        @error('numStudents')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                    </div>
-                </div>
-                
-                       
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:click="assignBlockSectionsAlphabetically">Assign Blocks</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Random Modal -->
-    <div wire:ignore.self class="modal fade" id="randomEnlistmentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="randomEnlistmentModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="randomEnlistmentModalLabel">Assign Blocks Randomly</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="numStudentsRandom">Number of students:</label>
-                        <input type="number" class="form-control" id="numStudentsRandom" wire:model="numStudents" min="1">
-                        @error('numStudents')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                    </div>
-                </div>
-               
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:click="assignBlockSectionsRandomly">Assign Blocks</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
 <!-- Modal for setting common block capacity -->
 <div class="modal fade" id="blockCapacityModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="blockCapacityModalLabel" aria-hidden="true">
@@ -330,63 +296,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" wire:click="saveCommonBlockCapacity">Save</button>
+                <button type="button" class="btn btn-primary" wire:click="saveCommonBlockCapacity(1)">Save</button>
             </div>
         </div>
     </div>
 </div>
 
-</div>
 
-@push('scripts')
-    <script>
-        window.addEventListener('close-modal', event =>{
-            $('#addStudentModal').modal('hide');
-            $('#editStudentModal').modal('hide');
-            $('#deleteStudentModal').modal('hide');
-            $('#bulkEditStudentModal').modal('hide'); 
-            $('#alphabeticalEnlistmentModal').modal('hide');
-            $('#randomEnlistmentModal').modal('hide');
-            $('#blockCapacityModal').modal('hide');
-        });
-
-        window.addEventListener('show-edit-student-modal', event =>{
-            $('#editStudentModal').modal('show');
-        });
-
-        window.addEventListener('show-delete-confirmation-modal', event =>{
-            $('#deleteStudentModal').modal('show');
-        });
-
-        window.addEventListener('show-view-student-modal', event =>{
-            $('#viewStudentModal').modal('show');
-        });
-
-        window.addEventListener('open-alphabetical-enlistment-modal', event => {
-        $('#alphabeticalEnlistmentModal').modal('show');
-        });
-
-        window.addEventListener('open-random-enlistment-modal', event => {
-        $('#randomEnlistmentModal').modal('show');
-        });
-
-        window.addEventListener('open-bulk-edit-modal', event => {
-        $('#bulkEditStudentModal').modal('show');
-        });
-
-        window.addEventListener('open-block-capacity-modal', event => {
-        $('#blockCapacityModal').modal('show');
-        });
-
-        // Function to check if the input is a number or not (for block capacity)
-        function isNumeric(event) {
-        const charCode = event.which ? event.which : event.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                event.preventDefault();
-                return false;
-            }
-            return true;
-            }
-    </script>
-    
-@endpush

@@ -5,9 +5,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Livewire\StudentsComponent;
 use App\Livewire\StudentEnlistment;
+use App\Livewire\Transactions;
+use App\Livewire\StudyPlanValidations;
+use App\Livewire\ShiftingRequestsValidations;
 
 Route::get('/students', StudentsComponent::class);
-Route::get('chairperson/student_enlistment', StudentEnlistment::class);
+Route::get('/chairperson/student_enlistment', StudentEnlistment::class);
+Route::get('/chairperson/student_transaction', Transactions::class);
+Route::get('/chairperson/student_transaction/study_plan_validations', StudyPlanValidations::class)->name('study_plan_validations');
+Route::get('/chairperson/student_transaction/shifting_requests_validations', ShiftingRequestsValidations::class)->name('shifting_requests_validations');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,9 +66,7 @@ Route::get('chairperson/block_classes', function() {
 
 
 
-Route::get('chairperson/student_transaction', function() {
-    return view('chairperson.transaction');
-});
+
 /* dapat admin ung student for all di pa napapalitan */
 
 Route::group(['middleware' => 'admin'], function (){

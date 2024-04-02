@@ -437,4 +437,4 @@ class SecondYearContainer extends Component
         }
 }
 
-// functions and methods are created here
+// functions and methods are created here (child component of student-enlistment)

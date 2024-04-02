@@ -7,7 +7,7 @@ use App\Models\Student;
 use App\Models\BlockCapacity;
 use Livewire\WithPagination;
 
-class ThirdYearContainer extends Component
+class ShiftingRequestsValidations extends Component
 {
     use WithPagination;
     
@@ -38,9 +38,6 @@ class ThirdYearContainer extends Component
     {
         $this->blockCapacities = [1 => null, 2 => null, 3 => null, 4 => null];
         $this->getPaginatedStudents();
-        // Filter students to include only first-year students
-        $this->students = $this->students->where('year_level', '3');
-        
     }
     
     public $sortColumn = 'student_name'; // Default sorting column
@@ -64,7 +61,7 @@ class ThirdYearContainer extends Component
     
     public function getPaginatedStudents()
     {
-        $total = Student::where('year_level', '3')->count();
+        $total = Student::where('year_level', '1')->count();
         $this->lastPage = ceil($total / $this->perPage);
     
         $this->currentPage = min(max(1, $this->currentPage), $this->lastPage);
@@ -98,7 +95,7 @@ class ThirdYearContainer extends Component
         {
             // Fetch students sorted by student name, prioritizing null values
             
-            return Student::where('year_level', '3')
+            return Student::where('year_level', '1')
                 ->orderByRaw('IF(student_block IS NULL, 0, 1), student_name ' . $orderByDirection)
                 ->skip($offset)
                 ->take($this->perPage)
@@ -108,7 +105,7 @@ class ThirdYearContainer extends Component
     public function getPaginatedStudentsByBlock($orderByDirection, $offset)
         {
             // Fetch students sorted by student block
-            return Student::where('year_level', '3')
+            return Student::where('year_level', '1')
                 ->orderByRaw('IF(student_block IS NULL, 0, 1), student_block ' . $orderByDirection) // Prioritize null values for student_block
                 ->orderBy('student_name', 'asc') // Always sort student names in ascending order for consistent behavior
                 ->skip($offset)
@@ -123,7 +120,7 @@ class ThirdYearContainer extends Component
         $blockCapacities = BlockCapacity::pluck('capacity', 'block');
     
         // Retrieve all first-year students sorted alphabetically by their names
-        $students = Student::where('year_level', '3')->orderBy('student_name')->get();
+        $students = Student::all()->orderBy('student_name')->get();
     
         // Total number of students to be assigned
         $totalStudents = $students->count();
@@ -168,7 +165,7 @@ class ThirdYearContainer extends Component
         $blockCapacities = BlockCapacity::pluck('capacity', 'block');
 
          // Retrieve all first-year students
-        $students = Student::where('year_level', '3')->get();
+        $students = Student::all();
 
         // Total number of students to be assigned
         $students->count();
@@ -432,11 +429,8 @@ class ThirdYearContainer extends Component
 
     public function render()
         {
-            return view('livewire.third-year-container')
-                ->layout('livewire.layouts.chairperson')
-                ->with('students', Student::where('year_level', '3')->paginate($this->perPage));
+            return view('livewire.shifting-requests-validations')->layout('livewire.layouts.student-transactions.transaction-options');
         }
 }
 
-// functions and methods are created here (child component of student-enlistment)
-
+    

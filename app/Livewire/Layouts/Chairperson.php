@@ -11,4 +11,4 @@ class Chairperson extends Component
         return view('livewire.layouts.chairperson');
     }
 }
-// Eto pinakabase pinakamahalaga
+// Base livewire component (grandparent) for all chairperson components

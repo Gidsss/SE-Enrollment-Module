@@ -24,6 +24,7 @@ class FirstYearContainer extends Component
     public $numStudents;
     public $blockCapacities = []; // Variable to store the block capacity input by the user
     public $commonBlockCapacity;
+    public $firstYearStudents; // Property to store the total number of students
 
     // Input fields validation rules
     protected $rules = [
@@ -40,9 +41,14 @@ class FirstYearContainer extends Component
         $this->getPaginatedStudents();
         // Filter students to include only first-year students
         $this->students = $this->students->where('year_level', '1');
+        $this->calculateTotalStudents();
         
     }
     
+    public function calculateTotalStudents()
+    {
+        $this->firstYearStudents = Student::where('year_level', '1')->count();
+    }
     public $sortColumn = 'student_name'; // Default sorting column
     public $sortDirection = 'asc'; // Default sorting direction
 

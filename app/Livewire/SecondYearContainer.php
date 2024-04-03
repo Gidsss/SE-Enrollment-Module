@@ -24,6 +24,7 @@ class SecondYearContainer extends Component
     public $blockCapacities = []; // Variable to store the block capacity input by the user
     public $commonBlockCapacity;
 
+    public $secondYearStudents;
     // Input fields validation rules
     protected $rules = [
         'student_id' => 'required|unique:students|numeric',
@@ -39,9 +40,13 @@ class SecondYearContainer extends Component
         $this->getPaginatedStudents();
         // Filter students to include only first-year students
         $this->students = $this->students->where('year_level', '2');
-        
+        $this->calculateTotalStudents();
     }
     
+    public function calculateTotalStudents()
+    {
+        $this->secondYearStudents = Student::where('year_level', '2')->count();
+    }
     public $sortColumn = 'student_name'; // Default sorting column
     public $sortDirection = 'asc'; // Default sorting direction
 

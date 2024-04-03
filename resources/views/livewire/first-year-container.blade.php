@@ -10,8 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 style="float: left;"><strong>All Students</strong></h5>
-
+                        <h5 style="float: left;">Total <strong>#</strong> of Records: {{ $firstYearStudents }}</h5>
                         <button type="button" class="btn btn-primary"style="float: right;" data-toggle="modal" data-target="#bulkEditStudentModal" wire:click="selectStudentsForBulkEdit">Batch Assign</button>
                         <button type="button" class="btn btn-primary" style="float: right;" wire:click="assignBlockSectionsAlphabetically(4)">Assign Blocks Alphabetically</button>
                         <button type="button" class="btn btn-primary"style="float: right;"  data-toggle="modal" wire:click="assignBlockSectionsRandomly">Assign Blocks Randomly</button>
@@ -39,11 +38,11 @@
                                 <th>Student Type</th>
                                 <th>Block
                                 <button class="btn btn-sm btn-link" wire:click="sortStudents('student_block')" wire:loading.attr="disabled">
-    <i class="fa fa-arrow-up"></i>
-</button>
-<button class="btn btn-sm btn-link" wire:click="sortStudents('student_block', 'desc')" wire:loading.attr="disabled">
-    <i class="fa fa-arrow-down"></i>
-</button>
+                                    <i class="fa fa-arrow-up"></i>
+                                </button>
+                                <button class="btn btn-sm btn-link" wire:click="sortStudents('student_block', 'desc')" wire:loading.attr="disabled">
+                                    <i class="fa fa-arrow-down"></i>
+                                </button>
                                 </th>
                                 
                                 <th style="text-align: center;">Action</th>

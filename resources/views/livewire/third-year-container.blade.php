@@ -10,8 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 style="float: left;"><strong>All Students</strong></h5>
-
+                    <h5 style="float: left;">Total <strong>#</strong> of Records: {{ $thirdYearStudents }}</h5>
                         <button type="button" class="btn btn-primary"style="float: right;" data-toggle="modal" data-target="#bulkEditStudentModal2" wire:click="selectStudentsForBulkEdit">Batch Assign</button>
                         <button type="button" class="btn btn-primary" style="float: right;" wire:click="assignBlockSectionsAlphabetically(4)">Assign Blocks Alphabetically</button>
                         <button type="button" class="btn btn-primary"style="float: right;"  data-toggle="modal" wire:click="assignBlockSectionsRandomly">Assign Blocks Randomly</button>

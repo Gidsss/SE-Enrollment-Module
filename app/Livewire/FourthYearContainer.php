@@ -24,7 +24,7 @@ class FourthYearContainer extends Component
     public $numStudents;
     public $blockCapacities = []; // Variable to store the block capacity input by the user
     public $commonBlockCapacity;
-
+    public $fourthYearStudents;
     // Input fields validation rules
     protected $rules = [
         'student_id' => 'required|unique:students|numeric',
@@ -40,9 +40,12 @@ class FourthYearContainer extends Component
         $this->getPaginatedStudents();
         // Filter students to include only first-year students
         $this->students = $this->students->where('year_level', '4');
-        
+        $this->calculateTotalStudents();
     }
-    
+    public function calculateTotalStudents()
+    {
+        $this->fourthYearStudents = Student::where('year_level', '4')->count();
+    }
     public $sortColumn = 'student_name'; // Default sorting column
     public $sortDirection = 'asc'; // Default sorting direction
 

@@ -9,6 +9,7 @@ use App\Livewire\StudyPlanValidation;
 use App\Livewire\ShiftingRequests;
 use App\Livewire\AddDropRequests;
 use App\Livewire\LOARequests;
+use App\Livewire\MultipleUploads;
 
 Route::get('/chairperson/student_enlistment', StudentEnlistment::class);
 Route::get('/chairperson/student_transaction', Transactions::class);

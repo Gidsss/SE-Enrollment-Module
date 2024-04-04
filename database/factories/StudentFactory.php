@@ -25,7 +25,7 @@ class StudentFactory extends Factory
     $lastName = $this->faker->lastName;
     $middleInitial = strtoupper(substr($this->faker->firstName, 0, 1)) . '.';
     return [
-        'student_id' => $this->faker->unique()->randomNumber(8),
+        'student_id' => '2021' . $this->faker->randomNumber(5),
         'student_name' => "$lastName, $firstName $middleInitial",
         'student_type' => $this->faker->randomElement(['Regular', 'Irregular']),
         'year_level' => $this->faker->numberBetween(1, 4),

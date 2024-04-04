@@ -11,3 +11,4 @@ class TransactionOptions extends Component
         return view('livewire.layouts.student-transactions.transaction-options');
     }
 }
+// base livewire component (grandparent) for all student transaction components (add drop etc)

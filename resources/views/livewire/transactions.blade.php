@@ -208,16 +208,16 @@
 
         <div class="nav-bar">
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/create_class" class="nav-link">Class Creation</a>
+            <a href="http://localhost:8000/chairperson/create_class" class="nav-link">Class Creation</a>
         </div>
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/block_classes" class="nav-link">Block Management</a>
+            <a href="http://localhost:8000/chairperson/block_classes" class="nav-link">Block Management</a>
         </div>
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
+            <a href="http://localhost:8000/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item page-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transactions</a>
+            <a href="http://localhost:8000/chairperson/student_transaction" class="nav-link">Transactions</a>
         </div>
 </div>
     
@@ -238,10 +238,10 @@
             <a href="{{ route('study_plan_validations') }}" style="text-decoration: none;">
                 <button style="padding: 40px 250px; margin: 20px; display: block; border: none; font-family: Inter, sans-serif; font-size: 40px; font-weight: bold; text-align: center;" class="button">Study Plan Validations</button>
             </a>
-            <a href="{{ route('logout') }}" style="text-decoration: none;">
+            <a href="{{ route('add_drop_requests') }}" style="text-decoration: none;">
                 <button style="padding: 40px 275px; margin: 20px; display: block; border: none; font-family: Inter, sans-serif; font-size: 40px; font-weight: bold; text-align: center;" class="button">Add/Drop Requests</button>
             </a>
-            <a href="{{ route('logout') }}" style="text-decoration: none;">
+            <a href="{{ route('loa_requests') }}" style="text-decoration: none;">
                 <button style="padding: 40px 327px; margin: 20px; display: block; border: none; font-family: Inter, sans-serif; font-size: 40px; font-weight: bold; text-align: center;" class="button">LOA Requests</button>
             </a>
             <a href="{{ route('shifting_requests_validations') }}" style="text-decoration: none;">

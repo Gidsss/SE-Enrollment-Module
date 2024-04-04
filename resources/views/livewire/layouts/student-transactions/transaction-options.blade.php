@@ -1,6 +1,6 @@
 <!-- grandparent of Study Plan validations and shifting requests -->
 <!-- parent of transactions -->
-<!-- all styles for parent and children components are here -->
+<!-- all styles and JS for parent and children components are here -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +11,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ url('backend/dist/css/adminlte.min.css') }}">
     <style>
    .text-first-year {
             font-size: 48px;
@@ -59,7 +60,9 @@
     <div class="wrapper">
 
         <!-- Preloader -->
-        
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{{ asset('backend/dist/img/plmlogo.png') }}" alt="AdminLTELogo" height="180" width="180">
+        </div>
         <!-- Content Wrapper. Page content -->
         {{ $slot }}
     </div>
@@ -69,7 +72,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
     <script src="{{ url('backend/dist/js/adminlte.js') }}"></script>
-    <script src="{{ asset('js/yearFirst.js') }}"></script>
+    <script src="{{ asset('js/studyPlanValidations.js') }}"></script>
+    <script src="{{ asset('js/shiftingRequests.js') }}"></script>
+    <script src="{{ asset('js/addDropRequests.js') }}"></script>
+    <script src="{{ asset('js/loaRequests.js') }}"></script>
+    
 @stack('scripts')
 
 @livewireScripts

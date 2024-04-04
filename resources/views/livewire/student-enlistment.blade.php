@@ -27,16 +27,16 @@
 
         <div class="nav-bar">
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/create_class" class="nav-link">Class Creation</a>
-        </div>
-        <div class="nav-item ">
-            <a href="http://localhost/enrollmentmod/chairperson/block_classes" class="nav-link">Block Management</a>
-        </div>
-        <div class="nav-item page-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
+            <a href="http://localhost:8000/chairperson/create_class" class="nav-link">Class Creation</a>
         </div>
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transactions</a>
+            <a href="http://localhost:8000/chairperson/block_classes" class="nav-link">Block Management</a>
+        </div>
+        <div class="nav-item page-item">
+            <a href="http://localhost:8000/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
+        </div>
+        <div class="nav-item">
+            <a href="http://localhost:8000/chairperson/student_transaction" class="nav-link">Transactions</a>
         </div>
 </div>
      <!-- Components header -->
@@ -205,8 +205,3 @@
     });
     
 </script>
-
-    <script src="{{ asset('js/yearFirst.js') }}"></script>
-    <script src="{{ asset('js/yearSecond.js') }}"></script>
-    <script src="{{ asset('js/yearThird.js') }}"></script>
-    <script src="{{ asset('js/yearFourth.js') }}"></script>

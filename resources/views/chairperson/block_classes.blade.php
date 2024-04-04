@@ -154,7 +154,7 @@
     </div>
 </div>
         <div style="width:1536px; height:auto; background-color: #30349c; position: relative;">
-            <img src="{{ asset('public/backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
+            <img src="{{ asset('backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
             <span style="color: #d4a404; position: absolute; top: 22%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">PAMANTASAN NG LUNGSOD NG MAYNILA</span>
             <span style="color: white; position: absolute; top: 47%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">UNIVERSITY OF THE CITY OF MANILA</span>
             <br><br><br>
@@ -180,21 +180,21 @@
 
         <div class="nav-bar">
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/create_class" class="nav-link">Class Creation</a>
+            <a href="http://localhost:8000/chairperson/create_class" class="nav-link">Class Creation</a>
         </div>
         <div class="nav-item page-item">
-            <a href="http://localhost/enrollmentmod/chairperson/block_classes" class="nav-link">Block Management</a>
+            <a href="http://localhost:8000/chairperson/block_classes" class="nav-link">Block Management</a>
         </div>
         <div class="nav-item ">
-            <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
+            <a href="http://localhost:8000/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Validation</a>
+            <a href="http://localhost:8000/chairperson/student_transaction" class="nav-link">Transactions</a>
         </div>
 </div>
      <!-- Components header -->
         <div style="width: 100%; height: 10%; text-align: right; padding-right: 0px; color: black; font-size: 20px; font-family: Inter; line-height: 33px; font-weight: 200; word-wrap: break-word; position: relative;">
-            <div style="display: flex; align-items: right; padding-left: 1100px; background-color: #F6F6F6;">
+            <div style="display: flex; align-items: right; padding-left: 1095px; background-color: #F6F6F6;">
                 <span>Home / Enrollment / Blocklasses Management</span>
             </div>
             <div style="flex-grow: 1; height: 1px; border: .2px rgba(0, 0, 0, 0.20) solid;"></div>
@@ -205,71 +205,43 @@
     <div id="left-card" class="card">
         <div class="year-container" id="first-year-container">
             <p style="font-size: 28px; font-family: Inter; font-weight: bold;">First Year
-            <img src="{{ asset('public/backend/dist/img/add.png') }}" style="margin-left: 51px; height: 20px; width: 20px; cursor: pointer;" onclick="addAccordion('First Year')"></p>
+            <img src="{{ asset('backend/dist/img/add.png') }}" style="margin-left: 51px; height: 20px; width: 20px; cursor: pointer;" onclick="addAccordion('First Year')"></p>
         </div>
 
         <div class="year-container" id="second-year-container">
-        <p style="font-size: 28px; font-family: Inter; font-weight: bold;">Second Year<img src="{{ asset('public/backend/dist/img/add.png') }}" style="margin-left: 15px;height: 20px; width: 20px; cursor: pointer;" onclick="addAccordion('Second Year')"></p>
+        <p style="font-size: 28px; font-family: Inter; font-weight: bold;">Second Year<img src="{{ asset('backend/dist/img/add.png') }}" style="margin-left: 15px;height: 20px; width: 20px; cursor: pointer;" onclick="addAccordion('Second Year')"></p>
     </div>
 
         <div class="year-container" id="third-year-container">
             <p style="font-size: 28px; font-family: Inter; font-weight: bold;">Third Year
-            <img src="{{ asset('public/backend/dist/img/add.png') }}" style="margin-left: 40px;height: 20px; width: 20px; cursor: pointer;" onclick="addAccordion('Third Year')"></p>
+            <img src="{{ asset('backend/dist/img/add.png') }}" style="margin-left: 40px;height: 20px; width: 20px; cursor: pointer;" onclick="addAccordion('Third Year')"></p>
         </div>
 
         <div class="year-container" id="fourth-year-container">
-            <p style="font-size: 28px; font-family: Inter; font-weight: bold;">Fourth Year<img src="{{ asset('public/backend/dist/img/add.png') }}" style="margin-left: 27px;height: 20px; width: 20px; cursor: pointer;" onclick="addAccordion('Fourth Year')"></p>
+            <p style="font-size: 28px; font-family: Inter; font-weight: bold;">Fourth Year<img src="{{ asset('backend/dist/img/add.png') }}" style="margin-left: 27px;height: 20px; width: 20px; cursor: pointer;" onclick="addAccordion('Fourth Year')"></p>
         </div>
     </div>
-    <div id="right-card">
-    </div>
-<!-- Add Class Modal -->
-<div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="addClassModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addClassModalLabel">Add Class</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                 </div> 
-                <div class="modal-body">
-                    <!-- Add your form elements here -->
-                  <form id="addClassForm">
-                        <div class="form-group">
-                            <label for="classNumber">#</label>
-                            <input type="text" class="form-control" id="classNumber" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="className">Class</label>
-                            <input type="text" class="form-control" id="className" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="section">Section</label>
-                            <input type="text" class="form-control" id="section" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="units">Units</label>
-                            <input type="text" class="form-control" id="units" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="schedule">Schedule</label>
-                            <input type="text" class="form-control" id="schedule" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="slots">Slots</label>
-                            <input type="text" class="form-control" id="slots" required>
-                        </div>
-                       
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="saveClassDetails()">Add Class</button> 
-                </div>
+
+    <!-- Modal for entering the number of blocks -->
+<div id="addBlockModal" class="modal" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Blocks</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="blockCount">Number of Blocks:</label>
+                <input type="number" id="blockCount" min="1" value="1">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="createBlocks()">Add Blocks</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
+    </div>
 </div>
+
         <!-- Modal for Maximum Blocks -->
         <div id="maxBlockLimitModal" class="modal" style="display: none;  position: fixed; z-index: 1; left: 0;  top: 0;  width: 100%; height: 100%; overflow: auto;
         background-color: rgba(0,0,0,0.5);">
@@ -301,120 +273,64 @@
         window.location.href = '{{ route("regular_ser") }}';
         event.preventDefault(); // Prevent the default behavior of the anchor tag
     }
-    const blockCounts = {
+        const blockCounts = {
         'First Year': 0,
         'Second Year': 0,
         'Third Year': 0,
         'Fourth Year': 0
     };
-    let activeAccordionContent = null;
 
     function createAccordionClosure(year, blockCount) {
         return function () {
             toggleAccordion(`${year.toLowerCase().replace(' ', '-')}--content${blockCount}`);
-            activeAccordionContent = document.getElementById(`${year.toLowerCase().replace(' ', '-')}--content${blockCount}`)
         };
     }
 
-    function addAccordion(year) {
-        if (blockCounts[year] >= 4) {
-        // Maximum limit reached, display modal
-            const modal = document.getElementById('maxBlockLimitModal');
-            document.getElementById('modalYear').textContent = year; // Set the year in the modal
-            modal.style.display = 'block';
-            return;
-        }
-        blockCounts[year]++;
+   // Updated addAccordion function to open the modal
+   function addAccordion(year) {
+    // Open the modal for entering the number of blocks
+    $('#addBlockModal').modal('show');
+    selectedYear = year; // Save the selected year for later use
+    
+    // Update the year container text
+    const yearContainer = document.querySelector(`#${selectedYear.toLowerCase().replace(' ', '-')}-container`);
+    yearContainer.innerHTML = ''; // Clear existing content
+    const yearText = document.createElement('p');
+    yearText.style.fontSize = '28px';
+    yearText.style.fontFamily = 'Inter';
+    yearText.style.fontWeight = 'bold';
+    yearText.textContent = year;
+    yearContainer.appendChild(yearText);
+    }
 
+    // Function to create blocks based on user input
+    function createBlocks() {
+    const blockCount = parseInt(document.getElementById('blockCount').value);
+    
+    // Clear existing blocks and re-append the year text
+    const yearContainer = document.querySelector(`#${selectedYear.toLowerCase().replace(' ', '-')}-container`);
+    yearContainer.innerHTML = '';
+    
+    // Re-append the year text
+    const yearText = document.createElement('p');
+    yearText.style.fontSize = '28px';
+    yearText.style.fontFamily = 'Inter';
+    yearText.style.fontWeight = 'bold';
+    yearText.textContent = selectedYear;
+    yearContainer.appendChild(yearText);
 
-            // Create accordion button
-        const blockCount = blockCounts[year];
+    // Create the desired number of blocks
+    for (let i = 1; i <= blockCount; i++) {
         const accordionButton = document.createElement('div');
         accordionButton.className = 'accordion-button';
-        accordionButton.textContent = `Block ${blockCount}`;
-        accordionButton.onclick = createAccordionClosure(year, blockCount);
-
-        // Create accordion content
-        const accordionContent = document.createElement('div');
-        accordionContent.id = `${year.toLowerCase().replace(' ', '-')}--content${blockCount}`;
-        accordionContent.className = 'accordion-content';
-        accordionContent.style.display = 'none'; // Hide the content by default
-
-        // Create and append the heading
-        const paragraph = document.createElement('p');
-        paragraph.textContent = `BSCS ${year} Block ${blockCount}`;
-        paragraph.style.fontFamily = 'Inter, sans-serif'; // Example style
-        paragraph.style.fontSize = '48px';
-
-        // Create a button and append it next to the heading
-        const addButton = document.createElement('button');
-        addButton.textContent = 'Add class';
-        addButton.type = 'button';
-        addButton.className = 'btn';
-        addButton.setAttribute('data-toggle', 'modal'); // Add this line
-        addButton.setAttribute('data-target', '#addClassModal'); // Add this line
-        addButton.style.fontSize = '14px';
-        addButton.style.fontFamily = 'Inter, sans-serif';
-        addButton.style.backgroundColor = 'white';
-        addButton.style.color = 'black';
-        addButton.style.border = '1.5px solid #000';
-        addButton.style.boxSizing = 'border-box'; // Set box-sizing to border-box
-        addButton.style.marginLeft = '40px'; // Reset margin
-        addButton.style.marginBottom = '10px'; // Reset margin
-        addButton.style.padding = '6px 12px';
-
-        // Use display: flex for the container to align items horizontally
-        const container = document.createElement('div');
-        container.style.display = 'flex';
-        container.style.alignItems = 'center';
-
-        // Append both the paragraph and button to the container
-        container.appendChild(paragraph);
-        container.appendChild(addButton);
-
-        // Append the container to the accordionContent
-        accordionContent.appendChild(container);
-
-        // Append button to the corresponding year container in the left card
-        const yearContainer = document.querySelector(`#${year.toLowerCase().replace(' ', '-')}-container`);
+        accordionButton.textContent = `Block ${i}`;
+        accordionButton.onclick = createAccordionClosure(selectedYear, i);
         yearContainer.appendChild(accordionButton);
-
-        // Append content to the right card
-        document.getElementById('right-card').appendChild(accordionContent);
-
-        // Create form and table within accordion content
-        const table = document.createElement('table');
-        table.className = 'table'; 
-        table.style.width = '1140px'; // Set the width of the table
-        table.style.borderCollapse = 'collapse';
-        table.style.borderRadius = '12.033px'; // Added border-radius
-        table.style.background = 'var(--White-Default, #FFF)'; // Added background
-        table.style.boxShadow = '0px 6.01667px 18.05px 0px #D6D7D8'; // Added box-shadow
-
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-
-        const headers = ['#', 'Class', 'Sec', 'Units', 'Schedule', 'Slots'];
-
-        headers.forEach(headerText => {
-            const th = document.createElement('th');
-            th.textContent = headerText;
-            th.style.border = 'none';
-            th.style.padding = '8px'; // Adjusted padding value
-            th.style.textAlign = 'center';
-            headerRow.appendChild(th);
-        });
-
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-
-        // card.appendChild(table);
-
-        accordionContent.appendChild(table);
-
-        
-
     }
+
+    // Close the modal
+    $('#addBlockModal').modal('hide');
+}
 
     function toggleAccordion(contentId) {
         const content = document.getElementById(contentId);
@@ -428,7 +344,6 @@
             }
         });
     }
-
     function addClass() {
         // Show the "Add Class" modal
         $('#addClassModal').modal('show');

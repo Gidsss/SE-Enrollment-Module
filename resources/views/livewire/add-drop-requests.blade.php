@@ -27,16 +27,16 @@
 
         <div class="nav-bar">
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/create_class" class="nav-link">Class Creation</a>
+            <a href="http://localhost:8000/chairperson/create_class" class="nav-link">Class Creation</a>
         </div>
         <div class="nav-item ">
-            <a href="http://localhost/enrollmentmod/chairperson/block_classes" class="nav-link">Block Management</a>
+            <a href="http://localhost:8000/chairperson/block_classes" class="nav-link">Block Management</a>
         </div>
         <div class="nav-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
+            <a href="http://localhost:8000/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item page-item">
-            <a href="http://localhost/enrollmentmod/chairperson/student_transaction" class="nav-link">Transactions</a>
+            <a href="http://localhost:8000/chairperson/student_transaction" class="nav-link">Transactions</a>
         </div>
 
      <!-- Components header -->
@@ -52,19 +52,16 @@
     <div class="container mt-5">
         <div class="row mb-1">
             <div class="col-md-12">
-                <p class="text-first-year"><strong>Shifting Requests</strong></p>
+                <p class="text-first-year"><strong>Add Drop Requests</strong></p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 style="float: left;"><strong>All Students</strong></h5>
+                    <h5 style="float: left;">Total <strong>#</strong> of Records: {{ $totalStudents }}</h5>
 
-                        <button type="button" class="btn btn-primary"style="float: right;" data-toggle="modal" data-target="#bulkEditStudentModal" wire:click="selectStudentsForBulkEdit">Batch Assign</button>
-                        <button type="button" class="btn btn-primary" style="float: right;" wire:click="assignBlockSectionsAlphabetically(4)">Assign Blocks Alphabetically</button>
-                        <button type="button" class="btn btn-primary"style="float: right;"  data-toggle="modal" wire:click="assignBlockSectionsRandomly">Assign Blocks Randomly</button>
-                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#blockCapacityModal">Set Block Capacity</button>
+                        <button type="button" class="btn btn-primary"style="float: right;" data-toggle="modal" data-target="#bulkEditStudentModal1" wire:click="selectStudentsForBatchUpdate">Batch Update</button>
                     </div>
                     <div class="card-body" style="background-color: #F6F6F6;">
                         @if (session()->has('message'))
@@ -75,7 +72,7 @@
                             <thead>
                                 <tr>
                                <th></th>
-                                <th>Student ID</th>
+                                <th style="text-align: center;">Student ID</th>
                                 <th>Student Name
                                 <button class="btn btn-sm btn-link" wire:click="sortStudents('student_name', 'asc')" wire:loading.attr="disabled">
                                         <i class="fa fa-arrow-up"></i>
@@ -84,17 +81,16 @@
                                         <i class="fa fa-arrow-down"></i>
                                     </button>
                                 </th>
-                               
-                                <th>Student Type</th>
-                                <th>Block
-                                <button class="btn btn-sm btn-link" wire:click="sortStudents('student_block')" wire:loading.attr="disabled">
-    <i class="fa fa-arrow-up"></i>
-</button>
-<button class="btn btn-sm btn-link" wire:click="sortStudents('student_block', 'desc')" wire:loading.attr="disabled">
-    <i class="fa fa-arrow-down"></i>
-</button>
+                                <th>Year Level
+                                <button class="btn btn-sm btn-link" wire:click="sortStudents('year_level')" wire:loading.attr="disabled">
+                                    <i class="fa fa-arrow-up"></i>
+                                </button>
+                                <button class="btn btn-sm btn-link" wire:click="sortStudents('year_level', 'desc')" wire:loading.attr="disabled">
+                                    <i class="fa fa-arrow-down"></i>
+                                </button>
                                 </th>
-                                
+                                <th style="text-align: center;">Date Request</th>
+                                <th style="text-align: center;">Status</th>
                                 <th style="text-align: center;">Action</th>
                             </tr>
                         </thead>
@@ -106,13 +102,11 @@
                                         
                                             <td>{{ $student->student_id }}</td>
                                             <td>{{ $student->student_name }}</td>
-                                            <td>{{ $student->student_type }}</td>
-                                            <td>{{ $student->student_block }}</td>
+                                            <td>{{ $student->year_level }}</td>
+                                            <td>{{ $student->date_of_request }}</td>
+                                            <td>{{ $student->status }}</td>
                                             <td style="text-align: center;">
-                                               
                                             <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
-
-                                                
                                             </td>
                                         </tr>
                                     @endforeach
@@ -148,12 +142,12 @@
     </div>
 
     <!-- Modals -->
-    <div wire:ignore.self class="modal fade" id="editStudentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="editStudentModal1" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Student</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeBulkEditModal">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeBatchUpdateModal">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -182,20 +176,30 @@
 
         
                         <div class="form-group row">
-                            <label for="student_type" class="col-3">Student Type</label>
+                            <label for="year_level" class="col-3">Year Level</label>
                             <div class="col-9">
-                                <input type="text" id="student_type" class="form-control" wire:model="student_type" disabled>
-                                @error('student_type')
+                                <input type="number" id="year_level" class="form-control" wire:model="year_level" disabled>
+                                @error('year_level')
                                     <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="block" class="col-3">Block</label>
+                            <label for="date_of_request" class="col-3">Date Request</label>
                             <div class="col-9">
-                                <input type="number" id="student_block" class="form-control" wire:model="student_block">
-                                @error('student_block')
+                                <input type="date" id="date_of_request" class="form-control" wire:model="date_of_request" disabled>
+                                @error('date_of_request')
+                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="status" class="col-3">Status</label>
+                            <div class="col-9">
+                                <input type="text" id="status" class="form-control" wire:model="status">
+                                @error('status')
                                     <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -203,7 +207,7 @@
                         <div class="form-group row">
                             <label for="" class="col-3"></label>
                             <div class="col-9">
-                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" wire:click="closeBulkEditModal">Close</button>
+                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" wire:click="closeBatchUpdateModal">Close</button>
                                 <button type="submit" class="btn btn-sm btn-primary">Edit Student</button>
                             </div>
                         </div>
@@ -213,34 +217,13 @@
         </div>
     </div>
 
-    <div wire:ignore.self class="modal fade" id="deleteStudentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Delete Confirmation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body pt-4 pb-4">
-                    <h6>Are you sure? You want to delete this student data!</h6>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-sm btn-primary" wire:click="cancel()" data-dismiss="modal" aria-label="Close">Cancel</button>
-                    <button class="btn btn-sm btn-danger" wire:click="deleteStudentData()">Yes! Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-    <!-- Batch Assign Modal -->
-    <div wire:ignore.self class="modal fade" id="bulkEditStudentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <!-- Batch Update Modal -->
+    <div wire:ignore.self class="modal fade" id="bulkEditStudentModal1" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Batch Assign Students</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeBulkEditModal">
+                <h5 class="modal-title">Batch Update Students</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeBatchUpdateModal">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -255,51 +238,22 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                        <!-- Input field for batch assigning of student_block -->
+                        <!-- Input field for batch assigning of status -->
                 <div class="form-group">
-                    <label for="bulk_student_block">Block</label>
-                    <input type="number" class="form-control" id="bulk_student_block" wire:model="bulk_student_block">
-                    @error('bulk_student_block')
+                    <label for="bulk_student_status">Status</label>
+                    <input type="text" class="form-control" id="bulk_student_status" wire:model="bulk_student_status">
+                    @error('bulk_student_status')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" wire:click="closeBulkEditModal">Close</button>
-                <button type="button" class="btn btn-primary" wire:click="applyBulkEdit">Apply Changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" wire:click="closeBatchUpdateModal">Close</button>
+                <button type="button" class="btn btn-primary" wire:click="applyBatchUpdate">Apply Changes</button>
             </div>
         </div>
     </div>
     </div>
-    <!-- Alphabetical Modal -->
-   
 
-<!-- Modal for setting common block capacity -->
-<div class="modal fade" id="blockCapacityModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="blockCapacityModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="blockCapacityModalLabel">Block Capacity</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Input field for common block capacity -->
-                <div class="form-group">
-                    <label for="commonBlockCapacity">Input the number of students per block:</label>
-                    <input type="text" class="form-control" id="commonBlockCapacity" onkeypress="return isNumeric(event)" wire:model.defer="commonBlockCapacity" min="1">     
-                    @error('commonBlockCapacity')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" wire:click="saveCommonBlockCapacity(1)">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 

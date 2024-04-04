@@ -366,7 +366,7 @@ class SecondYearContainer extends Component
              'student_id' => 'required|unique:students,student_id,'.$this->student_edit_id,
             'student_name' => 'required',
             'student_type' => 'required|string|max:255',
-            'student_block' => 'required|numeric',
+            'student_block' => 'required|numeric|in:1,2,3',
         ]);
 
         // Find the student by ID

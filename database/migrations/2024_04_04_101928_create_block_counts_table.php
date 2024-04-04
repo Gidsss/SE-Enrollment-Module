@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('block_counts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('student_id');
-            $table->string('student_name', 255);
-            $table->string('student_type', 255);
-            $table->integer('year_level');
-            $table->integer('student_block')->nullable();
+            $table->unsignedInteger('year_level');
+            $table->unsignedInteger('blocks');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('block_counts');
     }
 };

@@ -5,13 +5,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Livewire\StudentEnlistment;
 use App\Livewire\Transactions;
-use App\Livewire\StudyPlanValidations;
-use App\Livewire\ShiftingRequestsValidations;
+use App\Livewire\StudyPlanValidation;
+use App\Livewire\ShiftingRequests;
+use App\Livewire\AddDropRequests;
+use App\Livewire\LOARequests;
 
 Route::get('/chairperson/student_enlistment', StudentEnlistment::class);
 Route::get('/chairperson/student_transaction', Transactions::class);
-Route::get('/chairperson/student_transaction/study_plan_validations', StudyPlanValidations::class)->name('study_plan_validations');
-Route::get('/chairperson/student_transaction/shifting_requests_validations', ShiftingRequestsValidations::class)->name('shifting_requests_validations');
+Route::get('/chairperson/student_transaction/study_plan_validations', StudyPlanValidation::class)->name('study_plan_validations');
+Route::get('/chairperson/student_transaction/shifting_requests_validations', ShiftingRequests::class)->name('shifting_requests_validations');
+Route::get('/chairperson/student_transaction/add_drop_requests', AddDropRequests::class)->name('add_drop_requests');
+Route::get('/chairperson/student_transaction/loa_requests', LOARequests::class)->name('loa_requests');
 /*
 |--------------------------------------------------------------------------
 | Web Routes

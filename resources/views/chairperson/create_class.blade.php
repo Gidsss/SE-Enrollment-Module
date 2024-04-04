@@ -109,10 +109,6 @@
         </div>
 
 
-<div id="expandableDiv" style="position:relative;width:100% ;height:350px; border-bottom: 2px solid #CDCDCD">
- <div style="max-width:100%; height:50px; position: relative;">
-   <br><br><br>            
-
 
 
 <!--CLASS INFORMATION DIVISION-->

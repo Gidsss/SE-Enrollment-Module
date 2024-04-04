@@ -67,13 +67,6 @@ Route::get('chairperson/create_class', function() {
 Route::get('chairperson/block_classes', function() {
     return view('chairperson.block_classes');
 });
-Route::get('chairperson/student_enlistment', function() {
-    return view('chairperson.student_enlistment');
-});
-
-Route::get('chairperson/transaction', function() {
-    return view('chairperson.transaction');
-});
 
 Route::get('professional/prof_balance', function() {
     return view('professional.prof_balance');

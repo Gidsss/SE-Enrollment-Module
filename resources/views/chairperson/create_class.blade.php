@@ -4,9 +4,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-LQJzBrrqfmyPXYjXvKXt8CvHv5bFIYt9qBqYRg0cFxJ+98FZBvFZ52EGEWk3HPlbeXmFfZl6Ko25Xme+ERyI2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
 <style>
+
     html {
     background-color: #F6F6F6;
    }
+
    .add-div-class {
    position: relative;
    }
@@ -26,7 +28,9 @@
             left: 310px;
             bottom: -25px;
         }
+
         .nav-bar {
+
         max-width: 100%;
         height: 50px;
         background-color: #e0dcdc;
@@ -57,6 +61,7 @@
     }
 
 </style>
+
 
 <div style="width:1536px; height:auto; background-color: #30349c; position: relative;">
 <img src="{{ asset('backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
@@ -104,12 +109,18 @@
         </div>
 
 
+<div id="expandableDiv" style="position:relative;width:100% ;height:350px; border-bottom: 2px solid #CDCDCD">
+ <div style="max-width:100%; height:50px; position: relative;">
+   <br><br><br>            
+
+
 
 <!--CLASS INFORMATION DIVISION-->
 
 <div id="expandableDiv" style="position:relative;width:100% ;height:350px; border-bottom: 2px solid #CDCDCD; background-color: #f6f6f6;">
  <div style="max-width:100%; height:50px; position: relative;">
    <br><br><br>
+
 
    <span style="color: black; position: absolute; top: 26%; left: 5%; font-family: Inter, sans-serif; font-size: 23px;font-weight: bold">Class Information</span>
    <div class="card-body" style="width: 30%;">
@@ -148,7 +159,9 @@
          <div id="faculty-container">
             <section id="mainsection">
                <div class="add-div-class" style="position: relative; bottom: 180px; left: 56px; display: flex; ">
+
                   <input type="text" class="form-control faculty-input" style="width: 420px;" required placeholder="Select Faculty">
+
                   <div class="input-group-prepend">
                      <button type="button" class="btn btn-default" data-toggle="dropdown">
                      <i class="fas fa-caret-down"></i>
@@ -193,6 +206,7 @@
                <div class="dropdown-item language-dropdown-item"><a href="#" style="color: black;">English</a></div>
                <div class="dropdown-item language-dropdown-item"><a href="#" style="color: black;">Tagalog</a></div>
                <div class="dropdown-item language-dropdown-item"><a href="#" style="color: black;">Korean</a></div>
+
             </div>
          </div>
       </div>
@@ -209,13 +223,16 @@
                <div class="dropdown-item yrlvl-dropdown-item"><a href="#" style="color: black;">3</a></div>
             </div>
          </div>
+
    </div>
 </div>
 
 <!--CLASS HOURS DIVISION-->
 <div id="expandableDiv2" style="position:relative;width:100% ;height:165px; border-bottom: 2px solid #CDCDCD" >
+
    <div  style="position:absolute;width:100% ;height:100%">
       <div style="max-width:100%; height:auto; position: absolute;" >
+
          <br><br><br>
          <span style="color: black; position:absolute; bottom: 165px; left: 76px; font-family: Inter, sans-serif; font-size: 23px; font-weight: bold;width:150px">Class Hours</span>
          <div class="form-check" >
@@ -237,7 +254,9 @@
                      <span id="selectday-id" style="color: black; font-family: Inter, sans-serif; font-size: 12px; font-weight: bold; position: absolute; left: 50px; bottom: 14px;"></span>
                      <div class="form-group">
                         <div class="input-group mb-3" style="position:absolute;width:200px; left:50px; top:6px">
+
                            <input type="text" class="form-control selectday" placeholder="Select Day" required>
+
                            <div class="input-group-append">
                               <button type="button" class="btn btn-default" data-toggle="dropdown">
                               <i class="fas fa-caret-down"></i>
@@ -379,6 +398,7 @@
 </div>
 </div>
 
+
 <script>
    $(document).ready(function () {
        $('.crsnum-dropdown-item').on('click', function () {
@@ -459,10 +479,12 @@
     }
 }
    
+
    var clickCounter = 0;
    var button = document.getElementById("newsectionbtn");
 
    
+
    
    $(document).ready(function () {
    // Example values for the faculty dropdown
@@ -508,7 +530,9 @@
    // Initialize the dropdown for the main section
    initializeDropdown('mainsection');
    
+
    var clickCounter = 0;
+
    var button = document.getElementById("newsectionbtn");
    //Clone faculty
    document.getElementById("newsectionbtn").onclick = function () {
@@ -516,6 +540,7 @@
        if (clickCounter < 7) {
            var container = document.getElementById("faculty-container");
            var section = document.getElementById("mainsection");
+
            var clonedSection = section.cloneNode(true);
            
    
@@ -525,6 +550,7 @@
            clonedSection.getElementsByClassName('faculty-input')[0].id = 'faculty-input' + clickCounter;
    
            container.appendChild(clonedSection);
+
            clickCounter++;
    
            // Optional: You can log the current click count if needed
@@ -561,6 +587,7 @@
 
    //Cloning for class hr
    document.getElementById("classhrbtn").onclick = function () {
+
       expandDiv2();
     if (clickCounter2 < 7) {
         var container = document.getElementById("classhr-container");
@@ -577,11 +604,13 @@
         inputElements.forEach(function (input, index) {
             input.id = input.id + clickCounter2;
 
+
             // Clear the input values in the cloned section
             if (input.tagName === 'INPUT') {
                 input.value = '';
             }
         });
+
 
         // Increment clickCounter
         clickCounter2++;
@@ -685,6 +714,7 @@ document.getElementById("restrictbtn").onclick = function () {
             }
         });
 
+
         // Append the cloned section to the container
         container.appendChild(clonedSection);
 
@@ -710,6 +740,7 @@ document.getElementById("restrictbtn").onclick = function () {
             clonedSection.style.top = previousCloneBottomRestrict + 10 +'px';
         }
 
+
         // Increment clickCounter3
         clickCounter3++;
 
@@ -731,6 +762,7 @@ document.getElementById("restrictbtn").onclick = function () {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
 @endsection
+
 
 
 

@@ -43,25 +43,7 @@
         z-index: 0;
     }
 
-    button.save-class-btn {
-overflow: hidden;
-}
-button.save-class-btn:hover {
-overflow: visible;
-}
-button.save-class-btn .hidden-info {
-position: absolute;
-top: -31px;
-width: 318px;
-right: 0px;
-background: white;
-opacity: 1;
-transition: opacity .25s ease-in-out;
-color:red;
-border: 1px solid red;
-border-radius: 4px;
-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-}
+
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -87,8 +69,7 @@ box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
                 <p style="margin-left: .2rem; margin-top: 1rem;">Status: Enlisted <i class="fas fa-circle" style="color: yellow"></i></p>
             </div>
 
-            <button type="button" class="save-class-btn btn btn-primary float-right" style="color: #2D349A; position: absolute; top: 3.5ch; right: 2ch; width: 150px; height: 4ch;">
-                <span class="hidden-info"><i class="fas fa-exclamation-triangle"></i>Please complete all the steps first!</span>
+            <button type="button" class="btn btn-primary float-right" style="color: #2D349A; position: absolute; top: 3.5ch; right: 2ch; width: 150px; height: 4ch;">
         <i class="fas fa-download" style="color: white; margin-right: .5rem; top: -0.2rem; position: relative;"></i>
         <span style="color: white;  margin-right: 0.5rem; top: -0.2rem; position: relative;">Save a Copy</span>
     </button>
@@ -123,30 +104,13 @@ box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 
             <div  style="position:absolute; top: 100px;left:213px ;width:70% ;height:60%">
                 <span style="position: absolute; top: 45%; left: 13.2%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Check Schedule</span>
-                <span style="position: absolute; top: 45%; left: 49%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">View Assessment</span>
+                <span style="position: absolute; top: 45%; left: 49%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Manage Balance</span>
                 <span style="position: absolute; top: 45%; left: 85.2%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Download SER</span>
             </div>
 
-            <div class="input-group mb-3" style="top:130px;left: 400px;width:35%">
-                <input type="text" class="form-control crs_num"  required placeholder="Select Semester">
-                <div class="input-group-prepend">
-                   <button type="button" class="btn btn-default" data-toggle="dropdown">
-                   <i class="fas fa-caret-down"></i>
-                   </button>
-                   <div class="dropdown-menu">
-                      <a class="dropdown-item crsnum-dropdown-item" href="#">202101</a>
-                      <a class="dropdown-item crsnum-dropdown-item" href="#">202102</a>
-                      <a class="dropdown-item crsnum-dropdown-item" href="#">202201</a>
-                      <a class="dropdown-item crsnum-dropdown-item" href="#">202202</a>
-                      <a class="dropdown-item crsnum-dropdown-item" href="#">202301</a>
-                      <a class="dropdown-item crsnum-dropdown-item" href="#">202302</a>
-                   </div>
-                </div>
-             </div>
-
 <!-- component -->
 <section class="content">
-<div class="card" style="position:absolute; left:35%; top:2.25in; width:35%; border-radius: 10px; border: 1px solid black;">
+<div class="card" style="position:absolute; left:13%; top:1.75in; width:35%; border-radius: 10px; border: 1px solid black;">
     <div class="flex flex-col justify-center items-center gap-2">
         <span class="font-semibold text-black" style="color: #000; font-size: 20px; text-decoration: underline; position: relative; left: 3%; top: 9px;">TUITION FEE</span>
         <div class="flex flex-col gap-3 pb-6 pt-2 text-xs" style="width: 50%;">
@@ -187,30 +151,62 @@ box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
         <span class="font-semibold text-black" style="color: #000; font-size: 15px; position: relative; left: 172px; ">Payment Status: <b> Covered <br> by CHED Unifast(RA 10931)</b></span>
     </div>  
 
+    <div style="position:absolute; left:500px;  width:85ch; border-radius: 10px; ">
+        <span class="font-semibold text-black" style="color: #000; font-size: 20px; position: relative; left: 3%; font-weight:bold">Payment Information
+            <i id="payment_info" class="far fa-question-circle">
+                <div class="card" id="payment_info_tooltip" style="display: none; position: absolute; top:1px;left:220px;background-color: #CDCDCD; width:270px">
+                    <span class="font-semibold text-black" style="color: #000; font-size: 18px; position: relative; left: 10px;">Please enter your payment info</span>
+                  </div>
+            </i>
+        </span>
+
+        <div class="flex flex-col gap-3 pb-6 pt-2 text-xs" style="width: 50%;">
+            <table>
+                <tbody id="table-balance">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="flex flex-col gap-3 pb-6 pt-2 text-xs" style="width: 50%;">
+            <table>
+                <tbody id="total-balance">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="flex flex-col gap-3 pb-6 pt-2 text-xs" style="width: 50%;">
+            <table>
+                <tbody id="status-balance">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
   </div>
 </section>
     <script>
-    function setSemesterValue(selectedSemester) {
-    const inputBox = document.querySelector(".crs_num");
-    inputBox.value = selectedSemester;
-    }
 
-    const dropdownItems = document.querySelectorAll(".crsnum-dropdown-item");
-    dropdownItems.forEach(item => {
-    item.addEventListener("click", function() {
-    setSemesterValue(this.textContent);
-     });
-    });
+const paymentInfoIcon = document.getElementById('payment_info');
+  const paymentInfoTooltip = document.getElementById('payment_info_tooltip');
+
+  paymentInfoIcon.onmouseover = function() {
+    paymentInfoTooltip.style.display = 'block';
+  };
+
+  paymentInfoIcon.onmouseout = function() {
+    paymentInfoTooltip.style.display = 'none';
+  };
+
 
     function handleSchedClick(event) {
         // Handle the click event here
-        window.location.href = '{{ route("regular_schedule") }}';
+        window.location.href = '{{ route("prof_regular_schedule") }}';
         event.preventDefault(); // Prevent the default behavior of the anchor tag
     }
     function handleSERClick(event) {
         // Handle the click event here
-        window.location.href = '{{ route("regular_ser") }}';
+        window.location.href = '{{ route("prof_regular_ser") }}';
         event.preventDefault(); // Prevent the default behavior of the anchor tag
     }
     var tableBody1 = document.getElementById('table-misc-fees');
@@ -237,6 +233,47 @@ box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
         { other_fees: 'Ang Pamantasan Fee', other_amount: '50.00' },
         { other_fees: 'Supreme Student Council', other_amount: '246.00' },
     ];
+
+    var tableBody5 = document.getElementById('table-balance');
+    var tableData5 = [
+        { current_bal: 'Current Balance', bal_amount: "5000.00" }
+    ];
+
+    var tableBody6 = document.getElementById('total-balance');
+    var tableData6 = [
+        { total_bal: 'Total Balance:', total_bal_amount: "22,156.00" }
+    ];
+
+    var tableBody7 = document.getElementById('status-balance');
+    var tableData7 = [
+        { status: '', status_amount: "" }
+    ];
+
+function updateStatusAmount() {
+  if (balance > (total_amount/2) && balance != 0) {
+    const linkElement = document.querySelector('a[onclick="handleSERClick(event)"]');
+
+    linkElement.style.pointerEvents = 'none';
+    linkElement.style.opacity = 0.5;
+    return "Unpaid";
+
+  } else if (balance === 0) {
+    return "Fully Paid";
+    
+  } else if (balance <= (total_amount/2)) {
+    // New condition added
+    const percentagePaid = (balance / 22000) * 100;
+    return `Partial`;
+  }
+}
+
+
+// Update the balance
+total_amount = 22000;
+balance = Math.abs(12000 - total_amount);
+// Alternatively, you could pass the balance as an argument to the function when creating the table data
+tableData7.push({ status: 'Status:', status_amount: updateStatusAmount() });
+
     function adjustPosition(tableBody, tableData, columnPositions) {
     // Create and add tr elements for each row in the table body
     tableData.forEach(function (data) {
@@ -268,11 +305,85 @@ box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
         { columnIndex: 0, leftChange: 15 },
         { columnIndex: 1, leftChange: 100 }
     ];
+
+    function adjustPositionBalance(tableBody, tableData, columnPositions) {
+    // Create and add tr elements for each row in the table body
+    tableData.forEach(function (data) {
+        var tr = document.createElement('tr');
+        // Create and add td elements for each cell in the row
+        Object.values(data).forEach(function (value, cellIndex) {
+            var td = document.createElement('td');
+            td.textContent = value;
+            td.style.color = 'black'; // Set the text color to black
+            td.style.fontSize = '20px'; // Adjust the font size as needed
+            // Calculate the left position for each cell in the specified column
+            var leftChange = 0;
+            for (var i = 0; i < columnPositions.length; i++) {
+                if (cellIndex === columnPositions[i].columnIndex) {
+                    leftChange = columnPositions[i].leftChange;
+                    break;
+                }
+            }
+            // Set left position for each cell
+            td.style.position = 'relative';
+            td.style.left = leftChange + 'px';
+            tr.appendChild(td);
+        });
+        tableBody.appendChild(tr);
+    });
+}
+    // Define an array of objects to store column index and left change
+    var columnPositions1 = [
+        { columnIndex: 0, leftChange: 15 },
+        { columnIndex: 1, leftChange: 100 }
+    ];
+
+    function adjustPositionStatus(tableBody, tableData, columnPositions) {
+    // Create and add tr elements for each row in the table body
+    tableData.forEach(function (data) {
+        var tr = document.createElement('tr');
+        // Create and add td elements for each cell in the row
+        Object.values(data).forEach(function (value, cellIndex) {
+            var td = document.createElement('td');
+            td.textContent = value;
+            td.style.color = 'black'; // Set the text color to black
+            td.style.fontSize = '20px'; // Adjust the font size as needed
+            // Calculate the left position for each cell in the specified column
+            var leftChange = 0;
+            for (var i = 0; i < columnPositions.length; i++) {
+                if (cellIndex === columnPositions[i].columnIndex) {
+                    leftChange = columnPositions[i].leftChange;
+                    break;
+                }
+            }
+            // Set left position for each cell
+            td.style.position = 'relative';
+            td.style.left = leftChange + 'px';
+            tr.appendChild(td);
+
+                  // Set left position and apply bold style for cells in column index 1
+      if (cellIndex === columnPositions[1].columnIndex) {
+        td.style.fontWeight = 'bold';
+      }
+        });
+        tableBody.appendChild(tr);
+    });
+}
+    // Define an array of objects to store column index and left change
+    var columnPositions2 = [
+        { columnIndex: 0, leftChange: 15 },
+        { columnIndex: 1, leftChange: 15 }
+    ];
     // Adjust position for the specified columns
     adjustPosition(tableBody1, tableData1, columnPositions);
     adjustPosition(tableBody2, tableData2, columnPositions);
     adjustPosition(tableBody3, tableData3, columnPositions);
     adjustPosition(tableBody4, tableData4, columnPositions);
+
+    adjustPositionBalance(tableBody5, tableData5, columnPositions1);
+    adjustPositionBalance(tableBody6, tableData6, columnPositions1);
+    adjustPositionStatus(tableBody7, tableData7, columnPositions2);
+
     </script>
 
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>

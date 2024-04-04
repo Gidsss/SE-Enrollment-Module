@@ -74,7 +74,7 @@ class AuthController extends Controller
     {
         // Yung magiging laman naman ng tables nandito
         return [
-            ['classCode' => 'CSC 0311', 'section' => '2', 'subjectTitle' => 'Programming Languages (lec)', 'units' => '2', 'schedule' => 'T 6:00p-9:00p', 'room' => 'F2F COMP LAB 4'],
+            ['classCode' => 'CSC 0311', 'section' => '2', 'subjectTitle' => 'Programming TITE (lec)', 'units' => '2', 'schedule' => 'T 6:00p-9:00p', 'room' => 'F2F COMP LAB 4'],
             ['classCode' => 'CSC 0312', 'section' => '2', 'subjectTitle' => 'Programming Languages (lab)', 'units' => '2', 'schedule' => 'F 1:00p-3:00p', 'room' => 'F2F GCA 306'],
             ['classCode' => 'CSC 0312.1', 'section' => '2', 'subjectTitle' => 'Software Engineering (lec)', 'units' => '3', 'schedule' => 'W 2:00p-5:00p', 'room' => 'F2F COMP LAB 3'],
             ['classCode' => 'CSC 0313', 'section' => '2', 'subjectTitle' => 'Software Engineering (lab)', 'units' => '2', 'schedule' => 'Th 1:00p-3:00p', 'room' => 'F2F COMP LAB 1'],

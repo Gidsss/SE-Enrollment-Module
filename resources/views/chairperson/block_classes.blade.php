@@ -180,16 +180,21 @@
 
         <div class="nav-bar">
         <div class="nav-item">
+
             <a href="http://localhost:8000/chairperson/create_class" class="nav-link">Class Creation</a>
+
         </div>
         <div class="nav-item page-item">
             <a href="http://localhost:8000/chairperson/block_classes" class="nav-link">Block Management</a>
         </div>
+
         <div class="nav-item ">
             <a href="http://localhost:8000/chairperson/student_enlistment" class="nav-link">Student Enlistment</a>
         </div>
         <div class="nav-item">
             <a href="http://localhost:8000/chairperson/student_transaction" class="nav-link">Transactions</a>
+
+
         </div>
 </div>
      <!-- Components header -->

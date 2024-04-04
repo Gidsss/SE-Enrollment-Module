@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="{{ url('backend/plugins/summernote/summernote-bs4.min.css') }}">
   <!-- Image styles -->
   <link rel="stylesheet" href="{{ url('backend/dist/css/img.css') }}">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -94,5 +95,5 @@
 <script src="{{ url('backend/dist/js/adminlte.js') }}"></script>
 
 
-
 </body>
+

@@ -36,6 +36,9 @@
   <!-- Image styles -->
   <link rel="stylesheet" href="{{ url('backend/dist/css/img.css') }}">
   
+
+
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -97,4 +100,4 @@
 
 
 </body>
-</html>
+

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('validations', function (Blueprint $table) {
             $table->id();
-            $table->integer('studentid', 6);
-            $table->varchar('student_name', 255);
-            $table->varchar('yearlvl', 50);
+            $table->integer('studentid')->unsigned()->unique()->length(6);
+            $table->string('student_name', 255);
+            $table->string('yearlvl', 50);
             $table->date('daterequest');
-            $table->varchar('status', 50);
-            $table->longblob('validations_pdfs');
+            $table->string('status', 50);
+            $table->binary('validations_pdfs');
             $table->timestamps();
         });
     }

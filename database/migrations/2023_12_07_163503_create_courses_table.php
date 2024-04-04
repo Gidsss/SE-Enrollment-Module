@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->boolean('checkbox');
-            $table->varchar('course_code', 20)->unique();
-            $table->varchar('course_name', 255);
-            $table->varchar('course_type', 20);
+            $table->string('course_code', 20)->unique();
+            $table->string('course_name', 255);
+            $table->string('course_type', 20);
             $table->integer('units');
             $table->integer('slots_available');
             $table->date('start_date');

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('study_plan_models', function (Blueprint $table) {
             $table->id();
-            $table->varchar('studentname', 255);
-            $table->varchar('course', 255);
-            $table->varchar('grade', 255);
-            $table->varchar('section', 255);
+            $table->string('studentname', 255);
+            $table->string('course', 255);
+            $table->string('grade', 255);
+            $table->string('section', 255);
             $table->timestamps();
         });
     }

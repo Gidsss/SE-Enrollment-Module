@@ -37,27 +37,6 @@
             background-color: gray;
             z-index: 0;
         }
-        button.save-class-btn {
-
-
-      overflow: hidden;
-  }
-  button.save-class-btn:hover {
-      overflow: visible;
-  }
-  button.save-class-btn .hidden-info {
-      position: absolute;
-      top: -31px;
-      width: 318px;
-      right: 0px;
-      background: white;
-      opacity: 1;
-      transition: opacity .25s ease-in-out;
-      color:red;
-      border: 1px solid red;
-      border-radius: 4px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  }
       
     </style>
 
@@ -82,8 +61,7 @@
                 <p style="margin-left: .2rem; margin-top: 1rem;">Status: Enlisted <i class="fas fa-circle" style="color: yellow"></i></p>
             </div>
 
-            <button type="button" class="save-class-btn btn btn-primary float-right" style="color: #2D349A; position: absolute; top: 3.5ch; right: 2ch; width: 150px; height: 4ch;">
-            <span class="hidden-info"><i class="fas fa-exclamation-triangle"></i>Please complete all the steps first!</span>
+            <button type="button" class="btn btn-primary float-right" style="color: #2D349A; position: absolute; top: 3.5ch; right: 2ch; width: 150px; height: 4ch;">
         <i class="fas fa-download" style="color: white; margin-right: .5rem; top: -0.2rem; position: relative;"></i>
         <span style="color: white;  margin-right: 0.5rem; top: -0.2rem; position: relative;">Save a Copy</span>
     </button>
@@ -122,7 +100,7 @@
 
                 <div  style="position:absolute; top: 100px;left:213px ;width:70% ;height:60%">
                     <span style="position: absolute; top: 45%; left: 13.2%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Check Schedule</span>
-                    <span style="position: absolute; top: 45%; left: 49%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">View Assessment</span>
+                    <span style="position: absolute; top: 45%; left: 49%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Manage Balance</span>
                     <span style="position: absolute; top: 45%; left: 85.2%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Download SER</span>
                 </div>
 
@@ -161,7 +139,7 @@
         function handleClick(event) {
             // Handle the click event here
             event.preventDefault(); // Prevent the default behavior of the anchor tag
-            window.location.href = '{{ route("regular_assessment") }}';
+            window.location.href = '{{ route("prof_balance") }}';
         }
         document.addEventListener('DOMContentLoaded', function () {
             // Replace the following array with your custom headers, background colors, and text colors
@@ -213,7 +191,6 @@
             });
         });
         </script>
-
 
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>

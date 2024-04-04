@@ -1,54 +1,15 @@
- <!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Study Plan | Transaction</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Study Plans</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">List of Study Plan Validations</h3>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                    <th>#</th>
-                    <th>Student ID</th>
-                    <th>Student Name</th>
-                    <th>Year Level</th>
-                    <th>Date Request</th>
-                    <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  @foreach ($students as $student)
-                    <tr>
-                      <td>{{ $loop->index + 1 }}</td>
-                      <td>{{$student->student_id}}</td> 
-                      <td>{{$student->student_name}}</td>
-                      <td>{{$student->year_level}}</td>
-                      <td>{{$student->date_request}}</td>
-                      <td>{{$student->status}}</td>
-                    </tr>
-                  @endforeach
-                </tbody>
-            </table>
-        </div>
-        <!-- /.card-body -->
-    </div>
+@extends('layouts.app') 
+
+@section('content')
+
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ url('public/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ url('public/backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ url('public/backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}"> 
+
+<link rel="stylesheet" href="{{ url('public/backend/dist/css/adminlte.min.css') }}">
+<!-- Livewire Component -->
+@livewire('student-data')  
 
 <!-- jQuery -->
 <script src="{{ url('public/backend/plugins/jquery/jquery.min.js') }}"></script>
@@ -93,10 +54,6 @@
 <script src="{{ url('public/backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url('public/backend/dist/js/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ url('public/backend/dist/js/demo.js') }} "></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ url('public/backend/dist/js/pages/dashboard.js') }}"></script>
 
 
 <!-- Script for push menu -->
@@ -108,7 +65,23 @@ $(document).ready(function () {
         $('body').toggleClass('sidebar-collapse');
     });
 });
-
-
 </script>
 <!-- Script for the Table -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+@endsection

@@ -11,9 +11,9 @@
                 <div class="card">
                     <div class="card-header">
                     <h5 style="float: left;">Total <strong>#</strong> of Records: {{ $secondYearStudents }}</h5>
-                        <button type="button" class="btn btn-primary"style="float: right;" data-toggle="modal" data-target="#bulkEditStudentModal1" wire:click="selectStudentsForBulkEdit">Batch Assign</button>
-                        <button type="button" class="btn btn-primary" style="float: right;" wire:click="assignBlockSectionsAlphabetically(4)">Assign Blocks Alphabetically</button>
-                        <button type="button" class="btn btn-primary"style="float: right;"  data-toggle="modal" wire:click="assignBlockSectionsRandomly">Assign Blocks Randomly</button>
+                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#bulkEditStudentModal1" wire:click="selectStudentsForBulkEdit">Batch Assign</button>
+                        <button type="button" class="btn btn-primary" style="float: right;" wire:click="assignBlockSectionsAlphabetically(4)" @if(!$blockCapacitySet) disabled @endif>Assign Blocks Alphabetically</button>
+                        <button type="button" class="btn btn-primary" style="float: right;" wire:click="assignBlockSectionsRandomly" @if(!$blockCapacitySet) disabled @endif>Assign Blocks Randomly</button>
                         <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#blockCapacityModal1">Set Block Capacity</button>
                       <!-- Button trigger modal -->
                     </div>

@@ -278,13 +278,14 @@ class FirstYearContainer extends Component
         $this->dispatch('close-modal');
     }
     // Method to save block capacities
+    public $blockCapacitySet = false; // Declare and initialize the property to false first
     public function saveCommonBlockCapacity($year)
     {
         // Validate input
         $this->validate([
             'commonBlockCapacity' => 'required|numeric|min:1', // Validate common block capacity
         ]);
-    
+
         // Save common block capacity to the database for the specified year level
         foreach (range(1, 4) as $block) {
             BlockCapacity::updateOrCreate(
@@ -292,13 +293,15 @@ class FirstYearContainer extends Component
                 ['capacity' => $this->commonBlockCapacity]
             );
         }
-    
+
+        // Update the block capacity status property
+        $this->blockCapacitySet = true;
+
         // Flash success message
         session()->flash('message', 'Block capacity for year ' . $year . ' saved successfully.');
-    
+
         $this->dispatch('close-modal');
     }
-    
     // Method to check if a block is available based on its capacity
     private function isBlockAvailable($block)
     {

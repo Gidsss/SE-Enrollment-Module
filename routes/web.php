@@ -65,6 +65,37 @@ Route::get('chairperson/create_class', function() {
 Route::get('chairperson/block_classes', function() {
     return view('chairperson.block_classes');
 });
+Route::get('chairperson/student_enlistment', function() {
+    return view('chairperson.student_enlistment');
+});
+
+Route::get('chairperson/transaction', function() {
+    return view('chairperson.transaction');
+});
+
+Route::get('professional/prof_balance', function() {
+    return view('professional.prof_balance');
+})->name('prof_balance');
+
+Route::get('professional/prof_regular_schedule', function() {
+    return view('professional.prof_regular_schedule');
+})->name('prof_regular_schedule');
+
+Route::get('professional/prof_regular_ser', function() {
+    return view('professional.prof_regular_ser');
+})->name('prof_regular_ser');
+
+Route::get('graduate/grad_ser', function() {
+    return view('graduate.grad_ser');
+})->name('grad_ser');
+
+Route::get('graduate/grad_tuition', function() {
+    return view('graduate.grad_tuition');
+})->name('grad_tuition');
+
+Route::get('graduate/grad_course', function() {
+    return view('graduate.grad_course');
+})->name('grad_course');
 
 
 

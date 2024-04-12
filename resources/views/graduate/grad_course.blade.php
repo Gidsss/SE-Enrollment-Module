@@ -129,7 +129,7 @@
                     <span style="position: absolute; top: 45%; left: 102%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 200px; height: 100%;">Download SER</span>
                 </div>
 
-                <link rel="stylesheet" href="{{ url('public/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+                <link rel="stylesheet" href="{{ url('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
                   
                 <!-- Main content -->
                 <div id="course-data-container">

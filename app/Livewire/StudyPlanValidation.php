@@ -200,6 +200,7 @@ class StudyPlanValidation extends Component
         $this->year_level = $student->year_level;
         $this->status = $student->status;
         $this->date_of_request = $student->date_of_request;
+        $this->study_plan = $student->study_plan;
         $this->dispatch('show-edit-student-modal',);
     }
     
@@ -212,6 +213,7 @@ class StudyPlanValidation extends Component
             'year_level'=> 'required|integer',
             'status' => 'required|string|in:Pending,Approved,Revise,Unhandled',
             'date_of_request' => 'required|date',
+            'study_plan' => 'required|string',
         ]);
 
         // Find the student by ID
@@ -224,6 +226,7 @@ class StudyPlanValidation extends Component
             'year_level' => $this->year_level,
             'status' => $this->status,
             'date_of_request' => $this->date_of_request,
+            'study_plan' => $this->study_plan,
         ]);
 
         // Flash message

@@ -91,6 +91,7 @@
                                 </th>
                                 <th style="text-align: center;">Date Request</th>
                                 <th style="text-align: center;">Status</th>
+                                
                                 <th style="text-align: center;">Action</th>
                             </tr>
                         </thead>
@@ -105,6 +106,7 @@
                                             <td>{{ $student->year_level }}</td>
                                             <td>{{ $student->date_of_request }}</td>
                                             <td>{{ $student->status }}</td>
+                                          
                                             <td style="text-align: center;">
                                             <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
                                             </td>
@@ -190,6 +192,17 @@
                             <div class="col-9">
                                 <input type="date" id="date_of_request" class="form-control" wire:model="date_of_request" disabled>
                                 @error('date_of_request')
+                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="study_plan" class="col-3">Study Plan</label>
+                            <div class="col-9">
+                                <input type="text" id="study_plan" class="form-control" wire:model="study_plan" disabled>
+                                @error('study_plan')
                                     <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                                 @enderror
                             </div>

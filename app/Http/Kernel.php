@@ -64,8 +64,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        'chairperson' => \App\Http\Middleware\ChairMiddleware::class,
-        'student' => \App\Http\Middleware\StudentMiddleware::class,
+        'regular_student' => \App\Http\Middleware\RegularStudentMiddleware::class,
+        'irregular_student' => \App\Http\Middleware\IrregularStudentMiddleware::class,
+        // added two middlewares (regular_student and irregular_student) (not yet implemented)
     ];
 }

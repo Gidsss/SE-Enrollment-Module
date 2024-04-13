@@ -11,9 +11,11 @@ class Student extends Model
     protected $fillable = [
         'student_id', 
         'student_name',
-        'student_block',
-        'year_level',
         'student_type',
+        'year_level',
+        'date_request',
+        'status',
+        'student_block',
     ];
     protected $table = 'students';
 }

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('student_name', 255);
             $table->string('student_type', 255);
             $table->integer('year_level');
+            $table->date('date_request')->nullable();
+            $table->string('status', 255)->nullable();
             $table->integer('student_block')->nullable();
             $table->timestamps();
         });

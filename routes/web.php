@@ -1,23 +1,31 @@
 <?php
 
-use App\Livewire\FirstYearContainer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Livewire\StudentEnlistment;
-use App\Livewire\Transactions;
-use App\Livewire\StudyPlanValidation;
-use App\Livewire\ShiftingRequests;
-use App\Livewire\AddDropRequests;
-use App\Livewire\LOARequests;
+// use App\Http\Middleware\RegularStudentMiddleware;
+// use App\Http\Middleware\IrregularStudentMiddleware;
 
+// Chairperson Livewire Components
+use App\Livewire\Chairperson\BlockClassesManagement\BlockClassesManagement;
+use App\Livewire\Chairperson\ClassCreation\ClassCreation;
+use App\Livewire\Chairperson\StudentEnlistment\StudentEnlistment;
+use App\Livewire\Chairperson\StudentTransactions\StudentTransactions;
+use App\Livewire\Chairperson\StudentTransactions\Options\StudyPlanValidation;
+use App\Livewire\Chairperson\StudentTransactions\Options\ShiftingRequests;
+use App\Livewire\Chairperson\StudentTransactions\Options\AddDropRequests;
+use App\Livewire\Chairperson\StudentTransactions\Options\LOARequests;
 
-Route::get('/chairperson/student_enlistment', StudentEnlistment::class);
-Route::get('/chairperson/student_transaction', Transactions::class);
-Route::get('/chairperson/student_transaction/study_plan_validations', StudyPlanValidation::class)->name('study_plan_validations');
-Route::get('/chairperson/student_transaction/shifting_requests_validations', ShiftingRequests::class)->name('shifting_requests_validations');
-Route::get('/chairperson/student_transaction/add_drop_requests', AddDropRequests::class)->name('add_drop_requests');
-Route::get('/chairperson/student_transaction/loa_requests', LOARequests::class)->name('loa_requests');
+// Irregular Student Components
+use App\Livewire\IrregularStudent\CreateStudyPlan\CreateStudyPlan;
+use App\Livewire\IrregularStudent\DownloadSER\DownloadIrregularSER;
+use App\Livewire\IrregularStudent\ViewAssessment\ViewIrregularAssessment;
+use App\Livewire\IrregularStudent\IrregAssessment\IrregAssessment;
+use App\Livewire\IrregularStudent\IrregSER\IrregSER;
 
+// Regular Student Components
+use App\Livewire\RegularStudent\CheckSchedule\CheckSchedule;
+use App\Livewire\RegularStudent\DownloadSER\DownloadRegularSER;
+use App\Livewire\RegularStudent\ViewAssessment\ViewRegularAssessment;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,110 +36,69 @@ Route::get('/chairperson/student_transaction/loa_requests', LOARequests::class)-
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('student/students/list', function () {
-    return view('student.students.list');
-});
 
-Route::get('student/dashboard', function () {
-    return view('student.dashboard');
-});
+/* Regular Student Pages */
 
-Route::get('student/regular_schedule', function() {
-    return view('student.regular_schedule');
-})->name('regular_schedule');
+Route::get('/regular_student/regular_schedule', CheckSchedule::class); // regular student schedule
 
-Route::get('student/regular_assessment', function() {
-    return view('student.regular_assessment');
-})->name('regular_assessment');
+Route::get('/regular_student/regular_assessment', ViewRegularAssessment::class); // regular student assessment
 
-Route::get('student/regular_ser', function() {
-    return view('student.regular_ser');
-})->name('regular_ser');
+Route::get('/regular_student/regular_ser', DownloadRegularSER::class); // regular student ser
 
-Route::get('irregularstudent/irreg_schedule', function() {
-    return view('irregularstudent.irreg_schedule');
-})->name('irreg_schedule');
+/* Irregular Student Pages */
 
-Route::get('irregularstudent/irreg_assessment', function() {
-    return view('irregularstudent.irreg_assessment');
-})->name('irreg_assessment');
+Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class); // irregular student schedule
 
-Route::get('irregularstudent/irreg_ser', function() {
-    return view('irregularstudent.irreg_ser');
-})->name('irreg_ser');
+Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class); // irregular student assessment
 
-Route::get('chairperson/create_class', function() {
-    return view('chairperson.create_class');
-});
+Route::get('irregular_student/irreg_ser', DownloadIrregularSER::class); // irregular student ser
 
-Route::get('chairperson/block_classes', function() {
-    return view('chairperson.block_classes');
-});
+/* Chairperson Pages */
 
-Route::get('professional/prof_balance', function() {
-    return view('professional.prof_balance');
-})->name('prof_balance');
+Route::get('/chairperson/create_class', ClassCreation::class); // chairperson class creation
 
-Route::get('professional/prof_regular_schedule', function() {
-    return view('professional.prof_regular_schedule');
-})->name('prof_regular_schedule');
+Route::get('/chairperson/block_classes', BlockClassesManagement::class); // chairperson blockclasses management
 
-Route::get('professional/prof_regular_ser', function() {
-    return view('professional.prof_regular_ser');
-})->name('prof_regular_ser');
+Route::get('/chairperson/student_enlistment', StudentEnlistment::class); // chairperson student enlistment
 
-Route::get('graduate/grad_ser', function() {
-    return view('graduate.grad_ser');
-})->name('grad_ser');
+Route::get('/chairperson/student_transaction', StudentTransactions::class); // chairperson transactions
 
-Route::get('graduate/grad_tuition', function() {
-    return view('graduate.grad_tuition');
-})->name('grad_tuition');
+Route::get('/chairperson/student_transaction/study_plan_validations', StudyPlanValidation::class)->name('study_plan_validations'); // chairperson study plan validations (to be moved as part of process)
 
-Route::get('graduate/grad_course', function() {
-    return view('graduate.grad_course');
-})->name('grad_course');
+Route::get('/chairperson/student_transaction/shifting_requests_validations', ShiftingRequests::class)->name('shifting_requests_validations'); // chairperson shifting requests validations
 
+Route::get('/chairperson/student_transaction/add_drop_requests', AddDropRequests::class)->name('add_drop_requests'); // chairperson add/drop requests
 
-Route::get('graduate/grad_ser', function() {
-    return view('graduate.grad_ser');
-})->name('grad_ser');
+Route::get('/chairperson/student_transaction/loa_requests', LOARequests::class)->name('loa_requests'); // chairperson loa requests
 
-Route::get('graduate/grad_tuition', function() {
-    return view('graduate.grad_tuition');
-})->name('grad_tuition');
+/* Necessary Components */
 
-Route::get('graduate/grad_course', function() {
-    return view('graduate.grad_course');
-})->name('grad_course');
+Route::get('/generate-pdf', [AuthController::class,'genpdf']); // for pdf generation 
 
-
-
-/* dapat admin ung student for all di pa napapalitan */
-
-Route::group(['middleware' => 'admin'], function (){
-    Route::get('admin/dashboard', function () {
-        return view('student.dashboard');
-    });
-});
-
-Route::get('/generate-pdf', [AuthController::class,'genpdf']);
-
-
-Route::group(['middleware' => 'chairperson'], function (){
-    Route::get('chairperson/dashboard', function () {
-        return view('student.dashboard');
-    });
-});
-
-Route::group(['middleware' => 'student'], function (){
-    Route::get('student/dashboard', function () {
-        return view('student.dashboard');
-    });
-});
+/* Authentication */
 
 Route::get('/', [AuthController::class, 'login']);
-Route::post('login', [AuthController::class, 'AuthLogin']);
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('forgot-password', [AuthController::class, 'forgot_password']);
-Route::get('register', [AuthController::class, 'register']);
+Route::post('/student/login', [AuthController::class, 'AuthLogin'])->name('login.submit');
+Route::get('/student/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/forgot-password', [AuthController::class, 'forgot_password']);
+
+/* Create a middleware for regular & irregular student (not yet implemented) */
+
+// Route::middleware([RegularStudentMiddleware::class])->group(function () {
+//     Route::get('regular_student/regular_schedule', function () {
+//         return view('student.regular_student.regular_schedule'); })->name('regular_schedule');
+   
+//     Route::get('regular_student/regular_assessment', function() {
+//         return view('student.regular_student.regular_assessment'); })->name('regular_assessment'); // regular student assessment
+
+
+//     // Add more regular student routes here
+// });
+
+// Route::middleware([IrregularStudentMiddleware::class])->group(function () {
+//     Route::get('irregular_student/irregular_schedule', function () {
+//         return view('student.irregular_student.irreg_schedule');
+//     })->name('irregular_schedule');
+
+//     // Add more irregular student routes here
+// });

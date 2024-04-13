@@ -6,27 +6,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\View;
-
+use App\Models\Student;
 class AuthController extends Controller
 {
-    public function login()
+    public function login() // Edit this function to redirect to the correct page based on the student_type (regular or irregular)
     {
         if (Auth::check()) {
-            if(Auth::user()->user_type == 1) // For testing purposes only
-            {
-                return redirect()->intended('chairperson/create_class'); 
-            }
-            else if(Auth::user()->user_type == 2) // For testing purposes only
-            {
-                return redirect()->intended('student/regular_schedule');
-            }
-            else if(Auth::user()->user_type == 3) // For testing purposes only
-            {
-                return redirect()->intended('irregularstudent/irreg_schedule');
+            $student = Student::where('id', Auth::id())->first();
+            if ($student) {
+                if ($student->student_type == "Regular") {
+                    return redirect()->intended('regular_student/regular_schedule'); 
+                } elseif ($student->student_type == "Irregular") {
+                    return redirect()->intended('irregular_student/irregular_schedule');
+                }
             }
         }
-
-        return view('auth.login');
+    
+        return view('auth.student-login');
     }
 
     public function AuthLogin(Request $request)
@@ -35,20 +31,16 @@ class AuthController extends Controller
         $remember = !empty($request->remember);
 
         if (Auth::attempt($credentials, $remember)) {
-            if(Auth::user()->user_type == 1) // Chairperson
-            {
-                return redirect()->intended('chairperson/create_class');
+            if (Auth::user()->student_type == "regular") {
+                return redirect()->intended('regular_student/regular_schedule');
+            } else if (Auth::user()->student_type == "irregular") {
+                return redirect()->intended('irregular_student/irregular_schedule');
+            } else {
+                // Handle unknown student type
+                return redirect()->back()->with('error', 'Unknown student type. Please try again!');
             }
-            else if(Auth::user()->user_type == 2) // Regular Student
-            {
-                return redirect()->intended('student/regular_schedule');
-            }
-            else if(Auth::user()->user_type == 3) // Irregular Student
-            {
-                return redirect()->intended('irregularstudent/irreg_schedule');
-            }
-        } 
-        else {
+        } else {
+            // Handle authentication failure
             return redirect()->back()->with('error', 'Wrong credentials. Please try again!');
         }
     }
@@ -86,37 +78,11 @@ class AuthController extends Controller
         ];
     }
 
-    public function schedule(Request $request)
-    {
-        return view('student/regular_schedule');
-    }
-
-    public function assessment(Request $request)
-    {
-        return view('student/view_assessment');
-    }
-
-    public function download_ser(Request $request)
-    {
-        return view('student/download_ser');
-    }
-
     public function logout()
     {
         Auth::logout();
-        return redirect(url(''));
+        return redirect(url('/'));
     }
-    public function forgot_password(Request $request)
-    {
-        return view('forgot_password');
-    }
-    public function register(Request $request)
-    {
-        return view('register');
-    }
-
-
 }
 
 
-?>

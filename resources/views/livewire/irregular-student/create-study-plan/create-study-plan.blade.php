@@ -543,10 +543,10 @@
         }
         }
 
-        function submitForm() {
+        //function submitForm() {
         // Add logic to submit the form or redirect to the assessment page
-        window.location.href = '{{ route("irreg_assessment") }}';
-        }
+       // window.location.href = ' route("irreg_assessment") }}';
+        //}
 
         function showCheckmark(step) {
             // Assuming the step-checkmark element is a child of the accordion button

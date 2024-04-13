@@ -4,6 +4,8 @@ namespace App\Livewire\Chairperson\StudentTransactions\Options;
 
 use Livewire\Component;
 use App\Models\StudyPlanValidations;
+use App\Models\Course;
+use App\Models\Validation;
 use Livewire\WithPagination;
 
 class StudyPlanValidation extends Component
@@ -22,6 +24,8 @@ class StudyPlanValidation extends Component
     public $currentPage = 1;
     public $numStudents;
     public $totalStudents;
+    public $courses;
+    public $validations;
 
     // Input fields validation rules
     protected $rules = [
@@ -265,7 +269,12 @@ class StudyPlanValidation extends Component
 
     public function render()
         {
-            return view('livewire.chairperson.student-transactions.options.study-plan-validation')->layout('livewire.chairperson.transaction-options');
+            $this->courses = Course::all();
+            $this->validations = Validation::all();
+            return view('livewire.chairperson.student-transactions.options.study-plan-validation', [
+                'courses' => $this->courses,
+                'validations' => $this->validations,
+            ])->layout('livewire.chairperson.transaction-options');
         }
 }
 

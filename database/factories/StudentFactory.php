@@ -29,6 +29,7 @@ class StudentFactory extends Factory
         'student_name' => "$lastName, $firstName $middleInitial",
         'student_type' => $this->faker->randomElement(['Regular', 'Irregular']),
         'year_level' => $this->faker->numberBetween(1, 4),
+        'status' => $this->faker->randomElement(['Pending', 'Approved', 'Revise']),
     ];
 }
 }

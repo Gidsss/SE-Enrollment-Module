@@ -12,15 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->boolean('checkbox');
+            $table->id(); // Auto-increment primary key
             $table->string('course_code', 20)->unique();
             $table->string('course_name', 255);
-            $table->string('course_type', 20);
             $table->integer('units');
-            $table->integer('slots_available');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->string('pre_requisites', 255);
+            $table->integer('grades')->nullable();
+            $table->integer('year_lvl');
+            $table->integer('sem');
             $table->timestamps();
         });
     }

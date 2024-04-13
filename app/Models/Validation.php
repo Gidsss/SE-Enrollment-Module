@@ -21,6 +21,8 @@ class Validation extends Model
         'daterequest',
         'status',
         'validation_pdfs',
+        'studentprograms',
+        'study_plan_course_code',
     ];
 
     /**
@@ -31,4 +33,6 @@ class Validation extends Model
     protected $casts = [
         'daterequest' => 'date',
     ];
+
+    protected $table = 'validations';
 }

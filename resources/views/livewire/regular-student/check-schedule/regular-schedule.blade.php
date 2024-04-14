@@ -283,7 +283,7 @@
 
                 <div class="card custom-bg-color" style="position: absolute; top: 170px; left: 13%; width: 85%; height: 60%">
                     <span style="position: absolute; top: 0.90ch; left: 1ch; font-family: sans-serif; font-size: 20px; color: white">A.Y 2022 - 2023, Term 1</span>    
-                </div>            
+                </div>        
 
                 <!-- Main content -->
                 <section class="content">

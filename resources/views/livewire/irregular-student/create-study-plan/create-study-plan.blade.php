@@ -1,4 +1,44 @@
 <div>
+  
+<style>
+    /* Style the modal */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+  
     <!-- Header Navigation Bar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
@@ -373,6 +413,20 @@
                     <!-- Content for letter 'f' -->
                     <p class="body-font">&nbsp;&nbsp;f. Overloaded unit enrollments are permissible only for students approaching graduation, subject to approval.</p>
                     <p class="body-font">&nbsp;&nbsp;g. Underloaded units should also be verified by the college chairperson to ensure compliance with program requirements.</p>
+                    <div class="center-button">
+                        <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="displayModal()">Create Study Plan</button>
+                    </div>
+
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <div id="course-data-container">
+                                @livewire('course-data')
+                            </div>
+                        </div>
+                    </div>
+
                         <div class="center-button">
                             <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)">Proceed to Submission of Documents</button>
                         </div>
@@ -560,4 +614,40 @@
         var fileName = $('#' + inputId).val().split('\\').pop();
         $('label[for=' + inputId + ']').text(fileName);
     }
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementsByClassName("btn")[0];
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Function to display modal
+function displayModal() {
+    modal.style.display = "block";
+}
+
+// Function to close modal
+function closeModal() {
+    modal.style.display = "none";
+}
 </script>

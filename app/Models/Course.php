@@ -15,12 +15,12 @@ class Course extends Model
      * @var array<string, mixed>
      */
     protected $fillable = [
-        'checkbox',
         'course_code',
         'course_name',
-        'course_type',
         'units',
-        'slots_available',
+        'pre_requisites',
+        'grades',
+        'year_lvl',
     ];
 
     /**

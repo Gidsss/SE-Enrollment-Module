@@ -1,4 +1,3 @@
-
 <div>
     <button id="findCommonCourseCodesButton">Find Common Course Codes</button>
     <button id="findCourseCodesButton">Find pre Req button</button>
@@ -246,25 +245,33 @@
             <span id="totalUnits6"></span>
         </div>
 </div>
-
-
 <script>
-    @foreach($validations->where('studentid', '2021-01299') as $validation) 
-        @if ($validation->yearlvl === 2) {
+    function adjustYearTables(hasYear2, hasYear3, hasYear4) {
+        if (hasYear2) {
             document.getElementById("2nd-year-tables").style.display = "block";
             document.getElementById("3rd-year-tables").style.display = "block";
             document.getElementById("4th-year-tables").style.display = "block";
-        } @elseif ($validation->yearlvl === 3) {
+        }
+
+        if (hasYear3) {
             document.getElementById("2nd-year-tables").style.display = "none";
             document.getElementById("3rd-year-tables").style.display = "block";
             document.getElementById("4th-year-tables").style.display = "block";
-        } @elseif ($validation->yearlvl === 4) {
+        }
+
+        if (hasYear4) {
             document.getElementById("2nd-year-tables").style.display = "none";
             document.getElementById("3rd-year-tables").style.display = "none";
             document.getElementById("4th-year-tables").style.display = "block";
-        } 
-    @endif
+        }
+    }
 
+    // Call the adjustYearTables function after the DOM content is loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        adjustYearTables({{ $hasYear2 ? 'true' : 'false' }}, {{ $hasYear3 ? 'true' : 'false' }}, {{ $hasYear4 ? 'true' : 'false' }});
+    });
+
+    @foreach($validations->where('studentid', '2021-01299') as $validation) 
     // Function to delete a row and add its course code and name to the dropdown
     function deleteRow(rowId, courseCode, courseName, courseUnit, preRequisites, year_lvl, sem, grades) {
             const row = document.getElementById(rowId);
@@ -600,7 +607,6 @@
     document.getElementById('findCommonCourseCodesButton').addEventListener('click', function() {
         // Call a function to find common course codes and log them to the console
         findAndLogCommonCourseCodes();
-        insertHiIntoStudyPlanCourseCode();
     });
 
     async function findAndLogCourseCodesForTable(tableId, courseCode, coursesData) {

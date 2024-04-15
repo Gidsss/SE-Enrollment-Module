@@ -14,6 +14,8 @@ class CourseData extends Component
     public $courses;
     public $dropdownContent3_1 = [];
     public $dropdownContent3_2 = [];
+    public $dropdownContent4_1 = [];
+    public $dropdownContent4_2 = [];
     public $tableBody = '';
     public $tableBodyId = '';
 
@@ -45,15 +47,44 @@ class CourseData extends Component
             $this->courses = $this->courses->reject(function ($c) use ($courseId) {
                 return $c->id === $courseId;
             });
+        } elseif ($tableBody === 'tableBody72') {
+            // Add the course to dropdownContent3_2
+            $this->dropdownContent4_1[] = $course;
+    
+            // Remove from courses
+            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+                return $c->id === $courseId;
+            });
+        } elseif ($tableBody === 'tableBody62') {
+            // Add the course to dropdownContent3_2
+            $this->dropdownContent4_2[] = $course;
+    
+            // Remove from courses
+            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+                return $c->id === $courseId;
+            });
         }
 
     }
 
-    public function moveRowFromDropdownToTable($courseCode)
+    public function moveRowFromDropdownToTable($courseCode, $dropdownContent)
     {
         $courseIndex = null;
+        $dropdownContentRef =& $this->dropdownContent3_1; // By default, assume dropdownContent3_1
     
-        foreach ($this->dropdownContent3_1 as $index => $course) {
+        if ($dropdownContent === 'dropdownContent3_2') {
+            $dropdownContentRef =& $this->dropdownContent3_2;
+        }  
+        
+        if ($dropdownContent === 'dropdownContent4_1') {
+            $dropdownContentRef =& $this->dropdownContent4_1;
+        }
+
+        if ($dropdownContent === 'dropdownContent4_2') {
+            $dropdownContentRef =& $this->dropdownContent4_2;
+        }
+
+        foreach ($dropdownContentRef as $index => $course) {
             if ($course['course_code'] === $courseCode) {
                 $courseIndex = $index;
                 break;
@@ -61,18 +92,18 @@ class CourseData extends Component
         }
     
         if ($courseIndex !== null) {
-            $course = $this->dropdownContent3_1[$courseIndex];
+            $course = $dropdownContentRef[$courseIndex];
             $this->courses->push($course);
-            unset($this->dropdownContent3_1[$courseIndex]);
-            $this->dropdownContent3_1 = array_values($this->dropdownContent3_1); // Reset array keys
+            unset($dropdownContentRef[$courseIndex]);
+            $dropdownContentRef = array_values($dropdownContentRef); // Reset array keys
         } else {
             // Handle course not found in dropdown (optional: error message)
         }
     }
-
     
     public function render()
     {
+        
         $courses = Course::all();
         $validations = Validation::all();
 
@@ -94,16 +125,16 @@ class CourseData extends Component
             }
         }
 
-        $coursesWithGrade5 = $courses->where('grades', 5);
-
         return view('livewire.course-data', [
             'courses' => $courses,
             'validations' => $validations,
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,
             'hasYear4' => $hasYear4,
-            'dropdownContent3_2' => empty($this->dropdownContent3_2) ? $coursesWithGrade5->all() : $this->dropdownContent3_2,
+            'dropdownContent3_2' => $this->dropdownContent3_2,
             'dropdownContent3_1' => $this->dropdownContent3_1,
+            'dropdownContent4_1' => $this->dropdownContent4_1,
+            'dropdownContent4_1' => $this->dropdownContent4_2,
             'tableBodyId' => $this->tableBodyId,
             
         ]);

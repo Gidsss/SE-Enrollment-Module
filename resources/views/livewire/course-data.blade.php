@@ -99,7 +99,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_1">
                 @foreach($dropdownContent3_1 as $course)
                     @if(is_object($course))
-                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                    <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'dropdownContent3_1')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
                     @endif
                 @endforeach
                 </div>
@@ -141,7 +141,7 @@
                 </table>
             </div>
             </div>
-            <span id="totalUnits3"></span>
+            <span id="totalUnits32"></span>
         
             <h1>3rd Year 2nd Semester</h1>
             
@@ -158,7 +158,9 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_2">
                 @foreach($dropdownContent3_2 as $course)
-                <a class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                    @if(is_object($course))
+                    <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'dropdownContent3_2')" class="dropdown-item" href="#"> {{ $course->course_code }} - {{ $course->course_name }}</a>
+                    @endif
                 @endforeach
                 </div>
             </div>
@@ -199,7 +201,7 @@
                 </table>
             </div>
             </div>
-            <span id="totalUnits4"></span>
+            <span id="totalUnits42"></span>
         </div>
 
         <div id="4th-year-tables" >
@@ -217,7 +219,11 @@
         
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent4_1">
-                        <!-- Dropdown options will be dynamically added here -->
+                    @foreach($dropdownContent4_1 as $course)
+                        @if(is_object($course))
+                            <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'dropdownContent4_1')" class="dropdown-item" href="#"> {{ $course->course_code }} - {{ $course->course_name }}</a>
+                        @endif
+                    @endforeach
                     </div>
                 </div>
         
@@ -237,7 +243,7 @@
                                 <th></th>
                             </tr>
                         </thead>  
-                        <tbody id="tableBody52">
+                        <tbody id="tableBody72">
                         @foreach ($courses->where('year_lvl', 4)->where('sem', 1) as $course)
                         <tr id="row_{{ $course->id }}">
                             <td>{{ $course->course_code }}</td>
@@ -248,7 +254,7 @@
                             <div>
                             <td>
                                 <!-- Pass course ID to the moveRowToDropdown method -->
-                                <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32')" class="btn btn-danger btn-sm">X</button>
+                                <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody72')" class="btn btn-danger btn-sm">X</button>
                             </td>
                             </div>
                         </tr>
@@ -257,7 +263,7 @@
                     </table>
                 </div>
             </div>
-            <span id="totalUnits5"></span>
+            <span id="totalUnits52"></span>
 
             <h1>4th Year 2nd Semester</h1>
             
@@ -273,7 +279,11 @@
         
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent4_2">
-                        <!-- Dropdown options will be dynamically added here -->
+                    @foreach($dropdownContent4_2 as $course)
+                        @if(is_object($course))
+                            <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'dropdownContent4_2')" class="dropdown-item" href="#"> {{ $course->course_code }} - {{ $course->course_name }}</a>
+                        @endif
+                    @endforeach
                     </div>
                 </div>
         
@@ -293,7 +303,7 @@
                                 <th></th>
                             </tr>
                         </thead>  
-                        <tbody id="tableBody6">
+                        <tbody id="tableBody62">
                         @foreach ($courses->where('year_lvl', 4)->where('sem', 2) as $course)
                         <tr id="row_{{ $course->id }}">
                             <td>{{ $course->course_code }}</td>
@@ -304,7 +314,7 @@
                             <div>
                             <td>
                                 <!-- Pass course ID to the moveRowToDropdown method -->
-                                <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32')" class="btn btn-danger btn-sm">X</button>
+                                <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody62')" class="btn btn-danger btn-sm">X</button>
                             </td>
                             </div>
                         </tr>

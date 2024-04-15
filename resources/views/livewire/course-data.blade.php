@@ -97,8 +97,10 @@
         
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_1">
-                @foreach($dropdownContent3_2 as $course)
-                <a class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                @foreach($dropdownContent3_1 as $course)
+                    @if(is_object($course))
+                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                    @endif
                 @endforeach
                 </div>
             </div>
@@ -155,7 +157,7 @@
         
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_2">
-                @foreach($dropdownContent3_1 as $course)
+                @foreach($dropdownContent3_2 as $course)
                 <a class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
                 @endforeach
                 </div>

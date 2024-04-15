@@ -61,8 +61,6 @@
                                             <td style="text-align: center;">
                                                
                                             <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
-
-                                                
                                             </td>
                                         </tr>
                                     @endforeach

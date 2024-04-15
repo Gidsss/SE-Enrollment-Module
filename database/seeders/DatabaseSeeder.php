@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\ShiftingRequest::factory(90)->create();
         \App\Models\AddDropRequest::factory(70)->create();
         \App\Models\LOARequest::factory(80)->create();
+        \App\Models\Course::factory(51)->create();
     }
 }

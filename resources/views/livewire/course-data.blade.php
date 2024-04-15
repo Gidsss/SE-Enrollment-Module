@@ -97,7 +97,9 @@
         
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_1">
-                <!-- Dropdown options will be dynamically added here -->
+                @foreach($dropdownContent3_2 as $course)
+                <a class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                @endforeach
                 </div>
             </div>
             </body>
@@ -114,9 +116,25 @@
                     <th>Units</th>
                     <th>Pre(Co)-Requisites</th>
                     <th></th>
+                    <th></th>
                     </tr>
                 </thead>  
-                <tbody id="tableBody3">
+                <tbody id="tableBody32">
+                @foreach ($courses->where('year_lvl', 3)->where('sem', 1) as $course)
+                <tr id="row_{{ $course->id }}">
+                    <td>{{ $course->course_code }}</td>
+                    <td>{{ $course->course_name }}</td>
+                    <td>{{ $course->units }}</td>
+                    <td>{{ $course->pre_requisites }}</td>
+                    <td></td>
+                    <div>
+                    <td>
+                        <!-- Pass course ID to the moveRowToDropdown method -->
+                        <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32')" class="btn btn-danger btn-sm">X</button>
+                    </td>
+                    </div>
+                </tr>
+                @endforeach
                 </tbody>
                 </table>
             </div>
@@ -137,6 +155,9 @@
         
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_2">
+                @foreach($dropdownContent3_1 as $course)
+                <a class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                @endforeach
                 </div>
             </div>
         
@@ -153,9 +174,25 @@
                     <th>Units</th>
                     <th>Pre(Co)-Requisites</th>
                     <th></th>
+                    <th></th>
                     </tr>
                 </thead>  
-                <tbody id="tableBody4">
+                <tbody id="tableBody42">
+                @foreach ($courses->where('year_lvl', 3)->where('sem', 2) as $course)
+                <tr id="row_{{ $course->id }}">
+                    <td>{{ $course->course_code }}</td>
+                    <td>{{ $course->course_name }}</td>
+                    <td>{{ $course->units }}</td>
+                    <td>{{ $course->pre_requisites }}</td>
+                    <td></td>
+                    <div>
+                    <td>
+                        <!-- Pass course ID to the moveRowToDropdown method -->
+                        <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody42')" class="btn btn-danger btn-sm">X</button>
+                    </td>
+                    </div>
+                </tr>
+                @endforeach
                 </tbody>
                 </table>
             </div>
@@ -195,9 +232,25 @@
                                 <th>Units</th>
                                 <th>Pre(Co)-Requisites</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>  
-                        <tbody id="tableBody5">
+                        <tbody id="tableBody52">
+                        @foreach ($courses->where('year_lvl', 4)->where('sem', 1) as $course)
+                        <tr id="row_{{ $course->id }}">
+                            <td>{{ $course->course_code }}</td>
+                            <td>{{ $course->course_name }}</td>
+                            <td>{{ $course->units }}</td>
+                            <td>{{ $course->pre_requisites }}</td>
+                            <td></td>
+                            <div>
+                            <td>
+                                <!-- Pass course ID to the moveRowToDropdown method -->
+                                <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32')" class="btn btn-danger btn-sm">X</button>
+                            </td>
+                            </div>
+                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -235,9 +288,25 @@
                                 <th>Units</th>
                                 <th>Pre(Co)-Requisites</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>  
                         <tbody id="tableBody6">
+                        @foreach ($courses->where('year_lvl', 4)->where('sem', 2) as $course)
+                        <tr id="row_{{ $course->id }}">
+                            <td>{{ $course->course_code }}</td>
+                            <td>{{ $course->course_name }}</td>
+                            <td>{{ $course->units }}</td>
+                            <td>{{ $course->pre_requisites }}</td>
+                            <td></td>
+                            <div>
+                            <td>
+                                <!-- Pass course ID to the moveRowToDropdown method -->
+                                <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32')" class="btn btn-danger btn-sm">X</button>
+                            </td>
+                            </div>
+                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -245,6 +314,7 @@
             <span id="totalUnits6"></span>
         </div>
 </div>
+
 <script>
     function adjustYearTables(hasYear2, hasYear3, hasYear4) {
         if (hasYear2) {
@@ -283,9 +353,7 @@
             option.textContent = `${courseCode} - ${courseName}`;
             option.dataset.courseCode = courseCode; 
             option.dataset.courseName = courseName;
-            option.dataset.courseUnit = courseUnit;
-            option.dataset.preRequisites = preRequisites;
-            option.dataset.grades = preRequisites;
+
 
             option.addEventListener('click', function() {
                 handleDropdownSelection(courseCode, courseName, courseUnit, preRequisites, year_lvl, sem, grades);
@@ -307,8 +375,7 @@
                 dropdownContent4_2.appendChild(option);
                 }
             
-            // Remove the row from the table
-            row.remove();
+
 
             // Update total units for the first table
             updateTotalUnits('tableBody', 'totalUnits');
@@ -664,3 +731,4 @@
 @endforeach
 
 </script>
+

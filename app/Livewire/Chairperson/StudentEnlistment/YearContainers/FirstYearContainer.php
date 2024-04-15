@@ -42,7 +42,6 @@ class FirstYearContainer extends Component
         // Filter students to include only first-year students
         $this->students = $this->students->where('year_level', '1');
         $this->calculateTotalStudents();
-        
     }
     
     public function calculateTotalStudents()

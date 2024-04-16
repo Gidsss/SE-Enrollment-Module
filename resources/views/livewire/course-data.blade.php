@@ -1,7 +1,12 @@
 <div>
-<button wire:click="findAndLogCommonCourseCodes" id="findCommonCourseCodesButton">Find Common Course Codes</button>
+<button id="findCommonCourseCodesButton">Find Common Course Codes</button>
     <button id="findCourseCodesButton">Find pre Req button</button>
     <button id="findAndLogCourseCodesForTableButton">Check button</button>
+    @if (isset($displayedCourseCodes))
+                <pre>Compiled Course Codes: {{ json_encode($displayedCourseCodes) }}</pre>
+            @endif
+    
+    
 
         <div id="2nd-year-tables" >
             <h1>2nd Year 1st Semester</h1>
@@ -152,7 +157,7 @@
                     <span class="badge badge-danger">Overload</span>
                 @endif
             </span>
-        
+                    
             <h1>3rd Year 2nd Semester</h1>
             
             <body>
@@ -365,6 +370,8 @@
         </div>
 </div>
 
+
+
 @push('scripts')
 <script>
     function adjustYearTables(hasYear2, hasYear3, hasYear4) {
@@ -389,7 +396,7 @@
 
     // Call the adjustYearTables function after the DOM content is loaded
     document.addEventListener("DOMContentLoaded", function() {
-    adjustYearTables({{ $hasYear2 ? 'true' : 'false' }}, {{ $hasYear3 ? 'true' : 'false' }}, {{ $hasYear4 ? 'true' : 'false' }});
+        adjustYearTables({{ $hasYear2 ? 'true' : 'false' }}, {{ $hasYear3 ? 'true' : 'false' }}, {{ $hasYear4 ? 'true' : 'false' }});
     });
 
     @foreach($validations->where('studentid', '2021-01299') as $validation) 

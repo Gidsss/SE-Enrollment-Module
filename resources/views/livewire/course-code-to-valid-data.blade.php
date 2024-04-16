@@ -65,7 +65,7 @@
                 <th></th>
                 </tr>
             </thead>  
-            <tbody id="tableBody3">
+            <tbody id="tableBody32">
             </tbody>
             </table>
         </div>
@@ -73,7 +73,6 @@
         <span id="totalUnits3"></span>
     
         <h1>3rd Year 2nd Semester</h1>
-    
     
         <div class="card">
         <!-- /.card-header -->

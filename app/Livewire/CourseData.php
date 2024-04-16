@@ -117,6 +117,22 @@ class CourseData extends Component
         }
     }
 
+    public function getDisplayedCourseCodesInTable32()
+    {
+        $courseCodes = [];
+        foreach ($this->courses as $course) {
+            if ($course->year_lvl === 3 && $course->sem === 1) {
+                $courseCodes[] = $course->course_code;
+            } elseif ($course->year_lvl === 3 && $course->sem === 2) {
+                $courseCodes[] = $course->course_code;
+            } elseif ($course->year_lvl === 4 && $course->sem === 1) {
+                $courseCodes[] = $course->course_code;
+            } elseif ($course->year_lvl === 4 && $course->sem === 2) {
+                $courseCodes[] = $course->course_code;
+            } 
+        }
+        return $courseCodes;
+    }
 
     public function render()
     {
@@ -131,6 +147,8 @@ class CourseData extends Component
 
 
         $this->totalUnits32 = $this->courses->where('year_lvl', 3)->where('sem', 1)->sum('units');
+        $displayedCourseCodes = $this->getDisplayedCourseCodesInTable32();
+
 
 
         foreach ($validations as $validation) {
@@ -160,6 +178,8 @@ class CourseData extends Component
             'totalUnits42' => $this->totalUnits42, 
             'totalUnits72' => $this->totalUnits72, 
             'totalUnits62' => $this->totalUnits62, 
+            'displayedCourseCodes' => $displayedCourseCodes,
+            
         ]);
     }
     private function updateTotalUnits32()

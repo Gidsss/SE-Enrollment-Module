@@ -154,7 +154,7 @@ class CourseData extends Component
             'dropdownContent3_2' => $this->dropdownContent3_2,
             'dropdownContent3_1' => $this->dropdownContent3_1,
             'dropdownContent4_1' => $this->dropdownContent4_1,
-            'dropdownContent4_1' => $this->dropdownContent4_2,
+            'dropdownContent4_2' => $this->dropdownContent4_2,
             'tableBodyId' => $this->tableBodyId,
             'totalUnits32' => $this->totalUnits32, 
             'totalUnits42' => $this->totalUnits42, 

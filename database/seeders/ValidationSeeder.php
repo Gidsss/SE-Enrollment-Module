@@ -12,7 +12,7 @@ class ValidationSeeder extends Seeder
      */
     public function run(): void
     {
-        \DB::table('courses')->insert
+        \DB::table('validations')->insert
         ([
             [
                 'id' => 16,

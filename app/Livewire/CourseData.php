@@ -8,6 +8,7 @@ use App\Models\Validation;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Livewire;
 
 class CourseData extends Component
 {
@@ -18,89 +19,105 @@ class CourseData extends Component
     public $dropdownContent4_2 = [];
     public $tableBody = '';
     public $tableBodyId = '';
+    public $totalUnits32 = 0;
+    public $totalUnits42 = 0;
+    public $totalUnits72 = 0;
+    public $totalUnits62 = 0;
+    public $dropdownContentRef;
 
     public function mount()
     {
         $this->student_id = '2021-01299';
         $this->courses = Course::all();
         $this->tableBodyId = ''; 
+        $this->updateTotalUnits32();
+        $this->updateTotalUnits42();
+        $this->updateTotalUnits72();
+        $this->updateTotalUnits62();
     }
 
     public function moveRowToDropdown($courseId, $tableBody)
     {
-    
         $course = $this->courses->firstWhere('id', $courseId);
 
         if ($tableBody === 'tableBody32') {
-            // Add the course to dropdownContent3_2
             $this->dropdownContent3_1[] = $course;
-    
-            // Remove from courses
             $this->courses = $this->courses->reject(function ($c) use ($courseId) {
                 return $c->id === $courseId;
             });
         } elseif ($tableBody === 'tableBody42') {
-            // Add the course to dropdownContent3_2
             $this->dropdownContent3_2[] = $course;
-    
-            // Remove from courses
             $this->courses = $this->courses->reject(function ($c) use ($courseId) {
                 return $c->id === $courseId;
             });
         } elseif ($tableBody === 'tableBody72') {
-            // Add the course to dropdownContent3_2
             $this->dropdownContent4_1[] = $course;
-    
-            // Remove from courses
             $this->courses = $this->courses->reject(function ($c) use ($courseId) {
                 return $c->id === $courseId;
             });
         } elseif ($tableBody === 'tableBody62') {
-            // Add the course to dropdownContent3_2
             $this->dropdownContent4_2[] = $course;
-    
-            // Remove from courses
             $this->courses = $this->courses->reject(function ($c) use ($courseId) {
                 return $c->id === $courseId;
             });
         }
 
+        $this->updateTotalUnits32();
+        $this->updateTotalUnits42();
+        $this->updateTotalUnits72();
+        $this->updateTotalUnits62();
     }
 
-    public function moveRowFromDropdownToTable($courseCode, $dropdownContent)
+    public function moveRowFromDropdownToTable($courseCode, $tableBodyId)
     {
         $courseIndex = null;
-        $dropdownContentRef =& $this->dropdownContent3_1; // By default, assume dropdownContent3_1
+        $dropdownContentRef = null;
     
-        if ($dropdownContent === 'dropdownContent3_2') {
-            $dropdownContentRef =& $this->dropdownContent3_2;
-        }  
-        
-        if ($dropdownContent === 'dropdownContent4_1') {
-            $dropdownContentRef =& $this->dropdownContent4_1;
-        }
-
-        if ($dropdownContent === 'dropdownContent4_2') {
-            $dropdownContentRef =& $this->dropdownContent4_2;
-        }
-
-        foreach ($dropdownContentRef as $index => $course) {
-            if ($course['course_code'] === $courseCode) {
-                $courseIndex = $index;
+        switch ($tableBodyId) {
+            case 'tableBody32':
+                $dropdownContentRef = &$this->dropdownContent3_1;
                 break;
+            case 'tableBody42':
+                $dropdownContentRef = &$this->dropdownContent3_2;
+                break;
+            case 'tableBody72':
+                $dropdownContentRef = &$this->dropdownContent4_1;
+                break;
+            case 'tableBody62':
+                $dropdownContentRef = &$this->dropdownContent4_2;
+                break;
+        }
+    
+        // Proceed only if $dropdownContentRef is defined
+        if (isset($dropdownContentRef)) {
+            foreach ($dropdownContentRef as $index => $course) {
+                if ($course['course_code'] === $courseCode) {
+                    $courseIndex = $index;
+                    break;
+                }
+            }
+    
+            if ($courseIndex !== null) {
+                $course = $dropdownContentRef[$courseIndex];
+                $this->courses->push($course);
+                unset($dropdownContentRef[$courseIndex]);
+                $dropdownContentRef = array_values($dropdownContentRef); // Reset array keys
+                $this->updateTotalUnits($tableBodyId, $course->units); // Pass tableBodyId for proper update
+            } else {
+                // Handle course not found in dropdown (optional: error message)
             }
         }
-    
-        if ($courseIndex !== null) {
-            $course = $dropdownContentRef[$courseIndex];
-            $this->courses->push($course);
-            unset($dropdownContentRef[$courseIndex]);
-            $dropdownContentRef = array_values($dropdownContentRef); // Reset array keys
-        } else {
-            // Handle course not found in dropdown (optional: error message)
+    }
+
+    public function updateTotalUnits($tableBodyId, $unitChange)
+    {
+        $totalUnitsKey = str_replace('tableBody', 'totalUnits', $tableBodyId);
+        if (property_exists($this, $totalUnitsKey)) {
+            $this->$totalUnitsKey += $unitChange;
         }
     }
-    
+
+
     public function render()
     {
         
@@ -111,6 +128,9 @@ class CourseData extends Component
         $hasYear2 = false;
         $hasYear3 = false;
         $hasYear4 = false;
+
+
+        $this->totalUnits32 = $this->courses->where('year_lvl', 3)->where('sem', 1)->sum('units');
 
 
         foreach ($validations as $validation) {
@@ -136,8 +156,29 @@ class CourseData extends Component
             'dropdownContent4_1' => $this->dropdownContent4_1,
             'dropdownContent4_1' => $this->dropdownContent4_2,
             'tableBodyId' => $this->tableBodyId,
-            
+            'totalUnits32' => $this->totalUnits32, 
+            'totalUnits42' => $this->totalUnits42, 
+            'totalUnits72' => $this->totalUnits72, 
+            'totalUnits62' => $this->totalUnits62, 
         ]);
     }
-    
+    private function updateTotalUnits32()
+    {
+        $this->totalUnits32 = $this->courses->where('year_lvl', 3)->where('sem', 1)->sum('units');
+    }
+
+    private function updateTotalUnits42()
+    {
+        $this->totalUnits42 = $this->courses->where('year_lvl', 3)->where('sem', 2)->sum('units');
+    }
+
+    private function updateTotalUnits72()
+    {
+        $this->totalUnits72 = $this->courses->where('year_lvl', 4)->where('sem', 1)->sum('units');
+    }
+
+    private function updateTotalUnits62()
+    {
+        $this->totalUnits62 = $this->courses->where('year_lvl', 4)->where('sem', 2)->sum('units');
+    }
 }

@@ -1,5 +1,5 @@
 <div>
-    <button id="findCommonCourseCodesButton">Find Common Course Codes</button>
+<button wire:click="findAndLogCommonCourseCodes" id="findCommonCourseCodesButton">Find Common Course Codes</button>
     <button id="findCourseCodesButton">Find pre Req button</button>
     <button id="findAndLogCourseCodesForTableButton">Check button</button>
 
@@ -99,7 +99,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_1">
                 @foreach($dropdownContent3_1 as $course)
                     @if(is_object($course))
-                    <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'dropdownContent3_1')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                    <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody32')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
                     @endif
                 @endforeach
                 </div>
@@ -132,7 +132,8 @@
                     <div>
                     <td>
                         <!-- Pass course ID to the moveRowToDropdown method -->
-                        <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32')" class="btn btn-danger btn-sm">X</button>
+                        <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
+
                     </td>
                     </div>
                 </tr>
@@ -141,7 +142,16 @@
                 </table>
             </div>
             </div>
-            <span id="totalUnits32"></span>
+            <span id="totalUnits32">
+                {{ $totalUnits32 }}
+                @if ($totalUnits32 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits32 >= 10 && $totalUnits32 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
         
             <h1>3rd Year 2nd Semester</h1>
             
@@ -159,7 +169,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_2">
                 @foreach($dropdownContent3_2 as $course)
                     @if(is_object($course))
-                    <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'dropdownContent3_2')" class="dropdown-item" href="#"> {{ $course->course_code }} - {{ $course->course_name }}</a>
+                    <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody42')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
                     @endif
                 @endforeach
                 </div>
@@ -192,7 +202,7 @@
                     <div>
                     <td>
                         <!-- Pass course ID to the moveRowToDropdown method -->
-                        <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody42')" class="btn btn-danger btn-sm">X</button>
+                        <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody42', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
                     </td>
                     </div>
                 </tr>
@@ -201,7 +211,16 @@
                 </table>
             </div>
             </div>
-            <span id="totalUnits42"></span>
+            <span id="totalUnits42">
+                {{ $totalUnits42 }}
+                @if ($totalUnits42 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits42 >= 10 && $totalUnits42 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
         </div>
 
         <div id="4th-year-tables" >
@@ -221,7 +240,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent4_1">
                     @foreach($dropdownContent4_1 as $course)
                         @if(is_object($course))
-                            <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'dropdownContent4_1')" class="dropdown-item" href="#"> {{ $course->course_code }} - {{ $course->course_name }}</a>
+                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody72')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
                         @endif
                     @endforeach
                     </div>
@@ -263,7 +282,17 @@
                     </table>
                 </div>
             </div>
-            <span id="totalUnits52"></span>
+            <span id="totalUnits72">
+                {{ $totalUnits72 }}
+                @if ($totalUnits72 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits72 >= 10 && $totalUnits72 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
+        
 
             <h1>4th Year 2nd Semester</h1>
             
@@ -281,7 +310,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent4_2">
                     @foreach($dropdownContent4_2 as $course)
                         @if(is_object($course))
-                            <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'dropdownContent4_2')" class="dropdown-item" href="#"> {{ $course->course_code }} - {{ $course->course_name }}</a>
+                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody62')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
                         @endif
                     @endforeach
                     </div>
@@ -323,10 +352,20 @@
                     </table>
                 </div>
             </div>
-            <span id="totalUnits6"></span>
+            <span id="totalUnits62">
+                {{ $totalUnits62 }}
+                @if ($totalUnits62 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits62 >= 10 && $totalUnits62 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
         </div>
 </div>
 
+@push('scripts')
 <script>
     function adjustYearTables(hasYear2, hasYear3, hasYear4) {
         if (hasYear2) {
@@ -350,7 +389,7 @@
 
     // Call the adjustYearTables function after the DOM content is loaded
     document.addEventListener("DOMContentLoaded", function() {
-        adjustYearTables({{ $hasYear2 ? 'true' : 'false' }}, {{ $hasYear3 ? 'true' : 'false' }}, {{ $hasYear4 ? 'true' : 'false' }});
+    adjustYearTables({{ $hasYear2 ? 'true' : 'false' }}, {{ $hasYear3 ? 'true' : 'false' }}, {{ $hasYear4 ? 'true' : 'false' }});
     });
 
     @foreach($validations->where('studentid', '2021-01299') as $validation) 
@@ -683,9 +722,9 @@
         console.log('All Course Codes:', courseCodes);
     }
 
-    document.getElementById('findCommonCourseCodesButton').addEventListener('click', function() {
+    document.getElementById('findCommonCourseCowqwqdesButton').addEventListener('click', function() {
         // Call a function to find common course codes and log them to the console
-        findAndLogCommonCourseCodes();
+        findAndLogCommondsdCourseCodes();
     });
 
     async function findAndLogCourseCodesForTable(tableId, courseCode, coursesData) {
@@ -743,4 +782,4 @@
 @endforeach
 
 </script>
-
+@endpush

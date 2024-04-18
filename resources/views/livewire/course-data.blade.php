@@ -470,113 +470,12 @@
             return { grade: '', courseCode: '' }; // Return 'N/A' if there's an error
         }
     }
-    async function addRowBackToTable(course) {
-        // Fetch prerequisite grade
-        const { grade: prerequisiteGrade, courseCode: prerequisiteCourseCode } = await findPrerequisiteGrade(course.pre_requisites, coursesData);
-
-        // Create a new row element
-        const newRow = document.createElement('tr');
-        newRow.id = `row-${course.id}`;
-        
-        newRow.innerHTML = `
-            <td>${course.course_code || ''}</td>
-            <td>${course.course_name || ''}</td>
-            <td>${course.units || ''}</td>
-            <td>${course.pre_requisites || ''}</td>
-            <td style="color: ${prerequisiteGrade === 5 ? 'red' : 'inherit'}">
-                ${prerequisiteGrade === 5 ? 'FAILED PREREQ: ' + prerequisiteCourseCode : prerequisiteGrade || ''}
-            </td>
-            <td><button class="btn btn-danger btn-sm" onclick="deleteRow('row-${course.id}', '${course.course_code}', '${course.course_name}', '${course.units}', '${course.pre_requisites}', '${course.year_lvl}', '${course.sem}', '${course.grades}')">X</button></td>
-        `;
-
-        const grade = Number(course.grades);
-        const targetTableId = determineTableId(course.year_lvl, course.sem);
-        let dropdownContent;
-        
-
-            // Function to append the new row to the target table
-            function appendRowToTable(dropdownContent) {
-                if (dropdownContent === dropdownContent3_2) {
-                    document.getElementById('tableBody4').appendChild(newRow);
-                } else if ((dropdownContent === dropdownContent4_2)){
-                    document.getElementById('tableBody6').appendChild(newRow);  
-                } else if (dropdownContent === dropdownContent4_1) {
-                    document.getElementById('tableBody5').appendChild(newRow); // Append to tableBody5
-                }
-                // Update total units
-                updateTotalUnits(targetTableId, `totalUnits${targetTableId.slice(-1)}`);
-            }
-
-        if (grade === 5 && course.sem === 2) {
-            const option = document.createElement('a');
-            option.classList.add('dropdown-item');
-            option.href = '#';
-            option.textContent = `${course.course_code} - ${course.course_name}`;
-
-            // Clone the option element
-            const clonedOption = option.cloneNode(true);
-
-            // Append the cloned option to dropdownContent3_2
-            if (Number(course.year_lvl) === 2) {
-                dropdownContent3_2.appendChild(clonedOption);
-            }
-
-            // Append the original option to dropdownContent4_2
-            dropdownContent4_2.appendChild(option);
-
-            // Add event listener for both original and cloned options
-            option.addEventListener('click', function () {
-                // Append the new row to tableBody6
-                appendRowToTable(dropdownContent4_2);
-
-                // Remove the option from the dropdown
-                dropdownContent4_2.removeChild(option);
-            });
-
-            clonedOption.addEventListener('click', function () {
-                // Append the new row to tableBody6
-                appendRowToTable(dropdownContent3_2);
-
-                console.log("Dropdown Content", dropdownContent);
-
-
-                // Remove the cloned option from the dropdown
-                dropdownContent3_2.removeChild(clonedOption);
-            });
-        } else if (Number(prerequisiteGrade) === 5 && course.sem === 1) { 
-        // Check if prerequisite course is found in tableBody4
-        const prerequisiteFound = await findAndLogCourseCodesForTable('tableBody4', 'CSC 0221', coursesData);
-        if (prerequisiteFound) {
-            const option = document.createElement('a');
-            option.classList.add('dropdown-item');
-            option.href = '#';
-            option.textContent = `${course.course_code} - ${course.course_name}`;
-            dropdownContent4_1.appendChild(option);
-
-            option.addEventListener('click', function () {
-                dropdownContent4_1.removeChild(option);
-                appendRowToTable(dropdownContent4_1);
-            });
-        } else {
-            console.log('Prerequisite course not found in tableBody4, so option not appended.');
-        }
-        } else {
-                let prerequisiteFound; 
-                document.getElementById(targetTableId).appendChild(newRow);
-                console.log("Added course:", course.course_code, course.year_lvl);
-                console.log("Pre-requisite found???:", prerequisiteFound);
-                
-                updateTotalUnits('tableBody', 'totalUnits');
-                updateTotalUnits('tableBody2', 'totalUnits2');
-                updateTotalUnits('tableBody3', 'totalUnits3');
-                updateTotalUnits('tableBody4', 'totalUnits4');
-            }
-    }
+    
     // Pass courses data to JavaScript
     const coursesData = {!! json_encode($courses) !!};
 
     // Loop through courses data and add rows
-    coursesData.forEach(course => addRowBackToTable(course));
+    
 
     const dropdownCourseCodes2_1 = new Set();
     const dropdownCourseCodes2_2 = new Set();
@@ -606,15 +505,7 @@
             dropdownCourseCodes4_2.add(courseCode);
         }
 
-        addRowBackToTable({
-        course_code: courseCode,
-        course_name: courseName,
-        units: courseUnit,
-        pre_requisites: preRequisites,
-        year_lvl: year_lvl,
-        sem: sem, // Pass the provided sem
-        grades: grades
-        });
+        
     }
 
     // New function to determine table ID based on year_lvl and sem
@@ -721,10 +612,10 @@
         console.log('All Course Codes:', courseCodes);
     }
 
-    document.getElementById('findCommonCourseCowqwqdesButton').addEventListener('click', function() {
-        // Call a function to find common course codes and log them to the console
-        findAndLogCommondsdCourseCodes();
-    });
+    // document.getElementById('findCommonCourseCowqwqdesButton').addEventListener('click', function() {
+    //     // Call a function to find common course codes and log them to the console
+    //     findAndLogCommondsdCourseCodes();
+    // });
 
     async function findAndLogCourseCodesForTable(tableId, courseCode, coursesData) {
         // Get the specified table by its ID

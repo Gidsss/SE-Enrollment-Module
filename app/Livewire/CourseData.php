@@ -24,6 +24,7 @@ class CourseData extends Component
     public $totalUnits72 = 0;
     public $totalUnits62 = 0;
     public $dropdownContentRef;
+    public $units;
 
     public function mount()
     {
@@ -34,6 +35,12 @@ class CourseData extends Component
         $this->updateTotalUnits42();
         $this->updateTotalUnits72();
         $this->updateTotalUnits62();
+        // Assuming you have access to $course object here
+        foreach ($this->courses as $course) {
+            if ($course->grades === 5) {
+                $this->addCustomSelection($course->course_code, $course->course_name, $course->units, $course->year_lvl, 'tableBody32', true);
+            }
+        }
     }
 
     public function moveRowToDropdown($courseId, $tableBody)
@@ -68,8 +75,7 @@ class CourseData extends Component
         $this->updateTotalUnits62();
     }
 
-    public function moveRowFromDropdownToTable($courseCode, $tableBodyId)
-    {
+    public function moveRowFromDropdownToTable($courseCode, $tableBodyId){
         $courseIndex = null;
         $dropdownContentRef = null;
     
@@ -91,7 +97,7 @@ class CourseData extends Component
         // Proceed only if $dropdownContentRef is defined
         if (isset($dropdownContentRef)) {
             foreach ($dropdownContentRef as $index => $course) {
-                if ($course['course_code'] === $courseCode) {
+                if ($course->course_code === $courseCode) { // Use -> instead of []
                     $courseIndex = $index;
                     break;
                 }
@@ -109,16 +115,14 @@ class CourseData extends Component
         }
     }
 
-    public function updateTotalUnits($tableBodyId, $unitChange)
-    {
+    public function updateTotalUnits($tableBodyId, $unitChange){
         $totalUnitsKey = str_replace('tableBody', 'totalUnits', $tableBodyId);
         if (property_exists($this, $totalUnitsKey)) {
             $this->$totalUnitsKey += $unitChange;
         }
     }
 
-    public function getDisplayedCourseCodesInTable32()
-    {
+    public function getDisplayedCourseCodes(){
         $courseCodes = [];
         foreach ($this->courses as $course) {
             if ($course->year_lvl === 3 && $course->sem === 1) {
@@ -134,22 +138,70 @@ class CourseData extends Component
         return $courseCodes;
     }
 
-    public function render()
-    {
-        
+    public function addCustomSelection($courseCode, $courseName, $units,$year_lvl, $tableBodyId, $moveToTable = false){
+        $customSelection = new Course();
+        $customSelection->course_code = $courseCode;
+        $customSelection->course_name = $courseName;
+        $customSelection->units = $units;
+        $customSelection->year_lvl = $year_lvl;
+
+        // Log the properties to ensure they are set correctly
+        \Log::info("Custom Selection: " . json_encode($customSelection));
+    
+        // Define the dropdown content reference variable based on the tableBodyId
+        switch ($tableBodyId) {
+            case 'tableBody32':
+                $dropdownContentRef = &$this->dropdownContent3_2;
+                break;
+            case 'tableBody42':
+                $dropdownContentRef = &$this->dropdownContent3_1;
+                break;
+            case 'tableBody72':
+                $dropdownContentRef = &$this->dropdownContent4_1;
+                break;
+            case 'tableBody62':
+                $dropdownContentRef = &$this->dropdownContent4_2;
+                break;
+            default:
+                $dropdownContentRef = null;
+                break;
+        }
+    
+        // Proceed only if $dropdownContentRef is defined
+        if (isset($dropdownContentRef)) {
+            if ($this->checkGrades($customSelection, 5)) {
+                $dropdownContentRef[] = $customSelection;
+            } elseif ($moveToTable) { // If grades are not 5 and moveToTable is true, add to the specified table body
+                switch ($tableBodyId) {
+                    case 'tableBody32':
+                        $this->dropdownContent3_1[] = $customSelection;
+                        break;
+                    case 'tableBody42':
+                        $this->dropdownContent3_2[] = $customSelection;
+                        break;
+                    case 'tableBody72':
+                        $this->dropdownContent4_1[] = $customSelection;
+                        break;
+                    case 'tableBody62':
+                        $this->dropdownContent4_2[] = $customSelection;
+                        break;
+                }
+            }
+        } else {
+            // Handle the case where the tableBodyId is not recognized (optional: error message)
+        }
+    }
+    
+    public function render(){  
         $courses = Course::all();
         $validations = Validation::all();
+
+        $displayedCourseCodes = $this->getDisplayedCourseCodes();
 
         // Initialize variables to track whether each year level is present in the validations
         $hasYear2 = false;
         $hasYear3 = false;
         $hasYear4 = false;
-
-
-        $this->totalUnits32 = $this->courses->where('year_lvl', 3)->where('sem', 1)->sum('units');
-        $displayedCourseCodes = $this->getDisplayedCourseCodesInTable32();
-
-
 
         foreach ($validations as $validation) {
             if ($validation->studentid === '2021-12983' && $validation->yearlvl === 2) {
@@ -172,7 +224,7 @@ class CourseData extends Component
             'dropdownContent3_2' => $this->dropdownContent3_2,
             'dropdownContent3_1' => $this->dropdownContent3_1,
             'dropdownContent4_1' => $this->dropdownContent4_1,
-            'dropdownContent4_1' => $this->dropdownContent4_2,
+            'dropdownContent4_2' => $this->dropdownContent4_2,
             'tableBodyId' => $this->tableBodyId,
             'totalUnits32' => $this->totalUnits32, 
             'totalUnits42' => $this->totalUnits42, 
@@ -180,7 +232,38 @@ class CourseData extends Component
             'totalUnits62' => $this->totalUnits62, 
             'displayedCourseCodes' => $displayedCourseCodes,
             
+            
         ]);
+    }
+
+    private function checkGrades($course, $gradeThreshold){
+        // Assuming $course has properties 'course_code' and 'course_name'
+        return isset($course->grades) && $course->grades === $gradeThreshold 
+            ? $course->course_code . ' - ' . $course->course_name 
+            : '';
+    }
+    
+    private function checkYearLevels($validations)
+{
+        $hasYear2 = false;
+        $hasYear3 = false;
+        $hasYear4 = false;
+
+        foreach ($validations as $validation) {
+            if ($validation->studentid === '2021-12983' && $validation->yearlvl === 2) {
+                $hasYear2 = true;
+            } elseif ($validation->studentid === '2021-12983' && $validation->yearlvl === 3) {
+                $hasYear3 = true;
+            } elseif ($validation->studentid === '2021-12983' && $validation->yearlvl === 4) {
+                $hasYear4 = true;
+            }
+        }
+
+        return [
+            'hasYear2' => $hasYear2,
+            'hasYear3' => $hasYear3,
+            'hasYear4' => $hasYear4,
+        ];
     }
     private function updateTotalUnits32()
     {

@@ -12,11 +12,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\Student::factory(400)->create();
+        \App\Models\StudyPlanValidations::factory(60)->create();
+        \App\Models\ShiftingRequest::factory(90)->create();
+        \App\Models\AddDropRequest::factory(70)->create();
+        \App\Models\LOARequest::factory(80)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+            CourseSeeder::class,
+            ValidationSeeder::class,
+        ]);
+     
     }
 }

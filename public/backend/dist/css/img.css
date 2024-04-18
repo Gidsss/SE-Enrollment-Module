@@ -1,0 +1,25 @@
+.user-profile img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50% !important; 
+    margin-right: 10px;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+user agent stylesheet
+img {
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+a.user-profile {
+    color: #5E6974;
+}

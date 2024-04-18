@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Livewire;
 class CourseCodeToValidData extends Component
 {
     public $allowedCourseCodes = [
-        'CSC 0314', 'CSC 0314.1', 'CSC 0321', 'CSC 0321.1', 'CSC 0322', 'CSC 0322.1', 'CSC 0323', 'CSC 0323.1',
+        'CSC 0314.1', 'CSC 0321.1', 'CSC 0322', 'CSC 0322.1', 'CSC 0323', 'CSC 0323.1',
         'CSC 0324', 'CSC 0324.1', 'CSC 0325', 'CSC 0411', 'CSC 0412', 'CSC 0414', 'CSC 0414.1', 'CSC 0421',
         'CSC 0422', 'CSC 0422.1', 'CSC 0423',
     ];

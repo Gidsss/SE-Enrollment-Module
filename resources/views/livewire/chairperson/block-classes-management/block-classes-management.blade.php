@@ -135,16 +135,16 @@
 </div>
 </div>
     <script>
-    function handleSchedClick(event) {
-        // Handle the click event here
-        window.location.href = '{{ route("regular_schedule") }}';
-        event.preventDefault(); // Prevent the default behavior of the anchor tag
-    }
-    function handleSERClick(event) {
-        // Handle the click event here
-        window.location.href = '{{ route("regular_ser") }}';
-        event.preventDefault(); // Prevent the default behavior of the anchor tag
-    }
+    // function handleSchedClick(event) {
+    //     // Handle the click event here
+    //     window.location.href = ' route("regular_schedule") }}';
+    //     event.preventDefault(); // Prevent the default behavior of the anchor tag
+    // }
+    // function handleSERClick(event) {
+    //     // Handle the click event here
+    //     window.location.href = ' route("regular_ser") }}';
+    //     event.preventDefault(); // Prevent the default behavior of the anchor tag
+    // }
         const blockCounts = {
         'First Year': 0,
         'Second Year': 0,

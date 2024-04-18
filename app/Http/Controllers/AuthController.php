@@ -9,35 +9,34 @@ use Illuminate\Support\Facades\View;
 use App\Models\Student;
 class AuthController extends Controller
 {
-    public function login() // Edit this function to redirect to the correct page based on the student_type (regular or irregular)
+    public function login()
     {
-        if (Auth::check()) {
-            $student = Student::where('id', Auth::id())->first();
+        if (Auth::guard('student')->check()) { // Check if the student is authenticated using the 'student' guard
+            $student = Auth::guard('student')->user(); // Retrieve the authenticated student
             if ($student) {
                 if ($student->student_type == "Regular") {
                     return redirect()->intended('regular_student/regular_schedule'); 
                 } elseif ($student->student_type == "Irregular") {
-                    return redirect()->intended('irregular_student/irregular_schedule');
+                    return redirect()->intended('irregular_student/irreg_schedule');
                 }
             }
         }
-    
+
         return view('auth.student-login');
     }
 
     public function AuthLogin(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('student_id', 'password');
         $remember = !empty($request->remember);
 
-        if (Auth::attempt($credentials, $remember)) {
-            if (Auth::user()->student_type == "regular") {
+        if (Auth::guard('student')->attempt($credentials, $remember)) {
+            // Authentication successful for student
+            $student = Auth::guard('student')->user();
+            if ($student->student_type == "Regular") {
                 return redirect()->intended('regular_student/regular_schedule');
-            } else if (Auth::user()->student_type == "irregular") {
-                return redirect()->intended('irregular_student/irregular_schedule');
-            } else {
-                // Handle unknown student type
-                return redirect()->back()->with('error', 'Unknown student type. Please try again!');
+            } elseif ($student->student_type == "Irregular") {
+                return redirect()->intended('irregular_student/irreg_schedule');
             }
         } else {
             // Handle authentication failure
@@ -81,7 +80,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect(url('/'));
+        return redirect(url('/login'));
     }
 }
 

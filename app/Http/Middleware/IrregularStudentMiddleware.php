@@ -16,24 +16,16 @@ class IrregularStudentMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!empty(Auth::check()))
-        {
-            if(Auth::user()->student_type == "Irregular")
-            {
+        if (!empty(Auth::guard('student')->check())) {
+            if (Auth::guard('student')->user()->student_type == "Irregular") {
                 return $next($request);
+            } else {
+                Auth::guard('student')->logout();
+                return redirect('/login')->with('error', 'You are not authorized to perform this action.');
             }
-            else
-            {
-                Auth::logout();
-                return redirect(url(''));
-            }
+        } else {
+            Auth::guard('student')->logout();
+            return redirect('/login')->with('error', 'You are not logged in.');
         }
-        else
-        {
-            Auth::logout();
-            return redirect(url(''));
-
-        }
-       
     }
 }

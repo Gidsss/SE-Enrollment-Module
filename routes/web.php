@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-// use App\Http\Middleware\RegularStudentMiddleware;
-// use App\Http\Middleware\IrregularStudentMiddleware;
+use App\Http\Middleware\RegularStudentMiddleware;
+use App\Http\Middleware\IrregularStudentMiddleware;
 
 // Chairperson Livewire Components
 use App\Livewire\Chairperson\BlockClassesManagement\BlockClassesManagement;
@@ -21,6 +21,7 @@ use App\Livewire\IrregularStudent\DownloadSER\DownloadIrregularSER;
 use App\Livewire\IrregularStudent\ViewAssessment\ViewIrregularAssessment;
 use App\Livewire\IrregularStudent\IrregAssessment\IrregAssessment;
 use App\Livewire\IrregularStudent\IrregSER\IrregSER;
+use App\Livewire\IrregularStudent\IrregularStudent;
 
 // Regular Student Components
 use App\Livewire\RegularStudent\CheckSchedule\CheckSchedule;
@@ -39,11 +40,11 @@ use App\Livewire\RegularStudent\ViewAssessment\ViewRegularAssessment;
 
 /* Regular Student Pages */
 
-Route::get('/regular_student/regular_schedule', CheckSchedule::class); // regular student schedule
+// Route::get('/regular_student/regular_schedule', CheckSchedule::class); // regular student schedule
 
-Route::get('/regular_student/regular_assessment', ViewRegularAssessment::class); // regular student assessment
+// Route::get('/regular_student/regular_assessment', ViewRegularAssessment::class); // regular student assessment
 
-Route::get('/regular_student/regular_ser', DownloadRegularSER::class); // regular student ser
+// Route::get('/regular_student/regular_ser', DownloadRegularSER::class); // regular student ser
 
 /* Irregular Student Pages */
 
@@ -77,28 +78,26 @@ Route::get('/generate-pdf', [AuthController::class,'genpdf']); // for pdf genera
 
 /* Authentication */
 
-Route::get('/', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'login']);
 Route::post('/student/login', [AuthController::class, 'AuthLogin'])->name('login.submit');
 Route::get('/student/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/forgot-password', [AuthController::class, 'forgot_password']);
 
 /* Create a middleware for regular & irregular student (not yet implemented) */
 
-// Route::middleware([RegularStudentMiddleware::class])->group(function () {
-//     Route::get('regular_student/regular_schedule', function () {
-//         return view('student.regular_student.regular_schedule'); })->name('regular_schedule');
+Route::middleware([RegularStudentMiddleware::class])->group(function () {
+    Route::get('regular_student/regular_schedule', function () {
+        return view('student.regular_student.regular_schedule'); })->name('regular_schedule');
    
-//     Route::get('regular_student/regular_assessment', function() {
-//         return view('student.regular_student.regular_assessment'); })->name('regular_assessment'); // regular student assessment
+    Route::get('regular_student/regular_assessment', function() {
+        return view('student.regular_student.regular_assessment'); })->name('regular_assessment'); // regular student assessment
 
 
-//     // Add more regular student routes here
-// });
+    // Add more regular student routes here
+});
 
-// Route::middleware([IrregularStudentMiddleware::class])->group(function () {
-//     Route::get('irregular_student/irregular_schedule', function () {
-//         return view('student.irregular_student.irreg_schedule');
-//     })->name('irregular_schedule');
-
-//     // Add more irregular student routes here
-// });
+Route::middleware([IrregularStudentMiddleware::class])->group(function () {
+    Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class); // irregular student schedule
+    Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class); // irregular student assessment
+    Route::get('/irregular_student/irreg_ser', DownloadIrregularSER::class); // irregular student ser
+});

@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class StudentFactory extends Factory
 {
@@ -12,6 +14,7 @@ class StudentFactory extends Factory
      *
      * @var string
      */
+    protected static ?string $password;
     protected $model = Student::class;
 
     /**
@@ -29,6 +32,7 @@ class StudentFactory extends Factory
         'student_name' => "$lastName, $firstName $middleInitial",
         'student_type' => $this->faker->randomElement(['Regular', 'Irregular']),
         'year_level' => $this->faker->numberBetween(1, 4),
+        'password' => static::$password ??= Hash::make('password'),
         'status' => $this->faker->randomElement(['Pending', 'Approved', 'Revise']),
     ];
 }

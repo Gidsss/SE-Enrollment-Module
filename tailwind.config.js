@@ -1,17 +1,21 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: [],
-  theme: {
-    extend: {},
-  },
-  plugins: [require("daisyui")],
-}
-
+const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
-  //...
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["light"],
+  content: [
+    "./resources/**/*.blade.php",
+    "./resources/**/*.js",
+    "./resources/**/*.vue",
+    "./node_modules/flowbite/**/*.js"
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      },
+    },
   },
+  plugins: [
+      require('flowbite/plugin'),
+      require('@tailwindcss/forms'),
+  ],
 }
-

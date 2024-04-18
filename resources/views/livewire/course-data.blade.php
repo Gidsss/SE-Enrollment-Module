@@ -1,8 +1,11 @@
-
 <div>
-    <button id="findCommonCourseCodesButton">Find Common Course Codes</button>
     <button id="findCourseCodesButton">Find pre Req button</button>
     <button id="findAndLogCourseCodesForTableButton">Check button</button>
+            @if (isset($displayedCourseCodes))
+                <pre>Compiled Course Codes: {{ json_encode($displayedCourseCodes) }}</pre>
+            @endif
+    
+    
 
         <div id="2nd-year-tables" >
             <h1>2nd Year 1st Semester</h1>
@@ -98,7 +101,12 @@
         
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_1">
-                <!-- Dropdown options will be dynamically added here -->
+                @foreach($dropdownContent3_1 as $course)
+                    @if(is_object($course))
+                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody32')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                    @endif
+                @endforeach
+
                 </div>
             </div>
             </body>
@@ -115,15 +123,38 @@
                     <th>Units</th>
                     <th>Pre(Co)-Requisites</th>
                     <th></th>
+                    <th></th>
                     </tr>
                 </thead>  
-                <tbody id="tableBody3">
-                </tbody>
+                <tbody id="tableBody32">
+                        @foreach ($courses->where('year_lvl', 3)->where('sem', 1) as $course)
+                            <tr id="row_{{ $course->id }}">
+                                <td>{{ $course->course_code }}</td>
+                                <td>{{ $course->course_name }}</td>
+                                <td>{{ $course->units }}</td>
+                                <td>{{ $course->pre_requisites }}</td>
+                                <td></td>
+                                <td>
+                                    <!-- Pass course ID to the moveRowToDropdown method -->
+                                    <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
             </div>
-            <span id="totalUnits3"></span>
-        
+            <span id="totalUnits32">
+                {{ $totalUnits32 }}
+                @if ($totalUnits32 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits32 >= 10 && $totalUnits32 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
+                    
             <h1>3rd Year 2nd Semester</h1>
             
             <body>
@@ -138,6 +169,11 @@
         
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_2">
+                @foreach($dropdownContent3_2 as $course)
+                    @if(is_object($course))
+                    <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody42')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                    @endif
+                @endforeach
                 </div>
             </div>
         
@@ -154,14 +190,39 @@
                     <th>Units</th>
                     <th>Pre(Co)-Requisites</th>
                     <th></th>
+                    <th></th>
                     </tr>
                 </thead>  
-                <tbody id="tableBody4">
+                <tbody id="tableBody42">
+                @foreach ($courses->where('year_lvl', 3)->where('sem', 2) as $course)
+                <tr id="row_{{ $course->id }}">
+                    <td>{{ $course->course_code }}</td>
+                    <td>{{ $course->course_name }}</td>
+                    <td>{{ $course->units }}</td>
+                    <td>{{ $course->pre_requisites }}</td>
+                    <td></td>
+                    <div>
+                    <td>
+                        <!-- Pass course ID to the moveRowToDropdown method -->
+                        <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody42', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
+                    </td>
+                    </div>
+                </tr>
+                @endforeach
                 </tbody>
                 </table>
             </div>
             </div>
-            <span id="totalUnits4"></span>
+            <span id="totalUnits42">
+                {{ $totalUnits42 }}
+                @if ($totalUnits42 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits42 >= 10 && $totalUnits42 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
         </div>
 
         <div id="4th-year-tables" >
@@ -179,7 +240,11 @@
         
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent4_1">
-                        <!-- Dropdown options will be dynamically added here -->
+                    @foreach($dropdownContent4_1 as $course)
+                        @if(is_object($course))
+                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody72')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                        @endif
+                    @endforeach
                     </div>
                 </div>
         
@@ -196,14 +261,40 @@
                                 <th>Units</th>
                                 <th>Pre(Co)-Requisites</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>  
-                        <tbody id="tableBody5">
+                        <tbody id="tableBody72">
+                        @foreach ($courses->where('year_lvl', 4)->where('sem', 1) as $course)
+                        <tr id="row_{{ $course->id }}">
+                            <td>{{ $course->course_code }}</td>
+                            <td>{{ $course->course_name }}</td>
+                            <td>{{ $course->units }}</td>
+                            <td>{{ $course->pre_requisites }}</td>
+                            <td></td>
+                            <div>
+                            <td>
+                                <!-- Pass course ID to the moveRowToDropdown method -->
+                                <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody72')" class="btn btn-danger btn-sm">X</button>
+                            </td>
+                            </div>
+                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-            <span id="totalUnits5"></span>
+            <span id="totalUnits72">
+                {{ $totalUnits72 }}
+                @if ($totalUnits72 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits72 >= 10 && $totalUnits72 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
+        
 
             <h1>4th Year 2nd Semester</h1>
             
@@ -219,10 +310,13 @@
         
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent4_2">
-                        <!-- Dropdown options will be dynamically added here -->
+                    @foreach($dropdownContent4_2 as $course)
+                        @if(is_object($course))
+                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody62')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                        @endif
+                    @endforeach
                     </div>
                 </div>
-        
             </body>
         
             <div class="card">
@@ -236,35 +330,70 @@
                                 <th>Units</th>
                                 <th>Pre(Co)-Requisites</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>  
-                        <tbody id="tableBody6">
+                        <tbody id="tableBody62">
+                        @foreach ($courses->where('year_lvl', 4)->where('sem', 2) as $course)
+                        <tr id="row_{{ $course->id }}">
+                            <td>{{ $course->course_code }}</td>
+                            <td>{{ $course->course_name }}</td>
+                            <td>{{ $course->units }}</td>
+                            <td>{{ $course->pre_requisites }}</td>
+                            <td></td>
+                            <div>
+                            <td>
+                                <!-- Pass course ID to the moveRowToDropdown method -->
+                                <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody62')" class="btn btn-danger btn-sm">X</button>
+                            </td>
+                            </div>
+                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-            <span id="totalUnits6"></span>
+            <span id="totalUnits62">
+                {{ $totalUnits62 }}
+                @if ($totalUnits62 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits62 >= 10 && $totalUnits62 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
         </div>
 </div>
 
-
+@push('scripts')
 <script>
-    @foreach($validations->where('studentid', '2021-01299') as $validation) 
-        @if ($validation->yearlvl === 2) {
+    function adjustYearTables(hasYear2, hasYear3, hasYear4) {
+        if (hasYear2) {
             document.getElementById("2nd-year-tables").style.display = "block";
             document.getElementById("3rd-year-tables").style.display = "block";
             document.getElementById("4th-year-tables").style.display = "block";
-        } @elseif ($validation->yearlvl === 3) {
+        }
+
+        if (hasYear3) {
             document.getElementById("2nd-year-tables").style.display = "none";
             document.getElementById("3rd-year-tables").style.display = "block";
             document.getElementById("4th-year-tables").style.display = "block";
-        } @elseif ($validation->yearlvl === 4) {
+        }
+
+        if (hasYear4) {
             document.getElementById("2nd-year-tables").style.display = "none";
             document.getElementById("3rd-year-tables").style.display = "none";
             document.getElementById("4th-year-tables").style.display = "block";
-        } 
-    @endif
+        }
+    }
 
+    // Call the adjustYearTables function after the DOM content is loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        adjustYearTables({{ $hasYear2 ? 'true' : 'false' }}, {{ $hasYear3 ? 'true' : 'false' }}, {{ $hasYear4 ? 'true' : 'false' }});
+    });
+
+    @foreach($validations->where('studentid', '2021-01299') as $validation) 
     // Function to delete a row and add its course code and name to the dropdown
     function deleteRow(rowId, courseCode, courseName, courseUnit, preRequisites, year_lvl, sem, grades) {
             const row = document.getElementById(rowId);
@@ -276,9 +405,7 @@
             option.textContent = `${courseCode} - ${courseName}`;
             option.dataset.courseCode = courseCode; 
             option.dataset.courseName = courseName;
-            option.dataset.courseUnit = courseUnit;
-            option.dataset.preRequisites = preRequisites;
-            option.dataset.grades = preRequisites;
+
 
             option.addEventListener('click', function() {
                 handleDropdownSelection(courseCode, courseName, courseUnit, preRequisites, year_lvl, sem, grades);
@@ -300,9 +427,6 @@
                 dropdownContent4_2.appendChild(option);
                 }
             
-            // Remove the row from the table
-            row.remove();
-
             // Update total units for the first table
             updateTotalUnits('tableBody', 'totalUnits');
             updateTotalUnits('tableBody2', 'totalUnits2');
@@ -346,113 +470,12 @@
             return { grade: '', courseCode: '' }; // Return 'N/A' if there's an error
         }
     }
-    async function addRowBackToTable(course) {
-        // Fetch prerequisite grade
-        const { grade: prerequisiteGrade, courseCode: prerequisiteCourseCode } = await findPrerequisiteGrade(course.pre_requisites, coursesData);
-
-        // Create a new row element
-        const newRow = document.createElement('tr');
-        newRow.id = `row-${course.id}`;
-        
-        newRow.innerHTML = `
-            <td>${course.course_code || ''}</td>
-            <td>${course.course_name || ''}</td>
-            <td>${course.units || ''}</td>
-            <td>${course.pre_requisites || ''}</td>
-            <td style="color: ${prerequisiteGrade === 5 ? 'red' : 'inherit'}">
-                ${prerequisiteGrade === 5 ? 'FAILED PREREQ: ' + prerequisiteCourseCode : prerequisiteGrade || ''}
-            </td>
-            <td><button class="btn btn-danger btn-sm" onclick="deleteRow('row-${course.id}', '${course.course_code}', '${course.course_name}', '${course.units}', '${course.pre_requisites}', '${course.year_lvl}', '${course.sem}', '${course.grades}')">X</button></td>
-        `;
-
-        const grade = Number(course.grades);
-        const targetTableId = determineTableId(course.year_lvl, course.sem);
-        let dropdownContent;
-        
-
-            // Function to append the new row to the target table
-            function appendRowToTable(dropdownContent) {
-                if (dropdownContent === dropdownContent3_2) {
-                    document.getElementById('tableBody4').appendChild(newRow);
-                } else if ((dropdownContent === dropdownContent4_2)){
-                    document.getElementById('tableBody6').appendChild(newRow);  
-                } else if (dropdownContent === dropdownContent4_1) {
-                    document.getElementById('tableBody5').appendChild(newRow); // Append to tableBody5
-                }
-                // Update total units
-                updateTotalUnits(targetTableId, `totalUnits${targetTableId.slice(-1)}`);
-            }
-
-        if (grade === 5 && course.sem === 2) {
-            const option = document.createElement('a');
-            option.classList.add('dropdown-item');
-            option.href = '#';
-            option.textContent = `${course.course_code} - ${course.course_name}`;
-
-            // Clone the option element
-            const clonedOption = option.cloneNode(true);
-
-            // Append the cloned option to dropdownContent3_2
-            if (Number(course.year_lvl) === 2) {
-                dropdownContent3_2.appendChild(clonedOption);
-            }
-
-            // Append the original option to dropdownContent4_2
-            dropdownContent4_2.appendChild(option);
-
-            // Add event listener for both original and cloned options
-            option.addEventListener('click', function () {
-                // Append the new row to tableBody6
-                appendRowToTable(dropdownContent4_2);
-
-                // Remove the option from the dropdown
-                dropdownContent4_2.removeChild(option);
-            });
-
-            clonedOption.addEventListener('click', function () {
-                // Append the new row to tableBody6
-                appendRowToTable(dropdownContent3_2);
-
-                console.log("Dropdown Content", dropdownContent);
-
-
-                // Remove the cloned option from the dropdown
-                dropdownContent3_2.removeChild(clonedOption);
-            });
-        } else if (Number(prerequisiteGrade) === 5 && course.sem === 1) { 
-        // Check if prerequisite course is found in tableBody4
-        const prerequisiteFound = await findAndLogCourseCodesForTable('tableBody4', 'CSC 0221', coursesData);
-        if (prerequisiteFound) {
-            const option = document.createElement('a');
-            option.classList.add('dropdown-item');
-            option.href = '#';
-            option.textContent = `${course.course_code} - ${course.course_name}`;
-            dropdownContent4_1.appendChild(option);
-
-            option.addEventListener('click', function () {
-                dropdownContent4_1.removeChild(option);
-                appendRowToTable(dropdownContent4_1);
-            });
-        } else {
-            console.log('Prerequisite course not found in tableBody4, so option not appended.');
-        }
-        } else {
-                let prerequisiteFound; 
-                document.getElementById(targetTableId).appendChild(newRow);
-                console.log("Added course:", course.course_code, course.year_lvl);
-                console.log("Pre-requisite found???:", prerequisiteFound);
-                
-                updateTotalUnits('tableBody', 'totalUnits');
-                updateTotalUnits('tableBody2', 'totalUnits2');
-                updateTotalUnits('tableBody3', 'totalUnits3');
-                updateTotalUnits('tableBody4', 'totalUnits4');
-            }
-    }
+    
     // Pass courses data to JavaScript
     const coursesData = {!! json_encode($courses) !!};
 
     // Loop through courses data and add rows
-    coursesData.forEach(course => addRowBackToTable(course));
+    
 
     const dropdownCourseCodes2_1 = new Set();
     const dropdownCourseCodes2_2 = new Set();
@@ -482,15 +505,7 @@
             dropdownCourseCodes4_2.add(courseCode);
         }
 
-        addRowBackToTable({
-        course_code: courseCode,
-        course_name: courseName,
-        units: courseUnit,
-        pre_requisites: preRequisites,
-        year_lvl: year_lvl,
-        sem: sem, // Pass the provided sem
-        grades: grades
-        });
+        
     }
 
     // New function to determine table ID based on year_lvl and sem
@@ -597,11 +612,10 @@
         console.log('All Course Codes:', courseCodes);
     }
 
-    document.getElementById('findCommonCourseCodesButton').addEventListener('click', function() {
-        // Call a function to find common course codes and log them to the console
-        findAndLogCommonCourseCodes();
-        insertHiIntoStudyPlanCourseCode();
-    });
+    // document.getElementById('findCommonCourseCowqwqdesButton').addEventListener('click', function() {
+    //     // Call a function to find common course codes and log them to the console
+    //     findAndLogCommondsdCourseCodes();
+    // });
 
     async function findAndLogCourseCodesForTable(tableId, courseCode, coursesData) {
         // Get the specified table by its ID
@@ -658,3 +672,4 @@
 @endforeach
 
 </script>
+@endpush

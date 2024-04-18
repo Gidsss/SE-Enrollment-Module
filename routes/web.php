@@ -38,22 +38,6 @@ use App\Livewire\RegularStudent\ViewAssessment\ViewRegularAssessment;
 |
 */
 
-/* Regular Student Pages */
-
-// Route::get('/regular_student/regular_schedule', CheckSchedule::class); // regular student schedule
-
-// Route::get('/regular_student/regular_assessment', ViewRegularAssessment::class); // regular student assessment
-
-// Route::get('/regular_student/regular_ser', DownloadRegularSER::class); // regular student ser
-
-/* Irregular Student Pages */
-
-Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class); // irregular student schedule
-
-Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class); // irregular student assessment
-
-Route::get('irregular_student/irreg_ser', DownloadIrregularSER::class); // irregular student ser
-
 /* Chairperson Pages */
 
 Route::get('/chairperson/create_class', ClassCreation::class); // chairperson class creation
@@ -83,21 +67,18 @@ Route::post('/student/login', [AuthController::class, 'AuthLogin'])->name('login
 Route::get('/student/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/forgot-password', [AuthController::class, 'forgot_password']);
 
-/* Create a middleware for regular & irregular student (not yet implemented) */
+/* Regular Student Pages with middleware */
 
 Route::middleware([RegularStudentMiddleware::class])->group(function () {
-    Route::get('regular_student/regular_schedule', function () {
-        return view('student.regular_student.regular_schedule'); })->name('regular_schedule');
-   
-    Route::get('regular_student/regular_assessment', function() {
-        return view('student.regular_student.regular_assessment'); })->name('regular_assessment'); // regular student assessment
-
-
-    // Add more regular student routes here
+    Route::get('/regular_student/regular_schedule', CheckSchedule::class)->name('regular_schedule'); // regular student schedule
+    Route::get('/regular_student/regular_assessment', ViewRegularAssessment::class)->name('regular_assessment'); // regular student assessment
+    Route::get('/regular_student/regular_ser', DownloadRegularSER::class)->name('regular_ser'); // regular student ser
 });
 
+/* Irregular Student Pages with middleware */
+
 Route::middleware([IrregularStudentMiddleware::class])->group(function () {
-    Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class); // irregular student schedule
-    Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class); // irregular student assessment
-    Route::get('/irregular_student/irreg_ser', DownloadIrregularSER::class); // irregular student ser
+    Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class)->name('irreg_schedule'); // irregular student schedule
+    Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class)->name('irreg_assessment'); // irregular student assessment
+    Route::get('/irregular_student/irreg_ser', DownloadIrregularSER::class)->name('irreg_ser'); // irregular student ser
 });

@@ -93,7 +93,7 @@
 
         <li class="nav-item dropdown open" style="padding-left: 15px; top: 5px;">
             <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                <img src="{{url('backend/dist/img/user2.jpg')}}" alt="">2021-10687
+                <img src="{{url('backend/dist/img/user2.jpg')}}" alt="">{{ substr(Auth::guard('student')->user()->student_id, 0, 4) . '-' . substr(Auth::guard('student')->user()->student_id, 4) }}
                 </a>
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; right: 100px; transform: translate3d(50px, 40px, 0px);">
                 <a class="dropdown-item" href="javascript:;">Profile</a>
@@ -101,7 +101,7 @@
                 <span>Settings</span>
                 </a>
                 <a class="dropdown-item" href="javascript:;">Help</a>
-                <a class="dropdown-item" href="#"><i class="fa fa-sign-out pull-right"></i>Log Out</a>
+                <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-sign-out pull-right"></i>Log Out</a>
             </div>
         </li>
         </ul>
@@ -133,62 +133,18 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                <a href="pages/widgets.html" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                    Home
-                </p>
-                </a>
-            </li>
-                <li class="nav-item menu-open">
-                <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                    Information
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-                </a>
-                <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="./index.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="./index2.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Schedule</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="./index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Grades</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="./index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Violation</p>
-                    </a>
-                </li>
-                </ul>
-            </li>
+            
             <li class="nav-item menu-open">
                 <a class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
-                    Services
+                    Academic Directives
                     <i class="right fas fa-angle-left"></i>
                 </p>
                 </a>
                 <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="./index.html" class="nav-link">
+                    <a href="./index.html" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Enrollment</p>
                     </a>
@@ -196,13 +152,19 @@
                 <li class="nav-item">
                     <a href="./index2.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Registrar</p>
+                    <p>Add/Drop Request</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="./index3.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>SFE</p>
+                    <p>Shifting Request</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="./index3.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>LOA Request</p>
                     </a>
                 </li>
                 </ul>
@@ -260,7 +222,7 @@
                     <span style="position: absolute; top: 47.5%; left: 47.5%; transform: translate(-50%, -50%); color: white; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">1</span>
                 </span>
                 
-                <a href="#" onclick="handleClick(event)" style="text-decoration: none;">
+                <a href="{{ route('regular_assessment') }}" style="text-decoration: none;">
                 <span style="position: absolute; top: 1cm; left: 24.5ch; font-family: Inter, sans-serif; font-size: 35px; font-weight: bold;">
                     <i class="far fa-circle" style="font-size: 54px; color: #2D349A; "></i>
                     <span style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">2</span>
@@ -313,11 +275,6 @@
     </div>
     </div>
     <script>
-        // function handleClick(event) {
-        //     // Handle the click event here
-        //     event.preventDefault(); // Prevent the default behavior of the anchor tag
-        //     window.location.href = ' route("regular_assessment") }}';
-        // }
         document.addEventListener('DOMContentLoaded', function () {
             // Replace the following array with your custom headers, background colors, and text colors
             var customHeaders = [

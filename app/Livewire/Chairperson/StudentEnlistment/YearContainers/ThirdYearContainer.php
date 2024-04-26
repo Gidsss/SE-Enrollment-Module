@@ -66,17 +66,21 @@ class ThirdYearContainer extends Component
         $this->getPaginatedStudents();
     }
     
-    public function getPaginatedStudents()
+    public function getPaginatedStudents($page = null)
     {
+        if ($page !== null) {
+            $this->currentPage = $page;
+        }
+
         $total = Student::where('year_level', '3')->count();
         $this->lastPage = ceil($total / $this->perPage);
-    
+
         $this->currentPage = min(max(1, $this->currentPage), $this->lastPage);
         $offset = ($this->currentPage - 1) * $this->perPage;
-    
+
         // Adjust the ordering for descending sorting
         $orderByDirection = $this->sortDirection === 'desc' ? 'DESC' : 'ASC';
-    
+
         if ($this->sortColumn === 'student_block') {
             // Fetch first-year students sorted by student block
             $this->students = $this->getPaginatedStudentsByBlock($orderByDirection, $offset);
@@ -85,18 +89,20 @@ class ThirdYearContainer extends Component
             $this->students = $this->getPaginatedStudentsByName($orderByDirection, $offset);
         }
     }
-    
+
     public function nextPage($pageName = 'page')
-        {
-            $this->currentPage++;
-            $this->getPaginatedStudents();
+    {
+        if ($this->currentPage < $this->lastPage) {
+            $this->getPaginatedStudents($this->currentPage + 1);
         }
-    
-        public function previousPage($pageName = 'page')
-        {
-            $this->currentPage--;
-            $this->getPaginatedStudents();
+    }
+
+    public function previousPage($pageName = 'page')
+    {
+        if ($this->currentPage > 1) {
+            $this->getPaginatedStudents($this->currentPage - 1);
         }
+    }
     
     public function getPaginatedStudentsByName($orderByDirection, $offset)
         {

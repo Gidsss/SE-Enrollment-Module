@@ -37,6 +37,27 @@ window.addEventListener('open-block-capacity-modal', event => {
 $('#blockCapacityModal1').modal('show');
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    var dropdownButton = document.getElementById("dropdownMenuButton1");
+    var dropdownMenu = dropdownButton.nextElementSibling;
+
+    dropdownButton.addEventListener("click", function () {
+        if (dropdownMenu.style.display === "none" || dropdownMenu.style.display === "") {
+            dropdownMenu.style.display = "block";
+        } else {
+            dropdownMenu.style.display = "none";
+        }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = "none";
+        }
+    });
+});
+
+
 
 // Function to check if the input is a number or not (for block capacity)
 function isNumeric(event) {

@@ -196,7 +196,7 @@
             </div>
             <div class="status-card" style="width:20ch; height:4ch; position: absolute; top: 3.5ch; right: 22ch; border: .25px solid #000; 
             display: flex; justify-content: center; align-items: center;">
-                <p style="margin-left: .2rem; margin-top: 1rem;">Status: Enlisted <i class="fas fa-circle" style="color: yellow"></i></p>
+                <p style="margin-left: .2rem; margin-top: 1rem;">Status: Pending <i class="fas fa-circle" style="color: yellow"></i></p>
             </div>
             
 

@@ -1,3 +1,5 @@
+
+@vite(['resources/css/app.css','resources/js/app.js'])
 <div>
         <!-- Header Navigation Bar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -253,7 +255,7 @@
                     <div class="card custom-table-container">
                     
                         <div class="card-body">
-                            <table class="table custom-table">
+                            <table class="table">
                                 <thead>
                                     <tr id="table-headers">
                                         <!-- Header content and background color will be dynamically added here using JavaScript -->

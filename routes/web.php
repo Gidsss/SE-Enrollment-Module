@@ -19,14 +19,12 @@ use App\Livewire\Chairperson\StudentTransactions\Options\LOARequests;
 use App\Livewire\IrregularStudent\CreateStudyPlan\CreateStudyPlan;
 use App\Livewire\IrregularStudent\DownloadSER\DownloadIrregularSER;
 use App\Livewire\IrregularStudent\ViewAssessment\ViewIrregularAssessment;
-use App\Livewire\IrregularStudent\IrregAssessment\IrregAssessment;
-use App\Livewire\IrregularStudent\IrregSER\IrregSER;
-use App\Livewire\IrregularStudent\IrregularStudent;
 
 // Regular Student Components
 use App\Livewire\RegularStudent\CheckSchedule\CheckSchedule;
 use App\Livewire\RegularStudent\DownloadSER\DownloadRegularSER;
 use App\Livewire\RegularStudent\ViewAssessment\ViewRegularAssessment;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,7 +56,7 @@ Route::get('/chairperson/student_transaction/loa_requests', LOARequests::class)-
 
 /* Necessary Components */
 
-Route::get('/generate-pdf', [AuthController::class,'genpdf']); // for pdf generation 
+Route::get('/generate-pdf', [AuthController::class, 'genpdf']); // for pdf generation 
 
 /* Authentication */
 

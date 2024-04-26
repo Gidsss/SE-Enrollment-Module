@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\View;
 use App\Models\Student;
+
 class AuthController extends Controller
 {
     public function login()
@@ -15,7 +16,7 @@ class AuthController extends Controller
             $student = Auth::guard('student')->user(); // Retrieve the authenticated student; we can perform various actions using this like getting the student's ID, name, for enrollment etc.
             if ($student) {
                 if ($student->student_type == "Regular") {
-                    return redirect()->intended('regular_student/regular_schedule'); 
+                    return redirect()->intended('regular_student/regular_schedule');
                 } elseif ($student->student_type == "Irregular") {
                     return redirect()->intended('irregular_student/irreg_schedule');
                 }
@@ -44,7 +45,7 @@ class AuthController extends Controller
         }
     }
 
-  
+
 
     public function logout()
     {

@@ -1,84 +1,101 @@
 <!-- Dont declare styles here!!! -->
 <div>
-    <div class="container mt-5">
+<div>
+<div class="container mt-5">
         <div class="row mb-1">
             <div class="col-md-12">
-                <p class="text-first-year"><strong>Student Enlistment</strong></p>
-            </div>
+            <p class="text-first-year"><strong>Student Enlistment</strong>  <button type="button" class="btn btn-primary" style="margin-left: 560px; margin-right: 0px; font-family: Inter, sans-serif;" data-toggle="modal" data-target="#blockCapacityModal1">Set Block Capacity</button></p>            
+        </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                    <h5 style="float: left;">Total <strong>#</strong> of Records: {{ $secondYearStudents }}</h5>
-                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#bulkEditStudentModal1" wire:click="selectStudentsForBulkEdit">Batch Assign</button>
-                        <button type="button" class="btn btn-primary" style="float: right;" wire:click="assignBlockSectionsAlphabetically(4)" @if(!$blockCapacitySet) disabled @endif>Assign Blocks Alphabetically</button>
-                        <button type="button" class="btn btn-primary" style="float: right;" wire:click="assignBlockSectionsRandomly" @if(!$blockCapacitySet) disabled @endif>Assign Blocks Randomly</button>
-                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#blockCapacityModal1">Set Block Capacity</button>
-                      <!-- Button trigger modal -->
+                <div class="card-header">
+                        <p style="float: left; font-family: Inter, sans-serif;" >Total <strong>#</strong> of Records: {{ $secondYearStudents }}</p>
+                        <div class="relative inline-block" style="float: right;">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" aria-haspopup="true" aria-expanded="false" style="font-family: Inter, sans-serif;">
+                            Assign Button
+                        </button>
+                        <div class="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton" style="display: none;">
+                            <div class="py-1" role="none">
+                                <button class="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100" type="button" data-toggle="modal" data-target="#bulkEditStudentModal1" wire:click="selectStudentsForBulkEdit" role="menuitem">Batch Assign</button>
+                            </div>
+                            <div class="py-1" role="none">
+                                <hr class="dropdown-divider">
+                                <button class="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 @if(!$blockCapacitySet) opacity-50 cursor-not-allowed pointer-events-none @endif" type="button" wire:click="assignBlockSectionsAlphabetically(4)" role="menuitem">Assign Blocks Alphabetically</button>
+                                <button class="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 @if(!$blockCapacitySet) opacity-50 cursor-not-allowed pointer-events-none @endif" type="button" wire:click="assignBlockSectionsRandomly" role="menuitem">Assign Blocks Randomly</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body" style="background-color: #F6F6F6;">
+
+                    </div>
+                    
                         @if (session()->has('message'))
                             <div class="alert alert-success text-center">{{ session('message') }}</div>
                         @endif
-                        <div class="table-responsive">
-                        <table class="table ">
-                            <thead>
-                                <tr>
-                               <th></th>
-                                <th>Student ID</th>
-                                <th>Student Name
-                                <button class="btn btn-sm btn-link" wire:click="sortStudents('student_name', 'asc')" wire:loading.attr="disabled">
-                                        <i class="fa fa-arrow-up"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-link" wire:click="sortStudents('student_name', 'desc')" wire:loading.attr="disabled">
-                                        <i class="fa fa-arrow-down"></i>
-                                    </button>
-                                </th>
-                               
-                                <th>Student Type</th>
-                                <th>Block
-                                <button class="btn btn-sm btn-link" wire:click="sortStudents('student_block')" wire:loading.attr="disabled">
-    <i class="fa fa-arrow-up"></i>
-</button>
-<button class="btn btn-sm btn-link" wire:click="sortStudents('student_block', 'desc')" wire:loading.attr="disabled">
-    <i class="fa fa-arrow-down"></i>
-</button>
-                                </th>
-                                
-                                <th style="text-align: center;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($students->count() > 0)
-                                @foreach ($students as $student)
-                                    <tr>
-                                        <td><input type="checkbox" wire:model="selectedStudents" value="{{ $student->id }}"></td>
-                                        
-                                            <td>{{ $student->student_id }}</td>
-                                            <td>{{ $student->student_name }}</td>
-                                            <td>{{ $student->student_type }}</td>
-                                            <td>{{ $student->student_block }}</td>
-                                            <td style="text-align: center;">
-                                               
-                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
-
-                                             
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="5" style="text-align: center;"><small>No Student Found</small></td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
+                        <div class="table-responsive shadow-md">
+    <table class="w-full table-auto">
+        <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr class="text-gray-700 dark:text-gray-400">
+                <th scope="col" class="px-6 py-3">
+                </th>
+                <th scope="col" class="px-6 py-3" style="font-family: Inter, sans-serif;">
+                    Student ID
+                </th>
+                <th scope="col" class="px-6 py-3" style="font-family: Inter, sans-serif;">
+                    Student Name
+                    <button class="btn btn-sm btn-link" wire:click="sortStudents('student_name', 'asc')" wire:loading.attr="disabled">
+                        <i class="fa fa-arrow-up"></i>
+                    </button>
+                    <button class="btn btn-sm btn-link" wire:click="sortStudents('student_name', 'desc')" wire:loading.attr="disabled">
+                        <i class="fa fa-arrow-down"></i>
+                    </button>
+                </th>
+                <th scope="col" class="px-6 py-3" style="font-family: Inter, sans-serif;">
+                    Student Type
+                </th>
+                <th scope="col" class="px-6 py-3" style="font-family: Inter, sans-serif;">
+                    Block
+                    <button class="btn btn-sm btn-link" wire:click="sortStudents('student_block')" wire:loading.attr="disabled">
+                        <i class="fa fa-arrow-up"></i>
+                    </button>
+                    <button class="btn btn-sm btn-link" wire:click="sortStudents('student_block', 'desc')" wire:loading.attr="disabled">
+                        <i class="fa fa-arrow-down"></i>
+                    </button>
+                </th>
+                <th scope="col" class="px-6 py-3 text-center" style="font-family: Inter, sans-serif;">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if ($students->count() > 0)
+                @foreach ($students as $student)
+                <tr class="{{ $loop->iteration % 2 === 0 ? 'bg-white' : 'bg-gray-100' }} border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-3">
+                            <input type="checkbox" wire:model="selectedStudents" value="{{ $student->id }}">
+                        </td>
+                        <td class="px-6 py-1 text-gray-900 whitespace-nowrap dark:text-white" style="font-size: 15px; font-family: Inter, sans-serif;">{{ $student->student_id }}</td>
+                        <td class="px-6 py-1" style="font-size: 15px; font-family: Inter, sans-serif;">{{ $student->student_name }}</td>
+                        <td class="px-6 py-1" style="font-size: 15px; font-family: Inter, sans-serif;">{{ $student->student_type }}</td>
+                        <td class="px-6 py-1" style="font-size: 15px; font-family: Inter, sans-serif;">{{ $student->student_block }}</td>
+                        <td class="px-6 py-1 text-center" style="font-size: 15px; font-family: Inter, sans-serif;">
+                            <button class="btn btn-sm" style="border: 1px solid #000;"wire:click="editStudents({{ $student->id }})">View</button>
+                        </td>
+                    </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td colspan="6" class="px-6 py-4 text-center"><small>No Student Found</small></td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
 </div>
             <!-- Pagination Controls -->
     
             <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-end">
+    <ul class="pagination flex justify-end -space-x-px text-sm ">
         <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
             <a class="page-link" href="#" wire:click.prevent="previousPage" tabindex="-1">Previous</a>
         </li>

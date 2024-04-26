@@ -2,8 +2,8 @@
 <div>
 <div style="width:1536px; height:auto; background-color: #30349c; position: relative;">
             <img src="{{ asset('backend/dist/img/plmlogo.png') }}" style="width:65px; height:65px; position:absolute; top:5%; left:1%">
-            <span style="color: #d4a404; position: absolute; top: 22%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">PAMANTASAN NG LUNGSOD NG MAYNILA</span>
-            <span style="color: white; position: absolute; top: 47%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">UNIVERSITY OF THE CITY OF MANILA</span>
+            <span style="color: #d4a404; position: absolute; top: 22%; left: 5.5%; font-family: Inter, sans-serif; font-size: 15px; font-weight: bold;">PAMANTASAN NG LUNGSOD NG MAYNILA</span>
+            <span style="color: white; position: absolute; top: 47%; left: 5.5%; font-family: Inter, sans-serif; font-size: 13px; font-weight: bold;">University of the City of Manila</span>
             <br><br><br>
             <a href="" style="text-decoration: none;">
                 <span style="color: white; position: absolute; top: 32%; left: 56.5%; font-family: Inter, sans-serif; font-size: 16px; font-weight: bold; cursor: pointer;">Schedules</span>
@@ -42,7 +42,7 @@
      <!-- Components header -->
         <div style="width: 100%; height: 10%; text-align: right; padding-right: 0px; color: black; font-size: 20px; font-family: Inter; line-height: 33px; font-weight: 200; word-wrap: break-word; position: relative;">
             <div style="display: flex; align-items: right; padding-left: 1158px; background-color: #F6F6F6;">
-                <span>Home / Enrollment / Student Enlistment</span>
+                
             </div>
             <div style="flex-grow: 1; height: 1px; border: 1px rgba(0, 0, 0, 0.20) solid;"></div>
         </div>

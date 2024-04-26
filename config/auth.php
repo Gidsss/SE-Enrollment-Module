@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'student' => [ // Custom guard for students
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
     ],
 
     /*
@@ -64,6 +68,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'students' => [ // Custom authentication provider for students
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
+        ],
+    
 
         // 'users' => [
         //     'driver' => 'database',

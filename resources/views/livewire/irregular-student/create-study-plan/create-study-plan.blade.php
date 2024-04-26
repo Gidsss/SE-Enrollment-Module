@@ -1,217 +1,178 @@
 <div>
     <!-- Header Navigation Bar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-      <!-- Left navbar links -->
-      <ul class="navbar-nav">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-      </ul>
+        </ul>
 
-      <!-- Right navbar links -->
-      <ul class="navbar-nav ml-auto">
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
         <li class="nav-item">
-          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
             <i class="fas fa-search"></i>
-          </a>
-          <div class="navbar-search-block">
+            </a>
+            <div class="navbar-search-block">
             <form class="form-inline">
-              <div class="input-group input-group-sm">
+                <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
-                  <button class="btn btn-navbar" type="submit">
+                    <button class="btn btn-navbar" type="submit">
                     <i class="fas fa-search"></i>
-                  </button>
-                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                    </button>
+                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
                     <i class="fas fa-times"></i>
-                  </button>
+                    </button>
                 </div>
-              </div>
+                </div>
             </form>
-          </div>
+            </div>
         </li>
 
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
+            <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-calendar"></i>
             <span class="badge badge-danger navbar-badge">5</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
-              
-          <!-- Calendar -->
+                
+            <!-- Calendar -->
             <div class ="media">
-              <i class="far fa-calendar img-size-40 mr-3"></i>
-              <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                      Upcoming Events Calendar
-                      <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">Check out the upcoming events on the calendar.</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> Just Now</p>
-              </div>
-          </div>
-          </a>
-          <!-- Calendar End -->
-      </div>
-          
+                <i class="far fa-calendar img-size-40 mr-3"></i>
+                <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                        Upcoming Events Calendar
+                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">Check out the upcoming events on the calendar.</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> Just Now</p>
+                </div>
+            </div>
+            </a>
+            <!-- Calendar End -->
+        </div>
+            
         </li>
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
+            <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge">15</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <span class="dropdown-item dropdown-header">15 Notifications</span>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
+                <i class="fas fa-envelope mr-2"></i> 4 new messages
+                <span class="float-right text-muted text-sm">3 mins</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
+                <i class="fas fa-users mr-2"></i> 8 friend requests
+                <span class="float-right text-muted text-sm">12 hours</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
+                <i class="fas fa-file mr-2"></i> 3 new reports
+                <span class="float-right text-muted text-sm">2 days</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div>
+            </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
             <i class="fas fa-expand-arrows-alt"></i>
-          </a>
+            </a>
         </li>
 
-      <li class="nav-item dropdown open" style="padding-left: 15px; top: 5px;">
-          <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-              <img src="{{url('backend/dist/img/user2.jpg')}}" alt="">2021-10424
-              </a>
-              <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; right: 100px; transform: translate3d(50px, 40px, 0px);">
-              <a class="dropdown-item" href="javascript:;">Profile</a>
-              <a class="dropdown-item" href="javascript:;">
-              <span>Settings</span>
-              </a>
-              <a class="dropdown-item" href="javascript:;">Help</a>
-              <a class="dropdown-item" href="#"><i class="fa fa-sign-out pull-right"></i>Log Out</a>
-          </div>
-      </li>
-      </ul>
+        <li class="nav-item dropdown open" style="padding-left: 15px; top: 5px;">
+            <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                <img src="{{url('backend/dist/img/user2.jpg')}}" alt="">{{ substr(Auth::guard('student')->user()->student_id, 0, 4) . '-' . substr(Auth::guard('student')->user()->student_id, 4) }}
+                </a>
+                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; right: 100px; transform: translate3d(50px, 40px, 0px);">
+                <a class="dropdown-item" href="javascript:;">Profile</a>
+                <a class="dropdown-item" href="javascript:;">
+                <span>Settings</span>
+                </a>
+                <a class="dropdown-item" href="javascript:;">Help</a>
+                <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-sign-out pull-right"></i>Log Out</a>
+            </div>
+        </li>
+        </ul>
     </nav>
     <!-- Navigation Bar -->
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
         <img src="{{url('backend/dist/img/plmlogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">PLM Student Portal</span>
-      </a>
+        </a>
 
-      <!-- Sidebar -->
-      <div class="sidebar">
+        <!-- Sidebar -->
+        <div class="sidebar">
 
         <!-- SidebarSearch Form -->
         <div class="form-inline">
-          <div class="input-group" data-widget="sidebar-search">
+            <div class="input-group" data-widget="sidebar-search">
             <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
-              <button class="btn btn-sidebar">
+                <button class="btn btn-sidebar">
                 <i class="fas fa-search fa-fw"></i>
-              </button>
+                </button>
             </div>
-          </div>
+            </div>
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
-              <li class="nav-item">
-              <a href="pages/widgets.html" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Home
-                </p>
-              </a>
-            </li>
-              <li class="nav-item menu-open">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Information
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="./index.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./index2.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Schedule</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Grades</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Violation</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            
             <li class="nav-item menu-open">
-              <a class="nav-link">
+                <a class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
-                  Services
-                  <i class="right fas fa-angle-left"></i>
+                    Academic Directives
+                    <i class="right fas fa-angle-left"></i>
                 </p>
-              </a>
-              <ul class="nav nav-treeview">
+                </a>
+                <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./index.html" class="nav-link">
+                    <a href="./index.html" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Enrollment</p>
-                  </a>
+                    </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./index2.html" class="nav-link">
+                    <a href="./index2.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Registrar</p>
-                  </a>
+                    <p>Add/Drop Request</p>
+                    </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
+                    <a href="./index3.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>SFE</p>
-                  </a>
+                    <p>Shifting Request</p>
+                    </a>
                 </li>
-              </ul>
+                <li class="nav-item">
+                    <a href="./index3.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>LOA Request</p>
+                    </a>
+                </li>
+                </ul>
             </li>
         <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
+        </div>
+        <!-- /.sidebar -->
     </aside>
-
 
     <!-- Content Wrapper. Contains page content -->
 
@@ -235,7 +196,7 @@
             </div>
             <div class="status-card" style="width:20ch; height:4ch; position: absolute; top: 3.5ch; right: 22ch; border: .25px solid #000; 
             display: flex; justify-content: center; align-items: center;">
-                <p style="margin-left: .2rem; margin-top: 1rem;">Status: Enlisted <i class="fas fa-circle" style="color: yellow"></i></p>
+                <p style="margin-left: .2rem; margin-top: 1rem;">Status: Pending <i class="fas fa-circle" style="color: yellow"></i></p>
             </div>
             
 
@@ -347,7 +308,7 @@
         <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
         <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
                     <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Curriculum Checklist</p>
-                        <object data="http://localhost/enrollmentmod/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
+                        <object data="http://localhost:8000/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
                         </object>
                         
                            
@@ -570,10 +531,10 @@
         }
         }
 
-        //function submitForm() {
+        function submitForm() {
         // Add logic to submit the form or redirect to the assessment page
-       // window.location.href = ' route("irreg_assessment") }}';
-        //}
+        window.location.href = " {{ route('irreg_assessment') }}";
+        }
 
         function showCheckmark(step) {
             // Assuming the step-checkmark element is a child of the accordion button

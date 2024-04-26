@@ -11,10 +11,14 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ url('backend/dist/css/adminlte.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ url('backend/plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Vite -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <style>
     .add-div-class {
         position: relative;
@@ -113,8 +117,8 @@
             border: 1px solid #ccc;
             width: 250px;
             position: absolute;
-            top: 180px;
-            left: 40px;
+            top: 190px;
+            left: 20px;
     }
 
     #left-card1 {
@@ -128,8 +132,8 @@
 
 
     #right-card {
-            position: absolute;
-            top: 120px;
+            position: relative;
+            top: 0px;
             left: 280px;
             padding: 8px;
             flex-grow: 1;
@@ -179,15 +183,17 @@
             font-family: 'Inter', sans-serif; 
     }
     html {
-            background-color: #F6F6F6;
+            background-color: white;
     }
     
     </style>
+    
     <!-- Livewire styles -->
     @livewireStyles
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="h-full">
     <div class="wrapper">
 
         <!-- Preloader -->

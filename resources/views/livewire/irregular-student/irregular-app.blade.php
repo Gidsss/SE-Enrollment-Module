@@ -64,13 +64,6 @@
             margin-left: 5px;
             
         }
-
-        .active:after {
-            content: "\2796"; /* Unicode character for "minus" sign (-) */
-            color: #000000;
-            font-size: 25px;
-        }
-
         .body-font {
             font-family: Inter, sans-serif; 
             font-size: 20px; 

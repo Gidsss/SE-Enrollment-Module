@@ -3,6 +3,11 @@
                 <pre>Compiled Course Codes: {{ json_encode($displayedCourseCodes) }}</pre>
             @endif
 
+            @if (isset($studentName))
+                <p>Student Name: {{ $studentName }}</p>
+                <p>Student Year: {{ $yearlvl }}</p>
+            @endif
+
         <div id="2nd-year-tables" >
             <h1>2nd Year 1st Semester</h1>
             <div class="card">
@@ -39,12 +44,29 @@
                     <th>Pre(Co)-Requisites</th>
                     </tr>
                 </thead>  
-                <tbody id="tableBody2">
+                <tbody id="tableBody22">
+                    @foreach ($courses->where('year_lvl', 2)->where('sem', 2)->whereIn('course_code', $allowedCourseCodes) as $course)
+                        <tr id="row_{{ $course->id }}">
+                            <td>{{ $course->course_code }}</td>
+                            <td>{{ $course->course_name }}</td>
+                            <td>{{ $course->units }}</td>
+                            <td>{{ $course->pre_requisites }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
                 </table>
             </div>
             </div>
-            <span id="totalUnits2"></span>
+            <span id="totalUnits22">
+                {{ $totalUnits22 }}
+                @if ($totalUnits22 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits22 >= 10 && $totalUnits22 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
         </div>
         
         <div id="3rd-year-tables" >
@@ -55,15 +77,13 @@
                 <table class="table " style="background-color: white">
         
                 <thead style="background-color: #f8f8f8">
-                    <tr>
                     <th>Course Code</th>
                     <th>Course Name</th>
                     <th>Units</th>
                     <th>Pre(Co)-Requisites</th>
                     </tr>
-                </thead>  
-                <tbody id="tableBody32">
-                    @foreach ($courses->where('year_lvl', 3)->where('sem', 1)->whereIn('course_code', $allowedCourseCodes) as $course)
+                </thead> 
+                @foreach ($courses->where('year_lvl', 3)->where('sem', 1)->whereIn('course_code', $allowedCourseCodes) as $course)
                         <tr id="row_{{ $course->id }}">
                             <td>{{ $course->course_code }}</td>
                             <td>{{ $course->course_name }}</td>

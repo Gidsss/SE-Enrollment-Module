@@ -13,7 +13,7 @@
 
             @if (isset($studentName))
                 <p>Student Name: {{ $studentName }}</p>
-                <p>Student Year: {{ $yearlvl }}</p>
+                <p>Student Year: {{ $yearlevel }}</p>
             @endif
 
             @if ($hasYear2)

@@ -5,10 +5,12 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Course;
 use App\Models\Validation;
+use App\Models\Student;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Livewire;
+use Carbon\Carbon;
 
 class CourseData extends Component
 {
@@ -30,17 +32,29 @@ class CourseData extends Component
     public $units;
     public $studentName;
     public $yearlvl;
+    public $yearlevel;
+    public $studentid;
+    public $year_level;
     public $student_id;
     public $pre_requisites;
     
     public function mount()
     {
-        $this->student_id = '2021-12983';
-        $validations = Validation::where('studentid', $this->student_id)->first(); 
-        if ($validations) {
-            $this->studentName = $validations->student_name;
-            $this->yearlvl = $validations->yearlvl;
+        
+        $this->studentid = '2021-12983';
+        $students = Student::where('student_id', $this->studentid)->first(); 
+        if ($students) {
+            $this->studentName = $students->student_name;
+            $this->yearlevel = $students->year_level; // Initialize year_level here
+            $this->studid = $students->student_id;
+        } else {
+            $validations = Validation::where('studentid', $this->studentid)->first(); 
+            if ($validations) {
+                $this->studentName = $validations->student_name;
+                $this->yearlevel = $validations->yearlvl;
+            }
         }
+
         $this->courses = Course::all();
         $this->tableBodyId = ''; 
         $this->preRequisiteGrade = $this->getPrerequisiteGrade($this->pre_requisites);
@@ -184,13 +198,13 @@ class CourseData extends Component
                 $courseCodes[] = $course->course_code;
             }
             // Include courses based on yearlvl when grades !== 5
-            elseif ($this->yearlvl === 2 && $course->year_lvl >= 2) {
+            elseif ($this->yearlevel === 2 && $course->year_lvl >= 2) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($this->yearlvl === 3 && $course->year_lvl >= 3) {
+            } elseif ($this->yearlevel === 3 && $course->year_lvl >= 3) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($this->yearlvl === 4 && $course->year_lvl >= 4) {
+            } elseif ($this->yearlevel === 4 && $course->year_lvl >= 4) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($course->year_lvl === $this->yearlvl) {
+            } elseif ($course->year_lvl === $this->yearlevel) {
                 $courseCodes[] = $course->course_code;
             }
         }
@@ -210,21 +224,31 @@ class CourseData extends Component
     
     public function pushCourseCodes(){
         $courseCodes = $this->getDisplayedCourseCodes();
+        
+        // Get the validation record for the current student
+        $validation = Validation::where('studentid', $this->studentid)->first();
     
-        $validations = Validation::where('studentid', $this->student_id)->get();
-
-        foreach ($validations as $validation) {
-            $validation->update([
-                'study_plan_course_code' => $courseCodes,
-            ]);
+        if (!$validation) {
+            $validation = new Validation();
+            $validation->studentid = $this->studentid;
+            $validation->student_name = $this->studentName; 
+            $validation->yearlvl = $this->yearlevel; 
+            $validation->status = 'Pending';
+            $validation->daterequest = Carbon::now(); //di to nagana not sure y
         }
-
+    
+        $studyPlanCourseCodes = json_encode($courseCodes);
+        
+        $validation->study_plan_course_code = $studyPlanCourseCodes;
+    
+        $validation->save();
+    
         session()->flash('courseCodesNotification', 'Course codes pushed successfully.');
     }
-
     public function render(){  
         $courses = Course::all();
         $validations = Validation::all();
+        $students = Student::all();
 
         $displayedCourseCodes = $this->getDisplayedCourseCodes();
 
@@ -233,23 +257,39 @@ class CourseData extends Component
         $hasYear3 = false;
         $hasYear4 = false;
 
-        foreach ($validations as $validation) {
-            if ($validation->studentid === $this->student_id) {
-                if ($validation->yearlvl === 2 && !$hasYear2) {
+        foreach ($students as $student) {
+            if ($student->studentid === $this->student_id) {
+                if ($this->yearlevel === 2 && !$hasYear2) {
                     $hasYear2 = true;
                     $hasYear3 = true;
                     $hasYear4 = true;
-                } elseif ($validation->yearlvl === 3 && !$hasYear3) {
+                } elseif ($this->yearlevel === 3 && !$hasYear3) {
                     $hasYear3 = true;
                     $hasYear4 = true;
-                } elseif ($validation->yearlvl === 4 && !$hasYear4) {
+                } elseif ($this->yearlevel === 4 && !$hasYear4) {
                     $hasYear4 = true;
                 }
             }
         }
 
+        // foreach ($validations as $validation) {
+        //     if ($validation->studentid === $this->student_id) {
+        //         if ($this->yearlvl === 2 && !$hasYear2) {
+        //             $hasYear2 = true;
+        //             $hasYear3 = true;
+        //             $hasYear4 = true;
+        //         } elseif ($this->yearlvl === 3 && !$hasYear3) {
+        //             $hasYear3 = true;
+        //             $hasYear4 = true;
+        //         } elseif ($this->yearlvl === 4 && !$hasYear4) {
+        //             $hasYear4 = true;
+        //         }
+        //     }
+        // }
+
         return view('livewire.course-data', [
             'courses' => $courses,
+            'students' => $students,
             'validations' => $validations,
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,

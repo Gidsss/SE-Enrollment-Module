@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\RegularStudentMiddleware;
 use App\Http\Middleware\IrregularStudentMiddleware;
+use App\Http\Middleware\AcademicDirectiveMiddleware;
 
 // Chairperson Livewire Components
 use App\Livewire\Chairperson\BlockClassesManagement\BlockClassesManagement;
@@ -24,6 +25,9 @@ use App\Livewire\IrregularStudent\ViewAssessment\ViewIrregularAssessment;
 use App\Livewire\RegularStudent\CheckSchedule\CheckSchedule;
 use App\Livewire\RegularStudent\DownloadSER\DownloadRegularSER;
 use App\Livewire\RegularStudent\ViewAssessment\ViewRegularAssessment;
+
+// Academic Directive Components
+use App\Livewire\AcademicDirective\LoaRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,4 +83,9 @@ Route::middleware([IrregularStudentMiddleware::class])->group(function () {
     Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class)->name('irreg_schedule'); // irregular student schedule
     Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class)->name('irreg_assessment'); // irregular student assessment
     Route::get('/irregular_student/irreg_ser', DownloadIrregularSER::class)->name('irreg_ser'); // irregular student ser
+});
+
+/* Academic Directives with middleware */
+Route::middleware([AcademicDirectiveMiddleware::class])->group(function () {
+    Route::get('/academic_directive/loa_request', LoaRequest::class)->name('loa_request'); // loa request
 });

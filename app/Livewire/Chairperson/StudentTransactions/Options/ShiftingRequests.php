@@ -22,6 +22,12 @@ class ShiftingRequests extends Component
     public $currentPage = 1;
     public $numStudents;
     public $totalStudents;
+    public $activeButton = '';
+    public $hasStudyPlan = false;
+    public $hasChecklist = false;
+    public $hasUndertaking = false;
+    public $hasIntent = false;
+    public $hasShifting = false;
 
     // Input fields validation rules
     protected $rules = [
@@ -108,6 +114,8 @@ class ShiftingRequests extends Component
                 ->take($this->perPage)
                 ->get();
         }
+
+    
     public function toggleStudentSelection($studentId)
     {
         if (in_array($studentId, $this->selectedStudents)) {
@@ -250,6 +258,11 @@ class ShiftingRequests extends Component
         $this->dispatch('show-view-student-modal');
     }
 
+    public function changeColor($button)
+    {
+        $this->activeButton = $button;
+    }
+
     public function closeViewStudentModal()
         {
             $this->view_student_id = '';
@@ -262,7 +275,25 @@ class ShiftingRequests extends Component
 
     public function render()
         {
-            return view('livewire.chairperson.student-transactions.options.shifting-requests')->layout('livewire.chairperson.transaction-options');
+            $this->hasStudyPlan = ($this->activeButton === 'plan');
+            $this->hasChecklist = ($this->activeButton === 'checklist');
+            $this->hasIntent = ($this->activeButton === 'intent');
+            $this->hasUndertaking = ($this->activeButton === 'undertaking');
+            $this->hasShifting = ($this->activeButton === 'shifting');
+
+            $hasStudyPlan = false;
+            $hasChecklist = false;
+            $hasIntent = false;
+            $hasUndertaking = false; 
+            $hasShifting = false;
+
+            return view('livewire.chairperson.student-transactions.options.shifting-requests', [
+                'hasStudyPlan' => $this->hasStudyPlan,
+                'hasChecklist' => $this->hasChecklist,
+                'hasIntent' => $this->hasIntent,
+                'hasUndertaking' => $this->hasUndertaking,
+                'hasShifting' => $this->hasShifting,
+            ])->layout('livewire.chairperson.transaction-options');
         }
 }
 

@@ -31,7 +31,6 @@ class CourseData extends Component
     public $preRequisiteGrade;
     public $units;
     public $studentName;
-    public $yearlvl;
     public $yearlevel;
     public $studentid;
     public $year_level;
@@ -41,11 +40,11 @@ class CourseData extends Component
     public function mount()
     {
         
-        $this->studentid = '2021-12983';
+        $this->studentid = '202115691';
         $students = Student::where('student_id', $this->studentid)->first(); 
         if ($students) {
             $this->studentName = $students->student_name;
-            $this->yearlevel = $students->year_level; // Initialize year_level here
+            $this->yearlevel = $students->year_level; 
             $this->studid = $students->student_id;
         } else {
             $validations = Validation::where('studentid', $this->studentid)->first(); 

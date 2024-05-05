@@ -151,13 +151,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./index2.html" class="nav-link">
+                    <a href="/academic_directive/add_drop_request" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Add/Drop Request</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./index3.html" class="nav-link">
+                    <a href="/academic_directive/shifting_request" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Shifting Request</p>
                     </a>
@@ -166,6 +166,8 @@
                     <a href="/academic_directive/loa_request" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>LOA Request</p>
+                    </a>
+                </li>
                     </a>
                 </li>
                 </ul>

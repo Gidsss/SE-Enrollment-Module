@@ -28,6 +28,8 @@ use App\Livewire\RegularStudent\ViewAssessment\ViewRegularAssessment;
 
 // Academic Directive Components
 use App\Livewire\AcademicDirective\LoaRequest;
+use App\Livewire\AcademicDirective\ShiftingRequest;
+use App\Livewire\AcademicDirective\AddDropRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,4 +90,6 @@ Route::middleware([IrregularStudentMiddleware::class])->group(function () {
 /* Academic Directives with middleware */
 Route::middleware([AcademicDirectiveMiddleware::class])->group(function () {
     Route::get('/academic_directive/loa_request', LoaRequest::class)->name('loa_request'); // loa request
+    Route::get('/academic_directive/shifting_request', ShiftingRequest::class)->name('shifting_request'); // shifting request
+    Route::get('/academic_directive/add_drop_request', AddDropRequest::class)->name('add_drop_request'); // add drop request
 });

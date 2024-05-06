@@ -45,7 +45,7 @@ class CourseData extends Component
         $student = Auth::guard('student')->user(); 
         $this->studentName = $student->student_name;
         $this->yearlevel = $student->year_level; 
-        $this->studid = $student->student_id;
+        $this->studentid = $student->student_id;
 
         $this->courses = Course::all();
         $this->tableBodyId = ''; 

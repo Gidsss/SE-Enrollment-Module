@@ -21,11 +21,11 @@ class IrregularStudentMiddleware
                 return $next($request);
             } else {
                 Auth::guard('student')->logout();
-                return redirect('/login')->with('error', 'You are not authorized to perform this action.');
+                return redirect('/')->with('error', 'You are not authorized to perform this action.');
             }
         } else {
             Auth::guard('student')->logout();
-            return redirect('/login')->with('error', 'You are not logged in.');
+            return redirect('/')->with('error', 'You are not logged in.');
         }
     }
 }

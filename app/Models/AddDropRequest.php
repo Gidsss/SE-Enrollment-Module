@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AddDropRequestModel extends Model
+class AddDropRequest extends Model
 {
     use HasFactory;
     protected $fillable = [

@@ -20,6 +20,8 @@ use App\Livewire\Chairperson\StudentTransactions\Options\LOARequests;
 use App\Livewire\IrregularStudent\CreateStudyPlan\CreateStudyPlan;
 use App\Livewire\IrregularStudent\DownloadSER\DownloadIrregularSER;
 use App\Livewire\IrregularStudent\ViewAssessment\ViewIrregularAssessment;
+use App\Livewire\IrregularStudent\IrregAssessment\IrregAssessment;
+use App\Livewire\IrregularStudent\IrregSER\IrregSER;
 
 // Regular Student Components
 use App\Livewire\RegularStudent\CheckSchedule\CheckSchedule;
@@ -27,9 +29,9 @@ use App\Livewire\RegularStudent\DownloadSER\DownloadRegularSER;
 use App\Livewire\RegularStudent\ViewAssessment\ViewRegularAssessment;
 
 // Academic Directive Components
-use App\Livewire\AcademicDirective\LoaRequest;
-use App\Livewire\AcademicDirective\ShiftingRequest;
-use App\Livewire\AcademicDirective\AddDropRequest;
+use App\Livewire\AcademicDirective\LoaRequestController;
+use App\Livewire\AcademicDirective\ShiftingRequestController;
+use App\Livewire\AcademicDirective\AddDropRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,22 @@ use App\Livewire\AcademicDirective\AddDropRequest;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+/* Regular Student Pages */
+
+Route::get('/regular_student/regular_schedule', CheckSchedule::class); // regular student schedule
+
+Route::get('/regular_student/regular_assessment', ViewRegularAssessment::class); // regular student assessment
+
+Route::get('/regular_student/regular_ser', DownloadRegularSER::class); // regular student ser
+
+/* Irregular Student Pages */
+
+Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class); // irregular student schedule
+
+Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class); // irregular student assessment
+
+Route::get('irregular_student/irreg_ser', DownloadIrregularSER::class); // irregular student ser
 
 /* Chairperson Pages */
 
@@ -62,16 +80,16 @@ Route::get('/chairperson/student_transaction/loa_requests', LOARequests::class)-
 
 /* Necessary Components */
 
-Route::get('/generate-pdf', [AuthController::class, 'genpdf']); // for pdf generation 
+Route::get('/generate-pdf', [AuthController::class,'genpdf']); // for pdf generation 
 
 /* Authentication */
 
-Route::get('/login', [AuthController::class, 'login']);
+Route::get('/', [AuthController::class, 'login']);
 Route::post('/student/login', [AuthController::class, 'AuthLogin'])->name('login.submit');
 Route::get('/student/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/forgot-password', [AuthController::class, 'forgot_password']);
 
-/* Regular Student Pages with middleware */
+/* Create a middleware for regular & irregular student (not yet implemented) */
 
 Route::middleware([RegularStudentMiddleware::class])->group(function () {
     Route::get('/regular_student/regular_schedule', CheckSchedule::class)->name('regular_schedule'); // regular student schedule
@@ -89,7 +107,7 @@ Route::middleware([IrregularStudentMiddleware::class])->group(function () {
 
 /* Academic Directives with middleware */
 Route::middleware([AcademicDirectiveMiddleware::class])->group(function () {
-    Route::get('/academic_directive/loa_request', LoaRequest::class)->name('loa_request'); // loa request
-    Route::get('/academic_directive/shifting_request', ShiftingRequest::class)->name('shifting_request'); // shifting request
-    Route::get('/academic_directive/add_drop_request', AddDropRequest::class)->name('add_drop_request'); // add drop request
+    Route::get('/academic_directive/loa_request', LoaRequestController::class)->name('loa_request'); // loa request
+    Route::get('/academic_directive/shifting_request', ShiftingRequestController::class)->name('shifting_request'); // shifting request
+    Route::get('/academic_directive/add_drop_request', AddDropRequestController::class)->name('add_drop_request'); // add drop request
 });

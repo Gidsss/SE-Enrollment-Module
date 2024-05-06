@@ -144,7 +144,11 @@
                 </a>
                 <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="./index.html" class="nav-link">
+                    <a href="{{
+                        Auth::guard('student')->user()->student_type == 'Regular' ?
+                            '/regular_student/regular_schedule' :
+                            '/irregular_student/irreg_schedule'
+                    }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Enrollment</p>
                     </a>
@@ -337,6 +341,7 @@
                                   <button type="button" class="btn btn-primary">Save changes</button>
                               </div>
                           </div>
+                      </div>
                       </div>
                   </div>
                 </div>

@@ -3,12 +3,12 @@
 namespace App\Livewire\AcademicDirective;
 
 use Livewire\Component;
-use App\Models\AddDropRequestModel;
+use App\Models\LOARequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AddDropRequest extends Component
+class LoaRequestController extends Component
 {
 
     public $student_id;
@@ -25,11 +25,11 @@ class AddDropRequest extends Component
 
     public function render()
     {
-        return view('livewire.academic-directives.add-drop-request.add-drop-request')->layout('livewire.academic-directives.acaddirect-app');
+        return view('livewire.academic-directives.loa-request.loa-request')->layout('livewire.academic-directives.acaddirect-app');
     }
 
     public function pushRequest() {
-        $request = new AddDropRequestModel();
+        $request = new LoARequest();
         $request->student_id = $this->student_id;
         $request->student_name = $this->student_name;
         $request->year_level = $this->year_level;
@@ -38,5 +38,6 @@ class AddDropRequest extends Component
         $request->study_plan = "";
 
         $request->save();
+
     }
 }

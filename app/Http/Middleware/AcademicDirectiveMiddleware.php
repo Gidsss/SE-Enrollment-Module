@@ -20,7 +20,7 @@ class AcademicDirectiveMiddleware
             return $next($request);
         } else {
             Auth::guard('student')->logout();
-            return redirect('/login')->with('error', 'You are not logged in.');
+            return redirect('/')->with('error', 'You are not logged in.');
         }
     }
 }

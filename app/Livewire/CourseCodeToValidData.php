@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Livewire;
 class CourseCodeToValidData extends Component
 {
     public $allowedCourseCodes = [
-        'CSC 0314.1', 'CSC 0321.1', 'CSC 0322', 'CSC 0322.1', 'CSC 0323', 'CSC 0323.1',
-        'CSC 0324', 'CSC 0324.1', 'CSC 0325', 'CSC 0411', 'CSC 0412', 'CSC 0414', 'CSC 0414.1', 'CSC 0421',
-        'CSC 0422', 'CSC 0422.1', 'CSC 0423',
     ];
     public $courses;
     public $tableBody = '';
@@ -23,17 +20,29 @@ class CourseCodeToValidData extends Component
     public $totalUnits42 = 0;
     public $totalUnits72 = 0;
     public $totalUnits62 = 0;
+    public $totalUnits22 = 0;
     public $units;
+    public $studentName;
+    public $yearlvl;
+    public $studyPlanCodes;
 
     public function mount()
     {
-        $this->student_id = '2021-01299';
+        $this->student_id = '2021287';
+        $validations = Validation::where('studentid', $this->student_id)->first(); 
+        if ($validations) {
+            $this->studentName = $validations->student_name;
+            $this->yearlvl = $validations->yearlvl;
+            $this->studyPlanCodes = $validations->study_plan_course_code;
+            $this->allowedCourseCodes = json_decode($this->studyPlanCodes);
+        }
         $this->courses = Course::all();
         $this->tableBodyId = ''; 
         $this->updateTotalUnits32();
         $this->updateTotalUnits42();
         $this->updateTotalUnits72();
         $this->updateTotalUnits62();
+        $this->updateTotalUnits22();
 
     }
 
@@ -69,15 +78,16 @@ class CourseCodeToValidData extends Component
         $totalUnits42 = 0;
         $totalUnits72 = 0;
         $totalUnits62 = 0;
+        $totalUnits22 = 0;
 
         foreach ($validations as $validation) {
-            if ($validation->studentid === '2021-12983' && $validation->yearlvl === 2) {
+            if ($validation->studentid === $this->student_id && $validation->yearlvl === 2) {
                 $hasYear2 = true;
             }
-            elseif ($validation->studentid === '2021-12983' && $validation->yearlvl === 3) {
+            elseif ($validation->studentid === $this->student_id && $validation->yearlvl === 3) {
                 $hasYear3 = true;
             }
-            elseif ($validation->studentid === '2021-12983' && $validation->yearlvl === 4) {
+            elseif ($validation->studentid === $this->student_id && $validation->yearlvl === 4) {
                 $hasYear4 = true;
             }
         }
@@ -93,6 +103,7 @@ class CourseCodeToValidData extends Component
             'totalUnits62' => $this->totalUnits62, 
             'displayedCourseCodes' => $displayedCourseCodes,
             'displayedCourseCodes' => $this->getDisplayedCourseCodes(),
+
             
             
         ]);
@@ -129,6 +140,15 @@ class CourseCodeToValidData extends Component
         $this->totalUnits62 = $this->courses
             ->whereIn('course_code', $this->allowedCourseCodes)
             ->where('year_lvl', 4)
+            ->where('sem', 2)
+            ->sum('units');
+    }
+
+    private function updateTotalUnits22()
+    {
+        $this->totalUnits22 = $this->courses
+            ->whereIn('course_code', $this->allowedCourseCodes)
+            ->where('year_lvl', 2)
             ->where('sem', 2)
             ->sum('units');
     }

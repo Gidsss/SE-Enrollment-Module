@@ -1,94 +1,94 @@
 <div>
     <!-- Header Navigation Bar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        </ul>
+      </ul>
 
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
         <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
             <i class="fas fa-search"></i>
-            </a>
-            <div class="navbar-search-block">
+          </a>
+          <div class="navbar-search-block">
             <form class="form-inline">
-                <div class="input-group input-group-sm">
+              <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
+                  <button class="btn btn-navbar" type="submit">
                     <i class="fas fa-search"></i>
-                    </button>
-                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                  </button>
+                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
                     <i class="fas fa-times"></i>
-                    </button>
+                  </button>
                 </div>
-                </div>
+              </div>
             </form>
-            </div>
+          </div>
         </li>
 
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+          <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-calendar"></i>
             <span class="badge badge-danger navbar-badge">5</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
-                
-            <!-- Calendar -->
+              
+          <!-- Calendar -->
             <div class ="media">
-                <i class="far fa-calendar img-size-40 mr-3"></i>
-                <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                        Upcoming Events Calendar
-                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                    </h3>
-                    <p class="text-sm">Check out the upcoming events on the calendar.</p>
-                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> Just Now</p>
-                </div>
-            </div>
-            </a>
-            <!-- Calendar End -->
-        </div>
-            
+              <i class="far fa-calendar img-size-40 mr-3"></i>
+              <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                      Upcoming Events Calendar
+                      <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                  </h3>
+                  <p class="text-sm">Check out the upcoming events on the calendar.</p>
+                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> Just Now</p>
+              </div>
+          </div>
+          </a>
+          <!-- Calendar End -->
+      </div>
+          
         </li>
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+          <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge">15</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <span class="dropdown-item dropdown-header">15 Notifications</span>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                <span class="float-right text-muted text-sm">3 mins</span>
+              <i class="fas fa-envelope mr-2"></i> 4 new messages
+              <span class="float-right text-muted text-sm">3 mins</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-                <i class="fas fa-users mr-2"></i> 8 friend requests
-                <span class="float-right text-muted text-sm">12 hours</span>
+              <i class="fas fa-users mr-2"></i> 8 friend requests
+              <span class="float-right text-muted text-sm">12 hours</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-                <i class="fas fa-file mr-2"></i> 3 new reports
-                <span class="float-right text-muted text-sm">2 days</span>
+              <i class="fas fa-file mr-2"></i> 3 new reports
+              <span class="float-right text-muted text-sm">2 days</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-            </div>
+          </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
             <i class="fas fa-expand-arrows-alt"></i>
-            </a>
+          </a>
         </li>
 
         <li class="nav-item dropdown open" style="padding-left: 15px; top: 5px;">
@@ -104,7 +104,7 @@
                 <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-sign-out pull-right"></i>Log Out</a>
             </div>
         </li>
-        </ul>
+      </ul>
     </nav>
     <!-- Navigation Bar -->
     <!-- Main Sidebar Container -->
@@ -174,6 +174,7 @@
         <!-- /.sidebar -->
     </aside>
 
+
     <!-- Content Wrapper. Contains page content -->
 
     <div class="content-wrapper">
@@ -196,7 +197,7 @@
             </div>
             <div class="status-card" style="width:20ch; height:4ch; position: absolute; top: 3.5ch; right: 22ch; border: .25px solid #000; 
             display: flex; justify-content: center; align-items: center;">
-                <p style="margin-left: .2rem; margin-top: 1rem;">Status: Pending <i class="fas fa-circle" style="color: yellow"></i></p>
+                <p style="margin-left: .2rem; margin-top: 1rem;">Status: Enlisted <i class="fas fa-circle" style="color: yellow"></i></p>
             </div>
             
 
@@ -308,10 +309,8 @@
         <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
         <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
                     <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Curriculum Checklist</p>
-                        <object data="http://localhost:8000/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
+                        <object data="http://localhost/enrollmentmod/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
                         </object>
-                        
-                           
                         
                     </div>
                 </div>
@@ -364,6 +363,7 @@
                               </div>
                           </div>
                       </div>
+                  </div>
                   </div>
                 </div>
             </div>
@@ -531,10 +531,10 @@
         }
         }
 
-        function submitForm() {
+        //function submitForm() {
         // Add logic to submit the form or redirect to the assessment page
-        window.location.href = " {{ route('irreg_assessment') }}";
-        }
+       // window.location.href = ' route("irreg_assessment") }}';
+        //}
 
         function showCheckmark(step) {
             // Assuming the step-checkmark element is a child of the accordion button

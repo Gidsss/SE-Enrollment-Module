@@ -28,7 +28,7 @@ class CourseCodeToValidData extends Component
 
     public function mount()
     {
-        $this->student_id = '202115691';
+        $this->student_id = '2021287';
         $validations = Validation::where('studentid', $this->student_id)->first(); 
         if ($validations) {
             $this->studentName = $validations->student_name;

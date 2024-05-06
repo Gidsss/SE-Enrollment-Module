@@ -40,7 +40,7 @@ class CourseData extends Component
     public function mount()
     {
         
-        $this->studentid = '202115691';
+        $this->studentid = '2021287';
         $students = Student::where('student_id', $this->studentid)->first(); 
         if ($students) {
             $this->studentName = $students->student_name;

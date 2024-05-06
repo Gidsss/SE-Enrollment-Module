@@ -11,6 +11,8 @@ use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Livewire;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseData extends Component
 {
@@ -40,19 +42,10 @@ class CourseData extends Component
     public function mount()
     {
         
-        $this->studentid = '2021287';
-        $students = Student::where('student_id', $this->studentid)->first(); 
-        if ($students) {
-            $this->studentName = $students->student_name;
-            $this->yearlevel = $students->year_level; 
-            $this->studid = $students->student_id;
-        } else {
-            $validations = Validation::where('studentid', $this->studentid)->first(); 
-            if ($validations) {
-                $this->studentName = $validations->student_name;
-                $this->yearlevel = $validations->yearlvl;
-            }
-        }
+        $student = Auth::guard('student')->user(); 
+        $this->studentName = $student->student_name;
+        $this->yearlevel = $student->year_level; 
+        $this->studid = $student->student_id;
 
         $this->courses = Course::all();
         $this->tableBodyId = ''; 
@@ -247,7 +240,7 @@ class CourseData extends Component
     public function render(){  
         $courses = Course::all();
         $validations = Validation::all();
-        $students = Student::all();
+        $student = Student::all();
 
         $displayedCourseCodes = $this->getDisplayedCourseCodes();
 
@@ -256,7 +249,7 @@ class CourseData extends Component
         $hasYear3 = false;
         $hasYear4 = false;
 
-        foreach ($students as $student) {
+        foreach ($student as $student) {
             if ($student->studentid === $this->student_id) {
                 if ($this->yearlevel === 2 && !$hasYear2) {
                     $hasYear2 = true;
@@ -288,7 +281,7 @@ class CourseData extends Component
 
         return view('livewire.course-data', [
             'courses' => $courses,
-            'students' => $students,
+            'student' => $student,
             'validations' => $validations,
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,

@@ -3,12 +3,12 @@
 namespace App\Livewire\AcademicDirective;
 
 use Livewire\Component;
-use App\Models\ShiftingRequestModel;
+use App\Models\ShiftingRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ShiftingRequest extends Component
+class ShiftingRequestController extends Component
 {
 
     public $student_id;
@@ -29,7 +29,7 @@ class ShiftingRequest extends Component
     }
 
     public function pushRequest() {
-        $request = new ShiftingRequestModel();
+        $request = new ShiftingRequest();
         $request->student_id = $this->student_id;
         $request->student_name = $this->student_name;
         $request->year_level = $this->year_level;
@@ -39,6 +39,5 @@ class ShiftingRequest extends Component
 
         $request->save();
 
-        print("HELLO");
     }
 }

@@ -312,8 +312,6 @@
                         <object data="http://localhost/enrollmentmod/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
                         </object>
                         
-                           
-                        
                     </div>
                 </div>
             </div>
@@ -365,6 +363,7 @@
                               </div>
                           </div>
                       </div>
+                  </div>
                   </div>
                 </div>
             </div>

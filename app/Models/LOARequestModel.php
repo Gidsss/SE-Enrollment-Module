@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ShiftingRequest extends Model
+class LoARequestModel extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -14,7 +14,7 @@ class ShiftingRequest extends Model
         'year_level',
         'date_of_request',
         'status',
-        'current_checklist',
+        'study_plan',
     ];
-    protected $table = 'shifting_requests';
+    protected $table = 'l_o_a_requests';
 }

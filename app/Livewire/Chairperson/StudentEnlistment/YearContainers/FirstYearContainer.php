@@ -173,22 +173,19 @@ class FirstYearContainer extends Component
 
     public function assignBlockSectionsRandomly()
     {
-        // Retrieve block capacities
-        $blockCapacities = BlockCapacity::pluck('capacity', 'block');
+        // Retrieve block capacities and sort by block order
+        $blockCapacities = BlockCapacity::pluck('capacity', 'block')->sortKeys();
 
-        // Retrieve all first-year students
-        $students = Student::where('year_level', '1')->get();
-
-        // Total number of students to be assigned
-        $students->count();
+        // Retrieve all first-year students and shuffle them
+        $students = Student::where('year_level', '1')->get()->shuffle();
 
         // Create a copy of block capacities to avoid indirect modification error
         $modifiedBlockCapacities = $blockCapacities->toArray();
 
-        // Assign block sections randomly
+        // Assign block sections sequentially with randomized student order
         foreach ($students as $student) {
-            // Get available blocks based on capacity
-            $availableBlocks = collect($modifiedBlockCapacities)->filter(function ($capacity, $block) {
+            // Get available blocks based on remaining capacity, proceed sequentially
+            $availableBlocks = collect($modifiedBlockCapacities)->filter(function ($capacity) {
                 return $capacity > 0;
             })->keys()->toArray();
 
@@ -197,19 +194,18 @@ class FirstYearContainer extends Component
                 break;
             }
 
-            // Choose a random available block
-            $randomBlock = $availableBlocks[array_rand($availableBlocks)];
+            // Always choose the first available block to ensure sequential filling
+            $firstAvailableBlock = $availableBlocks[0];
 
             // Update student's block section
-            $student->update(['student_block' => $randomBlock]);
+            $student->update(['student_block' => $firstAvailableBlock]);
 
-            // Decrement block capacity
-            $modifiedBlockCapacities[$randomBlock]--;
+            // Decrement block capacity for the chosen block
+            $modifiedBlockCapacities[$firstAvailableBlock]--;
         }
 
         // Flash success message
-        session()->flash('message', 'Block sections assigned randomly.');
-
+        session()->flash('message', 'Block sections assigned sequentially with random student order.');
     }
 
     public function toggleStudentSelection($studentId)

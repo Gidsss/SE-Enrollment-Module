@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Chairperson\StudentEnlistment\YearContainers;  
+namespace App\Livewire\Chairperson\StudentEnlistment\YearContainers;
 
 use Livewire\Component;
 use App\Models\Student;
@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 class ThirdYearContainer extends Component
 {
     use WithPagination;
-    
+
     public $student_id, $student_name, $student_type, $student_block;
     public $student_edit_id, $student_delete_id;
     public $view_student_id, $view_student_name, $view_student_type, $view_student_block;
@@ -33,7 +33,7 @@ class ThirdYearContainer extends Component
         'student_block' => 'required|integer',
     ];
 
-    
+
     public function mount()
     {
         $this->blockCapacities = [1 => null, 2 => null, 3 => null, 4 => null];
@@ -42,7 +42,7 @@ class ThirdYearContainer extends Component
         $this->students = $this->students->where('year_level', '3');
         $this->calculateTotalStudents();
     }
-    
+
     public function calculateTotalStudents()
     {
         $this->thirdYearStudents = Student::where('year_level', '3')->count();
@@ -59,13 +59,13 @@ class ThirdYearContainer extends Component
             // Otherwise, default to ascending direction
             $this->sortDirection = 'asc';
         }
-    
+
         $this->sortColumn = $column; // Update the sorting column
-    
+
         // Fetch paginated students with the updated sorting
         $this->getPaginatedStudents();
     }
-    
+
     public function getPaginatedStudents($page = null)
     {
         if ($page !== null) {
@@ -103,51 +103,51 @@ class ThirdYearContainer extends Component
             $this->getPaginatedStudents($this->currentPage - 1);
         }
     }
-    
+
     public function getPaginatedStudentsByName($orderByDirection, $offset)
-        {
-            // Fetch students sorted by student name, prioritizing null values
-            
-            return Student::where('year_level', '3')
-                ->orderByRaw('IF(student_block IS NULL, 0, 1), student_name ' . $orderByDirection)
-                ->skip($offset)
-                ->take($this->perPage)
-                ->get();
-        }
-                        
+    {
+        // Fetch students sorted by student name, prioritizing null values
+
+        return Student::where('year_level', '3')
+            ->orderByRaw('IF(student_block IS NULL, 0, 1), student_name ' . $orderByDirection)
+            ->skip($offset)
+            ->take($this->perPage)
+            ->get();
+    }
+
     public function getPaginatedStudentsByBlock($orderByDirection, $offset)
-        {
-            // Fetch students sorted by student block
-            return Student::where('year_level', '3')
-                ->orderByRaw('IF(student_block IS NULL, 0, 1), student_block ' . $orderByDirection) // Prioritize null values for student_block
-                ->orderBy('student_name', 'asc') // Always sort student names in ascending order for consistent behavior
-                ->skip($offset)
-                ->take($this->perPage)
-                ->get();
-        }
-        
+    {
+        // Fetch students sorted by student block
+        return Student::where('year_level', '3')
+            ->orderByRaw('IF(student_block IS NULL, 0, 1), student_block ' . $orderByDirection) // Prioritize null values for student_block
+            ->orderBy('student_name', 'asc') // Always sort student names in ascending order for consistent behavior
+            ->skip($offset)
+            ->take($this->perPage)
+            ->get();
+    }
+
     // Method for alphabetical assignment
     public function assignBlockSectionsAlphabetically()
     {
         // Retrieve block capacities
         $blockCapacities = BlockCapacity::pluck('capacity', 'block');
-    
+
         // Retrieve all first-year students sorted alphabetically by their names
         $students = Student::where('year_level', '3')->orderBy('student_name')->get();
-    
+
         // Total number of students to be assigned
         $totalStudents = $students->count();
-    
+
         // Initialize variables
         $assignedBlocks = [];
-    
+
         // Initialize $assignedBlocks with all block indices
         foreach ($blockCapacities as $block => $capacity) {
             $assignedBlocks[$block] = 0;
         }
-    
+
         $currentBlock = 1;
-    
+
         // Iterate over each student
         foreach ($students as $student) {
             // Check if the current block has reached its capacity
@@ -155,41 +155,38 @@ class ThirdYearContainer extends Component
                 // Move to the next block
                 $currentBlock++;
             }
-    
+
             // Check if the current block exceeds the total number of blocks
             if ($currentBlock > count($blockCapacities)) {
                 break; // Stop assigning students if all blocks are full
             }
-    
+
             // Assign the student to the current block
             $student->update(['student_block' => $currentBlock]);
-    
+
             // Increment the count of assigned students for the current block
             $assignedBlocks[$currentBlock]++;
         }
-    
+
         // Flash success message
         session()->flash('message', 'Block sections assigned alphabetically based on surname.');
     }
 
     public function assignBlockSectionsRandomly()
     {
-        // Retrieve block capacities
-        $blockCapacities = BlockCapacity::pluck('capacity', 'block');
+        // Retrieve block capacities and sort by block order
+        $blockCapacities = BlockCapacity::pluck('capacity', 'block')->sortKeys();
 
-         // Retrieve all first-year students
-        $students = Student::where('year_level', '3')->get();
-
-        // Total number of students to be assigned
-        $students->count();
+        // Retrieve all first-year students and shuffle them
+        $students = Student::where('year_level', '3')->get()->shuffle();
 
         // Create a copy of block capacities to avoid indirect modification error
         $modifiedBlockCapacities = $blockCapacities->toArray();
 
-        // Assign block sections randomly
+        // Assign block sections sequentially with randomized student order
         foreach ($students as $student) {
-            // Get available blocks based on capacity
-            $availableBlocks = collect($modifiedBlockCapacities)->filter(function ($capacity, $block) {
+            // Get available blocks based on remaining capacity, proceed sequentially
+            $availableBlocks = collect($modifiedBlockCapacities)->filter(function ($capacity) {
                 return $capacity > 0;
             })->keys()->toArray();
 
@@ -198,21 +195,20 @@ class ThirdYearContainer extends Component
                 break;
             }
 
-            // Choose a random available block
-            $randomBlock = $availableBlocks[array_rand($availableBlocks)];
+            // Always choose the first available block to ensure sequential filling
+            $firstAvailableBlock = $availableBlocks[0];
 
             // Update student's block section
-            $student->update(['student_block' => $randomBlock]);
+            $student->update(['student_block' => $firstAvailableBlock]);
 
-            // Decrement block capacity
-            $modifiedBlockCapacities[$randomBlock]--;
+            // Decrement block capacity for the chosen block
+            $modifiedBlockCapacities[$firstAvailableBlock]--;
         }
 
         // Flash success message
-        session()->flash('message', 'Block sections assigned randomly.');
-
+        session()->flash('message', 'Block sections assigned sequentially with random student order.');
     }
-        
+
     public function toggleStudentSelection($studentId)
     {
         if (in_array($studentId, $this->selectedStudents)) {
@@ -232,21 +228,21 @@ class ThirdYearContainer extends Component
             session()->flash('error', 'Please select at least one student for batch assignment.');
             return;
         }
-    
+
         // Check if more than one student is selected
         if (count($this->selectedStudents) === 1) {
             // Show an error message indicating that multiple students need to be selected
             session()->flash('error', 'Please select more than one student for batch assignment.');
             return;
         }
-    
+
         // Store the selected student IDs in the component property for later use
         $this->bulkEditStudentIds = $this->selectedStudents;
-    
+
         // Now, open the bulk edit modal
         $this->dispatch('open-bulk-edit-modal');
     }
-    
+
     public function applyBulkEdit()
     {
         // Validate if bulk_student_block is not empty
@@ -255,14 +251,14 @@ class ThirdYearContainer extends Component
         ], [
             'bulk_student_block.required' => 'The block field is required.',
         ]);
-    
+
         // Check if any students are selected for bulk edit
         if (count($this->bulkEditStudentIds) < 1) {
             // Show an error message indicating that no students are selected
             session()->flash('error', 'Please select at least one student for batch assignment.');
             return;
         }
-    
+
         // Apply changes to selected students without considering block capacity
         foreach ($this->bulkEditStudentIds as $studentId) {
             $student = Student::findOrFail($studentId);
@@ -270,14 +266,14 @@ class ThirdYearContainer extends Component
                 'student_block' => $this->bulk_student_block,
             ]);
         }
-    
+
         // Flash success message
         session()->flash('message', 'Batch assignment applied successfully.');
-    
+
         // Clear bulk edit properties
         $this->bulk_student_block = '';
         $this->bulkEditStudentIds = [];
-    
+
         // Close bulk edit modal
         $this->dispatch('close-modal');
     }
@@ -306,7 +302,7 @@ class ThirdYearContainer extends Component
 
         $this->dispatch('close-modal');
     }
-    
+
     // Method to check if a block is available based on its capacity
     private function isBlockAvailable($block)
     {
@@ -366,14 +362,14 @@ class ThirdYearContainer extends Component
         $this->student_type = $student->student_type;
         $this->student_block = $student->student_block;
 
-        $this->dispatch('show-edit-student-modal',);
+        $this->dispatch('show-edit-student-modal', );
     }
-    
+
     public function editStudentData()
     {
         //on form submit validation
         $this->validate([
-             'student_id' => 'required|unique:students,student_id,'.$this->student_edit_id,
+            'student_id' => 'required|unique:students,student_id,' . $this->student_edit_id,
             'student_name' => 'required',
             'student_type' => 'required|string|max:255',
             'student_block' => 'required|numeric|in:1,2,3',
@@ -405,17 +401,17 @@ class ThirdYearContainer extends Component
         $this->dispatch('show-delete-confirmation-modal');
     }
 
-        public function deleteStudentData()
-        {
-            $student = Student::where('id', $this->student_delete_id);
-            $student->delete();
+    public function deleteStudentData()
+    {
+        $student = Student::where('id', $this->student_delete_id);
+        $student->delete();
 
-            session()->flash('message', 'Student has been deleted successfully');
+        session()->flash('message', 'Student has been deleted successfully');
 
-            $this->dispatch('close-modal');
+        $this->dispatch('close-modal');
 
-            $this->student_delete_id = '';
-        }
+        $this->student_delete_id = '';
+    }
 
     public function cancel()
     {
@@ -435,19 +431,19 @@ class ThirdYearContainer extends Component
     }
 
     public function closeViewStudentModal()
-        {
-            $this->view_student_id = '';
-            $this->view_student_name = '';
-            $this->view_student_type = '';
-            $this->view_student_block = '';
+    {
+        $this->view_student_id = '';
+        $this->view_student_name = '';
+        $this->view_student_type = '';
+        $this->view_student_block = '';
 
-            $this->dispatch('close-view-student-modal');
-        }
+        $this->dispatch('close-view-student-modal');
+    }
 
     public function render()
-        {
-            return view('livewire.chairperson.student-enlistment.year-containers.third-year-container')->with('students', Student::where('year_level', '3')->paginate($this->perPage));
-        }
+    {
+        return view('livewire.chairperson.student-enlistment.year-containers.third-year-container')->with('students', Student::where('year_level', '3')->paginate($this->perPage));
+    }
 }
 
 // functions and methods are created here (child component of student-enlistment)

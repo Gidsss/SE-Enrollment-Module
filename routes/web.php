@@ -108,6 +108,7 @@ Route::middleware([IrregularStudentMiddleware::class])->group(function () {
 /* Academic Directives with middleware */
 Route::middleware([AcademicDirectiveMiddleware::class])->group(function () {
     Route::get('/academic_directive/loa_request', LoaRequestController::class)->name('loa_request'); // loa request
+    Route::post('/academic_directive/loa_request/post', [LoaRequestController::class, 'pushRequest'])->name('loa_request.post'); // loa request post
     Route::get('/academic_directive/shifting_request', ShiftingRequestController::class)->name('shifting_request'); // shifting request
     Route::get('/academic_directive/add_drop_request', AddDropRequestController::class)->name('add_drop_request'); // add drop request
 });

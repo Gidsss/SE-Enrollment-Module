@@ -400,11 +400,13 @@
                 </button>
                     <!-- Detailed information for Step 5-->
                     <div class="panel">
+                        <form action="{{ route('loa_request.post') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_LoAForm</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')">
+                                <input type="file" required class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="loa_form">
                                 <label class="custom-file-label" for="exampleInputFile1">Upload Leave of Absence Form</label>
                             </div>
                             <div class="input-group-append">
@@ -416,7 +418,7 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_LetterOfRequest</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')">
+                                <input type="file" required class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')" accept="application/pdf" name="letter_of_request">
                                 <label class="custom-file-label" for="exampleInputFile2">Upload Letter of Request</label>
                             </div>
                             <div class="input-group-append">
@@ -428,8 +430,8 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_NoteOfUndertaking</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')">
-                                <label class="custom-file-label" for="exampleInputFile2">Upload Note of Undertaking</label>
+                                <input type="file" required class="custom-file-input" id="exampleInputFile3" onchange="updateLabel('exampleInputFile3')" accept="application/pdf" name="note_of_undertaking">
+                                <label class="custom-file-label" for="exampleInputFile3">Upload Note of Undertaking</label>
                             </div>
                             <div class="input-group-append">
                                 <span class="input-group-text">Upload</span>
@@ -440,8 +442,8 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_Clearance</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')">
-                                <label class="custom-file-label" for="exampleInputFile2">Upload Clearance from OSDS</label>
+                                <input type="file" required class="custom-file-input" id="exampleInputFile4" onchange="updateLabel('exampleInputFile4')" accept="application/pdf" name="clearance">
+                                <label class="custom-file-label" for="exampleInputFile4">Upload Clearance from OSDS</label>
                             </div>
                             <div class="input-group-append">
                                 <span class="input-group-text">Upload</span>
@@ -449,8 +451,9 @@
                             </div>
                         </div>
                         <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" wire:click="pushRequest">Submit Uploaded Documents</button>
+                            <button type="submit" class="btn" style="background-color: #C9AE5D; color: #535353;">Submit Uploaded Documents</button>
                         </div>
+                        </form>
                         <br>
                         <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: #AB830F;">For Checking</strong></p>
                         <!-- Content for letter 'a' -->
@@ -532,8 +535,18 @@
         }
 
         // Disable all accordions except the first one
-        for (var i = 1; i < acc.length; i++) {
-            acc[i].classList.add("disabled");
+        if (true) {
+            for (var i = 0; i< acc.length; i++) {
+                acc[i].classList.remove("active");
+                acc[i].classList.remove("disabled");
+                showCheckmark(i+1);
+            }
+            acc[acc.length - 1].click();
+
+        } else {
+            for (var i = 1; i < acc.length; i++) {
+                acc[i].classList.add("disabled");
+            }
         }
 
         function proceedToNextStep(step) {

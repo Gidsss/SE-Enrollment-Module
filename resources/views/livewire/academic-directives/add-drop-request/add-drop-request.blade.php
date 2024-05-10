@@ -358,37 +358,16 @@
                         <button type="button"  onclick="" class="btn btn-primary float-right" style="color: #2D349A; position: relative; bottom: 0px; left: 5px; width: 120px; height: 4ch;">
         <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
         <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
-                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Leave of Absence Form</p>
+                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Add/Drop Form</p>
                         <object data="http://localhost:8000/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
                         </object>
                         
-                        <br>
-                        <button type="button"  onclick="" class="btn btn-primary float-right" style="color: #2D349A; position: relative; bottom: 0px; left: 5px; width: 120px; height: 4ch;">
-        <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
-        <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
-                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Letter of Request for LOA</p>
-                        <object data="http://localhost:8000/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
-                        </object>
-
-                        <br>
-                        <button type="button"  onclick="" class="btn btn-primary float-right" style="color: #2D349A; position: relative; bottom: 0px; left: 5px; width: 120px; height: 4ch;">
-        <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
-        <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
-                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Note of Undertaking</p>
-                        <object data="http://localhost:8000/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
-                        </object>
-                        
-                        <br>
-                        <button type="button"  onclick="" class="btn btn-primary float-right" style="color: #2D349A; position: relative; bottom: 0px; left: 5px; width: 120px; height: 4ch;">
-        <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
-        <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
-                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Clearance from OSDS</p>
-                        <object data="http://localhost:8000/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
-                        </object>
-                        
+                        <form action="{{ route('add_drop_request.post') }}" method="post">
+                        @csrf
                         <div class="center-button">
-                          <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)">Proceed to Document Submission and Approval</button>
+                          <button type="submit" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)">Proceed to Document Submission and Approval</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -400,66 +379,19 @@
                 </button>
                     <!-- Detailed information for Step 5-->
                     <div class="panel">
-                        <div class="form-group">
-                            <label for="exampleInputFile">Follow the format: LastName_FirstName_LoAForm</label>
-                            <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')">
-                                <label class="custom-file-label" for="exampleInputFile1">Upload Leave of Absence Form</label>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputFile">Follow the format: LastName_FirstName_LetterOfRequest</label>
-                            <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')">
-                                <label class="custom-file-label" for="exampleInputFile2">Upload Letter of Request</label>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputFile">Follow the format: LastName_FirstName_NoteOfUndertaking</label>
-                            <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')">
-                                <label class="custom-file-label" for="exampleInputFile2">Upload Note of Undertaking</label>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputFile">Follow the format: LastName_FirstName_Clearance</label>
-                            <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')">
-                                <label class="custom-file-label" for="exampleInputFile2">Upload Clearance from OSDS</label>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" wire:click="pushRequest">Submit Uploaded Documents</button>
-                        </div>
-                        <br>
-                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: #AB830F;">For Checking</strong></p>
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: 
+                            @if( $requestStatus == "Pending")
+                            <strong style="color: #AB830F;">For Checking</strong>
+                            @elseif( $requestStatus == "Rejected")
+                            <strong style="color: #e90c0c;">For Revision</strong>
+                            @elseif( $requestStatus == "Approved")
+                            <strong style="color: #14ae5c;">For Submission Onsite</strong>
+                            @endif
+                        </p>
                         <!-- Content for letter 'a' -->
                         <p class="body-font">&nbsp;&nbsp;a. Submitted documents will be checked by corresponding department chairperson.</p>
                         <!-- Content for letter 'b' -->
                         <p class="body-font">&nbsp;&nbsp;b. Refresh this page from time-to-time to know the status of your request. </p>
-                        <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(5)">Change status to for submission onsite</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -534,6 +466,16 @@
         // Disable all accordions except the first one
         for (var i = 1; i < acc.length; i++) {
             acc[i].classList.add("disabled");
+        }
+
+        // Activate all accordions when request is already submitted
+        if ({{$requestExists ? 'true' : 'false'}}) {
+            for (var i = 0; i< acc.length; i++) {
+                acc[i].classList.remove("active");
+                acc[i].classList.remove("disabled");
+                showCheckmark(i+1);
+            }
+            acc[acc.length - 1].click();
         }
 
         function proceedToNextStep(step) {

@@ -25,18 +25,35 @@ class AddDropRequestController extends Component
 
     public function render()
     {
-        return view('livewire.academic-directives.add-drop-request.add-drop-request')->layout('livewire.academic-directives.acaddirect-app');
+        $request = AddDropRequest::where('student_id', '=', Auth::guard('student')->user()->student_id);
+        $requestExists = $request->exists();
+
+        $requestStatus = "Pending";
+        if($requestExists) {
+            $requestStatus = $request->first()->status;
+        }
+
+        $values = [
+            'requestExists'=>$requestExists,
+            'requestStatus'=>$requestStatus
+        ];
+        return view('livewire.academic-directives.add-drop-request.add-drop-request', $values)->layout('livewire.academic-directives.acaddirect-app');
     }
 
-    public function pushRequest() {
-        $request = new AddDropRequest();
-        $request->student_id = $this->student_id;
-        $request->student_name = $this->student_name;
-        $request->year_level = $this->year_level;
-        $request->date_of_request = Carbon::now();
-        $request->status = 'Pending';
-        $request->study_plan = "";
+    public function pushRequest(Request $request) {
+        $this->mount();
 
-        $request->save();
+        # Basic Info
+        $addDropRequest = new AddDropRequest();
+        $addDropRequest->student_id = $this->student_id;
+        $addDropRequest->student_name = $this->student_name;
+        $addDropRequest->year_level = $this->year_level;
+        $addDropRequest->date_of_request = Carbon::now();
+        $addDropRequest->status = 'Pending';
+        $addDropRequest->study_plan = "";
+
+        $addDropRequest->save();
+
+        return redirect()->back();
     }
 }

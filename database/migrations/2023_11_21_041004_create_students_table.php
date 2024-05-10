@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('year_level');
             $table->string('password', 255);
             $table->date('date_request')->nullable();
+            $table->boolean('enrolled')->default(0);
             $table->string('status', 255)->nullable();
             $table->integer('student_block')->nullable();
             $table->timestamps();

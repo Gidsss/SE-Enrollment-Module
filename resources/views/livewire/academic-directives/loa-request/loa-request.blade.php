@@ -455,14 +455,19 @@
                         </div>
                         </form>
                         <br>
-                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: #AB830F;">For Checking</strong></p>
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: 
+                            @if( $requestStatus == "Pending")
+                            <strong style="color: #AB830F;">For Checking</strong>
+                            @elseif( $requestStatus == "Rejected")
+                            <strong style="color: #e90c0c;">For Revision</strong>
+                            @elseif( $requestStatus == "Approved")
+                            <strong style="color: #14ae5c;">For Submission Onsite</strong>
+                            @endif
+                        </p>
                         <!-- Content for letter 'a' -->
                         <p class="body-font">&nbsp;&nbsp;a. Submitted documents will be checked by corresponding department chairperson.</p>
                         <!-- Content for letter 'b' -->
                         <p class="body-font">&nbsp;&nbsp;b. Refresh this page from time-to-time to know the status of your request. </p>
-                        <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(5)">Change status to for submission onsite</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -535,18 +540,18 @@
         }
 
         // Disable all accordions except the first one
-        if (true) {
+        for (var i = 1; i < acc.length; i++) {
+            acc[i].classList.add("disabled");
+        }
+
+        // Activate all accordions when request is already submitted
+        if ({{$requestExists ? 'true' : 'false'}}) {
             for (var i = 0; i< acc.length; i++) {
                 acc[i].classList.remove("active");
                 acc[i].classList.remove("disabled");
                 showCheckmark(i+1);
             }
             acc[acc.length - 1].click();
-
-        } else {
-            for (var i = 1; i < acc.length; i++) {
-                acc[i].classList.add("disabled");
-            }
         }
 
         function proceedToNextStep(step) {

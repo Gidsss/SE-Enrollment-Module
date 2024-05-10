@@ -27,7 +27,19 @@ class LoaRequestController extends Component
 
     public function render()
     {
-        return view('livewire.academic-directives.loa-request.loa-request')->layout('livewire.academic-directives.acaddirect-app');
+        $request = LoARequest::where('student_id', '=', Auth::guard('student')->user()->student_id);
+        $requestExists = $request->exists();
+
+        $requestStatus = "Pending";
+        if($requestExists) {
+            $requestStatus = $request->first()->status;
+        }
+
+        $values = [
+            'requestExists'=>$requestExists,
+            'requestStatus'=>$requestStatus
+        ];
+        return view('livewire.academic-directives.loa-request.loa-request', $values)->layout('livewire.academic-directives.acaddirect-app');
     }
 
     public function pushRequest(Request $request) {

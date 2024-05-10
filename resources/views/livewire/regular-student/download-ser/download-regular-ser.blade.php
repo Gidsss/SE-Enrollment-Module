@@ -264,6 +264,12 @@
 
 
                     @if ($studentStatus === 'Enlisted')
+                        <span
+                            style="position: absolute; top: 1cm; left: 12ch; font-family: Inter, sans-serif; font-size: 35px; font-weight: bold;">
+                            <i class="fas fa-circle" style="font-size: 50px; color: #2D349A "></i>
+                            <span
+                                style="position: absolute; top: 47.5%; left: 47.5%; transform: translate(-50%, -50%); color: white; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">1</span>
+                        </span>
                         <a href="{{ route('regular_assessment') }}" style="text-decoration: none;">
                             <span
                                 style="position: absolute; top: 1cm; left: 24.5ch; font-family: Inter, sans-serif; font-size: 35px; font-weight: bold;">

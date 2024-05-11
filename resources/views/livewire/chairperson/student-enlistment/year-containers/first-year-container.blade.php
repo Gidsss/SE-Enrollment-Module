@@ -11,8 +11,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <p style="float: left; font-family: Inter, sans-serif;" >Total <strong>#</strong> of Records: {{ $firstYearStudents }}</p>
+                        <p style="float: left; font-family: Inter, sans-serif; margin-top: 5px;" >Total <strong>#</strong> of Records: {{ $firstYearStudents }}</p>
                         <div class="relative inline-block" style="float: right;">
+                        <button wire:click="toggleEnrollmentFilter" class="btn btn-primary" style="font-family: Inter, sans-serif;">{{ $filterEnrolled ? 'Show All' : 'Show Enrolled' }} </button>
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" style="font-family: Inter, sans-serif;">
                             Assign Button
                         </button>
@@ -55,6 +56,9 @@
                     Student Type
                 </th>
                 <th scope="col" class="px-6 py-3" style="font-family: Inter, sans-serif;">
+                    Enrollment Status
+                </th>
+                <th scope="col" class="px-6 py-3" style="font-family: Inter, sans-serif;">
                     Block
                     <button class="btn btn-sm btn-link" wire:click="sortStudents('student_block')" wire:loading.attr="disabled">
                         <i class="fa fa-arrow-up"></i>
@@ -78,6 +82,7 @@
                         <td class="px-6 py-1 text-gray-900 whitespace-nowrap dark:text-white" style="font-size: 15px; font-family: Inter, sans-serif;">{{ $student->student_id }}</td>
                         <td class="px-6 py-1" style="font-size: 15px; font-family: Inter, sans-serif;">{{ $student->student_name }}</td>
                         <td class="px-6 py-1" style="font-size: 15px; font-family: Inter, sans-serif;">{{ $student->student_type }}</td>
+                        <td class="px-6 py-1" style="font-size: 15px; font-family: Inter, sans-serif;">{{ $student->enrolled ? 'Enrolled' : 'Enlisted' }}</td>
                         <td class="px-6 py-1" style="font-size: 15px; font-family: Inter, sans-serif;">{{ $student->student_block }}</td>
                         <td class="px-6 py-1 text-center" style="font-size: 15px; font-family: Inter, sans-serif;">
                             <button class="btn btn-sm" style="border: 1px solid #000;"wire:click="editStudents({{ $student->id }})">View</button>
@@ -86,7 +91,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="6" class="px-6 py-4 text-center"><small>No Student Found</small></td>
+                <td colspan="6" class="px-6 py-4 text-center" style="font-size: 15px; font-family: Inter, sans-serif;"><strong>No Student Found</strong></td>
                 </tr>
             @endif
         </tbody>

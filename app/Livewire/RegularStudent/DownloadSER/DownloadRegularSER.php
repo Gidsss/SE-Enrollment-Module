@@ -30,16 +30,22 @@ class DownloadRegularSER extends Component
             $student = Student::find($this->studentId);
 
             if ($student) {
-                // Update the student's enrollment status
-                $student->enrolled = 1;
-                $student->save();
+                if ($student->enrolled == 1) {
+                    // Check if the student is already marked as enrolled
+                    $this->modalMessage = 'You have already enrolled.';
+                    $this->showModal = true;
+                } else {
+                    // Update the student's enrollment status
+                    $student->enrolled = 1;
+                    $student->save();
 
-                // Update the status property
-                $this->studentStatus = 'Enrolled';
+                    // Update the status property
+                    $this->studentStatus = 'Enrolled';
 
-                // Set modal message and show modal
-                $this->modalMessage = 'You have successfully enrolled.';
-                $this->showModal = true;
+                    // Set modal message and show modal
+                    $this->modalMessage = 'You have successfully enrolled.';
+                    $this->showModal = true;
+                }
             } else {
                 $this->modalMessage = 'Student not found.';
                 $this->showModal = true;

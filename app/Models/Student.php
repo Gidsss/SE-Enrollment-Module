@@ -18,6 +18,7 @@ class Student extends Model implements Authenticatable
         'year_level',
         'password',
         'date_request',
+        'enrolled', // This field is used to determine if the student is enrolled or not
         'status',
         'student_block',
     ];

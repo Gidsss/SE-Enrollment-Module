@@ -25,6 +25,8 @@ class ThirdYearContainer extends Component
     public $blockCapacities = []; // Variable to store the block capacity input by the user
     public $commonBlockCapacity;
     public $thirdYearStudents;
+    public $filterEnrolled = false;
+    public $loading = false;
     // Input fields validation rules
     protected $rules = [
         'student_id' => 'required|unique:students|numeric',
@@ -32,7 +34,7 @@ class ThirdYearContainer extends Component
         'student_type' => 'required|string|max:255',
         'student_block' => 'required|integer',
     ];
-
+    protected $listeners = ['reloadStudents' => 'getPaginatedStudents'];
 
     public function mount()
     {
@@ -42,7 +44,15 @@ class ThirdYearContainer extends Component
         $this->students = $this->students->where('year_level', '3');
         $this->calculateTotalStudents();
     }
-
+    public function updatingFilterEnrolled()
+    {
+        $this->resetPage();
+    }
+    public function toggleEnrollmentFilter()
+    {
+        $this->filterEnrolled = !$this->filterEnrolled;
+        $this->getPaginatedStudents();
+    }
     public function calculateTotalStudents()
     {
         $this->thirdYearStudents = Student::where('year_level', '3')->count();
@@ -68,26 +78,44 @@ class ThirdYearContainer extends Component
 
     public function getPaginatedStudents($page = null)
     {
+        $this->loading = true; // Set loading state to true when loading starts
+
         if ($page !== null) {
             $this->currentPage = $page;
         }
 
-        $total = Student::where('year_level', '3')->count();
+        $query = Student::where('year_level', '3');
+
+        if ($this->filterEnrolled) {
+            $query = $query->where('enrolled', 1);
+        }
+
+        $total = $query->count();
         $this->lastPage = ceil($total / $this->perPage);
 
         $this->currentPage = min(max(1, $this->currentPage), $this->lastPage);
         $offset = ($this->currentPage - 1) * $this->perPage;
 
-        // Adjust the ordering for descending sorting
         $orderByDirection = $this->sortDirection === 'desc' ? 'DESC' : 'ASC';
 
         if ($this->sortColumn === 'student_block') {
             // Fetch first-year students sorted by student block
-            $this->students = $this->getPaginatedStudentsByBlock($orderByDirection, $offset);
+            $this->students = $query
+                ->orderByRaw('IF(student_block IS NULL, 0, 1), student_block ' . $orderByDirection)
+                ->orderBy('student_name', 'asc')
+                ->offset($offset)
+                ->limit($this->perPage)
+                ->get();
         } else {
             // Fetch first-year students sorted by student name
-            $this->students = $this->getPaginatedStudentsByName($orderByDirection, $offset);
+            $this->students = $query
+                ->orderByRaw('IF(student_block IS NULL, 0, 1), student_name ' . $orderByDirection)
+                ->skip($offset)
+                ->take($this->perPage)
+                ->get();
         }
+
+        $this->loading = false; // Set loading state to false when loading completes
     }
 
     public function nextPage($pageName = 'page')
@@ -442,7 +470,23 @@ class ThirdYearContainer extends Component
 
     public function render()
     {
-        return view('livewire.chairperson.student-enlistment.year-containers.third-year-container')->with('students', Student::where('year_level', '3')->paginate($this->perPage));
+        $this->loading = true;  // Set loading to true when starting to fetch data
+
+        $query = Student::where('year_level', '2');
+
+        if ($this->filterEnrolled) {
+            $query = $query->where('enrolled', 1);
+        }
+
+        $students = $query->orderBy($this->sortColumn, $this->sortDirection)
+            ->paginate($this->perPage);
+
+        $this->loading = false;  // Set loading to false after data is fetched
+
+        return view('livewire.chairperson.student-enlistment.year-containers.third-year-container', [
+            'students' => $students,
+            'loading' => $this->loading
+        ]);
     }
 }
 

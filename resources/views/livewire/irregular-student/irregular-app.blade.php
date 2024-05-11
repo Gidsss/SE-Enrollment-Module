@@ -92,11 +92,20 @@
             background-color: #2D349A;
             z-index: 0;
         }
+        .connector-blue2 {
+            position: absolute;
+            top: 75%;
+            left: calc(20ch + 480px);
+            width: 255px;
+            height: 5px;
+            background-color: #2D349A;
+            z-index: 0;
+        }
         .connector-gray {
             position: absolute;
             top: 75%;
             left: calc(49ch + 254px);
-            width: 240px;
+            width: 237px;
             height: 5px;
             background-color: gray;
             z-index: 0;

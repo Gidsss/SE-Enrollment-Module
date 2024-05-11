@@ -34,10 +34,24 @@ class AuthController extends Controller
         if (Auth::guard('student')->attempt($credentials, $remember)) {
             // Authentication successful for student
             $student = Auth::guard('student')->user();
+
+            // Check the student type and enrollment status
             if ($student->student_type == "Regular") {
-                return redirect()->intended('regular_student/regular_schedule');
+                if ($student->enrolled == 1) {
+                    // Redirect to regular ser page if the student is enrolled
+                    return redirect()->intended('/regular_student/regular_ser');
+                } else {
+                    // Redirect to the regular schedule page if yet not enrolled
+                    return redirect()->intended('/regular_student/regular_schedule');
+                }
             } elseif ($student->student_type == "Irregular") {
-                return redirect()->intended('irregular_student/irreg_schedule');
+                if ($student->enrolled == 1) {
+                    // Redirect to irregular ser page for enrolled irregular students
+                    return redirect()->intended('/irregular_student/irreg_ser');
+                } else {
+                    // Redirect to the irregular schedule if not yet enrolled
+                    return redirect()->intended('/irregular_student/irreg_schedule');
+                }
             }
         } else {
             // Handle authentication failure

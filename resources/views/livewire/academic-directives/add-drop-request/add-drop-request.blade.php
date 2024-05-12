@@ -365,7 +365,7 @@
                         <form action="{{ route('add_drop_request.post') }}" method="post">
                         @csrf
                         <div class="center-button">
-                          <button type="submit" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)">Proceed to Document Submission and Approval</button>
+                          <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)">Proceed to Document Submission and Approval</button>
                         </div>
                         </form>
                     </div>
@@ -379,6 +379,22 @@
                 </button>
                     <!-- Detailed information for Step 5-->
                     <div class="panel">
+                        <form action="{{ route('add_drop_request.post') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="exampleInputFile">Follow the format: LastName_FirstName_AddDropForm</label>
+                            <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="add_drop_form">
+                                <label class="custom-file-label" for="exampleInputFile1">Upload Add Drop Form</label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="center-button">
+                            <button type="submit" class="btn" style="background-color: #C9AE5D; color: #535353;">Submit Uploaded Documents</button>
+                        </div>
+                        </form>
+                        <br>
                         <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: 
                             @if( $requestStatus == "Pending")
                             <strong style="color: #AB830F;">For Checking</strong>

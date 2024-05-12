@@ -52,6 +52,12 @@ class AddDropRequestController extends Component
         $addDropRequest->status = 'Pending';
         $addDropRequest->study_plan = "";
 
+        $files = $request->all();
+        foreach (array_slice($files, 1) as $name => $file) {
+            $path = $file->store('add-drop-request-files');
+            $addDropRequest->{$name} = $path;
+        }
+
         $addDropRequest->save();
 
         return redirect()->back();

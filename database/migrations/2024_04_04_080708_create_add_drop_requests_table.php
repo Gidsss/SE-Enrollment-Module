@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date_of_request');
             $table->string('status');
             $table->text('study_plan')->nullable();
+            $table->text('add_drop_form');
             $table->timestamps();
         });
     }

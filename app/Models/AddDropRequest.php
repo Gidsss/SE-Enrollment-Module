@@ -15,6 +15,7 @@ class AddDropRequest extends Model
         'date_of_request',
         'status',
         'study_plan',
+        'add_drop_form',
     ];
     protected $table = 'add_drop_requests';
 }

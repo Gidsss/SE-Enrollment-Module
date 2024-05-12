@@ -3,10 +3,12 @@
 namespace App\Livewire\AcademicDirective;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use App\Models\LOARequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoaRequestController extends Component
 {
@@ -25,19 +27,41 @@ class LoaRequestController extends Component
 
     public function render()
     {
-        return view('livewire.academic-directives.loa-request.loa-request')->layout('livewire.academic-directives.acaddirect-app');
+        $request = LoARequest::where('student_id', '=', Auth::guard('student')->user()->student_id);
+        $requestExists = $request->exists();
+
+        $requestStatus = "Pending";
+        if($requestExists) {
+            $requestStatus = $request->first()->status;
+        }
+
+        $values = [
+            'requestExists'=>$requestExists,
+            'requestStatus'=>$requestStatus
+        ];
+        return view('livewire.academic-directives.loa-request.loa-request', $values)->layout('livewire.academic-directives.acaddirect-app');
     }
 
-    public function pushRequest() {
-        $request = new LoARequest();
-        $request->student_id = $this->student_id;
-        $request->student_name = $this->student_name;
-        $request->year_level = $this->year_level;
-        $request->date_of_request = Carbon::now();
-        $request->status = 'Pending';
-        $request->study_plan = "";
+    public function pushRequest(Request $request) {
+        $this->mount();
 
-        $request->save();
+        # Basic Info
+        $loaRequest = new LoARequest();
+        $loaRequest->student_id = $this->student_id;
+        $loaRequest->student_name = $this->student_name;
+        $loaRequest->year_level = $this->year_level;
+        $loaRequest->date_of_request = Carbon::now();
+        $loaRequest->status = 'Pending';
+        $loaRequest->study_plan = "";
 
+        $files = $request->all();
+        foreach (array_slice($files, 1) as $name => $file) {
+            $path = $file->store('loa-request-files');
+            $loaRequest->{$name} = $path;
+        }
+
+        $loaRequest->save();
+
+        return redirect()->back();
     }
 }

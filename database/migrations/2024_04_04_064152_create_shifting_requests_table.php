@@ -18,7 +18,10 @@ return new class extends Migration
             $table->integer('year_level');
             $table->date('date_of_request');
             $table->string('status');
-            $table->text('current_checklist')->nullable();
+            $table->text('study_plan')->nullable();
+            $table->text('letter_of_intent');
+            $table->text('note_of_undertaking');
+            $table->text('shifting_form');
             $table->timestamps();
         });
     }

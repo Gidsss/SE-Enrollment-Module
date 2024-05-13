@@ -43,7 +43,6 @@ class ShiftingRequestController extends Component
         $shiftingRequest->date_of_request = Carbon::now();
         $shiftingRequest->status = 'Pending';
 
-        // Assuming files are part of the form submission
         foreach ($request->file() as $name => $file) {
             if ($request->hasFile($name)) {
                 $path = $file->store('shifting-request-files');
@@ -51,6 +50,7 @@ class ShiftingRequestController extends Component
             }
         }
 
+        $shiftingRequest->is_finalized = true; // Set the request as finalized
         $shiftingRequest->save();
         return redirect()->back();
     }

@@ -1,6 +1,6 @@
 <div>
     <div>
-        <p style="color: red;">Once you've chosen a program, you cannot change it!</p>
+        <p style="color: red;">Once you've submitted your documents, you cannot change your program anymore.</p>
     </div>
     <form wire:submit.prevent="saveNewProgram">
         <div class="form-group">

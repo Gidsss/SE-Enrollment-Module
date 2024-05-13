@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('shifting_form')->nullable();
             $table->string('status')->nullable();
             $table->date('date_of_request')->nullable();
+            $table->boolean('is_finalized')->default(false);
             $table->timestamps();
         });
     }

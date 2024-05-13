@@ -15,8 +15,7 @@ class Validation extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'studentid',
-        'student_name',
+        'student_id',
         'yearlvl',
         'daterequest',
         'status',

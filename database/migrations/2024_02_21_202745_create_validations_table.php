@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // Auto-increment primary key
             $table->bigInteger('student_id')->unsigned()->unique(); // Match the data type with `students` table
             $table->foreign('student_id')->references('student_id')->on('students'); // Removed onDelete('cascade') to prevent accidental deletion
+            $table->integer('yearlvl')->nullable();
             $table->date('daterequest')->nullable();
             $table->string('status', 50)->nullable();
             $table->binary('validation_pdfs')->nullable();

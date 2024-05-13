@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('student_id')->unsigned()->unique(); // Match the data type with `students` table
             $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade');
+            $table->integer('year_level');
             $table->date('date_of_request');
             $table->string('status');
             $table->text('study_plan')->nullable();

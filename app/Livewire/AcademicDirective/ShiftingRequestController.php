@@ -24,35 +24,34 @@ class ShiftingRequestController extends Component
         $requestExists = $request->exists();
 
         $requestStatus = "Pending";
-        if($requestExists) {
+        if ($requestExists) {
             $requestStatus = $request->first()->status;
         }
 
         $values = [
-            'requestExists'=>$requestExists,
-            'requestStatus'=>$requestStatus
+            'requestExists' => $requestExists,
+            'requestStatus' => $requestStatus
         ];
         return view('livewire.academic-directives.shifting-request.shifting-request', $values)->layout('livewire.academic-directives.acaddirect-app');
     }
 
-    public function pushRequest(Request $request) {
+    public function pushRequest(Request $request)
+    {
         $this->mount();
+        $shiftingRequest = ShiftingRequest::where('student_id', $this->student_id)->firstOrFail();
 
-        # Basic Info
-        $shiftingRequest = new ShiftingRequest();
-        $shiftingRequest->student_id = $this->student_id;
         $shiftingRequest->date_of_request = Carbon::now();
         $shiftingRequest->status = 'Pending';
-        $shiftingRequest->study_plan = "";
 
-        $files = $request->all();
-        foreach (array_slice($files, 1) as $name => $file) {
-            $path = $file->store('shifting-request-files');
-            $shiftingRequest->{$name} = $path;
+        foreach ($request->file() as $name => $file) {
+            if ($request->hasFile($name)) {
+                $path = $file->store('shifting-request-files');
+                $shiftingRequest->{$name} = $path;
+            }
         }
 
+        $shiftingRequest->is_finalized = true; // Set the request as finalized
         $shiftingRequest->save();
-
         return redirect()->back();
     }
 }

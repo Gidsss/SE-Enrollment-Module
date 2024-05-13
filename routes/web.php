@@ -44,22 +44,6 @@ use App\Livewire\AcademicDirective\AddDropRequestController;
 |
 */
 
-/* Regular Student Pages */
-
-Route::get('/regular_student/regular_schedule', CheckSchedule::class); // regular student schedule
-
-Route::get('/regular_student/regular_assessment', ViewRegularAssessment::class); // regular student assessment
-
-Route::get('/regular_student/regular_ser', DownloadRegularSER::class); // regular student ser
-
-/* Irregular Student Pages */
-
-Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class); // irregular student schedule
-
-Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class); // irregular student assessment
-
-Route::get('irregular_student/irreg_ser', DownloadIrregularSER::class); // irregular student ser
-
 /* Chairperson Pages */
 
 Route::get('/chairperson/create_class', ClassCreation::class); // chairperson class creation
@@ -80,7 +64,7 @@ Route::get('/chairperson/student_transaction/loa_requests', LOARequests::class)-
 
 /* Necessary Components */
 
-Route::get('/generate-pdf', [AuthController::class,'genpdf']); // for pdf generation 
+Route::get('/generate-pdf', [AuthController::class, 'genpdf']); // for pdf generation 
 
 /* Authentication */
 

@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('study_plan_validations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('student_id');
-            $table->string('student_name', 255);
-            $table->integer('year_level');
+            $table->bigInteger('student_id')->unsigned()->unique(); // Match the data type with `students` table
+            $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade');
             $table->date('date_of_request');
             $table->string('status');
             $table->text('study_plan')->nullable();

@@ -10,8 +10,6 @@ class AddDropRequest extends Model
     use HasFactory;
     protected $fillable = [
         'student_id', 
-        'student_name',
-        'year_level',
         'date_of_request',
         'status',
         'study_plan',

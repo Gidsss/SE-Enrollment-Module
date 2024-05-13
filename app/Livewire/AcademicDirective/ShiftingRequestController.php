@@ -12,15 +12,10 @@ class ShiftingRequestController extends Component
 {
 
     public $student_id;
-    public $student_name;
-    public $year_level;
-
     public function mount()
     {
         $student = Auth::guard('student')->user();
         $this->student_id = $student->student_id;
-        $this->student_name = $student->student_name;
-        $this->year_level = $student->year_level;
     }
 
     public function render()
@@ -46,8 +41,6 @@ class ShiftingRequestController extends Component
         # Basic Info
         $shiftingRequest = new ShiftingRequest();
         $shiftingRequest->student_id = $this->student_id;
-        $shiftingRequest->student_name = $this->student_name;
-        $shiftingRequest->year_level = $this->year_level;
         $shiftingRequest->date_of_request = Carbon::now();
         $shiftingRequest->status = 'Pending';
         $shiftingRequest->study_plan = "";

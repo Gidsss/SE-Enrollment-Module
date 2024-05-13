@@ -33,5 +33,5 @@ class Validation extends Model
         'daterequest' => 'date',
     ];
 
-    protected $table = 'validations';
+    protected $table = 'temporary_validations';
 }

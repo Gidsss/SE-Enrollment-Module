@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('student_id');
+            $table->bigInteger('student_id')->unsigned()->unique();
             $table->string('student_name', 255);
-            $table->string('student_type', 255);
-            $table->integer('year_level');
             $table->string('password', 255);
-            $table->date('date_request')->nullable();
-            $table->boolean('enrolled')->default(0);
-            $table->string('status', 255)->nullable();
+            $table->enum('student_type', ['Regular', 'Irregular']);
+            $table->integer('year_level');
             $table->integer('student_block')->nullable();
+            $table->string('degree_program');
+            $table->boolean('enrolled')->default(0);
             $table->timestamps();
         });
     }

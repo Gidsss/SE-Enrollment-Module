@@ -10,15 +10,13 @@ class LoARequest extends Model
     use HasFactory;
     protected $fillable = [
         'student_id', 
-        'student_name',
-        'year_level',
         'date_of_request',
         'status',
         'study_plan',
         'loa_form',
         'letter_of_request',
         'note_of_undertaking',
-        'clearance',
+        'clearance'
     ];
     protected $table = 'l_o_a_requests';
 }

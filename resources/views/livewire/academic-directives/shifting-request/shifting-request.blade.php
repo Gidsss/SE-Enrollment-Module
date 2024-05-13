@@ -317,7 +317,7 @@
                     <p class="body-font">&nbsp;&nbsp;g. Underloaded units should also be verified by the college chairperson to ensure compliance with program requirements.</p>
                     
                     <div class="center-button">
-                    <button type="button" class="btn btn-primary" id="selectProgramButton" data-toggle="modal" data-target="#selectProgramModal">Select a Program</button> 
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectProgramModal">Select a Program</button> 
                     </div>
                       <!-- The Modal -->
                     <div class="modal fade" id="selectProgramModal" tabindex="-1" role="dialog" aria-labelledby="selectProgramModalLabel" aria-hidden="true">
@@ -536,9 +536,6 @@
         var acc = document.getElementsByClassName("accordion");
         var currentIndex = 0;
         
-        // Initially disable the button until Step 5 is reached
-        var selectProgramButton = document.getElementById('selectProgramButton');
-        selectProgramButton.disabled = true;
 
         for (var i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function () {
@@ -581,9 +578,6 @@
                 acc[step].click();
                 showCheckmark(step);
                 alert("Proceeding to Step " + (step + 1));
-                if (step === 4) {  // Enable button at Step 5
-                selectProgramButton.disabled = false;
-            }
             } else {
                 showCheckmark(step);
                 alert("You have reached the last step. You can now click the 'View Assessment' button.");

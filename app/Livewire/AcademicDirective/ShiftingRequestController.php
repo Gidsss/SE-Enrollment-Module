@@ -25,19 +25,41 @@ class ShiftingRequestController extends Component
 
     public function render()
     {
-        return view('livewire.academic-directives.shifting-request.shifting-request')->layout('livewire.academic-directives.acaddirect-app');
+        $request = ShiftingRequest::where('student_id', '=', Auth::guard('student')->user()->student_id);
+        $requestExists = $request->exists();
+
+        $requestStatus = "Pending";
+        if($requestExists) {
+            $requestStatus = $request->first()->status;
+        }
+
+        $values = [
+            'requestExists'=>$requestExists,
+            'requestStatus'=>$requestStatus
+        ];
+        return view('livewire.academic-directives.shifting-request.shifting-request', $values)->layout('livewire.academic-directives.acaddirect-app');
     }
 
-    public function pushRequest() {
-        $request = new ShiftingRequest();
-        $request->student_id = $this->student_id;
-        $request->student_name = $this->student_name;
-        $request->year_level = $this->year_level;
-        $request->date_of_request = Carbon::now();
-        $request->status = 'Pending';
-        $request->study_plan = "";
+    public function pushRequest(Request $request) {
+        $this->mount();
 
-        $request->save();
+        # Basic Info
+        $shiftingRequest = new ShiftingRequest();
+        $shiftingRequest->student_id = $this->student_id;
+        $shiftingRequest->student_name = $this->student_name;
+        $shiftingRequest->year_level = $this->year_level;
+        $shiftingRequest->date_of_request = Carbon::now();
+        $shiftingRequest->status = 'Pending';
+        $shiftingRequest->study_plan = "";
 
+        $files = $request->all();
+        foreach (array_slice($files, 1) as $name => $file) {
+            $path = $file->store('shifting-request-files');
+            $shiftingRequest->{$name} = $path;
+        }
+
+        $shiftingRequest->save();
+
+        return redirect()->back();
     }
 }

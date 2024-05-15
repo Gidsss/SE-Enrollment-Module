@@ -1,24 +1,11 @@
+
 <div>
 <div>
-    <button wire:click="pushCourseCodes">Push Course Codes</button>
-            @if (session()->has('courseCodesNotification'))
-                <div class="alert alert-success">
-                    {{ session('courseCodesNotification') }}
-                </div>
-            @endif
-
-            @if (isset($displayedCourseCodes))
-                <pre>Compiled Course Codes: {{ json_encode($displayedCourseCodes) }}</pre>
-            @endif
-
-            @if (isset($studentName))
-                <p>Student Name: {{ $studentName }}</p>
-                <p>Student Year: {{ $yearlevel }}</p>
-            @endif
+    <button wire:click="pushCourseCodesFinal">Push Final</button>
 
             @if ($hasYear2)
         <div id="2nd-year-tables" >
-            <h1>2nd Year 1st Semester</h1>
+            <h1 style="color: black;">2nd Year 1st Semester</h1>
             <body>
             <div class="dropdown" style="left: 85%">
                 <button type="button" class="dropdown-toggle" id="dropdownMenuButton2_1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -414,4 +401,6 @@
             </span>
         </div>
         @endif
+        <br>
+        <button type="button" class="btn btn-primary" wire:click="pushCourseCodes">Save changes</button>
 </div>

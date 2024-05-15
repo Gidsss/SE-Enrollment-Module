@@ -22,6 +22,14 @@ class LOARequests extends Component
     public $currentPage = 1;
     public $numStudents;
     public $totalStudents;
+    public $activeButton = '';
+    public $hasStudyPlan = false;
+    public $hasChecklist = false;
+    public $hasUndertaking = false;
+    public $hasLoaForm = false;
+    public $hasRequest = false;
+    public $hasClearance = false;
+    
 
     // Input fields validation rules
     protected $rules = [
@@ -190,6 +198,12 @@ class LOARequests extends Component
         $this->validateOnly($field, $this->rules);
     }
 
+    public function changeColor($button)
+    {
+        $this->activeButton = $button;
+    }
+
+
     public function editStudents($id)
     {
         $student = LOARequest::where('id', $id)->first();
@@ -262,7 +276,29 @@ class LOARequests extends Component
 
     public function render()
         {
-            return view('livewire.chairperson.student-transactions.options.l-o-a-requests')->layout('livewire.chairperson.transaction-options');
+            $this->hasStudyPlan = ($this->activeButton === 'plan');
+            $this->hasChecklist = ($this->activeButton === 'checklist');
+            $this->hasLoaForm = ($this->activeButton === 'loa_form');
+            $this->hasUndertaking = ($this->activeButton === 'undertaking');
+            $this->hasRequest = ($this->activeButton === 'request');
+            $this->hasClearance = ($this->activeButton === 'clear');
+            
+
+            $hasStudyPlan = false;
+            $hasChecklist = false;
+            $hasLoaForm = false;
+            $hasUndertaking = false; 
+            $hasRequest = false;
+            $hasClearance = false;
+
+            return view('livewire.chairperson.student-transactions.options.l-o-a-requests',[
+                'hasStudyPlan' => $this->hasStudyPlan,
+                'hasChecklist' => $this->hasChecklist,
+                'hasLoaForm' => $this->hasLoaForm,
+                'hasUndertaking' => $this->hasUndertaking,
+                'hasRequest' => $this->hasRequest,
+                'hasClearance' => $this->hasClearance,
+            ])->layout('livewire.chairperson.transaction-options');
         }
 }
 

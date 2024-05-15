@@ -26,6 +26,9 @@ class StudyPlanValidation extends Component
     public $totalStudents;
     public $courses;
     public $validations;
+    public $activeButton = '';
+    public $hasStudyPlan = false;
+    public $hasChecklist = false;
 
     // Input fields validation rules
     protected $rules = [
@@ -267,13 +270,27 @@ class StudyPlanValidation extends Component
             $this->dispatch('close-view-student-modal');
         }
 
+        public function changeColor($button)
+        {
+            $this->activeButton = $button;
+        }
+
     public function render()
         {
             $this->courses = Course::all();
             $this->validations = Validation::all();
+
+            $this->hasStudyPlan = ($this->activeButton === 'plan');
+            $this->hasChecklist = ($this->activeButton === 'checklist');
+
+            $hasStudyPlan = false;
+            $hasChecklist = false;
+
             return view('livewire.chairperson.student-transactions.options.study-plan-validation', [
                 'courses' => $this->courses,
                 'validations' => $this->validations,
+                'hasStudyPlan' => $this->hasStudyPlan,
+                'hasChecklist' => $this->hasChecklist,
             ])->layout('livewire.chairperson.transaction-options');
         }
 }

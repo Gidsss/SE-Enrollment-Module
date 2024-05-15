@@ -38,7 +38,6 @@ class ShiftingRequests extends Component
         'status' => 'required|string',
     ];
 
-    
     public function mount()
     {
         $this->getPaginatedStudents();

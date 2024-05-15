@@ -3,6 +3,8 @@
 namespace App\Livewire;
 use App\Models\Course;
 use App\Models\Validation;
+use App\Models\Student;
+use App\Models\StudyPlanValidations;
 use Livewire\Component;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -11,8 +13,7 @@ use Illuminate\Support\Facades\Livewire;
 
 class CourseCodeToValidData extends Component
 {
-    public $allowedCourseCodes = [
-    ];
+    public $allowedCourseCodes = [];
     public $courses;
     public $tableBody = '';
     public $tableBodyId = '';
@@ -24,26 +25,27 @@ class CourseCodeToValidData extends Component
     public $units;
     public $studentName;
     public $yearlvl;
+    public $student_id;
     public $studyPlanCodes;
+    public $studentId;
 
-    public function mount()
+    public function mount($studentId)
     {
-        $this->student_id = '2021287';
-        $validations = Validation::where('studentid', $this->student_id)->first(); 
-        if ($validations) {
-            $this->studentName = $validations->student_name;
-            $this->yearlvl = $validations->yearlvl;
-            $this->studyPlanCodes = $validations->study_plan_course_code;
+        $this->student_id = $studentId; // Assigning the value passed from Livewire component invocation to $this->student_id
+        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
+        if ($study_plan_validations) {
+            $this->studentName = $study_plan_validations->student_name;
+            $this->yearlvl = $study_plan_validations->yearlvl;
+            $this->studyPlanCodes = $study_plan_validations->study_plan;
             $this->allowedCourseCodes = json_decode($this->studyPlanCodes);
         }
         $this->courses = Course::all();
-        $this->tableBodyId = ''; 
+        $this->tableBodyId = '';
         $this->updateTotalUnits32();
         $this->updateTotalUnits42();
         $this->updateTotalUnits72();
         $this->updateTotalUnits62();
         $this->updateTotalUnits22();
-
     }
 
     public function updateTotalUnits($tableBodyId, $unitChange)
@@ -63,9 +65,33 @@ class CourseCodeToValidData extends Component
         return $courseCodes;
     }
 
+    public function pushReject(){
+        // Get the validation record for the current student
+        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
+    
+        if ($study_plan_validations) {
+            $study_plan_validations->status = 'Revise';
+            $study_plan_validations->save();
+        }
+
+    }
+
+    public function pushApprove(){
+        // Get the validation record for the current student
+        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
+    
+        if ($study_plan_validations) {
+            $study_plan_validations->status = 'Approved';
+            $study_plan_validations->save();
+        }
+
+    }
+
     public function render(){  
         $courses = Course::all();
         $validations = Validation::all();
+        $students = Student::all();
+        $study_plan_validations = StudyPlanValidations::all();
 
         $displayedCourseCodes = $this->getDisplayedCourseCodes();
 
@@ -80,15 +106,18 @@ class CourseCodeToValidData extends Component
         $totalUnits62 = 0;
         $totalUnits22 = 0;
 
-        foreach ($validations as $validation) {
-            if ($validation->studentid === $this->student_id && $validation->yearlvl === 2) {
-                $hasYear2 = true;
-            }
-            elseif ($validation->studentid === $this->student_id && $validation->yearlvl === 3) {
-                $hasYear3 = true;
-            }
-            elseif ($validation->studentid === $this->student_id && $validation->yearlvl === 4) {
-                $hasYear4 = true;
+        foreach ($study_plan_validations as $study_plan_validation) {
+            if ($study_plan_validation->student_id === $this->student_id) {
+                if ($study_plan_validation->year_level === 2 && !$hasYear2) {
+                    $hasYear2 = true;
+                    $hasYear3 = true;
+                    $hasYear4 = true;
+                } elseif ($study_plan_validation->year_level === 3 && !$hasYear3) {
+                    $hasYear3 = true;
+                    $hasYear4 = true;
+                } elseif ($study_plan_validation->year_level=== 4 && !$hasYear4) {
+                    $hasYear4 = true;
+                }
             }
         }
 
@@ -103,9 +132,6 @@ class CourseCodeToValidData extends Component
             'totalUnits62' => $this->totalUnits62, 
             'displayedCourseCodes' => $displayedCourseCodes,
             'displayedCourseCodes' => $this->getDisplayedCourseCodes(),
-
-            
-            
         ]);
     }
     private function updateTotalUnits32()

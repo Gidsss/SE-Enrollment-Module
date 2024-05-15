@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Course;
 use App\Models\Validation;
+use App\Models\StudyPlanValidations;
 use App\Models\Student;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -237,9 +238,34 @@ class CourseData extends Component
     
         session()->flash('courseCodesNotification', 'Course codes pushed successfully.');
     }
+
+    public function pushCourseCodesFinal(){
+        // Get the validation record for the current student
+        $validation = Validation::where('studentid', $this->studentid)->first();
+    
+        if ($validation) {
+            // Create or update the corresponding record in the study_plan_validations table
+            $study_plan_validation = StudyPlanValidations::firstOrNew(['student_id' => $this->studentid]);
+    
+            // Assign the attributes from the validation object to the study_plan_validation object
+            $study_plan_validation->student_id = $validation->studentid;
+            $study_plan_validation->student_name = $validation->student_name; 
+            $study_plan_validation->year_level = $validation->yearlvl; 
+            $study_plan_validation->status = $validation->status;
+            $study_plan_validation->date_of_request = $validation->daterequest;
+            $study_plan_validation->study_plan = $validation->study_plan_course_code;
+    
+            // Save the study_plan_validation object
+            $study_plan_validation->save();
+
+            $validation->delete();
+        }
+    }
+
     public function render(){  
         $courses = Course::all();
         $validations = Validation::all();
+        $study_plan_validations = StudyPlanValidations::all();
         $student = Student::all();
 
         $displayedCourseCodes = $this->getDisplayedCourseCodes();
@@ -263,21 +289,6 @@ class CourseData extends Component
                 }
             }
         }
-
-        // foreach ($validations as $validation) {
-        //     if ($validation->studentid === $this->student_id) {
-        //         if ($this->yearlvl === 2 && !$hasYear2) {
-        //             $hasYear2 = true;
-        //             $hasYear3 = true;
-        //             $hasYear4 = true;
-        //         } elseif ($this->yearlvl === 3 && !$hasYear3) {
-        //             $hasYear3 = true;
-        //             $hasYear4 = true;
-        //         } elseif ($this->yearlvl === 4 && !$hasYear4) {
-        //             $hasYear4 = true;
-        //         }
-        //     }
-        // }
 
         return view('livewire.course-data', [
             'courses' => $courses,

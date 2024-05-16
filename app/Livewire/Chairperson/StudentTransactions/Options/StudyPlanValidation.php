@@ -29,6 +29,7 @@ class StudyPlanValidation extends Component
     public $activeButton = '';
     public $hasStudyPlan = false;
     public $hasChecklist = false;
+    public $selectedStudentId;
 
     // Input fields validation rules
     protected $rules = [
@@ -199,7 +200,7 @@ class StudyPlanValidation extends Component
 
     public function editStudents($id)
     {
-        $student = StudyPlanValidations::where('id', $id)->first();
+        $student = StudyPlanValidations::findOrFail($id);
 
         $this->student_edit_id = $student->id;
         $this->student_id = $student->student_id;
@@ -208,9 +209,11 @@ class StudyPlanValidation extends Component
         $this->status = $student->status;
         $this->date_of_request = $student->date_of_request;
         $this->study_plan = $student->study_plan;
-        $this->dispatch('show-edit-student-modal',);
+        
+        $this->selectedStudentId = $student->student_id;
+
+        $this->dispatch('show-edit-student-modal');
     }
-    
     public function editStudentData()
     {
         //on form submit validation
@@ -275,22 +278,20 @@ class StudyPlanValidation extends Component
             $this->activeButton = $button;
         }
 
-    public function render()
+        public function render()
         {
             $this->courses = Course::all();
             $this->validations = Validation::all();
-
+    
             $this->hasStudyPlan = ($this->activeButton === 'plan');
             $this->hasChecklist = ($this->activeButton === 'checklist');
-
-            $hasStudyPlan = false;
-            $hasChecklist = false;
-
+    
             return view('livewire.chairperson.student-transactions.options.study-plan-validation', [
                 'courses' => $this->courses,
                 'validations' => $this->validations,
                 'hasStudyPlan' => $this->hasStudyPlan,
                 'hasChecklist' => $this->hasChecklist,
+                'selectedStudentId' => $this->selectedStudentId, // Pass the selected student ID to the view
             ])->layout('livewire.chairperson.transaction-options');
         }
 }

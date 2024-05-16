@@ -28,17 +28,16 @@ class CourseCodeToValidData extends Component
     public $student_id;
     public $studyPlanCodes;
     public $studentId;
+    public $yearLevel;
+    public $status;
+
+
+    protected $listeners = ['studentSelected' => 'updateStudentId']; 
 
     public function mount($studentId)
     {
         $this->student_id = $studentId; // Assigning the value passed from Livewire component invocation to $this->student_id
-        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
-        if ($study_plan_validations) {
-            $this->studentName = $study_plan_validations->student_name;
-            $this->yearlvl = $study_plan_validations->yearlvl;
-            $this->studyPlanCodes = $study_plan_validations->study_plan;
-            $this->allowedCourseCodes = json_decode($this->studyPlanCodes);
-        }
+        $this->loadStudentData();
         $this->courses = Course::all();
         $this->tableBodyId = '';
         $this->updateTotalUnits32();
@@ -46,6 +45,25 @@ class CourseCodeToValidData extends Component
         $this->updateTotalUnits72();
         $this->updateTotalUnits62();
         $this->updateTotalUnits22();
+    }
+
+    public function updateStudentId($studentId)
+    {
+        $this->studentId = $studentId;
+        $this->loadStudentData();
+    }
+
+
+    public function loadStudentData()
+    {
+        $study_plan_validation = StudyPlanValidations::where('student_id', $this->studentId)->first();
+        if ($study_plan_validation) {
+            $this->studentName = $study_plan_validation->student_name;
+            $this->yearLevel = $study_plan_validation->yearlvl;
+            $this->studyPlanCodes = $study_plan_validation->study_plan;
+            $this->allowedCourseCodes = json_decode($this->studyPlanCodes);
+            $this->status = $study_plan_validation->status;
+        }
     }
 
     public function updateTotalUnits($tableBodyId, $unitChange)
@@ -132,6 +150,11 @@ class CourseCodeToValidData extends Component
             'totalUnits62' => $this->totalUnits62, 
             'displayedCourseCodes' => $displayedCourseCodes,
             'displayedCourseCodes' => $this->getDisplayedCourseCodes(),
+            'studentName' => $this->studentName,
+            'yearLevel' => $this->yearLevel,
+            'studyPlanCodes' => $this->studyPlanCodes,
+            'allowedCourseCodes' => $this->allowedCourseCodes,
+            'status' => $this->status,
         ]);
     }
     private function updateTotalUnits32()

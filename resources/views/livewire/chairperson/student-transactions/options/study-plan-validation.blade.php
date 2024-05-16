@@ -145,81 +145,73 @@
 
     <!-- Modals -->
     <div wire:ignore.self class="modal fade" id="editStudentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document" style="max-width:80%">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Student</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeBatchUpdateModal">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <div class="modal-dialog" role="document" style="max-width:80%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="closeBatchUpdateModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-9">
+                        <span id="student_name" style="font-weight: bold; font-size: 200%;">{{ $student_name }}</span>
+                        @error('student_name')
+                            <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
-                <div class="modal-body">
-                        <div class="form-group row">
-                            <div class="col-9">
-                                <span id="student_name" style="font-weight: bold; font-size: 200%;">{{ $student_name }}</span>
-                                @error('student_name')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-
-                            <label for="student_id" class="col-3" style="color: darkred;">Student ID:</label>
-                            <span id="student_id">{{ $student_id }}</span>
-                                @error('student_id')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-
-
-                            <label for="year_level" class="col-3" style="color: darkred;">Year Level:</label>
-                            <span id="year_level">{{ $year_level }}</span>
-                                @error('year_level')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-
-
-                            <label for="date_of_request" class="col-3" style="color: darkred;">Date Request:</label>
-                            <span id="date_of_request">{{ $date_of_request }}</span>
-                                @error('date_of_request')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-
-
-                            <label for="status" class="col-3" style="color: darkred;">Status:</label>
-                            <span id="status">{{ $status }}</span>
-                                @error('status')
-                                    <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
-                                @enderror
-
-                        <hr style="color: #333; background-color: grey; height: .5px; margin: 20px 0;">
-                        <div class="form-group row justify-content-center">
-                            <button wire:click="changeColor('checklist')" class="btn btn-sm @if($activeButton === 'checklist') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Student Checklist</button>
-                            <button wire:click="changeColor('plan')" class="btn btn-sm @if($activeButton === 'plan') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Study Plan</button>
-                        </div>
-
-                        @if ($hasStudyPlan)
-                        <div>
-                            @livewire('course-code-to-valid-data', ['studentId' => $student_id])
-                        </div>
-                        @endif
-
-                        @if ($hasChecklist)
-                        <div>
-                            <!-- livewire kunwari -->
-                            Checklist
-                        </div>
-                        @endif
-
-                        <div class="form-group row justify-content-center">
-                            <button type="button" class="btn btn-sm font-weight-bold mr-2" data-dismiss="modal" wire:click="closeBatchUpdateModal" style="background-color: #C9AE5D">Close</button>
-                            <button wire:click="editStudentData" type="submit" class="btn btn-sm font-weight-bold mr-2" style="background-color: #C9AE5D">Reject</button>
-                            <button wire:click="editStudentData" type="submit" class="btn btn-sm font-weight-bold" style="background-color: #C9AE5D">Approve</button>
-                        </div>
-                    </form>
+                <div class="form-group row">
+                    <label for="student_id" class="col-3" style="color: darkred;">Student ID:</label>
+                    <span id="student_id">{{ $student_id }}</span>
+                    @error('student_id')
+                        <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group row">
+                    <label for="year_level" class="col-3" style="color: darkred;">Year Level:</label>
+                    <span id="year_level">{{ $year_level }}</span>
+                    @error('year_level')
+                        <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group row">
+                    <label for="date_of_request" class="col-3" style="color: darkred;">Date Request:</label>
+                    <span id="date_of_request">{{ $date_of_request }}</span>
+                    @error('date_of_request')
+                        <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group row">
+                    <label for="status" class="col-3" style="color: darkred;">Status:</label>
+                    <span id="status">{{ $status }}</span>
+                    @error('status')
+                        <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
+                    @enderror
+                </div>
+                <hr style="color: #333; background-color: grey; height: .5px; margin: 20px 0;">
+                <div class="form-group row justify-content-center">
+                    <button wire:click="changeColor('checklist')" class="btn btn-sm @if($activeButton === 'checklist') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Student Checklist</button>
+                    <button wire:click="changeColor('plan')" class="btn btn-sm @if($activeButton === 'plan') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Study Plan</button>
+                </div>
+                @if ($selectedStudentId)
+                    @livewire('course-code-to-valid-data', ['studentId' => $selectedStudentId], key('course-code-' . $selectedStudentId))
+                @endif
+                @if ($hasChecklist)
+                    <div>
+                        Checklist
+                    </div>
+                @endif
+                <div class="form-group row justify-content-center">
+                    <button type="button" class="btn btn-sm font-weight-bold mr-2" data-dismiss="modal" wire:click="closeBatchUpdateModal" style="background-color: #C9AE5D">Close</button>
+                    <button wire:click="editStudentData" type="submit" class="btn btn-sm font-weight-bold mr-2" style="background-color: #C9AE5D">Reject</button>
+                    <button wire:click="editStudentData" type="submit" class="btn btn-sm font-weight-bold" style="background-color: #C9AE5D">Approve</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
     <!-- Batch Update Modal -->
     <div wire:ignore.self class="modal fade" id="bulkEditStudentModal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">

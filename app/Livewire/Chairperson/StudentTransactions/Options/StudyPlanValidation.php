@@ -99,7 +99,8 @@ class StudyPlanValidation extends Component
         
     public function getPaginatedStudentsByName($orderByDirection, $offset)
         {
-            return StudyPlanValidations::orderBy('student_name', $orderByDirection)
+            return StudyPlanValidations::join('students', "study_plan_validations.student_id", "=", "students.student_id")
+                ->orderBy('student_name', $orderByDirection)
                 ->skip($offset)
                 ->take($this->perPage)
                 ->get();

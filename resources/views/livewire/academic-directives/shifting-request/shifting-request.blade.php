@@ -445,7 +445,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Follow the format: LastName_FirstName_LetterOfRequest</label>
+                            <label for="exampleInputFile">Follow the format: LastName_FirstName_LetterOfIntent</label>
                             <div class="input-group">
                             <div class="custom-file">
                                 <input required type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')" accept="application/pdf" name="letter_of_intent">

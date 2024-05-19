@@ -394,10 +394,10 @@
                     <!-- Detailed information for Step 4-->
                     <div class="panel">
                         <br>
-                        <button type="button"  onclick="" class="btn btn-primary float-right" style="color: #2D349A; position: relative; bottom: 0px; left: 5px; width: 120px; height: 4ch;">
+                        <a href="{{url('download', 'shifting_form.pdf')}}" download type="button"  onclick="" class="btn btn-primary float-right" style="color: #2D349A; position: relative; bottom: 0px; left: 5px; width: 120px; height: 4ch;">
         <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
-        <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
-                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Shifting Form</p>
+        <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></a>
+                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Shifting Form </p>
                         <object data="http://localhost:8000/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
                         </object>
                         
@@ -405,7 +405,7 @@
                         <button type="button"  onclick="" class="btn btn-primary float-right" style="color: #2D349A; position: relative; bottom: 0px; left: 5px; width: 120px; height: 4ch;">
         <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
         <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
-                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Letter of Request for LOA</p>
+                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Letter of Intent</p>
                         <object data="http://localhost:8000/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
                         </object>
 

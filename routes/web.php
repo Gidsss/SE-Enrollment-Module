@@ -33,6 +33,9 @@ use App\Livewire\AcademicDirective\LoaRequestController;
 use App\Livewire\AcademicDirective\ShiftingRequestController;
 use App\Livewire\AcademicDirective\AddDropRequestController;
 
+// Downloader Component
+use App\Livewire\Downloader;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,6 +68,7 @@ Route::get('/chairperson/student_transaction/loa_requests', LOARequests::class)-
 /* Necessary Components */
 
 Route::get('/generate-pdf', [AuthController::class, 'genpdf']); // for pdf generation 
+Route::get('/download/{file}', [Downloader::class, 'download'])->name('download');
 
 /* Authentication */
 

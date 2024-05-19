@@ -1,24 +1,11 @@
+
 <div>
 <div>
-    <button wire:click="pushCourseCodes">Push Course Codes</button>
-            @if (session()->has('courseCodesNotification'))
-                <div class="alert alert-success">
-                    {{ session('courseCodesNotification') }}
-                </div>
-            @endif
+    <button wire:click="pushCourseCodesFinal">Push Final</button>
 
-            @if (isset($displayedCourseCodes))
-                <pre>Compiled Course Codes: {{ json_encode($displayedCourseCodes) }}</pre>
-            @endif
-
-            @if (isset($studentName))
-                <p>Student Name: {{ $studentName }}</p>
-                <p>Student Year: {{ $yearlevel }}</p>
-            @endif
-
-            @if ($hasYear2)
+        @if ($hasYear2)
         <div id="2nd-year-tables" >
-            <h1>2nd Year 1st Semester</h1>
+            <h1 style="color: black;">2nd Year 1st Semester</h1>
             <body>
             <div class="dropdown" style="left: 85%">
                 <button type="button" class="dropdown-toggle" id="dropdownMenuButton2_1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -127,7 +114,7 @@
         
         @if ($hasYear3)
         <div id="3rd-year-tables" >
-            <h1>3rd Year 1st Semester</h1>
+            <h1 style="color: black;">3rd Year 1st Semester</h1>
             <body>
             <div class="dropdown" style="left: 85%">
                 <button type="button" class="dropdown-toggle" id="dropdownMenuButton3_1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -157,10 +144,11 @@
         
                 <thead style="background-color: #f8f8f8">
                     <tr>
-                    <th>Course Code</th>
-                    <th>Course Name</th>
-                    <th>Units</th>
-                    <th>Pre(Co)-Requisites</th>
+                    <th style="color: black;">Course Code</th>
+                    <th style="color: black;">Course Name</th>
+                    <th style="color: black;">Units</th>
+                    <th style="color: black;">Pre(Co)-Requisites</th>
+                    <th></th>
                     <th></th>
                     </tr>
                 </thead>  
@@ -168,19 +156,42 @@
                 @foreach ($courses as $course)
                     @php
                         $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
+
+                        $preRequisites = explode(',', $course->pre_requisites);
+                        $preReqCheck = '';
+                        foreach ($preRequisites as $preReq) {
+ 
+                        // Check if the prerequisite is "Standing" or if the grade is not 5
+                        if (strpos($preReq, 'Standing') !== false || $preRequisiteGrade === 5 || $preReq === '') {
+                            // If either condition is met, skip to the next prerequisite
+                            continue;
+                        }
+
+                        // Check if the prerequisite is not in the displayed course codes
+                        if (!in_array(trim($preReq), $displayedCourseCodes)) {
+                            $preReqCheck = 'Pre-requisite not found';
+                            break;
+                        }
+
+                        }
                     @endphp
                     @if (($course->year_lvl === 3 && $course->sem === 1) ||
                         ($course->year_lvl === 2 && $course->sem === 1 && $course->grades === 5))
                         @if ($preRequisiteGrade !== 5)
                             <tr id="row_{{ $course->id }}">
-                                <td>{{ $course->course_code }}</td>
-                                <td>{{ $course->course_name }}</td>
-                                <td>{{ $course->units }}</td>
-                                <td>{{ $course->pre_requisites }}</td>
+                                <td style="color: black;">{{ $course->course_code }}</td>
+                                <td style="color: black;">{{ $course->course_name }}</td>
+                                <td style="color: black;">{{ $course->units }}</td>
+                                <td style="color: black;">{{ $course->pre_requisites }}</td>
+                                <td style="color: red;">{{ $preReqCheck }}</td>
                                 <td>
                                     <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
                                 </td>
                             </tr>
+                        @else
+                        @php
+                            $dropdownContent4_1[] = $course->id;
+                        @endphp
                         @endif
                     @endif
                 @endforeach
@@ -199,7 +210,7 @@
                 @endif
             </span>
                     
-            <h1>3rd Year 2nd Semester</h1>
+            <h1 style="color: black;">3rd Year 2nd Semester</h1>
             
             <body>
             <div class="dropdown" style="left: 85%">
@@ -231,28 +242,52 @@
                 <table class="table " style="background-color: white">
                 <thead style="background-color: #f8f8f8">
                     <tr>
-                    <th>Course Code</th>
-                    <th>Course Name</th>
-                    <th>Units</th>
-                    <th>Pre(Co)-Requisites</th>
+                    <th style="color: black;">Course Code</th>
+                    <th style="color: black;">Course Name</th>
+                    <th style="color: black;">Units</th>
+                    <th style="color: black;">Pre(Co)-Requisites</th>
                     <th></th>
                     <th></th>
                     </tr>
                 </thead>  
                 <tbody id="tableBody42">
                 @foreach ($courses as $course)
+                    @php
+                        $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
+
+                        $preRequisites = explode(',', $course->pre_requisites);
+                        $preReqCheck = '';
+                        foreach ($preRequisites as $preReq) {
+ 
+                        // Check if the prerequisite is "Standing" or if the grade is not 5
+                        if (strpos($preReq, 'Standing') !== false || $preRequisiteGrade === 5 || $preReq === '') {
+                            // If either condition is met, skip to the next prerequisite
+                            continue;
+                        }
+
+                        // Check if the prerequisite is not in the displayed course codes
+                        if (!in_array(trim($preReq), $displayedCourseCodes)) {
+                            $preReqCheck = 'Pre-requisite not found';
+                            break;
+                        }
+
+                        }
+                    @endphp
                     @if (($course->year_lvl === 3 && $course->sem === 2) ||
                         ($course->year_lvl === 2 && $course->sem === 2 && $course->grades === 5))
+                        @if ($preRequisiteGrade !== 5)
                         <tr id="row_{{ $course->id }}">
-                            <td>{{ $course->course_code }}</td>
-                            <td>{{ $course->course_name }}</td>
-                            <td>{{ $course->units }}</td>
-                            <td>{{ $course->pre_requisites }}</td>
+                            <td style="color: black;">{{ $course->course_code }}</td>
+                            <td style="color: black;">{{ $course->course_name }}</td>
+                            <td style="color: black;">{{ $course->units }}</td>
+                            <td style="color: black;">{{ $course->pre_requisites }}</td>
+                            <td style="color: red;">{{ $preReqCheck }}</td>
                             <td></td>
                             <td>
                                 <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody42', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
                             </td>
                         </tr>
+                        @endif
                     @endif
                 @endforeach
                 </tbody>
@@ -274,77 +309,97 @@
 
         @if ($hasYear4)
         <div id="4th-year-tables" >
-            <h1>4th Year 1st Semester</h1>
+            <h1 style="color: black;">4th Year 1st Semester</h1>
             
             <body>
-                <div class="dropdown" style="left: 85%">
-                    <button type="button" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        style="
-                            width:15% ;
-                            position:auto;
-                        "
-                    >
-                        <span>Add Class</span>
-        
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent4_1">
-                    @foreach($dropdownContent4_1 as $course)
-                        @if(is_object($course))
-                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody72')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+            <div class="dropdown" style="left: 85%">
+                <button type="button" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    style="width:15%; position:auto;">
+                    <span>Add Class</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent4_1">
+                    @foreach($dropdownContent4_1 as $courseId)
+                        @php
+                            $course = $courses->firstWhere('id', $courseId);
+                        @endphp
+                        @if($course)
+                            <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody72')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
                         @endif
                     @endforeach
-                    </div>
-                </div>
-        
-            </body>
-        
-            <div class="card">
-                <!-- /.card-header -->
-                <div class="card-body" style="background-color: #f8f8f8; overflow-y: auto; max-height: 60%;">
-                    <table class="table " style="background-color: white">
-                        <thead style="background-color: #f8f8f8">
-                            <tr>
-                                <th>Course Code</th>
-                                <th>Course Name</th>
-                                <th>Units</th>
-                                <th>Pre(Co)-Requisites</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>  
-                        <tbody id="tableBody72">
-                        @foreach ($courses as $course)
-                            @if (($course->year_lvl === 4 && $course->sem === 1) ||
-                                ($course->year_lvl === 3 && $course->sem === 1 && $course->grades === 5))
-                                <tr id="row_{{ $course->id }}">
-                                    <td>{{ $course->course_code }}</td>
-                                    <td>{{ $course->course_name }}</td>
-                                    <td>{{ $course->units }}</td>
-                                    <td>{{ $course->pre_requisites }}</td>
-                                    <td></td>
-                                    <td>
-                                        <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody72', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
-                                    </td>
-                                </tr>
-                            @endif
-                        @endforeach
-                        </tbody>
-                    </table>
                 </div>
             </div>
-            <span id="totalUnits72">
-                {{ $totalUnits72 }}
-                @if ($totalUnits72 < 10)
-                    <span class="badge badge-success">Underload</span>
-                @elseif ($totalUnits72 >= 10 && $totalUnits72 <= 13)
-                    <span class="badge badge-primary">Normal Load</span>
-                @else
-                    <span class="badge badge-danger">Overload</span>
-                @endif
-            </span>
-        
+        </body>
 
-            <h1>4th Year 2nd Semester</h1>
+        <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body" style="background-color: #f8f8f8; overflow-y: auto; max-height: 60%;">
+                <table class="table" style="background-color: white">
+                    <thead style="background-color: #f8f8f8">
+                        <tr>
+                            <th style="color: black;">Course Code</th>
+                            <th style="color: black;">Course Name</th>
+                            <th style="color: black;">Units</th>
+                            <th style="color: black;">Pre(Co)-Requisites</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>  
+                    <tbody id="tableBody72">
+                        @foreach ($courses as $course)
+                            @php
+                                $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
+
+                                $preRequisites = explode(',', $course->pre_requisites);
+                                $preReqCheck = '';
+                                foreach ($preRequisites as $preReq) {
+                                    // Check if the prerequisite is "Standing" or if the grade is not 5
+                                    if (strpos($preReq, 'Standing') !== false || $preRequisiteGrade === 5 || $preReq === '') {
+                                        // If either condition is met, skip to the next prerequisite
+                                        continue;
+                                    }
+
+                                    // Check if the prerequisite is not in the displayed course codes
+                                    if (!in_array(trim($preReq), $displayedCourseCodes)) {
+                                        $preReqCheck = 'Pre-requisite not found';
+                                        break;
+                                    }
+                                }
+                            @endphp
+                            @if (($course->year_lvl === 4 && $course->sem === 1) ||
+                                ($course->year_lvl === 3 && $course->sem === 1 && $course->grades === 5))
+                                @if ($preRequisiteGrade !== 5)
+                                    <tr id="row_{{ $course->id }}">
+                                        <td style="color: black;">{{ $course->course_code }}</td>
+                                        <td style="color: black;">{{ $course->course_name }}</td>
+                                        <td style="color: black;">{{ $course->units }}</td>
+                                        <td style="color: black;">{{ $course->pre_requisites }}</td>
+                                        <td style="color: red;">{{ $preReqCheck }}</td>
+                                        <td></td>
+                                        <td>
+                                            <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody72', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
+                                        </td>
+                                    </tr>
+
+                                @endif
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <span id="totalUnits72">
+            {{ $totalUnits72 }}
+            @if ($totalUnits72 < 10)
+                <span class="badge badge-success">Underload</span>
+            @elseif ($totalUnits72 >= 10 && $totalUnits72 <= 13)
+                <span class="badge badge-primary">Normal Load</span>
+            @else
+                <span class="badge badge-danger">Overload</span>
+            @endif
+        </span>
+
+            <h1 style="color: black;">4th Year 2nd Semester</h1>
             
             <body>
                 <div class="dropdown" style="left: 85%">
@@ -374,28 +429,52 @@
                     <table class="table " style="background-color: white">
                         <thead style="background-color: #f8f8f8">
                             <tr>
-                                <th>Course Code</th>
-                                <th>Course Name</th>
-                                <th>Units</th>
-                                <th>Pre(Co)-Requisites</th>
+                                <th style="color: black;">Course Code</th>
+                                <th style="color: black;">Course Name</th>
+                                <th style="color: black;">Units</th>
+                                <th style="color: black;">Pre(Co)-Requisites</th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                             </tr>
                         </thead>  
                         <tbody id="tableBody62">
                         @foreach ($courses as $course)
-                            @if (($course->year_lvl === 4 && $course->sem === 2) ||
-                                ($course->year_lvl === 2 && $course->sem === 2 && $course->grades === 5))
+                        @php
+                            $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
+
+                            $preRequisites = explode(',', $course->pre_requisites);
+                            $preReqCheck = '';
+                            foreach ($preRequisites as $preReq) {
+    
+                            // Check if the prerequisite is "Standing" or if the grade is not 5
+                            if (strpos($preReq, 'Standing') !== false || $preRequisiteGrade === 5 || $preReq === '') {
+                                // If either condition is met, skip to the next prerequisite
+                                continue;
+                            }
+
+                            // Check if the prerequisite is not in the displayed course codes
+                            if (!in_array(trim($preReq), $displayedCourseCodes)) {
+                                $preReqCheck = 'Pre-requisite not found';
+                                break;
+                            }
+
+                            }
+                        @endphp
+                            @if ($course->year_lvl === 4 && $course->sem === 2) 
+                                @if ($preRequisiteGrade !== 5)
                                 <tr id="row_{{ $course->id }}">
-                                    <td>{{ $course->course_code }}</td>
-                                    <td>{{ $course->course_name }}</td>
-                                    <td>{{ $course->units }}</td>
-                                    <td>{{ $course->pre_requisites }}</td>
+                                    <td style="color: black;">{{ $course->course_code }}</td>
+                                    <td style="color: black;">{{ $course->course_name }}</td>
+                                    <td style="color: black;">{{ $course->units }}</td>
+                                    <td style="color: black;">{{ $course->pre_requisites }}</td>
+                                    <td style="color: red;">{{ $preReqCheck }}</td>
                                     <td></td>
                                     <td>
                                         <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody62', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
                                     </td>
                                 </tr>
+                                @endif
                             @endif
                         @endforeach
                     </tbody>
@@ -414,4 +493,6 @@
             </span>
         </div>
         @endif
+        <br>
+        <button type="button" class="btn btn-primary" wire:click="pushCourseCodes">Save changes</button>
 </div>

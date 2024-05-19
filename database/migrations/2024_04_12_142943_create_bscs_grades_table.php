@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('bscs_grades', function (Blueprint $table) {
             $table->increments('ID'); // Auto-increment primary key
             $table->string('course_code', 20); 
-            $table->string('studentid', 10); 
+            $table->string('student_id', 10); 
+            $table->string('course_name', 255); 
             $table->string('pre_requisites', 255)->nullable(); 
             $table->integer('grades')->nullable(); 
             $table->integer('year_lvl'); 

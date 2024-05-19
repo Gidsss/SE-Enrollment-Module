@@ -21,6 +21,10 @@ class AddDropRequests extends Component
     public $currentPage = 1;
     public $numStudents;
     public $totalStudents;
+    public $activeButton = '';
+    public $hasStudyPlan = false;
+    public $hasChecklist = false;
+    public $hasAddDrop = false;
 
     // Input fields validation rules
     protected $rules = [
@@ -261,9 +265,27 @@ class AddDropRequests extends Component
             $this->dispatch('close-view-student-modal');
         }
 
+        public function changeColor($button)
+        {
+            $this->activeButton = $button;
+        }
+
     public function render()
         {
-            return view('livewire.chairperson.student-transactions.options.add-drop-requests')->layout('livewire.chairperson.transaction-options');
+            $this->hasStudyPlan = ($this->activeButton === 'plan');
+            $this->hasChecklist = ($this->activeButton === 'checklist');
+            $this->hasAddDrop = ($this->activeButton === 'adddrop');
+
+
+            $hasStudyPlan = false;
+            $hasChecklist = false;
+            $hasAddDrop = false;
+
+            return view('livewire.chairperson.student-transactions.options.add-drop-requests', [
+                'hasStudyPlan' => $this->hasStudyPlan,
+                'hasChecklist' => $this->hasChecklist,
+                'hasAddDrop' => $this->hasAddDrop,
+            ])->layout('livewire.chairperson.transaction-options');
         }
 }
 

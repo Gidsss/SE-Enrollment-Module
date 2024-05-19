@@ -353,14 +353,9 @@
                                       <span aria-hidden="true">&times;</span>
                                   </button>
                               </div>
-                              <div class="modal-body">
-                                  @livewire('course-data')
-                                  
-                              </div>
-                              <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
-                              </div>
+                              <div class="modal-body black-text">
+                                @livewire('course-data')
+                            </div>
                           </div>
                       </div>
                   </div>
@@ -413,7 +408,17 @@
                 </button>
                     <!-- Detailed information for Step 5-->
                     <div class="panel">
+                    @if ($hasPending)
                         <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: #AB830F;">For Checking</strong></p>
+                    @endif
+
+                    @if ($hasApprove)
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: green;">Approved</strong></p>
+                    @endif
+
+                    @if ($hasReject)
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: red;">For Revision</strong></p>
+                    @endif
                         <!-- Content for letter 'a' -->
                         <p class="body-font">&nbsp;&nbsp;a. Submitted documents will be checked by corresponding department chairperson.</p>
                         <!-- Content for letter 'b' -->

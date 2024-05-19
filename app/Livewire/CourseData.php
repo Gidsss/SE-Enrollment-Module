@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Course;
 use App\Models\Validation;
+use App\Models\StudyPlanValidations;
 use App\Models\Student;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseData extends Component
 {
-    public $courses;
+    public $courses = [];
     public $dropdownContent2_2 = [];
     public $dropdownContent3_1 = [];
     public $dropdownContent3_2 = [];
@@ -59,7 +60,11 @@ class CourseData extends Component
         // Assuming you have access to $course object here
         foreach ($this->courses as $course) {
             if ($course->grades === 5 && $course->year_lvl === 2) {
-                $targetTable = 'tableBody' . ($course->sem === 2 ? '62' : '42');
+                $targetTable = 'tableBody42';
+                $this->moveRowToDropdown($course->id, $targetTable);
+            } elseif ($course->grades === 5 && $course->year_lvl === 3) {
+                // Since there's only one option for year_lvl === 3, we don't need the ternary operator here
+                $targetTable = 'tableBody72';
                 $this->moveRowToDropdown($course->id, $targetTable);
             }
         }
@@ -139,6 +144,7 @@ class CourseData extends Component
                 $this->courses->push($course);
                 unset($dropdownContentRef[$courseIndex]);
                 $dropdownContentRef = array_values($dropdownContentRef); // Reset array keys
+                // Add the course to the table with the appropriate button
                 $this->updateTotalUnits($tableBodyId, $course->units); // Pass tableBodyId for proper update
             } else {
                 // Handle course not found in dropdown (optional: error message)
@@ -182,21 +188,18 @@ class CourseData extends Component
         }
     }
 
-    public function getDisplayedCourseCodes(){
+    public function getDisplayedCourseCodes()
+    {
         $courseCodes = [];
         foreach ($this->courses as $course) {
-            // Include courses with grades === 5 no matter what yearlvl
-            if ($course->grades === 5) {
+            // Include courses based on year level when grades are not 5
+            if ($this->yearlevel === 2 && $course->year_lvl >= 2 && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
                 $courseCodes[] = $course->course_code;
-            }
-            // Include courses based on yearlvl when grades !== 5
-            elseif ($this->yearlevel === 2 && $course->year_lvl >= 2) {
+            } elseif ($this->yearlevel === 3 && $course->year_lvl >= 3 && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($this->yearlevel === 3 && $course->year_lvl >= 3) {
+            } elseif ($this->yearlevel === 4 && $course->year_lvl >= 4 && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($this->yearlevel === 4 && $course->year_lvl >= 4) {
-                $courseCodes[] = $course->course_code;
-            } elseif ($course->year_lvl === $this->yearlevel) {
+            } elseif ($course->year_lvl === $this->yearlevel && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
                 $courseCodes[] = $course->course_code;
             }
         }
@@ -237,9 +240,34 @@ class CourseData extends Component
     
         session()->flash('courseCodesNotification', 'Course codes pushed successfully.');
     }
+
+    public function pushCourseCodesFinal(){
+        // Get the validation record for the current student
+        $validation = Validation::where('studentid', $this->studentid)->first();
+    
+        if ($validation) {
+            // Create or update the corresponding record in the study_plan_validations table
+            $study_plan_validation = StudyPlanValidations::firstOrNew(['student_id' => $this->studentid]);
+    
+            // Assign the attributes from the validation object to the study_plan_validation object
+            $study_plan_validation->student_id = $validation->studentid;
+            $study_plan_validation->student_name = $validation->student_name; 
+            $study_plan_validation->year_level = $validation->yearlvl; 
+            $study_plan_validation->status = $validation->status;
+            $study_plan_validation->date_of_request = $validation->daterequest;
+            $study_plan_validation->study_plan = $validation->study_plan_course_code;
+    
+            // Save the study_plan_validation object
+            $study_plan_validation->save();
+
+            $validation->delete();
+        }
+    }
+
     public function render(){  
         $courses = Course::all();
         $validations = Validation::all();
+        $study_plan_validations = StudyPlanValidations::all();
         $student = Student::all();
 
         $displayedCourseCodes = $this->getDisplayedCourseCodes();
@@ -263,21 +291,6 @@ class CourseData extends Component
                 }
             }
         }
-
-        // foreach ($validations as $validation) {
-        //     if ($validation->studentid === $this->student_id) {
-        //         if ($this->yearlvl === 2 && !$hasYear2) {
-        //             $hasYear2 = true;
-        //             $hasYear3 = true;
-        //             $hasYear4 = true;
-        //         } elseif ($this->yearlvl === 3 && !$hasYear3) {
-        //             $hasYear3 = true;
-        //             $hasYear4 = true;
-        //         } elseif ($this->yearlvl === 4 && !$hasYear4) {
-        //             $hasYear4 = true;
-        //         }
-        //     }
-        // }
 
         return view('livewire.course-data', [
             'courses' => $courses,
@@ -321,7 +334,6 @@ class CourseData extends Component
     {
         $this->totalUnits42 = $this->courses->where('year_lvl', 3)->where('sem', 2)->sum('units');
     }
-
     private function updateTotalUnits72()
     {
         $this->totalUnits72 = $this->courses->where('year_lvl', 4)->where('sem', 1)->sum('units');

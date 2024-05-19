@@ -44,10 +44,9 @@ class AddDropRequestController extends Component
         $this->mount();
 
         # Basic Info
-        $addDropRequest = new AddDropRequest();
+        $addDropRequest = AddDropRequest::where('student_id', $this->student_id)->first();
+        $addDropRequest = $addDropRequest == null ? new AddDropRequest() : $addDropRequest;
         $addDropRequest->student_id = $this->student_id;
-        $addDropRequest->student_name = $this->student_name;
-        $addDropRequest->year_level = $this->year_level;
         $addDropRequest->date_of_request = Carbon::now();
         $addDropRequest->status = 'Pending';
         $addDropRequest->study_plan = "";

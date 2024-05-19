@@ -466,6 +466,7 @@
                             <button type="submit" class="btn" style="background-color: #C9AE5D; color: #535353;">Submit Uploaded Documents</button>
                         </div>
                         </form>
+                        @if( $requestExists )
                         <br>
                         <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: 
                             @if( $requestStatus == "Pending")
@@ -480,6 +481,7 @@
                         <p class="body-font">&nbsp;&nbsp;a. Submitted documents will be checked by corresponding department chairperson.</p>
                         <!-- Content for letter 'b' -->
                         <p class="body-font">&nbsp;&nbsp;b. Refresh this page from time-to-time to know the status of your request. </p>
+                        @endif
                     </div>
                 </div>
             </div>

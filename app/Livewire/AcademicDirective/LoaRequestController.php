@@ -46,9 +46,9 @@ class LoaRequestController extends Component
         $this->mount();
 
         # Basic Info
-        $loaRequest = new LoARequest();
+        $loaRequest = LoARequest::where('student_id', this->student_id)->first();
+        $loaRequest = $loaRequest == null? new LoARequest(): $loaRequest;
         $loaRequest->student_id = $this->student_id;
-        $loaRequest->student_name = $this->student_name;
         $loaRequest->year_level = $this->year_level;
         $loaRequest->date_of_request = Carbon::now();
         $loaRequest->status = 'Pending';

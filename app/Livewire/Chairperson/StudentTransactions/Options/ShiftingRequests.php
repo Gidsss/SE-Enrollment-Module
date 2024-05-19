@@ -28,6 +28,7 @@ class ShiftingRequests extends Component
     public $hasUndertaking = false;
     public $hasIntent = false;
     public $hasShifting = false;
+    public $selectedStudentId;
 
     // Input fields validation rules
     protected $rules = [

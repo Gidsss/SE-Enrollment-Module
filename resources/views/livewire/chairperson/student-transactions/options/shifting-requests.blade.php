@@ -195,13 +195,11 @@
                             <button wire:click="changeColor('intent')" class="btn btn-sm @if($activeButton === 'intent') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Letter of Intent</button>
                             <button wire:click="changeColor('undertaking')" class="btn btn-sm @if($activeButton === 'undertaking') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Note of Undertaking</button>
                             <button wire:click="changeColor('checklist')" class="btn btn-sm @if($activeButton === 'checklist') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Student Checklist</button>
-                            <button wire:click="changeColor('plan')" class="btn btn-sm @if($activeButton === 'plan') btn-primary @else btn-outline-dark @endif font-weight-bold">Review Study Plan</button>
+                            <button wire:click="changeColor('plan')" class="btn btn-sm @if($activeButton === 'plan') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Study Plan</button>
                         </div>
 
-                        @if ($hasStudyPlan)
-                        <div>
-                            @livewire('course-code-to-valid-data')
-                        </div>
+                        @if ($selectedStudentId && $hasStudyPlan)
+                            @livewire('course-code-to-valid-data', ['studentId' => $selectedStudentId], key('course-code-' . $selectedStudentId))
                         @endif
 
                         @if ($hasChecklist)

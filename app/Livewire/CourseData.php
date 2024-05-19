@@ -334,7 +334,6 @@ class CourseData extends Component
     {
         $this->totalUnits42 = $this->courses->where('year_lvl', 3)->where('sem', 2)->sum('units');
     }
-
     private function updateTotalUnits72()
     {
         $this->totalUnits72 = $this->courses->where('year_lvl', 4)->where('sem', 1)->sum('units');

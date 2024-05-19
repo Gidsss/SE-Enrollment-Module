@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('validations', function (Blueprint $table) {
+        Schema::create('temporary_validations', function (Blueprint $table) {
             $table->id(); // Auto-increment primary key
-            $table->string('studentid', 10)->nullable();
-            $table->string('student_name', 255)->nullable();
+            $table->bigInteger('student_id')->unsigned()->unique(); // Match the data type with `students` table
+            $table->foreign('student_id')->references('student_id')->on('students'); // Removed onDelete('cascade') to prevent accidental deletion
             $table->integer('yearlvl')->nullable();
             $table->date('daterequest')->nullable();
             $table->string('status', 50)->nullable();

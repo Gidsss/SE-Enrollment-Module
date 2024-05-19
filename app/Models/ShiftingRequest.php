@@ -10,14 +10,13 @@ class ShiftingRequest extends Model
     use HasFactory;
     protected $fillable = [
         'student_id', 
-        'student_name',
-        'year_level',
-        'date_of_request',
-        'status',
+        'new_degree_program',
         'study_plan',
         'letter_of_intent',
         'note_of_undertaking',
         'shifting_form',
+        'status',
+        'date_of_request'
     ];
     protected $table = 'shifting_requests';
 }

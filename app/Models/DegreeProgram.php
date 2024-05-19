@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StudyPlanValidations extends Model
+class DegreeProgram extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'student_id', 
-        'date_of_request',
-        'status',
-        'study_plan',
+        'program_code', 
+        'program_name',
+        'college',
     ];
-    protected $table = 'study_plan_validations';
+    protected $table = 'degree_programs';
 }

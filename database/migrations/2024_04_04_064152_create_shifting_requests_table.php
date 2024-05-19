@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shifting_requests', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('student_id');
-            $table->string('student_name', 255);
-            $table->integer('year_level');
-            $table->date('date_of_request');
-            $table->string('status');
+            $table->id('id'); // changed this back to id instead of shifting_id because of eloquent model default id
+            $table->bigInteger('student_id')->unsigned()->unique(); // Match the data type with `students` table
+            $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade');
+            $table->string('new_degree_program');
             $table->text('study_plan')->nullable();
-            $table->text('letter_of_intent');
-            $table->text('note_of_undertaking');
-            $table->text('shifting_form');
+            $table->text('letter_of_intent')->nullable();
+            $table->text('note_of_undertaking')->nullable();
+            $table->text('shifting_form')->nullable();
+            $table->string('status')->nullable();
+            $table->date('date_of_request')->nullable();
+            $table->boolean('is_finalized')->default(false);
             $table->timestamps();
         });
     }

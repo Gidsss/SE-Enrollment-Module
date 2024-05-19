@@ -101,7 +101,8 @@ class ShiftingRequests extends Component
         
     public function getPaginatedStudentsByName($orderByDirection, $offset)
         {
-            return ShiftingRequest::orderBy('student_name', $orderByDirection)
+            return ShiftingRequest::join("students", "shifting_requests.student_id", "=", "students.student_id")
+                ->orderBy('student_name', $orderByDirection)
                 ->skip($offset)
                 ->take($this->perPage)
                 ->get();
@@ -109,7 +110,8 @@ class ShiftingRequests extends Component
 
     public function getPaginatedStudentsByYear($orderByDirection, $offset)
         {
-            return ShiftingRequest::orderBy('year_level', $orderByDirection)
+            return ShiftingRequest::join("students", "shifting_requests.student_id", "=", "students.student_id")
+                ->orderBy('year_level', $orderByDirection)
                 ->skip($offset)
                 ->take($this->perPage)
                 ->get();

@@ -15,8 +15,7 @@ class Validation extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'studentid',
-        'student_name',
+        'student_id',
         'yearlvl',
         'daterequest',
         'status',
@@ -34,5 +33,5 @@ class Validation extends Model
         'daterequest' => 'date',
     ];
 
-    protected $table = 'validations';
+    protected $table = 'temporary_validations';
 }

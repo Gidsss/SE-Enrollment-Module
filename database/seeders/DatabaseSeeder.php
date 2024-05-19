@@ -13,14 +13,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         \App\Models\Student::factory(400)->create();
-        \App\Models\StudyPlanValidations::factory(60)->create();
+        // \App\Models\StudyPlanValidations::factory(60)->create(); // To use this, you may need to edit the factory file to accomodate some of column changes
         // \App\Models\ShiftingRequest::factory(90)->create();
         // \App\Models\AddDropRequest::factory(70)->create();
         // \App\Models\LOARequest::factory(80)->create();
 
         $this->call([
             CourseSeeder::class,
-            ValidationSeeder::class,
+            // ValidationSeeder::class,  // To use this, you may need to edit the seeder file to accomodate some of column changes
+            DegreeProgramsTableSeeder::class,
         ]);
      
     }

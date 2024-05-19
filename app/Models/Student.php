@@ -14,13 +14,12 @@ class Student extends Model implements Authenticatable
     protected $fillable = [
         'student_id', 
         'student_name',
+        'password',
         'student_type',
         'year_level',
-        'password',
-        'date_request',
-        'enrolled', // This field is used to determine if the student is enrolled or not
-        'status',
         'student_block',
+        'degree_program',
+        'enrolled', // This field is used to determine if the student is enrolled or not
     ];
     protected $table = 'students';
 }

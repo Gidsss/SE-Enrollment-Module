@@ -36,8 +36,10 @@ class CourseCodeToValidData extends Component
 
     public function mount($studentId)
     {
+
         $this->student_id = $studentId; // Assigning the value passed from Livewire component invocation to $this->student_id
         $this->loadStudentData();
+
         $this->courses = Course::all();
         $this->tableBodyId = '';
         $this->updateTotalUnits32();

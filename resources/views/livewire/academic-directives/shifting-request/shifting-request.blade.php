@@ -291,15 +291,54 @@
                     </div>
                 </div>
             </div>
+          
                 <!-- Step 3 -->
                 <div class="card custom-table-container">
                 <div class="card-body">
-                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">3. Create your Study Plan
+                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">3. Select a Program and Create your Study Plan
                 <i class="fas fa-check-circle step-checkmark" style="font-size: 27px;"></i>
                 </button>
+                
                     <!-- Detailed information for Step 3 -->
                     <div class="panel">
-                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black;">Guidelines for Study Plans</p>
+                    <p style="font-family: Inter, sans-serif; font-size: 26px; color:black;">Guidelines for Selecting a Program to Shift</p>
+                        <!-- Content for letter 'a' -->
+                        <p class="body-font">&nbsp;&nbsp;a. Arrange your study plan considering the availability of courses. Major-specific subjects are exclusively offered in particular semesters.</p>
+                    <!-- Content for letter 'b' -->
+                    <p class="body-font">&nbsp;&nbsp;b. Mandatory major subjects should be taken during the designated semester they are available.</p>
+                    <!-- Content for letter 'c' -->
+                    <p class="body-font">&nbsp;&nbsp;c. A subject cannot be taken if it is a prerequisite for a previously failed subject. Ensure successful completion of prerequisites before enrolling in advanced courses.</p>
+                    <!-- Content for letter 'd' -->
+                    <p class="body-font">&nbsp;&nbsp;d. Failed prerequisites must be retaken and successfully completed before proceeding to higher-level courses.</p>
+                    <!-- Content for letter 'e' -->
+                    <p class="body-font">&nbsp;&nbsp;e. The upcoming semester should be the first one accounted for in your study plan. Plan your courses according to the sequence recommended by the academic curriculum.</p>
+                    <!-- Content for letter 'f' -->
+                    <p class="body-font">&nbsp;&nbsp;f. Overloaded unit enrollments are permissible only for students approaching graduation, subject to approval.</p>
+                    <p class="body-font">&nbsp;&nbsp;g. Underloaded units should also be verified by the college chairperson to ensure compliance with program requirements.</p>
+                    
+                    <div class="center-button">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectProgramModal">Select a Program</button> 
+                    </div>
+                      <!-- The Modal -->
+                    <div class="modal fade" id="selectProgramModal" tabindex="-1" role="dialog" aria-labelledby="selectProgramModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="selectProgramModalLabel">Select a Program</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @livewire('select-program')
+                        </div>
+                        
+                        </div>
+                    </div>
+                    </div>
+                    
+                    
+                    <p style="font-family: Inter, sans-serif; font-size: 26px; color:black;">Guidelines for Study Plans</p>
                         <!-- Content for letter 'a' -->
                         <p class="body-font">&nbsp;&nbsp;a. Arrange your study plan considering the availability of courses. Major-specific subjects are exclusively offered in particular semesters.</p>
                     <!-- Content for letter 'b' -->
@@ -400,16 +439,16 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_ShiftForm</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="shifting_form">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="shifting_form">
                                 <label class="custom-file-label" for="exampleInputFile1">Upload Shifting Form</label>
                             </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Follow the format: LastName_FirstName_LetterOfRequest</label>
+                            <label for="exampleInputFile">Follow the format: LastName_FirstName_LetterOfIntent</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')" accept="application/pdf" name="letter_of_intent">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')" accept="application/pdf" name="letter_of_intent">
                                 <label class="custom-file-label" for="exampleInputFile2">Upload Letter of Intent</label>
                             </div>
                             </div>
@@ -418,7 +457,7 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_NoteOfUndertaking</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile3" onchange="updateLabel('exampleInputFile3')" accept="application/pdf" name="note_of_undertaking">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile3" onchange="updateLabel('exampleInputFile3')" accept="application/pdf" name="note_of_undertaking">
                                 <label class="custom-file-label" for="exampleInputFile3">Upload Note of Undertaking</label>
                             </div>
                             </div>
@@ -444,7 +483,6 @@
                     </div>
                 </div>
             </div>
-
                 
 
             </section>
@@ -497,6 +535,7 @@
        
         var acc = document.getElementsByClassName("accordion");
         var currentIndex = 0;
+        
 
         for (var i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function () {
@@ -578,4 +617,10 @@
         var fileName = $('#' + inputId).val().split('\\').pop();
         $('label[for=' + inputId + ']').text(fileName);
     }
+
+    document.addEventListener('livewire:load', function () {
+    window.livewire.on('programSaved', () => {
+        $('#selectProgramModal').modal('hide');
+        });
+    });
 </script>

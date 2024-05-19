@@ -103,7 +103,8 @@ class LOARequests extends Component
         
     public function getPaginatedStudentsByName($orderByDirection, $offset)
         {
-            return LOARequest::orderBy('student_name', $orderByDirection)
+            return LOARequest::join("students", "l_o_a_requests.student_id", "=", "students.student_id")
+                ->orderBy('student_name', $orderByDirection)
                 ->skip($offset)
                 ->take($this->perPage)
                 ->get();

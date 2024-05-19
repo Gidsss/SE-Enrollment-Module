@@ -28,12 +28,12 @@ class StudentFactory extends Factory
     $lastName = $this->faker->lastName;
     $middleInitial = strtoupper(substr($this->faker->firstName, 0, 1)) . '.';
     return [
-        'student_id' => '2021' . $this->faker->randomNumber(5),
+        'student_id' => '2021' . $this->faker->randomNumber(8),
         'student_name' => "$lastName, $firstName $middleInitial",
         'student_type' => $this->faker->randomElement(['Regular', 'Irregular']),
         'year_level' => $this->faker->numberBetween(1, 4),
         'password' => static::$password ??= Hash::make('password'),
-        'status' => $this->faker->randomElement(['Pending', 'Approved', 'Revise']),
+        'degree_program' => $this->faker->randomElement(['BS Computer Science', 'BS Information Technology', 'BS Computer Engineering']),
     ];
 }
 }

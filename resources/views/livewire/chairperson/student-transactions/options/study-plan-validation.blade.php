@@ -195,12 +195,14 @@
                     <button wire:click="changeColor('checklist')" class="btn btn-sm @if($activeButton === 'checklist') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Student Checklist</button>
                     <button wire:click="changeColor('plan')" class="btn btn-sm @if($activeButton === 'plan') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Study Plan</button>
                 </div>
-                @if ($selectedStudentId)
+
+                @if ($selectedStudentId && $hasStudyPlan)
                     @livewire('course-code-to-valid-data', ['studentId' => $selectedStudentId], key('course-code-' . $selectedStudentId))
                 @endif
-                @if ($hasChecklist)
+
+                @if ($selectedStudentId && $hasChecklist)
                     <div>
-                        Checklist
+                        @livewire('b-s-c-sgrades', ['studentId' => $selectedStudentId], key('bscs-grades-' . $selectedStudentId))
                     </div>
                 @endif
                 <div class="form-group row justify-content-center">

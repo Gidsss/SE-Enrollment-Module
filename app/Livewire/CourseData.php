@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseData extends Component
 {
-    public $courses;
+    public $courses = [];
     public $dropdownContent2_2 = [];
     public $dropdownContent3_1 = [];
     public $dropdownContent3_2 = [];
@@ -60,7 +60,11 @@ class CourseData extends Component
         // Assuming you have access to $course object here
         foreach ($this->courses as $course) {
             if ($course->grades === 5 && $course->year_lvl === 2) {
-                $targetTable = 'tableBody' . ($course->sem === 2 ? '62' : '42');
+                $targetTable = 'tableBody42';
+                $this->moveRowToDropdown($course->id, $targetTable);
+            } elseif ($course->grades === 5 && $course->year_lvl === 3) {
+                // Since there's only one option for year_lvl === 3, we don't need the ternary operator here
+                $targetTable = 'tableBody72';
                 $this->moveRowToDropdown($course->id, $targetTable);
             }
         }
@@ -140,6 +144,7 @@ class CourseData extends Component
                 $this->courses->push($course);
                 unset($dropdownContentRef[$courseIndex]);
                 $dropdownContentRef = array_values($dropdownContentRef); // Reset array keys
+                // Add the course to the table with the appropriate button
                 $this->updateTotalUnits($tableBodyId, $course->units); // Pass tableBodyId for proper update
             } else {
                 // Handle course not found in dropdown (optional: error message)
@@ -183,21 +188,18 @@ class CourseData extends Component
         }
     }
 
-    public function getDisplayedCourseCodes(){
+    public function getDisplayedCourseCodes()
+    {
         $courseCodes = [];
         foreach ($this->courses as $course) {
-            // Include courses with grades === 5 no matter what yearlvl
-            if ($course->grades === 5) {
+            // Include courses based on year level when grades are not 5
+            if ($this->yearlevel === 2 && $course->year_lvl >= 2 && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
                 $courseCodes[] = $course->course_code;
-            }
-            // Include courses based on yearlvl when grades !== 5
-            elseif ($this->yearlevel === 2 && $course->year_lvl >= 2) {
+            } elseif ($this->yearlevel === 3 && $course->year_lvl >= 3 && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($this->yearlevel === 3 && $course->year_lvl >= 3) {
+            } elseif ($this->yearlevel === 4 && $course->year_lvl >= 4 && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($this->yearlevel === 4 && $course->year_lvl >= 4) {
-                $courseCodes[] = $course->course_code;
-            } elseif ($course->year_lvl === $this->yearlevel) {
+            } elseif ($course->year_lvl === $this->yearlevel && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
                 $courseCodes[] = $course->course_code;
             }
         }

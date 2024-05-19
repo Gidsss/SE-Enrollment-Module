@@ -385,7 +385,7 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_AddDropForm</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="add_drop_form">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="add_drop_form">
                                 <label class="custom-file-label" for="exampleInputFile1">Upload Add Drop Form</label>
                             </div>
                             </div>

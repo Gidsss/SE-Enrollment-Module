@@ -439,16 +439,16 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_ShiftForm</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="shifting_form">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="shifting_form">
                                 <label class="custom-file-label" for="exampleInputFile1">Upload Shifting Form</label>
                             </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Follow the format: LastName_FirstName_LetterOfRequest</label>
+                            <label for="exampleInputFile">Follow the format: LastName_FirstName_LetterOfIntent</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')" accept="application/pdf" name="letter_of_intent">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')" accept="application/pdf" name="letter_of_intent">
                                 <label class="custom-file-label" for="exampleInputFile2">Upload Letter of Intent</label>
                             </div>
                             </div>
@@ -457,7 +457,7 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_NoteOfUndertaking</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile3" onchange="updateLabel('exampleInputFile3')" accept="application/pdf" name="note_of_undertaking">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile3" onchange="updateLabel('exampleInputFile3')" accept="application/pdf" name="note_of_undertaking">
                                 <label class="custom-file-label" for="exampleInputFile3">Upload Note of Undertaking</label>
                             </div>
                             </div>

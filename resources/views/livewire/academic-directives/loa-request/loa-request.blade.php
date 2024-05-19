@@ -406,7 +406,7 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_LoAForm</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" required class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="loa_form">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')" accept="application/pdf" name="loa_form">
                                 <label class="custom-file-label" for="exampleInputFile1">Upload Leave of Absence Form</label>
                             </div>
                             <div class="input-group-append">
@@ -418,7 +418,7 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_LetterOfRequest</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" required class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')" accept="application/pdf" name="letter_of_request">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')" accept="application/pdf" name="letter_of_request">
                                 <label class="custom-file-label" for="exampleInputFile2">Upload Letter of Request</label>
                             </div>
                             <div class="input-group-append">
@@ -430,7 +430,7 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_NoteOfUndertaking</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" required class="custom-file-input" id="exampleInputFile3" onchange="updateLabel('exampleInputFile3')" accept="application/pdf" name="note_of_undertaking">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile3" onchange="updateLabel('exampleInputFile3')" accept="application/pdf" name="note_of_undertaking">
                                 <label class="custom-file-label" for="exampleInputFile3">Upload Note of Undertaking</label>
                             </div>
                             <div class="input-group-append">
@@ -442,7 +442,7 @@
                             <label for="exampleInputFile">Follow the format: LastName_FirstName_Clearance</label>
                             <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" required class="custom-file-input" id="exampleInputFile4" onchange="updateLabel('exampleInputFile4')" accept="application/pdf" name="clearance">
+                                <input required type="file" class="custom-file-input" id="exampleInputFile4" onchange="updateLabel('exampleInputFile4')" accept="application/pdf" name="clearance">
                                 <label class="custom-file-label" for="exampleInputFile4">Upload Clearance from OSDS</label>
                             </div>
                             <div class="input-group-append">

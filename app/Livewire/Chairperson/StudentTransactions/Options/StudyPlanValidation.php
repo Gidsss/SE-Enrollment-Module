@@ -215,6 +215,7 @@ class StudyPlanValidation extends Component
 
         $this->dispatch('show-edit-student-modal');
     }
+
     public function editStudentData()
     {
         //on form submit validation

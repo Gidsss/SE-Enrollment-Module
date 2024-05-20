@@ -221,12 +221,11 @@ class CourseData extends Component
         $courseCodes = $this->getDisplayedCourseCodes();
         
         // Get the validation record for the current student
-        $validation = Validation::where('studentid', $this->studentid)->first();
+        $validation = Validation::where('student_id', $this->studentid)->first();
     
         if (!$validation) {
             $validation = new Validation();
-            $validation->studentid = $this->studentid;
-            $validation->student_name = $this->studentName; 
+            $validation->student_id = $this->studentid;
             $validation->yearlvl = $this->yearlevel; 
             $validation->status = 'Pending';
             $validation->daterequest = Carbon::now(); //di to nagana not sure y
@@ -243,15 +242,14 @@ class CourseData extends Component
 
     public function pushCourseCodesFinal(){
         // Get the validation record for the current student
-        $validation = Validation::where('studentid', $this->studentid)->first();
+        $validation = Validation::where('student_id', $this->studentid)->first();
     
         if ($validation) {
             // Create or update the corresponding record in the study_plan_validations table
             $study_plan_validation = StudyPlanValidations::firstOrNew(['student_id' => $this->studentid]);
     
             // Assign the attributes from the validation object to the study_plan_validation object
-            $study_plan_validation->student_id = $validation->studentid;
-            $study_plan_validation->student_name = $validation->student_name; 
+            $study_plan_validation->student_id = $validation->student_id;
             $study_plan_validation->year_level = $validation->yearlvl; 
             $study_plan_validation->status = $validation->status;
             $study_plan_validation->date_of_request = $validation->daterequest;

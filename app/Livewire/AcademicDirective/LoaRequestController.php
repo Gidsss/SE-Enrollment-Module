@@ -46,7 +46,7 @@ class LoaRequestController extends Component
         $this->mount();
 
         # Basic Info
-        $loaRequest = LoARequest::where('student_id', this->student_id)->first();
+        $loaRequest = LoARequest::where('student_id', $this->student_id)->first();
         $loaRequest = $loaRequest == null? new LoARequest(): $loaRequest;
         $loaRequest->student_id = $this->student_id;
         $loaRequest->year_level = $this->year_level;
@@ -56,7 +56,7 @@ class LoaRequestController extends Component
 
         $files = $request->all();
         foreach (array_slice($files, 1) as $name => $file) {
-            $path = $file->store('loa-request-files');
+            $path = $file->store('loa-request-files', 'public');
             $loaRequest->{$name} = $path;
         }
 

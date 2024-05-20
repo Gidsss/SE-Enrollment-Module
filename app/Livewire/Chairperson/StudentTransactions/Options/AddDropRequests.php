@@ -98,7 +98,7 @@ class AddDropRequests extends Component
         
     public function getPaginatedStudentsByName($orderByDirection, $offset)
         {
-            return AddDropRequest::join("students", "add_drop_requests.student_id", "=", "students.id")
+            return AddDropRequest::join("students", "add_drop_requests.student_id", "=", "students.student_id")
                 ->orderBy('student_name', $orderByDirection)
                 ->skip($offset)
                 ->take($this->perPage)
@@ -107,7 +107,7 @@ class AddDropRequests extends Component
 
     public function getPaginatedStudentsByYear($orderByDirection, $offset)
         {
-            return AddDropRequest::join("students", "add_drop_requests.student_id", "=", "students.id")
+            return AddDropRequest::join("students", "add_drop_requests.student_id", "=", "students.student_id")
                 ->orderBy('year_level', $orderByDirection)
                 ->skip($offset)
                 ->take($this->perPage)

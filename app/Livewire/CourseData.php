@@ -42,6 +42,8 @@ class CourseData extends Component
     public $student_id;
     public $grade;
     public $pre_requisites;
+
+    protected $listeners = ['pushCourseCodesFinal'];
     
     public function mount()
     {
@@ -81,6 +83,7 @@ class CourseData extends Component
             }
         }
     }
+    
 
     public function moveRowToDropdown($courseId, $tableBody)
     {

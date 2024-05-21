@@ -1,7 +1,7 @@
 
 <div>
 <div>
-    <button wire:click="pushCourseCodesFinal">Push Final</button>
+    <!-- <button wire:click="pushCourseCodesFinal">Push Final</button> -->
 
         @if ($hasYear2)
         <div id="2nd-year-tables" >
@@ -18,7 +18,11 @@
         
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent2_1">
-                <!-- Dropdown options will be dynamically added here -->
+                @foreach($dropdownContent2_1 as $course)
+                    @if(is_object($course))
+                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                    @endif
+                @endforeach
                 </div>
             </div>
             </body>
@@ -27,13 +31,14 @@
             <!-- /.card-header -->
             <div class="card-body" style="background-color: #f8f8f8; overflow-y: auto; max-height: 60%;">
                 <table class="table " style="background-color: white">
-        
                 <thead style="background-color: #f8f8f8">
                     <tr>
-                    <th>Course Code</th>
-                    <th>Course Name</th>
-                    <th>Units</th>
-                    <th>Pre(Co)-Requisites</th>
+                    <th style="color: black;">Course Code</th>
+                    <th style="color: black;">Course Name</th>
+                    <th style="color: black;">Units</th>
+                    <th style="color: black;">Pre(Co)-Requisites</th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                     </tr>
                 </thead>  
@@ -80,9 +85,18 @@
                 </table>
             </div>
             </div>
-            <span id="totalUnits"></span>
+            <span id="totalUnits21">
+                {{ $totalUnits21 }}
+                @if ($totalUnits21 < 10)
+                    <span class="badge badge-success">Underload</span>
+                @elseif ($totalUnits21 >= 10 && $totalUnits21 <= 13)
+                    <span class="badge badge-primary">Normal Load</span>
+                @else
+                    <span class="badge badge-danger">Overload</span>
+                @endif
+            </span>
         
-            <h1>2nd Year 2nd Semester</h1>
+            <h1 style="color: black;">2nd Year 2nd Semester</h1>
             <body>
             <div class="dropdown" style="left: 85%">
                 <button type="button" class="dropdown-toggle" id="dropdownMenuButton2_2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -111,10 +125,11 @@
         
                 <thead style="background-color: #f8f8f8">
                     <tr>
-                    <th>Course Code</th>
-                    <th>Course Name</th>
-                    <th>Units</th>
-                    <th>Pre(Co)-Requisites</th>
+                    <th style="color: black;">Course Code</th>
+                    <th style="color: black;">Course Name</th>
+                    <th style="color: black;">Units</th>
+                    <th style="color: black;">Pre(Co)-Requisites</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     </tr>
@@ -192,7 +207,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent3_1">
                 @foreach($dropdownContent3_1 as $course)
                     @if(is_object($course))
-                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody3_1')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
+                        <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody32')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
                     @endif
                 @endforeach
 
@@ -216,7 +231,7 @@
                     <th></th>
                     </tr>
                 </thead>  
-                <tbody id="tableBody3_1">
+                <tbody id="tableBody32">
                 @foreach ($courses as $course)
                 @php
                     $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
@@ -237,9 +252,8 @@
                                 break;
                             }
                         }
-
-                        }
-                    @endphp
+                    }
+                @endphp
                     @if (($course->year_lvl === 3 && $course->sem === 1) ||
                         ($course->year_lvl === 2 && $course->sem === 1 && $course->grades === 5))
                         @if ($preRequisiteGrade !== 5)
@@ -251,13 +265,10 @@
                                 <td style="color: red;">{{ $preReqCheck }}</td>
                                 <td>{{ $preRequisiteGrade}}</td>
                                 <td>
-                                    <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody3_1', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
+                                    <button wire:click="moveRowToDropdown({{ $course->id }}, 'tableBody32', '{{ $tableBodyId }}')" class="btn btn-danger btn-sm">X</button>
                                 </td>
                             </tr>
                         @else
-                        @php
-                            $dropdownContent4_1[] = $course->id;
-                        @endphp
                         @endif
                     @endif
                 @endforeach
@@ -312,6 +323,7 @@
                     <th style="color: black;">Course Name</th>
                     <th style="color: black;">Units</th>
                     <th style="color: black;">Pre(Co)-Requisites</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     </tr>
@@ -377,21 +389,20 @@
         <div id="4th-year-tables" >
             <h1 style="color: black;">4th Year 1st Semester</h1>
             
-            <body>
+        <body>
             <div class="dropdown" style="left: 85%">
                 <button type="button" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                     style="width:15%; position:auto;">
                     <span>Add Class</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" id="dropdownContent4_1">
-                    @foreach($dropdownContent4_1 as $courseId)
-                        @php
-                            $course = $courses->firstWhere('id', $courseId);
-                        @endphp
-                        @if($course)
-                            <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody72')" class="dropdown-item" href="#">{{ $course->course_code }} - {{ $course->course_name }}</a>
-                        @endif
-                    @endforeach
+                @foreach($dropdownContent4_1 as $course)
+                    @if(is_object($course))
+                    <a wire:click.prevent="moveRowFromDropdownToTable('{{ $course->course_code }}', 'tableBody72')" class="dropdown-item" href="#">
+                        {{ $course->course_code }} - {{ $course->course_name }}
+                    </a>
+                    @endif
+                @endforeach
                 </div>
             </div>
         </body>

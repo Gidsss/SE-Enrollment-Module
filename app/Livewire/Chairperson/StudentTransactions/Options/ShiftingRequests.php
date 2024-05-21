@@ -10,7 +10,7 @@ class ShiftingRequests extends Component
 {
     use WithPagination;
     
-    public $student_id, $student_name, $year_level, $status, $date_of_request, $study_plan;
+    public $student_id, $year_level, $status, $date_of_request, $study_plan;
     public $student_edit_id, $student_delete_id;
     public $view_student_id, $view_student_name, $view_student_year_level, $view_status;
     public $bulk_student_status, $students, $lastPage;
@@ -29,6 +29,7 @@ class ShiftingRequests extends Component
     public $hasIntent = false;
     public $hasShifting = false;
     public $selectedStudentId;
+    public $student_name;
 
     // Documents
     public $shiftForm;

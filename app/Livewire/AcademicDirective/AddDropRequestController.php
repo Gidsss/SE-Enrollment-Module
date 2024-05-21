@@ -53,7 +53,7 @@ class AddDropRequestController extends Component
 
         $files = $request->all();
         foreach (array_slice($files, 1) as $name => $file) {
-            $path = $file->store('add-drop-request-files');
+            $path = $file->store('add-drop-request-files', 'public');
             $addDropRequest->{$name} = $path;
         }
 

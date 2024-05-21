@@ -16,16 +16,16 @@ class ShiftingRequestFactory extends Factory
      */
     public function definition(): array
     {
-        $firstName = $this->faker->firstName;
-        $lastName = $this->faker->lastName;
-        $middleInitial = strtoupper(substr($this->faker->firstName, 0, 1)) . '.';
         return [
-            'student_id' => '2021' . $this->faker->randomNumber(5),
-            'student_name' => "$lastName, $firstName $middleInitial",
-            'year_level' => $this->faker->numberBetween(1, 4),
-            'date_of_request' => $this->faker->date,
-            'status' => $this->faker->randomElement(['Pending', 'Approved', 'Revise', 'Unhandled']),
-           // 'current_checklist' => $this->faker->text,
+            'student_id' => \App\Models\Student::factory()->create()->student_id, // Ensure this matches an existing student ID
+            'new_degree_program' => $this->faker->randomElement(['BS Computer Science', 'BA English', 'BS Mathematics']),
+            'study_plan' => $this->faker->optional()->text,
+            'letter_of_intent' => $this->faker->optional()->text,
+            'note_of_undertaking' => $this->faker->optional()->text,
+            'shifting_form' => $this->faker->optional()->text,
+            'status' => $this->faker->optional()->randomElement(['Pending', 'Approved', 'Revise', 'Unhandled']),
+            'date_of_request' => $this->faker->optional()->date,
+            'is_finalized' => $this->faker->boolean,
         ];
     }
 }

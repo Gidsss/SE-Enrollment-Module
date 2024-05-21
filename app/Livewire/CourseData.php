@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 class CourseData extends Component
 {
     public $courses = [];
+    public $dropdownContent2_1 = [];
     public $dropdownContent2_2 = [];
     public $dropdownContent3_1 = [];
     public $dropdownContent3_2 = [];
@@ -25,6 +26,7 @@ class CourseData extends Component
     public $dropdownContent4_2 = [];
     public $tableBody = '';
     public $tableBodyId = '';
+    public $totalUnits21 = 0;
     public $totalUnits22 = 0;
     public $totalUnits32 = 0;
     public $totalUnits42 = 0;
@@ -56,15 +58,27 @@ class CourseData extends Component
         $this->updateTotalUnits72();
         $this->updateTotalUnits62();
         $this->updateTotalUnits22();
+        $this->updateTotalUnits21();
         
         // Assuming you have access to $course object here
         foreach ($this->courses as $course) {
-            if ($course->grades === 5 && $course->year_lvl === 2) {
-                $targetTable = 'tableBody42';
-                $this->moveRowToDropdown($course->id, $targetTable);
-            } elseif ($course->grades === 5 && $course->year_lvl === 3) {
+            $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
+
+            if ($course->grades === 5 && $course->year_lvl === 2 && $course->sem === 2) {
+                // Check if the course is already in dropdownContent3_2
+                $isInDropdownContent3_2 = collect($this->dropdownContent3_2)->contains('id', $course->id);
+                
+                if (!$isInDropdownContent3_2) {
+                    $targetTable = 'tableBody42';
+                    $this->moveRowToDropdown($course->id, $targetTable);
+                }
+            } elseif ( $preRequisiteGrade === 5 && $course->year_lvl === 3 && $course->sem === 1) {
                 // Since there's only one option for year_lvl === 3, we don't need the ternary operator here
                 $targetTable = 'tableBody72';
+                $this->moveRowToDropdown($course->id, $targetTable);
+            } elseif ( ($course->grades === 5  && $course->year_lvl === 3 && $course->sem === 2) || ($preRequisiteGrade === 5  && $course->year_lvl === 3 && $course->sem === 2) ) {
+                // Since there's only one option for year_lvl === 3, we don't need the ternary operator here
+                $targetTable = 'tableBody62';
                 $this->moveRowToDropdown($course->id, $targetTable);
             }
         }
@@ -73,39 +87,49 @@ class CourseData extends Component
     public function moveRowToDropdown($courseId, $tableBody)
     {
         $course = $this->courses->firstWhere('id', $courseId);
-
-        if ($tableBody === 'tableBody32') {
-            $this->dropdownContent3_1[] = $course;
-            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
-                return $c->id === $courseId;
-            });
-        } elseif ($tableBody === 'tableBody42') {
-            $this->dropdownContent3_2[] = $course;
-            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
-                return $c->id === $courseId;
-            });
-        } elseif ($tableBody === 'tableBody72') {
-            $this->dropdownContent4_1[] = $course;
-            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
-                return $c->id === $courseId;
-            });
-        } elseif ($tableBody === 'tableBody62') {
-            $this->dropdownContent4_2[] = $course;
-            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
-                return $c->id === $courseId;
-            });
-        } elseif ($tableBody === 'tableBody22') {
-            $this->dropdownContent2_2[] = $course;
-            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
-                return $c->id === $courseId;
-            });
+    
+        if (!$course) return;
+    
+        switch ($tableBody) {
+            case 'tableBody32':
+                $this->dropdownContent3_1[] = $course;
+                break;
+            case 'tableBody42':
+                $this->dropdownContent3_2[] = $course;
+                break;
+            case 'tableBody72':
+                $this->dropdownContent4_1[] = $course;
+                break;
+            case 'tableBody62':
+                $this->dropdownContent4_2[] = $course;
+                break;
+            case 'tableBody22':
+                $this->dropdownContent2_2[] = $course;
+                break;
+            case 'tableBody21':
+                $this->dropdownContent2_1[] = $course;
+            break;
         }
-
+    
+        $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+            return $c->id === $courseId;
+        });
+    
         $this->updateTotalUnits32();
         $this->updateTotalUnits42();
         $this->updateTotalUnits72();
         $this->updateTotalUnits62();
         $this->updateTotalUnits22();
+        $this->updateTotalUnits21();
+    }
+
+    public function isCourseInAnyDropdown($courseId)
+    {
+        return collect($this->dropdownContent2_2)->contains('id', $courseId) ||
+            collect($this->dropdownContent3_1)->contains('id', $courseId) ||
+            collect($this->dropdownContent3_2)->contains('id', $courseId) ||
+            collect($this->dropdownContent4_1)->contains('id', $courseId) ||
+            collect($this->dropdownContent4_2)->contains('id', $courseId);
     }
 
     public function moveRowFromDropdownToTable($courseCode, $tableBodyId){
@@ -113,6 +137,9 @@ class CourseData extends Component
         $dropdownContentRef = null;
     
         switch ($tableBodyId) {
+            case 'tableBody':
+                $dropdownContentRef = &$this->dropdownContent2_1;
+                break;
             case 'tableBody22':
                 $dropdownContentRef = &$this->dropdownContent2_2;
                 break;
@@ -156,6 +183,9 @@ class CourseData extends Component
     {
         // Determine the total units property based on the table body ID
         switch ($tableBodyId) {
+            case 'tableBody21':
+                $totalUnitsProperty = 'totalUnits22';
+                break;
             case 'tableBody22':
                 $totalUnitsProperty = 'totalUnits22';
                 break;
@@ -221,12 +251,11 @@ class CourseData extends Component
         $courseCodes = $this->getDisplayedCourseCodes();
         
         // Get the validation record for the current student
-        $validation = Validation::where('studentid', $this->studentid)->first();
+        $validation = Validation::where('student_id', $this->studentid)->first();
     
         if (!$validation) {
             $validation = new Validation();
-            $validation->studentid = $this->studentid;
-            $validation->student_name = $this->studentName; 
+            $validation->student_id = $this->studentid;
             $validation->yearlvl = $this->yearlevel; 
             $validation->status = 'Pending';
             $validation->daterequest = Carbon::now(); //di to nagana not sure y
@@ -243,15 +272,14 @@ class CourseData extends Component
 
     public function pushCourseCodesFinal(){
         // Get the validation record for the current student
-        $validation = Validation::where('studentid', $this->studentid)->first();
+        $validation = Validation::where('student_id', $this->studentid)->first();
     
         if ($validation) {
             // Create or update the corresponding record in the study_plan_validations table
             $study_plan_validation = StudyPlanValidations::firstOrNew(['student_id' => $this->studentid]);
     
             // Assign the attributes from the validation object to the study_plan_validation object
-            $study_plan_validation->student_id = $validation->studentid;
-            $study_plan_validation->student_name = $validation->student_name; 
+            $study_plan_validation->student_id = $validation->student_id;
             $study_plan_validation->year_level = $validation->yearlvl; 
             $study_plan_validation->status = $validation->status;
             $study_plan_validation->date_of_request = $validation->daterequest;
@@ -299,11 +327,14 @@ class CourseData extends Component
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,
             'hasYear4' => $hasYear4,
+            'dropdownContent2_2' => $this->dropdownContent2_2,
+            'dropdownContent2_1' => $this->dropdownContent2_1,
             'dropdownContent3_2' => $this->dropdownContent3_2,
             'dropdownContent3_1' => $this->dropdownContent3_1,
             'dropdownContent4_1' => $this->dropdownContent4_1,
             'dropdownContent4_2' => $this->dropdownContent4_2,
             'tableBodyId' => $this->tableBodyId,
+            'totalUnits21' => $this->totalUnits21, 
             'totalUnits32' => $this->totalUnits32, 
             'totalUnits42' => $this->totalUnits42, 
             'totalUnits72' => $this->totalUnits72, 
@@ -318,6 +349,11 @@ class CourseData extends Component
         return isset($course->grades) && $course->grades === $gradeThreshold 
             ? $course->course_code . ' - ' . $course->course_name 
             : '';
+    }
+
+    private function updateTotalUnits21()
+    {
+        $this->totalUnits21 = $this->courses->where('year_lvl', 2)->where('sem', 1)->sum('units');
     }
     
     private function updateTotalUnits22()

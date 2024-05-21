@@ -59,6 +59,7 @@ class CourseData extends Component
         $this->updateTotalUnits72();
         $this->updateTotalUnits62();
         $this->updateTotalUnits22();
+        $this->updateTotalUnits21();
         
         // Assuming you have access to $course object here
         foreach ($this->courses as $course) {
@@ -366,6 +367,10 @@ class CourseData extends Component
         return isset($course->grades) && $course->grades === $gradeThreshold 
             ? $course->course_code . ' - ' . $course->course_name 
             : '';
+    }
+    private function updateTotalUnits21()
+    {
+        $this->totalUnits21 = $this->courses->where('year_lvl', 2)->where('sem', 1)->sum('units');
     }
     
     private function updateTotalUnits22()

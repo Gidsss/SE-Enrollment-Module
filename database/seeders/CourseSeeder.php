@@ -20,7 +20,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Programming Languages (lec)',
                     'units' => 2,
                     'pre_requisites' => '3rd Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -28,8 +28,8 @@ class CourseSeeder extends Seeder
                     'course_code' => 'CSC 0312.1',
                     'course_name' => 'Programming Languages (lab)',
                     'units' => 1,
-                    'pre_requisites' => 'CSC 0312',
-                    
+                    'pre_requisites' => '(CSC 0312)',
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -38,7 +38,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Software Engineering (lec)',
                     'units' => 2,
                     'pre_requisites' => '3rd Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -46,8 +46,8 @@ class CourseSeeder extends Seeder
                     'course_code' => 'CSC 0313.1',
                     'course_name' => 'Software Engineering (lab)',
                     'units' => 1,
-                    'pre_requisites' => 'CSC 0313',
-                    
+                    'pre_requisites' => '(CSC 0313)',
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -55,8 +55,8 @@ class CourseSeeder extends Seeder
                     'course_code' => 'CSC 0314',
                     'course_name' => 'Operating System (lec)',
                     'units' => 2,
-                    'pre_requisites' => 'CSC 0222, CSC 0222.1',
-                    
+                    'pre_requisites' => '(CSC 0222), (CSC 0222.1)',
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -64,8 +64,8 @@ class CourseSeeder extends Seeder
                     'course_code' => 'CSC 0314.1',
                     'course_name' => 'Operating System (lab)',
                     'units' => 1,
-                    'pre_requisites' => 'CSC 0314',
-                    
+                    'pre_requisites' => '(CSC 0314)',
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -74,7 +74,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Intelligent System (lec)',
                     'units' => 2,
                     'pre_requisites' => '3rd Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -82,8 +82,8 @@ class CourseSeeder extends Seeder
                     'course_code' => 'CSC 0315.1',
                     'course_name' => 'Intelligent System (lab)',
                     'units' => 1,
-                    'pre_requisites' => 'CSC 0315',
-                    
+                    'pre_requisites' => '(CSC 0315)',
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -92,7 +92,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Automata Theory and Formal Languages',
                     'units' => 3,
                     'pre_requisites' => 'CSC 0221',
-                    
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -101,7 +101,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Algorithm and Complexity',
                     'units' => 3,
                     'pre_requisites' => 'CSC 0212, CSC 0212.1, ICC 0104, CSC 0104.1',
-                    
+                    'grades' => 5,
                     'year_lvl' => 2,
                     'sem' => 2,
                 ],
@@ -110,7 +110,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Architecture and Organization (lec)',
                     'units' => 2,
                     'pre_requisites' => 'CSC 0213, CSC 0213.1',
-                    
+                    'grades' => 2,
                     'year_lvl' => 2,
                     'sem' => 2,
                 ],
@@ -119,7 +119,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Architecture and Organization (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0222',
-                    
+                    'grades' => 2,
                     'year_lvl' => 2,
                     'sem' => 2,
                 ],
@@ -128,7 +128,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Applications Development and Emerging Technologies (lec)',
                     'units' => 2,
                     'pre_requisites' => 'CSC 0212, CSC 0212.1, ICC 0105, CSC 0105.1',
-                    
+                    'grades' => 2,
                     'year_lvl' => 2,
                     'sem' => 2,
                 ],
@@ -137,7 +137,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Applications Development and Emerging Technologies (lab)',
                     'units' => 1,
                     'pre_requisites' => 'ICC 0106',
-                    
+                    'grades' => 2,
                     'year_lvl' => 2,
                     'sem' => 2,
                 ],
@@ -146,7 +146,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Information Assurance Security',
                     'units' => 3,
                     'pre_requisites' => '',
-                    
+                    'grades' => 5,
                     'year_lvl' => 2,
                     'sem' => 2,
                 ],
@@ -155,7 +155,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'The Entrepreneurial Mind',
                     'units' => 3,
                     'pre_requisites' => '',
-                    
+                    'grades' => 1,
                     'year_lvl' => 2,
                     'sem' => 2,
                 ],
@@ -164,7 +164,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Environmental Science',
                     'units' => 3,
                     'pre_requisites' => '',
-                    
+                    'grades' => 1,
                     'year_lvl' => 2,
                     'sem' => 2,
                 ],
@@ -173,7 +173,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Art Appreciation',
                     'units' => 3,
                     'pre_requisites' => '',
-                    
+                    'grades' => 1,
                     'year_lvl' => 2,
                     'sem' => 2,
                 ],
@@ -182,7 +182,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Software Engineering 2 (lec)',
                     'units' => 2,
                     'pre_requisites' => 'CSC 0313, CSC 0313.1',
-                    
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -190,8 +190,8 @@ class CourseSeeder extends Seeder
                     'course_code' => 'CSC 0321.1',
                     'course_name' => 'Software Engineering 2 (lab)',
                     'units' => 1,
-                    'pre_requisites' => 'CSC 0321',
-                    
+                    'pre_requisites' => '(CSC 0321)',
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -200,7 +200,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Compiler Design (lec)',
                     'units' => 2,
                     'pre_requisites' => 'CSC 0311',
-                    
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -208,8 +208,8 @@ class CourseSeeder extends Seeder
                     'course_code' => 'CSC 0322.1',
                     'course_name' => 'Compiler Design (lab)',
                     'units' => 1,
-                    'pre_requisites' => 'CSC 0322',
-                    
+                    'pre_requisites' => '(CSC 0322)',
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -218,7 +218,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Computational Science (lec)',
                     'units' => 2,
                     'pre_requisites' => '3rd Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -226,8 +226,8 @@ class CourseSeeder extends Seeder
                     'course_code' => 'CSC 0323.1',
                     'course_name' => 'Computational Science (lab)',
                     'units' => 1,
-                    'pre_requisites' => 'CSC 0323',
-                    
+                    'pre_requisites' => '(CSC 0323)',
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -236,7 +236,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'CS Elective 1 (lec)',
                     'units' => 2,
                     'pre_requisites' => '3rd Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -244,8 +244,8 @@ class CourseSeeder extends Seeder
                     'course_code' => 'CSC 0324.1',
                     'course_name' => 'CS Elective 1 (lab)',
                     'units' => 1,
-                    'pre_requisites' => 'CSC 0324',
-                    
+                    'pre_requisites' => '(CSC 0324)',
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -254,7 +254,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Research Writing',
                     'units' => 3,
                     'pre_requisites' => '3rd Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -263,7 +263,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Logic Design and Digital Computer Circuits (lec)',
                     'units' => 2,
                     'pre_requisites' => 'CSC 0211',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -272,7 +272,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Logic Design and Digital Computer Circuits (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0213',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -281,7 +281,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Object Oriented Programming (lec)',
                     'units' => 2,
                     'pre_requisites' => 'ICC 0103, ICC 0103.1,ICC 0104, ICC 0104.1',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -290,7 +290,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Object Oriented Programming (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0212',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -299,7 +299,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Operation Research',
                     'units' => 3,
                     'pre_requisites' => 'CSC 0211',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -308,7 +308,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Information Management (lec)',
                     'units' => 2,
                     'pre_requisites' => 'ICC 0104, ICC 0104.1',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -317,7 +317,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Information Management (lab)',
                     'units' => 1,
                     'pre_requisites' => 'ICC 0105',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -326,7 +326,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Living in the IT Era',
                     'units' => 3,
                     'pre_requisites' => '',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -335,7 +335,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Ethics',
                     'units' => 3,
                     'pre_requisites' => '',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -344,7 +344,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Understanding the Self',
                     'units' => 3,
                     'pre_requisites' => '',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -353,7 +353,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'PE Elective (12, 13, or 14)',
                     'units' => 2,
                     'pre_requisites' => 'PATHFIT 2',
-                    
+                    'grades' => null,
                     'year_lvl' => 2,
                     'sem' => 1,
                 ],
@@ -362,7 +362,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'CS Thesis Writing 1',
                     'units' => 3,
                     'pre_requisites' => '4th Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 1,
                 ],
@@ -371,7 +371,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Networks and Communication (lec)',
                     'units' => 2,
                     'pre_requisites' => 'CSC 0314',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 1,
                 ],
@@ -380,7 +380,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Networks and Communication (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0412',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 1,
                 ],
@@ -389,7 +389,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'CS Elective 2 (lec)',
                     'units' => 2,
                     'pre_requisites' => '4th Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 1,
                 ],
@@ -398,7 +398,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'CS Elective 2 (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0413',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 1,
                 ],
@@ -407,7 +407,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'CS Elective 3 (lec)',
                     'units' => 2,
                     'pre_requisites' => '4th Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 1,
                 ],
@@ -416,7 +416,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'CS Elective 3 (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0414',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 1,
                 ],
@@ -425,7 +425,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'CS Thesis Writing 2',
                     'units' => 3,
                     'pre_requisites' => 'CSC 0411',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 2,
                 ],
@@ -434,7 +434,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Parallel and Distributing Computing (lec)',
                     'units' => 2,
                     'pre_requisites' => 'CSC 0412',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 2,
                 ],
@@ -443,7 +443,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Parallel and Distributing Computing (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0412',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 2,
                 ],
@@ -452,7 +452,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Social Issues and Professional Practice',
                     'units' => 3,
                     'pre_requisites' => '4th Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 2,
                 ],
@@ -461,7 +461,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Graphics and Visual Computing (lec)',
                     'units' => 2,
                     'pre_requisites' => '4th Year Standing',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 2,
                 ],
@@ -470,7 +470,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Graphics and Visual Computing (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0424',
-                    
+                    'grades' => null,
                     'year_lvl' => 4,
                     'sem' => 2,
                 ],

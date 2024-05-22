@@ -244,6 +244,10 @@
                     <span style="position: absolute; top: 45%; left: 85.2%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Download SER</span>
                 </div>
 
+                <div class="center-button">
+                        <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" data-toggle="modal" data-target="#exampleModal">Create Study Plan</button>
+                      </div>  
+
                 <div class="card custom-bg-color" style="position: absolute; top: 170px; left: 13%; width: 85%; height: 60%">
                     <i class="fa fa-info-circle" style="font-size: 18px; color: black; margin-left: 3.5rem; top: .8rem; position: relative;"></i>
                     <span style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); color: black; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">Follow steps one to five below. Failure to comply with a step prohibits you from proceeding forward the enrollment process.</span>    
@@ -333,13 +337,11 @@
                     <!-- Content for letter 'f' -->
                     <p class="body-font">&nbsp;&nbsp;f. Overloaded unit enrollments are permissible only for students approaching graduation, subject to approval.</p>
                     <p class="body-font">&nbsp;&nbsp;g. Underloaded units should also be verified by the college chairperson to ensure compliance with program requirements.</p>
-                    <div class="center-button">
-                        <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" data-toggle="modal" data-target="#exampleModal">Create Study Plan</button>
-                    </div>  
-                    <br>
-                    <div class="center-button">
-                        <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)">Proceed to Submission of Documents</button>
-                    </div>
+
+                    
+                      <div class="center-button">
+                          <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)">Proceed to Submission of Documents</button>
+                        </div>
                     </div>
 
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -360,42 +362,69 @@
                   </div>
                 </div>
             </div>
-
             <!-- Step 4 -->
             <div class="card custom-table-container">
                 <div class="card-body">
-                    <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">
-                        4. Await Approval
-                        <i class="fas fa-check-circle step-checkmark" style="font-size: 27px;"></i>
-                    </button>
-                    <!-- Detailed information for Step 5 -->
+                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">4. Submit Curriculum Checklist and Study Plan
+                <i class="fas fa-check-circle step-checkmark" style="font-size: 27px;"></i>
+                </button>
+                    <!-- Detailed information for Step 4-->
                     <div class="panel">
-                        @if ($hasPending)
-                            <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">
-                                Document Status: <strong style="color: #AB830F;">For Checking</strong>
-                            </p>
-                        @endif
+                            <div class="form-group">
+                            <label for="exampleInputFile">Follow the format: LastName_FirstName_Checklist</label>
+                            <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile1" onchange="updateLabel('exampleInputFile1')">
+                                <label class="custom-file-label" for="exampleInputFile1">Upload Curriculum Checklist</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">Follow the format: LastName_FirstName_StudyPlan</label>
+                            <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile2" onchange="updateLabel('exampleInputFile2')">
+                                <label class="custom-file-label" for="exampleInputFile2">Upload Study Plan</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="center-button">
+                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)">Submit Uploaded Documents</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 5 -->
+            <div class="card custom-table-container">
+                <div class="card-body">
+                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">5. Await Approval
+                <i class="fas fa-check-circle step-checkmark" style="font-size: 27px;"></i>
+                </button>
+                    <!-- Detailed information for Step 5-->
+                    <div class="panel">
+                    @if ($hasPending)
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: #AB830F;">For Checking</strong></p>
+                    @endif
 
-                        @if ($hasApprove)
-                            <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">
-                                Document Status: <strong style="color: green;">Approved for submission onsite</strong>
-                            </p>
-                        @endif
+                    @if ($hasApprove)
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: green;">Approved</strong></p>
+                    @endif
 
-                        @if ($hasReject)
-                            <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">
-                                Document Status: <strong style="color: red;">For Revision</strong>
-                            </p>
-                        @endif
-
+                    @if ($hasReject)
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: <strong style="color: red;">For Revision</strong></p>
+                    @endif
                         <!-- Content for letter 'a' -->
                         <p class="body-font">&nbsp;&nbsp;a. Submitted documents will be checked by corresponding department chairperson.</p>
                         <!-- Content for letter 'b' -->
                         <p class="body-font">&nbsp;&nbsp;b. Refresh this page from time-to-time to know the status of your Study Plan. </p>
                         <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)" @if (!$hasApprove) disabled @endif>
-                                Change status to submission onsite
-                            </button>
+                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(5)">Change status to for submission onsite</button>
                         </div>
                     </div>
                 </div>

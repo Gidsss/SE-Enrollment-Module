@@ -202,16 +202,16 @@
                         </div>
                         @endif
 
-                        @if ($hasStudyPlan)
+                        @if ($selectedStudentId && $hasStudyPlan)
                         <div>
-                            @livewire('course-code-to-valid-data')
+                            @livewire('course-code-to-valid-add-drop', ['studentId' => $selectedStudentId], key('course-code-' . $selectedStudentId))
                         </div>
                         @endif
 
-                        @if ($hasChecklist)
+                        @if ($selectedStudentId && $hasChecklist)
                         <div>
                             <!-- livewire kunwari -->
-                            Checklist
+                            @livewire('b-s-c-sgrades', ['studentId' => $selectedStudentId], key('bscs-grades-' . $selectedStudentId))
                         </div>
                         @endif
 

@@ -372,7 +372,7 @@
                                   </button>
                               </div>
                               <div class="modal-body">
-                                  @livewire('course-data')
+                                  @livewire('course-code-shift')
                                   
                               </div>
                               <div class="modal-footer">

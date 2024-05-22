@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Livewire;
+
+use Livewire\Component;
+use App\Models\ShiftingRequest;
 use App\Models\Course;
 use App\Models\Validation;
 use App\Models\Student;
-use App\Models\StudyPlanValidations;
-use Livewire\Component;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Livewire;
 
-class CourseCodeToValidData extends Component
+
+class CourseCodeToValidShift extends Component
 {
     public $allowedCourseCodes = [];
     public $courses;
@@ -57,13 +59,12 @@ class CourseCodeToValidData extends Component
 
     public function loadStudentData()
     {
-        $study_plan_validation = StudyPlanValidations::where('student_id', $this->studentId)->first();
-        if ($study_plan_validation) {
-            $this->studentName = $study_plan_validation->student_name;
-            $this->yearLevel = $study_plan_validation->yearlvl;
-            $this->studyPlanCodes = $study_plan_validation->study_plan;
+        $shift_request = ShiftingRequest::where('student_id', $this->studentId)->first();
+        if ($shift_request) {
+            $this->studentName = $shift_request->student_name;
+            $this->studyPlanCodes = $shift_request->study_plan;
             $this->allowedCourseCodes = json_decode($this->studyPlanCodes);
-            $this->status = $study_plan_validation->status;
+            $this->status = $shift_request->status;
         }
     }
 
@@ -86,22 +87,22 @@ class CourseCodeToValidData extends Component
 
     public function pushReject(){
         // Get the validation record for the current student
-        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
+        $shift_request = ShiftingRequest::where('student_id', $this->student_id)->first();
     
-        if ($study_plan_validations) {
-            $study_plan_validations->status = 'Revise';
-            $study_plan_validations->save();
+        if ($shift_request) {
+            $shift_request->status = 'Revise';
+            $shift_request->save();
         }
 
     }
 
     public function pushApprove(){
         // Get the validation record for the current student
-        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
+        $shift_request = ShiftingRequest::where('student_id', $this->student_id)->first();
     
-        if ($study_plan_validations) {
-            $study_plan_validations->status = 'Approved';
-            $study_plan_validations->save();
+        if ($shift_request) {
+            $shift_request->status = 'Approved';
+            $shift_request->save();
         }
 
     }
@@ -110,7 +111,6 @@ class CourseCodeToValidData extends Component
         $courses = Course::all();
         $validations = Validation::all();
         $students = Student::all();
-        $study_plan_validations = StudyPlanValidations::all();
 
         $displayedCourseCodes = $this->getDisplayedCourseCodes();
 
@@ -140,7 +140,7 @@ class CourseCodeToValidData extends Component
             }
         }
 
-        return view('livewire.course-code-to-valid-data', [
+        return view('livewire.course-code-to-valid-shift', [
             'validations' => $validations,
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,

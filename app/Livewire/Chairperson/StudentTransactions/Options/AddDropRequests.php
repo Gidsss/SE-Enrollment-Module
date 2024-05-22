@@ -25,6 +25,7 @@ class AddDropRequests extends Component
     public $hasStudyPlan = false;
     public $hasChecklist = false;
     public $hasAddDrop = false;
+    public $selectedStudentId;
 
     // Documents
     public $addDropForm;
@@ -209,6 +210,7 @@ class AddDropRequests extends Component
         $this->status = $student->status;
         $this->date_of_request = $student->date_of_request;
         $this->addDropForm = $student->add_drop_form;
+        $this->selectedStudentId = $student->student_id;
 
         $this->dispatch('show-edit-student-modal',);
     }
@@ -290,6 +292,7 @@ class AddDropRequests extends Component
                 'hasStudyPlan' => $this->hasStudyPlan,
                 'hasChecklist' => $this->hasChecklist,
                 'hasAddDrop' => $this->hasAddDrop,
+                'selectedStudentId' => $this->selectedStudentId,
             ])->layout('livewire.chairperson.transaction-options');
         }
 }

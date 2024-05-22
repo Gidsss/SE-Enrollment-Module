@@ -333,7 +333,7 @@
                                   </button>
                               </div>
                               <div class="modal-body">
-                                  @livewire('course-data')
+                                  @livewire('coursedataadddrop')
                                   
                               </div>
                               <div class="modal-footer">

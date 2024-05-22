@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Livewire;
+
+use Livewire\Component;
 use App\Models\Course;
 use App\Models\Validation;
 use App\Models\Student;
-use App\Models\StudyPlanValidations;
-use Livewire\Component;
+use App\Models\AddDropRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Livewire;
 
-class CourseCodeToValidData extends Component
+
+class CourseCodeToValidAddDrop extends Component
 {
     public $allowedCourseCodes = [];
     public $courses;
@@ -57,13 +59,12 @@ class CourseCodeToValidData extends Component
 
     public function loadStudentData()
     {
-        $study_plan_validation = StudyPlanValidations::where('student_id', $this->studentId)->first();
-        if ($study_plan_validation) {
-            $this->studentName = $study_plan_validation->student_name;
-            $this->yearLevel = $study_plan_validation->yearlvl;
-            $this->studyPlanCodes = $study_plan_validation->study_plan;
+        $add_drop = AddDropRequest::where('student_id', $this->studentId)->first();
+        if ($add_drop) {
+            $this->studentName = $add_drop->student_name;
+            $this->studyPlanCodes = $add_drop->study_plan;
             $this->allowedCourseCodes = json_decode($this->studyPlanCodes);
-            $this->status = $study_plan_validation->status;
+            $this->status = $add_drop->status;
         }
     }
 
@@ -86,22 +87,22 @@ class CourseCodeToValidData extends Component
 
     public function pushReject(){
         // Get the validation record for the current student
-        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
+        $add_drop = AddDropRequest::where('student_id', $this->student_id)->first();
     
-        if ($study_plan_validations) {
-            $study_plan_validations->status = 'Revise';
-            $study_plan_validations->save();
+        if ($add_drop) {
+            $add_drop->status = 'Revise';
+            $add_drop->save();
         }
 
     }
 
     public function pushApprove(){
         // Get the validation record for the current student
-        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
+        $add_drop = AddDropRequest::where('student_id', $this->student_id)->first();
     
-        if ($study_plan_validations) {
-            $study_plan_validations->status = 'Approved';
-            $study_plan_validations->save();
+        if ($add_drop) {
+            $add_drop->status = 'Approved';
+            $add_drop->save();
         }
 
     }
@@ -110,7 +111,7 @@ class CourseCodeToValidData extends Component
         $courses = Course::all();
         $validations = Validation::all();
         $students = Student::all();
-        $study_plan_validations = StudyPlanValidations::all();
+        $add_drop = AddDropRequest::all();
 
         $displayedCourseCodes = $this->getDisplayedCourseCodes();
 
@@ -140,7 +141,7 @@ class CourseCodeToValidData extends Component
             }
         }
 
-        return view('livewire.course-code-to-valid-data', [
+        return view('livewire.course-code-to-valid-add-drop', [
             'validations' => $validations,
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,

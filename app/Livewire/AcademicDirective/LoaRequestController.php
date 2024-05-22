@@ -52,7 +52,7 @@ class LoaRequestController extends Component
         $loaRequest->year_level = $this->year_level;
         $loaRequest->date_of_request = Carbon::now();
         $loaRequest->status = 'Pending';
-        $loaRequest->study_plan = "";
+        $loaRequest->study_plan = $loaRequest->study_plan;
 
         $files = $request->all();
         foreach (array_slice($files, 1) as $name => $file) {

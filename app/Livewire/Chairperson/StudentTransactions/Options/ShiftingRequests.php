@@ -212,6 +212,7 @@ class ShiftingRequests extends Component
 
         $this->student_edit_id = $student->id;
         $this->student_id = $student->student_id;
+        $this->selectedStudentId = $student->student_id;
         $this->student_name = $student->student_name;
         $this->year_level = $student->year_level;
         $this->status = $student->status;
@@ -304,6 +305,7 @@ class ShiftingRequests extends Component
                 'hasIntent' => $this->hasIntent,
                 'hasUndertaking' => $this->hasUndertaking,
                 'hasShifting' => $this->hasShifting,
+                'selectedStudentId' => $this->selectedStudentId,    
             ])->layout('livewire.chairperson.transaction-options');
         }
 }

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Course;
 use App\Models\Validation;
+use App\Models\BSCS_grade;
 use App\Models\StudyPlanValidations;
 use App\Models\Student;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -18,7 +19,11 @@ use Illuminate\Support\Facades\Auth;
 class CourseData extends Component
 {
     public $courses = [];
+
     public $dropdownContent2_1 = [];
+
+    public $bscs_grades;
+
     public $dropdownContent2_2 = [];
     public $dropdownContent3_1 = [];
     public $dropdownContent3_2 = [];
@@ -40,7 +45,10 @@ class CourseData extends Component
     public $studentid;
     public $year_level;
     public $student_id;
+    public $grade;
     public $pre_requisites;
+
+    protected $listeners = ['pushCourseCodesFinal'];
     
     public function mount()
     {
@@ -62,53 +70,62 @@ class CourseData extends Component
         
         // Assuming you have access to $course object here
         foreach ($this->courses as $course) {
-            $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
+            // Get the grade for the current course
+            $grade = $this->getCourseGrade($course->course_code);
 
-            if ($course->grades === 5 && $course->year_lvl === 2 && $course->sem === 2) {
-                // Check if the course is already in dropdownContent3_2
-                $isInDropdownContent3_2 = collect($this->dropdownContent3_2)->contains('id', $course->id);
-                
-                if (!$isInDropdownContent3_2) {
-                    $targetTable = 'tableBody42';
-                    $this->moveRowToDropdown($course->id, $targetTable);
-                }
-            } elseif ( $preRequisiteGrade === 5 && $course->year_lvl === 3 && $course->sem === 1) {
-                // Since there's only one option for year_lvl === 3, we don't need the ternary operator here
+            // Get the prerequisite grade for the current course
+            $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
+    
+            if (($grade === 5 && $course->year_lvl === 2 && $course->sem === 2) || ($preRequisiteGrade === 5 && $course->year_lvl === 2 && $course->sem === 2)) {
+                $targetTable = 'tableBody42';
+                $this->moveRowToDropdown($course->id, $targetTable);
+            } elseif ($preRequisiteGrade === 5 && $course->year_lvl === 3 && $course->sem === 1) {
                 $targetTable = 'tableBody72';
                 $this->moveRowToDropdown($course->id, $targetTable);
-            } elseif ( ($course->grades === 5  && $course->year_lvl === 3 && $course->sem === 2) || ($preRequisiteGrade === 5  && $course->year_lvl === 3 && $course->sem === 2) ) {
-                // Since there's only one option for year_lvl === 3, we don't need the ternary operator here
+            } elseif (($grade === 5 && $course->year_lvl === 3 && $course->sem === 2) || ($preRequisiteGrade === 5 && $course->year_lvl === 3 && $course->sem === 2)) {
+
                 $targetTable = 'tableBody62';
                 $this->moveRowToDropdown($course->id, $targetTable);
             }
         }
     }
+    
 
     public function moveRowToDropdown($courseId, $tableBody)
     {
         $course = $this->courses->firstWhere('id', $courseId);
-    
-        if (!$course) return;
-    
-        switch ($tableBody) {
-            case 'tableBody32':
-                $this->dropdownContent3_1[] = $course;
-                break;
-            case 'tableBody42':
-                $this->dropdownContent3_2[] = $course;
-                break;
-            case 'tableBody72':
-                $this->dropdownContent4_1[] = $course;
-                break;
-            case 'tableBody62':
-                $this->dropdownContent4_2[] = $course;
-                break;
-            case 'tableBody22':
-                $this->dropdownContent2_2[] = $course;
-                break;
-            case 'tableBody21':
-                $this->dropdownContent2_1[] = $course;
-            break;
+
+        if ($tableBody === 'tableBody32') {
+            $this->dropdownContent3_1[] = $course;
+            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+                return $c->id === $courseId;
+            });
+        } elseif ($tableBody === 'tableBody42') {
+            $this->dropdownContent3_2[] = $course;
+            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+                return $c->id === $courseId;
+            });
+        } elseif ($tableBody === 'tableBody72') {
+            $this->dropdownContent4_1[] = $course;
+            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+                return $c->id === $courseId;
+            });
+        } elseif ($tableBody === 'tableBody62') {
+            $this->dropdownContent4_2[] = $course;
+            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+                return $c->id === $courseId;
+            });
+        } elseif ($tableBody === 'tableBody22') {
+            $this->dropdownContent2_2[] = $course;
+            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+                return $c->id === $courseId;
+            });
+        } elseif ($tableBody === 'tableBody') {
+            $this->dropdownContent2_1[] = $course;
+            $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+                return $c->id === $courseId;
+            });
+
         }
     
         $this->courses = $this->courses->reject(function ($c) use ($courseId) {
@@ -121,15 +138,7 @@ class CourseData extends Component
         $this->updateTotalUnits62();
         $this->updateTotalUnits22();
         $this->updateTotalUnits21();
-    }
 
-    public function isCourseInAnyDropdown($courseId)
-    {
-        return collect($this->dropdownContent2_2)->contains('id', $courseId) ||
-            collect($this->dropdownContent3_1)->contains('id', $courseId) ||
-            collect($this->dropdownContent3_2)->contains('id', $courseId) ||
-            collect($this->dropdownContent4_1)->contains('id', $courseId) ||
-            collect($this->dropdownContent4_2)->contains('id', $courseId);
     }
 
     public function moveRowFromDropdownToTable($courseCode, $tableBodyId){
@@ -222,14 +231,27 @@ class CourseData extends Component
     {
         $courseCodes = [];
         foreach ($this->courses as $course) {
+            // Retrieve the grade for the current course from the BSCS_grade model
+            $grade = BSCS_grade::where('course_code', $course->course_code)
+            ->where('student_id', $this->studentid)
+            ->value('grades');
+
+            
+            // Retrieve the prerequisite grade from the BSCS_grade model if prerequisites exist
+            $prerequisiteGrade = $course->pre_requisites 
+            ? BSCS_grade::where('course_code', $course->pre_requisites)
+                         ->where('student_id', $this->studentid)
+                         ->value('grades')
+            : null;
+    
             // Include courses based on year level when grades are not 5
-            if ($this->yearlevel === 2 && $course->year_lvl >= 2 && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
+            if ($this->yearlevel === 2 && $course->year_lvl >= 2 && $prerequisiteGrade !== 5 && $grade !== 5 || $grade !== 5) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($this->yearlevel === 3 && $course->year_lvl >= 3 && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
+            } elseif ($this->yearlevel === 3 && $course->year_lvl >= 3 && $prerequisiteGrade !== 5 && $grade !== 5) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($this->yearlevel === 4 && $course->year_lvl >= 4 && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
+            } elseif ($this->yearlevel === 4 && $course->year_lvl >= 4 && $prerequisiteGrade !== 5 && $grade !== 5) {
                 $courseCodes[] = $course->course_code;
-            } elseif ($course->year_lvl === $this->yearlevel && $this->getPrerequisiteGrade($course->pre_requisites) !== 5) {
+            } elseif ($course->year_lvl === $this->yearlevel && $prerequisiteGrade !== 5 && $grade !== 5) {
                 $courseCodes[] = $course->course_code;
             }
         }
@@ -239,12 +261,30 @@ class CourseData extends Component
     public function getPrerequisiteGrade($preRequisiteCourseCode)
     {
         // Assuming $pre_requisite contains the course code of the prerequisite course
-        $preRequisite = Course::where('course_code', $preRequisiteCourseCode)->first();
+        $preRequisite = BSCS_grade::where('course_code', $preRequisiteCourseCode)
+                           ->where('student_id', $this->studentid)
+                           ->first();
 
         // If the prerequisite course exists and has a grade, return the grade
         if ($preRequisite && isset($preRequisite->grades)) {
             return $preRequisite->grades;
         }
+    }
+
+    public function getCourseGrade($courseCode)
+    {
+        // Assuming there is a model named CourseGrade to represent the grades of each course
+        $courseGrade = BSCS_grade::where('course_code', $courseCode)
+                                ->where('student_id', $this->studentid)
+                                ->first();
+
+        // If the course grade exists and has a grade, return the grade
+        if ($courseGrade && isset($courseGrade->grades)) {
+            return $courseGrade->grades;
+        }
+
+        // Return null if the course grade does not exist or does not have a grade
+        return null;
     }
     
     public function pushCourseCodes(){
@@ -279,7 +319,8 @@ class CourseData extends Component
             $study_plan_validation = StudyPlanValidations::firstOrNew(['student_id' => $this->studentid]);
     
             // Assign the attributes from the validation object to the study_plan_validation object
-            $study_plan_validation->student_id = $validation->student_id;
+
+            $study_plan_validation->student_id = $validation->student_id; 
             $study_plan_validation->year_level = $validation->yearlvl; 
             $study_plan_validation->status = $validation->status;
             $study_plan_validation->date_of_request = $validation->daterequest;
@@ -295,6 +336,7 @@ class CourseData extends Component
     public function render(){  
         $courses = Course::all();
         $validations = Validation::all();
+        $bscs_grades = BSCS_grade::all();
         $study_plan_validations = StudyPlanValidations::all();
         $student = Student::all();
 
@@ -324,6 +366,7 @@ class CourseData extends Component
             'courses' => $courses,
             'student' => $student,
             'validations' => $validations,
+            'bscs_grades' => $bscs_grades,
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,
             'hasYear4' => $hasYear4,

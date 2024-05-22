@@ -10,7 +10,7 @@ class ShiftingRequests extends Component
 {
     use WithPagination;
     
-    public $student_id, $student_name, $year_level, $status, $date_of_request, $study_plan;
+    public $student_id, $year_level, $status, $date_of_request, $study_plan;
     public $student_edit_id, $student_delete_id;
     public $view_student_id, $view_student_name, $view_student_year_level, $view_status;
     public $bulk_student_status, $students, $lastPage;
@@ -29,6 +29,12 @@ class ShiftingRequests extends Component
     public $hasIntent = false;
     public $hasShifting = false;
     public $selectedStudentId;
+    public $student_name;
+
+    // Documents
+    public $shiftForm;
+    public $letterOfIntent;
+    public $noteOfUndertaking;
 
     // Input fields validation rules
     protected $rules = [
@@ -202,7 +208,7 @@ class ShiftingRequests extends Component
 
     public function editStudents($id)
     {
-        $student = ShiftingRequest::where('id', $id)->first();
+        $student = ShiftingRequest::where('student_id', $id)->first();
 
         $this->student_edit_id = $student->id;
         $this->student_id = $student->student_id;
@@ -210,6 +216,9 @@ class ShiftingRequests extends Component
         $this->year_level = $student->year_level;
         $this->status = $student->status;
         $this->date_of_request = $student->date_of_request;
+        $this->shiftForm = $student->shifting_form;
+        $this->letterOfIntent = $student->letter_of_intent;
+        $this->noteOfUndertaking = $student->note_of_undertaking;
         $this->dispatch('show-edit-student-modal',);
     }
     

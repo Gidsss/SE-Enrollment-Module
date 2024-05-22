@@ -45,7 +45,7 @@ class ShiftingRequestController extends Component
 
         foreach ($request->file() as $name => $file) {
             if ($request->hasFile($name)) {
-                $path = $file->store('shifting-request-files');
+                $path = $file->store('shifting-request-files', 'public');
                 $shiftingRequest->{$name} = $path;
             }
         }

@@ -26,6 +26,9 @@ class AddDropRequests extends Component
     public $hasChecklist = false;
     public $hasAddDrop = false;
 
+    // Documents
+    public $addDropForm;
+
     // Input fields validation rules
     protected $rules = [
         'student_id' => 'required|unique:students|numeric',
@@ -197,7 +200,7 @@ class AddDropRequests extends Component
 
     public function editStudents($id)
     {
-        $student = AddDropRequest::where('id', $id)->first();
+        $student = AddDropRequest::where('student_id', $id)->first();
 
         $this->student_edit_id = $student->id;
         $this->student_id = $student->student_id;
@@ -205,6 +208,8 @@ class AddDropRequests extends Component
         $this->year_level = $student->year_level;
         $this->status = $student->status;
         $this->date_of_request = $student->date_of_request;
+        $this->addDropForm = $student->add_drop_form;
+
         $this->dispatch('show-edit-student-modal',);
     }
     

@@ -106,7 +106,7 @@
                                             <td>{{ $student->date_of_request }}</td>
                                             <td>{{ $student->status }}</td>
                                             <td style="text-align: center;">
-                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
+                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->student_id }})">View Student</button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -198,7 +198,7 @@
 
                         @if ($hasAddDrop)
                         <div>
-                            Add Drop
+                            <embed src=" {{ Storage::url($addDropForm) }}#toolbar=0&navpanes=0&scrollbar=0 " type="application/pdf" style="width:600px; height:800px;">
                         </div>
                         @endif
 

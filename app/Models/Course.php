@@ -20,7 +20,6 @@ class Course extends Model
         'course_name',
         'units',
         'pre_requisites',
-        'grades',
         'year_lvl',
         'sem',
     ];

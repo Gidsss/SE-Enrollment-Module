@@ -13,7 +13,7 @@ class BSCS_grades_seeder extends Seeder
         \DB::table('bscs_grades')->insert
         (
             array_map(function($course) {
-                $course['student_id'] = '202193222';
+                $course['student_id'] = '202197785401';  //palitan nyo to ng kung ano man yung gagamitin nyong student_id pangtest
                 return $course;
             }, [
                 [

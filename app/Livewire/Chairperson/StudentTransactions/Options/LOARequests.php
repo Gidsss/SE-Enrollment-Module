@@ -29,6 +29,12 @@ class LOARequests extends Component
     public $hasLoaForm = false;
     public $hasRequest = false;
     public $hasClearance = false;
+
+    // Documents
+    public $loaForm;
+    public $letterOfRequest;
+    public $noteOfUndertaking;
+    public $clearance;
     
 
     // Input fields validation rules
@@ -207,7 +213,7 @@ class LOARequests extends Component
 
     public function editStudents($id)
     {
-        $student = LOARequest::where('id', $id)->first();
+        $student = LOARequest::where('student_id', $id)->first();
 
         $this->student_edit_id = $student->id;
         $this->student_id = $student->student_id;
@@ -215,6 +221,10 @@ class LOARequests extends Component
         $this->year_level = $student->year_level;
         $this->status = $student->status;
         $this->date_of_request = $student->date_of_request;
+        $this->loaForm = $student->loa_form;
+        $this->letterOfRequest = $student->letter_of_request;
+        $this->noteOfUndertaking = $student->note_of_undertaking;
+        $this->clearance = $student->clearance;
         $this->dispatch('show-edit-student-modal',);
     }
     

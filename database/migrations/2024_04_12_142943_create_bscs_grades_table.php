@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('student_id', 10); 
             $table->string('course_name', 255); 
             $table->string('pre_requisites', 255)->nullable(); 
+            $table->integer('units')->nullable(); 
             $table->integer('grades')->nullable(); 
             $table->integer('year_lvl'); 
             $table->integer('sem'); 

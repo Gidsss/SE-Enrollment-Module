@@ -29,7 +29,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Programming Languages (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0312',
-                    
+
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -47,7 +47,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Software Engineering (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0313',
-                    
+
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -56,7 +56,6 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Operating System (lec)',
                     'units' => 2,
                     'pre_requisites' => 'CSC 0222, CSC 0222.1',
-                    
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -65,7 +64,6 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Operating System (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0314',
-                    
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -83,7 +81,6 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Intelligent System (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0315',
-                    
                     'year_lvl' => 3,
                     'sem' => 1,
                 ],
@@ -191,7 +188,6 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Software Engineering 2 (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0321',
-                    
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -209,7 +205,6 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Compiler Design (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0322',
-                    
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -227,7 +222,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'Computational Science (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0323',
-                    
+
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],
@@ -245,7 +240,7 @@ class CourseSeeder extends Seeder
                     'course_name' => 'CS Elective 1 (lab)',
                     'units' => 1,
                     'pre_requisites' => 'CSC 0324',
-                    
+
                     'year_lvl' => 3,
                     'sem' => 2,
                 ],

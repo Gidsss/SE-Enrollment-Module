@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\Student::factory(400)->create();
         // \App\Models\StudyPlanValidations::factory(60)->create(); // To use this, you may need to edit the factory file to accomodate some of column changes
-        // \App\Models\ShiftingRequest::factory(90)->create();
-        // \App\Models\AddDropRequest::factory(70)->create();
-        // \App\Models\LOARequest::factory(80)->create();
+        \App\Models\ShiftingRequest::factory(10)->create();
+        // \App\Models\AddDropRequest::factory(10)->create();
+        // \App\Models\LOARequest::factory(10)->create();
 
         $this->call([
             CourseSeeder::class,

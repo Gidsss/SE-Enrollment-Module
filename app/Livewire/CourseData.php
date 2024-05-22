@@ -19,7 +19,11 @@ use Illuminate\Support\Facades\Auth;
 class CourseData extends Component
 {
     public $courses = [];
+
+    public $dropdownContent2_1 = [];
+
     public $bscs_grades;
+
     public $dropdownContent2_2 = [];
     public $dropdownContent3_1 = [];
     public $dropdownContent3_2 = [];
@@ -27,6 +31,7 @@ class CourseData extends Component
     public $dropdownContent4_2 = [];
     public $tableBody = '';
     public $tableBodyId = '';
+    public $totalUnits21 = 0;
     public $totalUnits22 = 0;
     public $totalUnits32 = 0;
     public $totalUnits42 = 0;
@@ -78,6 +83,7 @@ class CourseData extends Component
                 $targetTable = 'tableBody72';
                 $this->moveRowToDropdown($course->id, $targetTable);
             } elseif (($grade === 5 && $course->year_lvl === 3 && $course->sem === 2) || ($preRequisiteGrade === 5 && $course->year_lvl === 3 && $course->sem === 2)) {
+
                 $targetTable = 'tableBody62';
                 $this->moveRowToDropdown($course->id, $targetTable);
             }
@@ -119,14 +125,20 @@ class CourseData extends Component
             $this->courses = $this->courses->reject(function ($c) use ($courseId) {
                 return $c->id === $courseId;
             });
-        }
 
+        }
+    
+        $this->courses = $this->courses->reject(function ($c) use ($courseId) {
+            return $c->id === $courseId;
+        });
+    
         $this->updateTotalUnits32();
         $this->updateTotalUnits42();
         $this->updateTotalUnits72();
         $this->updateTotalUnits62();
         $this->updateTotalUnits22();
         $this->updateTotalUnits21();
+
     }
 
     public function moveRowFromDropdownToTable($courseCode, $tableBodyId){
@@ -134,6 +146,9 @@ class CourseData extends Component
         $dropdownContentRef = null;
     
         switch ($tableBodyId) {
+            case 'tableBody':
+                $dropdownContentRef = &$this->dropdownContent2_1;
+                break;
             case 'tableBody22':
                 $dropdownContentRef = &$this->dropdownContent2_2;
                 break;
@@ -177,6 +192,9 @@ class CourseData extends Component
     {
         // Determine the total units property based on the table body ID
         switch ($tableBodyId) {
+            case 'tableBody21':
+                $totalUnitsProperty = 'totalUnits22';
+                break;
             case 'tableBody22':
                 $totalUnitsProperty = 'totalUnits22';
                 break;
@@ -301,6 +319,7 @@ class CourseData extends Component
             $study_plan_validation = StudyPlanValidations::firstOrNew(['student_id' => $this->studentid]);
     
             // Assign the attributes from the validation object to the study_plan_validation object
+
             $study_plan_validation->student_id = $validation->student_id; 
             $study_plan_validation->year_level = $validation->yearlvl; 
             $study_plan_validation->status = $validation->status;
@@ -351,11 +370,14 @@ class CourseData extends Component
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,
             'hasYear4' => $hasYear4,
+            'dropdownContent2_2' => $this->dropdownContent2_2,
+            'dropdownContent2_1' => $this->dropdownContent2_1,
             'dropdownContent3_2' => $this->dropdownContent3_2,
             'dropdownContent3_1' => $this->dropdownContent3_1,
             'dropdownContent4_1' => $this->dropdownContent4_1,
             'dropdownContent4_2' => $this->dropdownContent4_2,
             'tableBodyId' => $this->tableBodyId,
+            'totalUnits21' => $this->totalUnits21, 
             'totalUnits32' => $this->totalUnits32, 
             'totalUnits42' => $this->totalUnits42, 
             'totalUnits72' => $this->totalUnits72, 
@@ -371,6 +393,7 @@ class CourseData extends Component
             ? $course->course_code . ' - ' . $course->course_name 
             : '';
     }
+
     private function updateTotalUnits21()
     {
         $this->totalUnits21 = $this->courses->where('year_lvl', 2)->where('sem', 1)->sum('units');

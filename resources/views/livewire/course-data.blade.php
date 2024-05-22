@@ -46,6 +46,7 @@
                 @foreach ($courses as $course)
                     @php
                         $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
+
                         $grade = $this->getCourseGrade($course->course_code);
                         
                         $preRequisites = explode(',', $course->pre_requisites);
@@ -63,6 +64,7 @@
                                     break;
                                 }
                             }
+
                         }
                     @endphp
                     @if (($course->year_lvl === 2 && $course->sem === 1) ||
@@ -136,6 +138,7 @@
                 </thead>  
                 <tbody id="tableBody22">
                 @foreach ($courses as $course)
+
                 @php
                     $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
                     $grade = $this->getCourseGrade($course->course_code);
@@ -235,6 +238,7 @@
                 @foreach ($courses as $course)
                 @php
                     $preRequisiteGrade = $this->getPrerequisiteGrade($course->pre_requisites);
+
                     $grade = $this->getCourseGrade($course->course_code);
                     
                     $preRequisites = explode(',', $course->pre_requisites);
@@ -251,6 +255,7 @@
                                 $preReqCheck = 'Pre-requisite not found';
                                 break;
                             }
+
                         }
                     }
                 @endphp
@@ -443,6 +448,7 @@
                                     break;
                                 }
                             }
+
                         }
                     @endphp
                     @if (($course->year_lvl === 4 && $course->sem === 1) ||
@@ -539,10 +545,12 @@
                                 }
                             }
                         @endphp
+
                             @if (($course->year_lvl === 4 && $course->sem === 2) ||
                             ($course->year_lvl === 3 && $course->sem === 2 && $preRequisiteGrade === 5) ||
                             ($course->year_lvl === 3 && $course->sem === 2 && $course->grades === 5) ||
                             ($course->year_lvl === 2 && $course->sem === 2 && $grade === 5))
+
                                 @if ($preRequisiteGrade !== 5 || $preRequisiteGrade === 5)
                                 <tr id="row_{{ $course->id }}">
                                     <td style="color: black;">{{ $course->course_code }}</td>

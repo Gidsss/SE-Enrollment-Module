@@ -311,6 +311,8 @@ class CourseData extends Component
     }
 
     public function pushCourseCodesFinal(){
+        $this->mount();
+
         // Get the validation record for the current student
         $validation = Validation::where('student_id', $this->studentid)->first();
     
@@ -331,6 +333,8 @@ class CourseData extends Component
 
             $validation->delete();
         }
+
+        return redirect()->back();
     }
 
     public function render(){  

@@ -1,0 +1,79 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class ClassesTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $data = [
+            ['subject_code' => 'CSC 0312', 'course_name' => 'Programming Languages (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0312.1', 'course_name' => 'Programming Languages (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0313', 'course_name' => 'Software Engineering (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0313.1', 'course_name' => 'Software Engineering (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0314', 'course_name' => 'Operating System (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0314.1', 'course_name' => 'Operating System (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0315', 'course_name' => 'Intelligent System (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0315.1', 'course_name' => 'Intelligent System (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0311', 'course_name' => 'Automata Theory and Formal Languages', 'units' => 3],
+            ['subject_code' => 'CSC 0221', 'course_name' => 'Algorithm and Complexity', 'units' => 3],
+            ['subject_code' => 'CSC 0222', 'course_name' => 'Architecture and Organization (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0222.1', 'course_name' => 'Architecture and Organization (lab)', 'units' => 1],
+            ['subject_code' => 'ICC 0106', 'course_name' => 'Applications Development and Emerging Technologies (lec)', 'units' => 2],
+            ['subject_code' => 'ICC 0106.1', 'course_name' => 'Applications Development and Emerging Technologies (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0316', 'course_name' => 'Information Assurance Security', 'units' => 3],
+            ['subject_code' => 'GES 0013', 'course_name' => 'The Entrepreneurial Mind', 'units' => 3],
+            ['subject_code' => 'AAP 0007', 'course_name' => 'Environmental Science', 'units' => 3],
+            ['subject_code' => 'AAP 0008', 'course_name' => 'Art Appreciation', 'units' => 3],
+            ['subject_code' => 'CSC 0321', 'course_name' => 'Software Engineering 2 (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0321.1', 'course_name' => 'Software Engineering 2 (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0322', 'course_name' => 'Compiler Design (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0322.1', 'course_name' => 'Compiler Design (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0323', 'course_name' => 'Computational Science (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0323.1', 'course_name' => 'Computational Science (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0324', 'course_name' => 'CS Elective 1 (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0324.1', 'course_name' => 'CS Elective 1 (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0325', 'course_name' => 'Research Writing', 'units' => 3],
+            ['subject_code' => 'CSC 0213', 'course_name' => 'Logic Design and Digital Computer Circuits (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0213.1', 'course_name' => 'Logic Design and Digital Computer Circuits (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0212', 'course_name' => 'Object Oriented Programming (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0212.1', 'course_name' => 'Object Oriented Programming (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0224', 'course_name' => 'Operation Research', 'units' => 3],
+            ['subject_code' => 'ICC 0105', 'course_name' => 'Information Management (lec)', 'units' => 2],
+            ['subject_code' => 'ICC 0105.1', 'course_name' => 'Information Management (lab)', 'units' => 1],
+            ['subject_code' => 'ITE 0001', 'course_name' => 'Living in the IT Era', 'units' => 3],
+            ['subject_code' => 'ETH 0008', 'course_name' => 'Ethics', 'units' => 3],
+            ['subject_code' => 'UTS 0003', 'course_name' => 'Understanding the Self', 'units' => 3],
+            ['subject_code' => 'PATHFIT 3', 'course_name' => 'PE Elective (12, 13, or 14)', 'units' => 2],
+            ['subject_code' => 'CSC 0411', 'course_name' => 'CS Thesis Writing 1', 'units' => 3],
+            ['subject_code' => 'CSC 0412', 'course_name' => 'Networks and Communication (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0412.1', 'course_name' => 'Networks and Communication (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0413', 'course_name' => 'CS Elective 2 (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0413.1', 'course_name' => 'CS Elective 2 (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0414', 'course_name' => 'CS Elective 3 (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0414.1', 'course_name' => 'CS Elective 3 (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0421', 'course_name' => 'CS Thesis Writing 2', 'units' => 3],
+            ['subject_code' => 'CSC 0422', 'course_name' => 'Parallel and Distributing Computing (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0422.1', 'course_name' => 'Parallel and Distributing Computing (lab)', 'units' => 1],
+            ['subject_code' => 'CSC 0423', 'course_name' => 'Social Issues and Professional Practice', 'units' => 3],
+            ['subject_code' => 'CSC 0424', 'course_name' => 'Graphics and Visual Computing (lec)', 'units' => 2],
+            ['subject_code' => 'CSC 0424.1', 'course_name' => 'Graphics and Visual Computing (lab)', 'units' => 1],
+        ];
+
+        $days = ['M', 'T', 'W', 'Th', 'F', 'S'];
+        $rooms = ['COMP LAB 1', 'COMP LAB 2', 'COMP LAB 3', 'COMP LAB 4'];
+        $times = ['6:00p-8:00p', '7:00a-9:00a', '9:00a-12:00p', '6:00p-9:00p', '7:00a-8:30a', '8:30a-10:00a', '1:00p-3:00p', '3:00p-6:00p'];
+
+        foreach ($data as &$item) {
+            $item['days_time'] = $days[array_rand($days)] . ' ' . $times[array_rand($times)];
+            $item['room'] = $rooms[array_rand($rooms)];
+        }
+
+        \DB::table('classes')->insert($data);
+    }
+}

@@ -356,7 +356,7 @@
                     <div class="center-button">
                         <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" data-toggle="modal" data-target="#exampleModal">Create Study Plan</button>
                       </div>  
-                    
+                        <br>
                       <div class="center-button">
                           <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)">Proceed to Submission of Documents</button>
                         </div>

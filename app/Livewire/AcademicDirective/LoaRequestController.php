@@ -5,6 +5,7 @@ namespace App\Livewire\AcademicDirective;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\LOARequest;
+use App\Models\Validation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,12 +48,21 @@ class LoaRequestController extends Component
 
         # Basic Info
         $loaRequest = LoARequest::where('student_id', $this->student_id)->first();
+        $validation = Validation::where('student_id', $this->student_id)->first();
         $loaRequest = $loaRequest == null? new LoARequest(): $loaRequest;
         $loaRequest->student_id = $this->student_id;
         $loaRequest->year_level = $this->year_level;
         $loaRequest->date_of_request = Carbon::now();
         $loaRequest->status = 'Pending';
         $loaRequest->study_plan = $loaRequest->study_plan;
+
+        if ($validation) {
+
+            $loaRequest->student_id = $validation->student_id; 
+            $loaRequest->study_plan = $validation->study_plan_course_code;
+
+            $validation->delete();
+        }
 
         $files = $request->all();
         foreach (array_slice($files, 1) as $name => $file) {

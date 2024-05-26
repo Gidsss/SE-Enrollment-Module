@@ -317,7 +317,7 @@
                     <div class="center-button">
                         <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" data-toggle="modal" data-target="#exampleModal">Create Study Plan</button>
                       </div>  
-                    
+                        <br>
                       <div class="center-button">
                           <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)">Proceed to Submission of Documents</button>
                         </div>
@@ -335,10 +335,6 @@
                               <div class="modal-body">
                                   @livewire('course-data-loa-req')
                                   
-                              </div>
-                              <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
                               </div>
                           </div>
                       </div>

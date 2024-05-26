@@ -18,6 +18,7 @@ use App\Livewire\Chairperson\StudentTransactions\Options\LOARequests;
 
 // Irregular Student Components
 use App\Livewire\IrregularStudent\CreateStudyPlan\CreateStudyPlan;
+use App\Livewire\CourseData;
 use App\Livewire\IrregularStudent\DownloadSER\DownloadIrregularSER;
 use App\Livewire\IrregularStudent\ViewAssessment\ViewIrregularAssessment;
 use App\Livewire\IrregularStudent\IrregAssessment\IrregAssessment;
@@ -86,6 +87,7 @@ Route::middleware([RegularStudentMiddleware::class])->group(function () {
 
 Route::middleware([IrregularStudentMiddleware::class])->group(function () {
     Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class)->name('irreg_schedule'); // irregular student schedule
+    Route::post('/irregular_student/irreg_schedule/post', [CourseData::class, 'pushCourseCodesFinal'])->name('study_plan.post'); // loa request post
     Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class)->name('irreg_assessment'); // irregular student assessment
     Route::get('/irregular_student/irreg_ser', DownloadIrregularSER::class)->name('irreg_ser'); // irregular student ser
 });

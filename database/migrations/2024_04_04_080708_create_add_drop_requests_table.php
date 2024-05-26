@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('student_id')->unsigned()->unique(); // Match the data type with `students` table
             $table->foreign('student_id')->references('student_id')->on('students');
             $table->date('date_of_request');
-            $table->text('reason')->nullable();
+            // $table->text('reason')->nullable(); // Removed this as the reason is saved with the add_drop_form
             $table->string('status')->default('Pending');
             $table->text('study_plan')->nullable();
             $table->text('add_drop_form');

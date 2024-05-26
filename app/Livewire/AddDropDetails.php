@@ -13,7 +13,6 @@ class AddDropDetails extends Component
     public $addedClasses = [];
     public $droppedClasses = [];
     public $dropdownContent = [];
-
     public $reason = '';
     public $otherReasons = '';
 
@@ -21,6 +20,12 @@ class AddDropDetails extends Component
     {
         $this->classes = Classes::all();
         $this->dropdownContent = $this->classes->toArray();
+    }
+    public function updatedReason($value)
+    {
+        if ($value !== 'others') {
+            $this->otherReasons = '';
+        }
     }
 
     public function addClass($subjectCode)
@@ -75,6 +80,8 @@ class AddDropDetails extends Component
         ]);
 
         session()->flash('message', 'Add/Drop request saved successfully!');
+
+        $this->dispatch('close-modal');
     }
 
     public function render()

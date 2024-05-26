@@ -138,7 +138,7 @@
 
     <!-- Modals -->
     <div wire:ignore.self class="modal fade" id="editStudentModal1" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document" style="max-width:80%">
+        <div class="modal-dialog modal-dialog-scrollable" role="document" style="max-width:80%">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Student</h5>

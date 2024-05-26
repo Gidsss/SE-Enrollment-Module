@@ -20,6 +20,7 @@ class CourseCodeShift extends Component
 {
     public $courses = [];
     public $bscs_grades;
+    public $dropdownContent2_1 = [];
     public $dropdownContent2_2 = [];
     public $dropdownContent3_1 = [];
     public $dropdownContent3_2 = [];
@@ -27,6 +28,7 @@ class CourseCodeShift extends Component
     public $dropdownContent4_2 = [];
     public $tableBody = '';
     public $tableBodyId = '';
+    public $totalUnits21 = 0;
     public $totalUnits22 = 0;
     public $totalUnits32 = 0;
     public $totalUnits42 = 0;
@@ -42,6 +44,8 @@ class CourseCodeShift extends Component
     public $student_id;
     public $grade;
     public $pre_requisites;
+
+    protected $listeners = ['pushCourseCodesFinal'];
     
     public function mount()
     {
@@ -147,6 +151,9 @@ class CourseCodeShift extends Component
             case 'tableBody62':
                 $dropdownContentRef = &$this->dropdownContent4_2;
                 break;
+            case 'tableBody':
+                $dropdownContentRef = &$this->dropdownContent2_1;
+            break;
         }
     
         // Proceed only if $dropdownContentRef is defined
@@ -190,6 +197,9 @@ class CourseCodeShift extends Component
             case 'tableBody62':
                 $totalUnitsProperty = 'totalUnits62';
                 break;
+            case 'tableBody':
+                $totalUnitsProperty = 'totalUnits21';
+            break;
             default:
                 return; // Return if the table body ID is not recognized
         }
@@ -309,6 +319,8 @@ class CourseCodeShift extends Component
 
             $validation->delete();
         }
+
+        return redirect()->back();
     }
 
     public function render(){  

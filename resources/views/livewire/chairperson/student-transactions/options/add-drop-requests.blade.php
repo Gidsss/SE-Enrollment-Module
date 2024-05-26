@@ -204,7 +204,7 @@
 
                         @if ($selectedStudentId && $hasStudyPlan)
                         <div>
-                            @livewire('course-code-to-valid-add-drop', ['studentId' => $selectedStudentId], key('course-code-' . $selectedStudentId))
+                            <!-- palitan to ng gawa ni gids -->
                         </div>
                         @endif
 

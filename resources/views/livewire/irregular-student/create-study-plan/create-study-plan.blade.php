@@ -339,7 +339,10 @@
                     </div>  
                     <br>
                     <div class="center-button">
-                        <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)" wire:click="pushCourseCodesFinal">Proceed to Submission of Documents</button>
+                        <form action=" {{ route('study_plan.post') }} " method="post">
+                        @csrf
+                        <button type="submit" class="btn" style="background-color: #C9AE5D; color: #535353;"> Proceed to Submission of Documents</button>
+                        </form>
                     </div>
                     </div>
 
@@ -354,7 +357,7 @@
                               </div>
                               <div class="modal-body black-text">
                                 @livewire('course-data')
-                            </div>
+                                </div>
                           </div>
                       </div>
                   </div>
@@ -373,33 +376,27 @@
                     </button>
                     <!-- Detailed information for Step 5 -->
                     <div class="panel">
-                        @if ($hasPending)
-                            <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">
-                                Document Status: <strong style="color: #AB830F;">For Checking</strong>
-                            </p>
-                        @endif
-
-                        @if ($hasApprove)
-                            <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">
-                                Document Status: <strong style="color: green;">Approved for submission onsite</strong>
-                            </p>
-                        @endif
-
-                        @if ($hasReject)
-                            <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">
-                                Document Status: <strong style="color: red;">For Revision</strong>
-                            </p>
-                        @endif
-
+                        <br>
+                        <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: 
+                            @if( $requestStatus == "Pending")
+                            <strong style="color: #AB830F;">For Checking</strong>
+                            @elseif( $requestStatus == "Rejected")
+                            <strong style="color: #e90c0c;">For Revision</strong>
+                            @elseif( $requestStatus == "Approved")
+                            <strong style="color: #14ae5c;">For Submission Onsite</strong>
+                            @endif
+                        </p>
                         <!-- Content for letter 'a' -->
                         <p class="body-font">&nbsp;&nbsp;a. Submitted documents will be checked by corresponding department chairperson.</p>
                         <!-- Content for letter 'b' -->
-                        <p class="body-font">&nbsp;&nbsp;b. Refresh this page from time-to-time to know the status of your Study Plan. </p>
+                        <p class="body-font">&nbsp;&nbsp;b. Refresh this page from time-to-time to know the status of your request. </p>
+                        @if( $requestStatus == "Approved")
                         <div class="center-button">
-                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)" @if (!$hasApprove) disabled @endif>
+                            <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)">
                                 Change status to submission onsite
                             </button>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -474,6 +471,16 @@
         // Disable all accordions except the first one
         for (var i = 1; i < acc.length; i++) {
             acc[i].classList.add("disabled");
+        }
+        
+        // Activate all accordions when request is already submitted
+        if ({{$requestExists ? 'true' : 'false'}}) {
+            for (var i = 0; i< acc.length; i++) {
+                acc[i].classList.remove("active");
+                acc[i].classList.remove("disabled");
+                showCheckmark(i+1);
+            }
+            acc[acc.length - 1].click();
         }
 
         function proceedToNextStep(step) {

@@ -201,7 +201,7 @@ class StudyPlanValidation extends Component
 
     public function editStudents($id)
     {
-        $student = StudyPlanValidations::findOrFail($id);
+        $student = StudyPlanValidations::where('student_id', $id)->first();
 
         $this->student_edit_id = $student->id;
         $this->student_id = $student->student_id;
@@ -215,7 +215,6 @@ class StudyPlanValidation extends Component
 
         $this->dispatch('show-edit-student-modal');
     }
-
     public function editStudentData()
     {
         //on form submit validation

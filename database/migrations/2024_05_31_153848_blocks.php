@@ -12,14 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('blocks', function (Blueprint $table) {
-            $table->increments('BlockId'); // Auto-increment primary key
-            $table->string('Block', 255);
-            $table->integer('UnitId')->unsigned();
-            $table->integer('YearStanding');
-            $table->integer('Slots');
-            $table->integer('Enlisted');
-            $table->integer('Demand');
-            $table->text('Remarks');
+            $table->id();
+            $table->string('block_id');
+            $table->integer('year_level');
+            $table->integer('section');
+            $table->foreignId('program_id')->constrained('degree_programs')->onDelete('cascade');
             $table->timestamps();
         });
     }

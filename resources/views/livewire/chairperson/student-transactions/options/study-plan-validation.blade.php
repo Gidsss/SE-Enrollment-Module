@@ -108,7 +108,7 @@
                                             <td>{{ $student->status }}</td>
                                           
                                             <td style="text-align: center;">
-                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
+                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View</button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -207,8 +207,12 @@
                 @endif
                 <div class="form-group row justify-content-center">
                     <button type="button" class="btn btn-sm font-weight-bold mr-2" data-dismiss="modal" wire:click="closeBatchUpdateModal" style="background-color: #C9AE5D">Close</button>
-                    <button wire:click="editStudentData" type="submit" class="btn btn-sm font-weight-bold mr-2" style="background-color: #C9AE5D">Reject</button>
-                    <button wire:click="editStudentData" type="submit" class="btn btn-sm font-weight-bold" style="background-color: #C9AE5D">Approve</button>
+                    <button wire:click="changeStatus('Rejected')" type="submit" class="btn btn-sm font-weight-bold mr-2" style="background-color: #C9AE5D">Reject</button>
+                    @if ($status == "Submit Onsite")
+                    <button wire:click="changeStatus('Approved')" type="submit" class="btn btn-sm font-weight-bold" style="background-color: #C9AE5D">Approve</button>
+                    @else
+                    <button wire:click="changeStatus('Submit Onsite')" type="submit" class="btn btn-sm font-weight-bold" style="background-color: #C9AE5D">Approve for On-site Submission</button>
+                    @endif
                 </div>
             </div>
         </div>

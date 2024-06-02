@@ -478,7 +478,7 @@
                             @elseif( $requestStatus == "Submit Onsite")
                             <strong style="color: #AB830F;">For Submission Onsite</strong>
                             @elseif( $requestStatus == "Approved")
-                            <strong style="color: #14ae5c;">For Submission Onsite</strong>
+                            <strong style="color: #14ae5c;">Approved</strong>
                             @endif
                         </p>
                         <!-- Content for letter 'a' -->

@@ -404,7 +404,7 @@
                             @elseif( $requestStatus == "Rejected")
                             <strong style="color: #e90c0c;">For Revision</strong>
                             @elseif( $requestStatus == "Submit Onsite")
-                            <strong style="color: #e90c0c;">For Submission Onsite</strong>
+                            <strong style="color: #AB830F;">For Submission Onsite</strong>
                             @elseif( $requestStatus == "Approved")
                             <strong style="color: #14ae5c;">Approved</strong>
                             @endif

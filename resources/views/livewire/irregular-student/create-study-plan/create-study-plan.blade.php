@@ -379,6 +379,8 @@
                             <strong style="color: #AB830F;">For Checking</strong>
                             @elseif( $requestStatus == "Rejected")
                             <strong style="color: #e90c0c;">For Revision</strong>
+                            @elseif( $requestStatus == "Submit Onsite")
+                            <strong style="color: #e90c0c;">For Submission Onsite</strong>
                             @elseif( $requestStatus == "Approved")
                             <strong style="color: #14ae5c;">For Submission Onsite</strong>
                             @endif
@@ -390,7 +392,7 @@
                         @if( $requestStatus == "Approved")
                         <div class="center-button">
                             <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(4)">
-                                Change status to submission onsite
+                                View Assessment
                             </button>
                         </div>
                         @endif

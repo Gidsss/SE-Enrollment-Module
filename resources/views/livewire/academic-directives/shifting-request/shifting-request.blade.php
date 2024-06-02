@@ -433,6 +433,7 @@
                 </button>
                     <!-- Detailed information for Step 5-->
                     <div class="panel">
+                        @if ($requestStatus != "Approved")
                         <form action="{{ route('shifting_request.post') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
@@ -466,6 +467,7 @@
                             <button type="submit" class="btn" style="background-color: #C9AE5D; color: #535353;">Submit Uploaded Documents</button>
                         </div>
                         </form>
+                        @endif
                         @if( $requestExists )
                         <br>
                         <p style="font-family: Inter, sans-serif; font-size: 26px; color:black; font-weight:bold;">Document Status: 
@@ -473,6 +475,8 @@
                             <strong style="color: #AB830F;">For Checking</strong>
                             @elseif( $requestStatus == "Rejected")
                             <strong style="color: #e90c0c;">For Revision</strong>
+                            @elseif( $requestStatus == "Submit Onsite")
+                            <strong style="color: #AB830F;">For Submission Onsite</strong>
                             @elseif( $requestStatus == "Approved")
                             <strong style="color: #14ae5c;">For Submission Onsite</strong>
                             @endif
@@ -481,6 +485,12 @@
                         <p class="body-font">&nbsp;&nbsp;a. Submitted documents will be checked by corresponding department chairperson.</p>
                         <!-- Content for letter 'b' -->
                         <p class="body-font">&nbsp;&nbsp;b. Refresh this page from time-to-time to know the status of your request. </p>
+                        @endif
+                        @if ($requestStatus == "Approved")
+                            <div class="center-button">
+                                <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;">Finish Transaction</button>
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>

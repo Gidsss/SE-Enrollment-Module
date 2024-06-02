@@ -205,9 +205,9 @@
                         </div>
                         @endif
 
-                        @if ($hasStudyPlan)
+                        @if ($selectedStudentId && $hasStudyPlan)
                         <div>
-                            @livewire('course-code-to-valid-data')
+                        @livewire('course-code-to-valid-loa', ['studentId' => $selectedStudentId], key('course-code-' . $selectedStudentId))
                         </div>
                         @endif
 

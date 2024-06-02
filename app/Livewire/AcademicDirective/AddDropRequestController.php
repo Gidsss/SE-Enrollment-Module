@@ -49,7 +49,7 @@ class AddDropRequestController extends Component
         $addDropRequest->student_id = $this->student_id;
         $addDropRequest->date_of_request = Carbon::now();
         $addDropRequest->status = 'Pending';
-        $addDropRequest->study_plan = "";
+        $addDropRequest->study_plan = $addDropRequest->study_plan;
 
         $files = $request->all();
         foreach (array_slice($files, 1) as $name => $file) {

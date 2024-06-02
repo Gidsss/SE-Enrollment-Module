@@ -21,10 +21,8 @@ class AddDropRequestFactory extends Factory
         $middleInitial = strtoupper(substr($this->faker->firstName, 0, 1)) . '.';
         return [
             'student_id' => '2021' . $this->faker->randomNumber(5),
-            'student_name' => "$lastName, $firstName $middleInitial",
-            'year_level' => $this->faker->numberBetween(1, 4),
             'date_of_request' => $this->faker->date,
-            'status' => $this->faker->randomElement(['Pending', 'Approved', 'Revise', 'Unhandled']),
+            'status' => $this->faker->randomElement(['Pending', 'Approved', 'Revise', 'Unhandled']),d
            // 'study_plan' => $this->faker->text,
         ];
     }

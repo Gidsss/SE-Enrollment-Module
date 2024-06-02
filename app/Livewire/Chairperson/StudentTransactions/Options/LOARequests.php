@@ -29,6 +29,7 @@ class LOARequests extends Component
     public $hasLoaForm = false;
     public $hasRequest = false;
     public $hasClearance = false;
+    public $selectedStudentId;
 
     // Documents
     public $loaForm;
@@ -225,6 +226,8 @@ class LOARequests extends Component
         $this->letterOfRequest = $student->letter_of_request;
         $this->noteOfUndertaking = $student->note_of_undertaking;
         $this->clearance = $student->clearance;
+        $this->selectedStudentId = $student->student_id;
+
         $this->dispatch('show-edit-student-modal',);
     }
     
@@ -309,6 +312,7 @@ class LOARequests extends Component
                 'hasUndertaking' => $this->hasUndertaking,
                 'hasRequest' => $this->hasRequest,
                 'hasClearance' => $this->hasClearance,
+                'selectedStudentId' => $this->selectedStudentId,    
             ])->layout('livewire.chairperson.transaction-options');
         }
 }

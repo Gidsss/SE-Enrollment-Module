@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\Course;
 use App\Models\Validation;
 use App\Models\BSCS_grade;
-use App\Models\StudyPlanValidations;
+use App\Models\ShiftingRequest;
 use App\Models\Student;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -16,14 +16,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CourseData extends Component
+class CourseCodeShift extends Component
 {
     public $courses = [];
-
-    public $dropdownContent2_1 = [];
-
     public $bscs_grades;
-
+    public $dropdownContent2_1 = [];
     public $dropdownContent2_2 = [];
     public $dropdownContent3_1 = [];
     public $dropdownContent3_2 = [];
@@ -47,6 +44,8 @@ class CourseData extends Component
     public $student_id;
     public $grade;
     public $pre_requisites;
+
+    protected $listeners = ['pushCourseCodesFinal'];
     
     public function mount()
     {
@@ -81,7 +80,6 @@ class CourseData extends Component
                 $targetTable = 'tableBody72';
                 $this->moveRowToDropdown($course->id, $targetTable);
             } elseif (($grade === 5 && $course->year_lvl === 3 && $course->sem === 2) || ($preRequisiteGrade === 5 && $course->year_lvl === 3 && $course->sem === 2)) {
-
                 $targetTable = 'tableBody62';
                 $this->moveRowToDropdown($course->id, $targetTable);
             }
@@ -123,20 +121,14 @@ class CourseData extends Component
             $this->courses = $this->courses->reject(function ($c) use ($courseId) {
                 return $c->id === $courseId;
             });
-
         }
-    
-        $this->courses = $this->courses->reject(function ($c) use ($courseId) {
-            return $c->id === $courseId;
-        });
-    
+
         $this->updateTotalUnits32();
         $this->updateTotalUnits42();
         $this->updateTotalUnits72();
         $this->updateTotalUnits62();
         $this->updateTotalUnits22();
         $this->updateTotalUnits21();
-
     }
 
     public function moveRowFromDropdownToTable($courseCode, $tableBodyId){
@@ -144,9 +136,6 @@ class CourseData extends Component
         $dropdownContentRef = null;
     
         switch ($tableBodyId) {
-            case 'tableBody':
-                $dropdownContentRef = &$this->dropdownContent2_1;
-                break;
             case 'tableBody22':
                 $dropdownContentRef = &$this->dropdownContent2_2;
                 break;
@@ -162,6 +151,9 @@ class CourseData extends Component
             case 'tableBody62':
                 $dropdownContentRef = &$this->dropdownContent4_2;
                 break;
+            case 'tableBody':
+                $dropdownContentRef = &$this->dropdownContent2_1;
+            break;
         }
     
         // Proceed only if $dropdownContentRef is defined
@@ -190,9 +182,6 @@ class CourseData extends Component
     {
         // Determine the total units property based on the table body ID
         switch ($tableBodyId) {
-            case 'tableBody21':
-                $totalUnitsProperty = 'totalUnits22';
-                break;
             case 'tableBody22':
                 $totalUnitsProperty = 'totalUnits22';
                 break;
@@ -208,6 +197,9 @@ class CourseData extends Component
             case 'tableBody62':
                 $totalUnitsProperty = 'totalUnits62';
                 break;
+            case 'tableBody':
+                $totalUnitsProperty = 'totalUnits21';
+            break;
             default:
                 return; // Return if the table body ID is not recognized
         }
@@ -309,25 +301,21 @@ class CourseData extends Component
     }
 
     public function pushCourseCodesFinal(){
-        $this->mount();
-
         // Get the validation record for the current student
         $validation = Validation::where('student_id', $this->studentid)->first();
     
         if ($validation) {
             // Create or update the corresponding record in the study_plan_validations table
-            $study_plan_validation = StudyPlanValidations::firstOrNew(['student_id' => $this->studentid]);
+            $shift_request = ShiftingRequest::firstOrNew(['student_id' => $this->studentid]);
     
             // Assign the attributes from the validation object to the study_plan_validation object
-
-            $study_plan_validation->student_id = $validation->student_id; 
-            $study_plan_validation->year_level = $validation->yearlvl; 
-            $study_plan_validation->status = $validation->status;
-            $study_plan_validation->date_of_request = $validation->daterequest;
-            $study_plan_validation->study_plan = $validation->study_plan_course_code;
+            $shift_request->student_id = $validation->student_id; 
+            $shift_request->status = $validation->status;
+            $shift_request->date_of_request = $validation->daterequest;
+            $shift_request->study_plan = $validation->study_plan_course_code;
     
             // Save the study_plan_validation object
-            $study_plan_validation->save();
+            $shift_request->save();
 
             $validation->delete();
         }
@@ -339,7 +327,7 @@ class CourseData extends Component
         $courses = Course::all();
         $validations = Validation::all();
         $bscs_grades = BSCS_grade::all();
-        $study_plan_validations = StudyPlanValidations::all();
+        $shift_request = ShiftingRequest::all();
         $student = Student::all();
 
         $displayedCourseCodes = $this->getDisplayedCourseCodes();
@@ -364,7 +352,7 @@ class CourseData extends Component
             }
         }
 
-        return view('livewire.course-data', [
+        return view('livewire.course-code-shift', [
             'courses' => $courses,
             'student' => $student,
             'validations' => $validations,
@@ -372,14 +360,11 @@ class CourseData extends Component
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,
             'hasYear4' => $hasYear4,
-            'dropdownContent2_2' => $this->dropdownContent2_2,
-            'dropdownContent2_1' => $this->dropdownContent2_1,
             'dropdownContent3_2' => $this->dropdownContent3_2,
             'dropdownContent3_1' => $this->dropdownContent3_1,
             'dropdownContent4_1' => $this->dropdownContent4_1,
             'dropdownContent4_2' => $this->dropdownContent4_2,
             'tableBodyId' => $this->tableBodyId,
-            'totalUnits21' => $this->totalUnits21, 
             'totalUnits32' => $this->totalUnits32, 
             'totalUnits42' => $this->totalUnits42, 
             'totalUnits72' => $this->totalUnits72, 
@@ -395,7 +380,6 @@ class CourseData extends Component
             ? $course->course_code . ' - ' . $course->course_name 
             : '';
     }
-
     private function updateTotalUnits21()
     {
         $this->totalUnits21 = $this->courses->where('year_lvl', 2)->where('sem', 1)->sum('units');
@@ -425,3 +409,4 @@ class CourseData extends Component
         $this->totalUnits62 = $this->courses->where('year_lvl', 4)->where('sem', 2)->sum('units');
     }
 }
+

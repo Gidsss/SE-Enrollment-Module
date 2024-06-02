@@ -221,6 +221,14 @@ class ShiftingRequests extends Component
         $this->noteOfUndertaking = $student->note_of_undertaking;
         $this->dispatch('show-edit-student-modal',);
     }
+
+    public function changeStatus($status)
+    {
+        $request = ShiftingRequest::where('student_id', $this->student_id)->first();
+        $request->status = $status;
+        $request->save();
+        $this->dispatch('close-modal'); 
+    }
     
     public function editStudentData()
     {

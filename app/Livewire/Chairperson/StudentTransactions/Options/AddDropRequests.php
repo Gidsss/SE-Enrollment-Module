@@ -212,6 +212,14 @@ class AddDropRequests extends Component
 
         $this->dispatch('show-edit-student-modal',);
     }
+
+    public function changeStatus($status)
+    {
+        $request = AddDropRequest::where('student_id', $this->student_id)->first();
+        $request->status = $status;
+        $request->save();
+        $this->dispatch('close-modal'); 
+    }
     
     public function editStudentData()
     {

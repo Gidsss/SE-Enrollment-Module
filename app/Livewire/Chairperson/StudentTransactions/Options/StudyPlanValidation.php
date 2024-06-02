@@ -216,6 +216,14 @@ class StudyPlanValidation extends Component
         $this->dispatch('show-edit-student-modal');
     }
 
+    public function changeStatus($status)
+    {
+        $request = StudyPlanValidations::where('student_id', $this->student_id)->first();
+        $request->status = $status;
+        $request->save();
+        $this->dispatch('close-modal'); 
+    }
+
     public function editStudentData()
     {
         //on form submit validation

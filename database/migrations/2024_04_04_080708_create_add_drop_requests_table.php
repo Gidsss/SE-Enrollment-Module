@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('add_drop_requests', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('student_id')->unsigned()->unique(); // Match the data type with `students` table
-            $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade');
+            $table->foreign('student_id')->references('student_id')->on('students');
             $table->date('date_of_request');
-            $table->string('status');
+            // $table->text('reason')->nullable(); // Removed this as the reason is saved with the add_drop_form
+            $table->string('status')->default('Pending');
             $table->text('study_plan')->nullable();
             $table->text('add_drop_form');
             $table->timestamps();

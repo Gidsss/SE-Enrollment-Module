@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire\Chairperson\StudentTransactions\Options;
+
 use App\Models\AddDropRequest;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -8,27 +9,23 @@ use Livewire\WithPagination;
 class AddDropRequests extends Component
 {
     use WithPagination;
-    
-    public $student_id, $student_name, $year_level, $status, $date_of_request, $study_plan;
-    public $student_edit_id, $student_delete_id;
+
+    public $student_id, $student_name, $year_level, $status, $date_of_request, $addDropDetails, $reason;
     public $view_student_id, $view_student_name, $view_student_year_level, $view_status;
     public $bulk_student_status, $students, $lastPage;
-    public $year;
-    public $bulkEditStudentIds = [];
-    public $selectedStudents = [];
-    public $selectAll = false;
-    public $perPage = 10;
     public $currentPage = 1;
-    public $numStudents;
+    public $perPage = 10;
     public $totalStudents;
     public $activeButton = '';
-    public $hasStudyPlan = false;
-    public $hasChecklist = false;
     public $hasAddDrop = false;
+
+    public $addedClasses = [];
+    public $droppedClasses = [];
     public $selectedStudentId;
 
     // Documents
     public $addDropForm;
+
 
     // Input fields validation rules
     protected $rules = [
@@ -39,17 +36,17 @@ class AddDropRequests extends Component
         'status' => 'required|string',
     ];
 
-    
     public function mount()
     {
         $this->getPaginatedStudents();
         $this->calculateTotalStudents();
-        
     }
+
     public function calculateTotalStudents()
     {
         $this->totalStudents = AddDropRequest::count();
     }
+
     public $sortColumn = 'student_name'; // Default sorting column
     public $sortDirection = 'asc'; // Default sorting direction
 
@@ -62,24 +59,24 @@ class AddDropRequests extends Component
             // Otherwise, default to ascending direction
             $this->sortDirection = 'asc';
         }
-    
+
         $this->sortColumn = $column; // Update the sorting column
-    
+
         // Fetch paginated students with the updated sorting
         $this->getPaginatedStudents();
     }
-    
+
     public function getPaginatedStudents()
     {
         $total = AddDropRequest::count();
         $this->lastPage = ceil($total / $this->perPage);
-    
+
         $this->currentPage = min(max(1, $this->currentPage), $this->lastPage);
         $offset = ($this->currentPage - 1) * $this->perPage;
-    
+
         // Adjust the ordering for descending sorting
         $orderByDirection = $this->sortDirection === 'desc' ? 'DESC' : 'ASC';
-    
+
         if ($this->sortColumn === 'year_level') {
             // Fetch first-year students sorted by student block
             $this->students = $this->getPaginatedStudentsByYear($orderByDirection, $offset);
@@ -88,35 +85,37 @@ class AddDropRequests extends Component
             $this->students = $this->getPaginatedStudentsByName($orderByDirection, $offset);
         }
     }
+
     public function nextPage($pageName = 'page')
-        {
-            $this->currentPage++;
-            $this->getPaginatedStudents();
-        }
-    
+    {
+        $this->currentPage++;
+        $this->getPaginatedStudents();
+    }
+
     public function previousPage($pageName = 'page')
-        {
-            $this->currentPage--;
-            $this->getPaginatedStudents();
-        }
-        
+    {
+        $this->currentPage--;
+        $this->getPaginatedStudents();
+    }
+
     public function getPaginatedStudentsByName($orderByDirection, $offset)
-        {
-            return AddDropRequest::join("students", "add_drop_requests.student_id", "=", "students.student_id")
-                ->orderBy('student_name', $orderByDirection)
-                ->skip($offset)
-                ->take($this->perPage)
-                ->get();
-        }
+    {
+        return AddDropRequest::join("students", "add_drop_requests.student_id", "=", "students.student_id")
+            ->orderBy('student_name', $orderByDirection)
+            ->skip($offset)
+            ->take($this->perPage)
+            ->get();
+    }
 
     public function getPaginatedStudentsByYear($orderByDirection, $offset)
-        {
-            return AddDropRequest::join("students", "add_drop_requests.student_id", "=", "students.student_id")
-                ->orderBy('year_level', $orderByDirection)
-                ->skip($offset)
-                ->take($this->perPage)
-                ->get();
-        }
+    {
+        return AddDropRequest::join("students", "add_drop_requests.student_id", "=", "students.student_id")
+            ->orderBy('year_level', $orderByDirection)
+            ->skip($offset)
+            ->take($this->perPage)
+            ->get();
+    }
+
     public function toggleStudentSelection($studentId)
     {
         if (in_array($studentId, $this->selectedStudents)) {
@@ -136,21 +135,21 @@ class AddDropRequests extends Component
             session()->flash('error', 'Please select at least more than one student for batch update.');
             return;
         }
-    
+
         // Check if more than one student is selected
         if (count($this->selectedStudents) === 1) {
             // Show an error message indicating that multiple students need to be selected
             session()->flash('error', 'Please select more than one student for batch update.');
             return;
         }
-    
+
         // Store the selected student IDs in the component property for later use
         $this->bulkEditStudentIds = $this->selectedStudents;
-    
+
         // Now, open the bulk edit modal
         $this->dispatch('open-bulk-edit-modal');
     }
-    
+
     public function applyBatchUpdate()
     {
         // Validate if bulk_student_status is not empty
@@ -159,14 +158,14 @@ class AddDropRequests extends Component
         ], [
             'bulk_student_status.required' => 'Status input is required.',
         ]);
-    
+
         // Check if any students are selected for bulk edit
         if (count($this->bulkEditStudentIds) < 1) {
             // Show an error message indicating that no students are selected
             session()->flash('error', 'Please select at least more than one student for batch update.');
             return;
         }
-    
+
         // Apply changes to selected students without considering block capacity
         foreach ($this->bulkEditStudentIds as $studentId) {
             $student = AddDropRequest::findOrFail($studentId);
@@ -174,18 +173,18 @@ class AddDropRequests extends Component
                 'status' => $this->bulk_student_status,
             ]);
         }
-    
+
         // Flash success message
         session()->flash('message', 'Batch update applied successfully.');
-    
+
         // Clear bulk edit properties
         $this->bulk_student_status = '';
         $this->bulkEditStudentIds = [];
-    
+
         // Close bulk edit modal
         $this->dispatch('close-modal');
     }
-    
+
     public function closeBatchUpdateModal()
     {
         // Clear any selected student IDs and reset bulk edit properties
@@ -209,6 +208,7 @@ class AddDropRequests extends Component
         $this->year_level = $student->year_level;
         $this->status = $student->status;
         $this->date_of_request = $student->date_of_request;
+        $this->parseAddDropDetails($student->add_drop_form);
         $this->addDropForm = $student->add_drop_form;
         $this->selectedStudentId = $student->student_id;
 
@@ -238,16 +238,7 @@ class AddDropRequests extends Component
             'date_of_request' => $this->date_of_request,
         ]);
 
-        // Flash message
-        session()->flash('message', 'Student has been updated successfully');
-
-        // Close modal
-        $this->dispatch('close-modal');
-    }
-
-    public function cancel()
-    {
-        $this->student_delete_id = '';
+        $this->dispatch('show-edit-student-modal');
     }
 
     public function viewStudentDetails($id)
@@ -259,42 +250,54 @@ class AddDropRequests extends Component
         $this->view_student_year_level = $student->year_level;
         $this->view_status = $student->status;
         $this->date_of_request = $student->date_of_request;
+        $this->parseAddDropDetails($student->add_drop_form);
+
         $this->dispatch('show-view-student-modal');
     }
 
     public function closeViewStudentModal()
-        {
-            $this->view_student_id = '';
-            $this->view_student_name = '';
-            $this->view_student_year_level = '';
-            $this->view_status = '';
-            $this->date_of_request = '';
-            $this->dispatch('close-view-student-modal');
-        }
+    {
+        $this->view_student_id = '';
+        $this->view_student_name = '';
+        $this->view_student_year_level = '';
+        $this->view_status = '';
+        $this->date_of_request = '';
+        $this->addedClasses = [];
+        $this->droppedClasses = [];
+        $this->dispatch('close-view-student-modal');
+    }
 
-        public function changeColor($button)
-        {
-            $this->activeButton = $button;
-        }
+    public function changeColor($button)
+    {
+        $this->activeButton = $button;
+    }
+
+    public function parseAddDropDetails($addDropDetails)
+    {
+        $details = json_decode($addDropDetails, true);
+        $this->addedClasses = $details['added'] ?? [];
+        $this->droppedClasses = $details['dropped'] ?? [];
+        $this->reason = $details['reason'] ?? '';
+    }
 
     public function render()
-        {
-            $this->hasStudyPlan = ($this->activeButton === 'plan');
-            $this->hasChecklist = ($this->activeButton === 'checklist');
-            $this->hasAddDrop = ($this->activeButton === 'adddrop');
+    {
+        $this->hasAddDrop = ($this->activeButton === 'adddrop');
+      
+        return view('livewire.chairperson.student-transactions.options.add-drop-requests', [
+            'students' => $this->students,
+            'totalStudents' => $this->totalStudents,
+            'currentPage' => $this->currentPage,
+            'lastPage' => $this->lastPage,
+            'hasAddDrop' => $this->hasAddDrop,
+            'addedClasses' => $this->addedClasses,
+            'droppedClasses' => $this->droppedClasses,
+            'reason' => $this->reason,
+            'hasStudyPlan' => $this->hasStudyPlan,
+            'hasChecklist' => $this->hasChecklist,
+            'selectedStudentId' => $this->selectedStudentId,
+        ])->layout('livewire.chairperson.transaction-options');
+    }
 
 
-            $hasStudyPlan = false;
-            $hasChecklist = false;
-            $hasAddDrop = false;
-
-            return view('livewire.chairperson.student-transactions.options.add-drop-requests', [
-                'hasStudyPlan' => $this->hasStudyPlan,
-                'hasChecklist' => $this->hasChecklist,
-                'hasAddDrop' => $this->hasAddDrop,
-                'selectedStudentId' => $this->selectedStudentId,
-            ])->layout('livewire.chairperson.transaction-options');
-        }
 }
-
-    

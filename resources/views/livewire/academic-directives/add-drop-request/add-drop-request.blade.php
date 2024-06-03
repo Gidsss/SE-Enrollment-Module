@@ -266,7 +266,7 @@
                     <!-- Content for letter 'i' -->
                     <p class="body-font">&nbsp;&nbsp;i. Co-requisites are subjects that should be taken at the same time except in cases that they are to be taken separately as retakes.</p>
                     <div class="center-button">
-                        <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(1)">Proceed to Curriculum Checklist</button>
+                        <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(1)">Proceed to Add/Drop Request</button>
                         </div>
                     </div>
                 </div>
@@ -275,19 +275,38 @@
                 <!-- Step 2 -->
                 <div class="card custom-table-container">
                 <div class="card-body">
-                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">2. Download Curriculum Checklist
+                <button class="accordion" style="font-family: Inter, sans-serif; font-size: 26px;">2. Details of Change/Cancellation of Registration
                 <i class="fas fa-check-circle step-checkmark" style="font-size: 27px;"></i>
                 </button>
                     
                     <!-- Detailed information for Step 2 -->
                     <div class="panel">
                         <br>
-                        <button type="button"  onclick="proceedToNextStep(2)" class="btn btn-primary float-right" style="color: #2D349A; position: relative; bottom: 0px; left: 5px; width: 120px; height: 4ch;">
-        <i class="fas fa-download" style="color: white; margin-right: .2rem; top: -0.2rem; position: relative; font-size: 15px;"></i>
-        <span style="color: white;  margin-right: 0.2rem; top: -0.2rem; position: relative; font-size: 15px;">Download</span></button>
-                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Curriculum Checklist</p>
-                        <object data="http://localhost:8000/generate-pdf" type="application/pdf" width="80%" height="400px" style="position: relative; top: 20px; left: 10%;">
-                        </object>
+                    <p style="font-family: Inter, sans-serif; font-size: 24px; color:black;">Kindly click the button to input the reason and subjects to be added/dropped for your request.</p>
+                    <div class="center-button">
+                    <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" data-toggle="modal" data-target="#addDropModal">Reason & Subjects to be added/dropped</button> 
+                    </div>
+                    <div class="center-button">
+                          <button type="button" class="btn" style="margin-top: 10px; background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(2)">Proceed to Creation of Study Plan</button>
+                    </div>
+
+                    <!-- Modal for Add/Drop Details -->
+                    <div class="modal fade" id="addDropModal" tabindex="-1" role="dialog" aria-labelledby="addDropModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document" style="max-width: 75%;">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addDropModalLabel">Reason & Subjects to be added/dropped</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @livewire('add-drop-details')
+                        </div>
+                        
+                        </div>
+                    </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -319,7 +338,7 @@
                       </div>  
                     
                       <div class="center-button">
-                          <button type="button" class="btn" style="background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)">Proceed to Submission of Documents</button>
+                          <button type="button" class="btn" style="margin-top: 10px; background-color: #C9AE5D; color: #535353;" onclick="proceedToNextStep(3)">Proceed to Submission of Documents</button>
                         </div>
                     </div>
 
@@ -547,4 +566,7 @@
         var fileName = $('#' + inputId).val().split('\\').pop();
         $('label[for=' + inputId + ']').text(fileName);
     }
+    window.addEventListener('close-modal', event => {
+        $('#confirmationModal1').modal('hide');
+    });
 </script>

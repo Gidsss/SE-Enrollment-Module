@@ -199,7 +199,7 @@
                         </div>
 
                         @if ($selectedStudentId && $hasStudyPlan)
-                            @livewire('course-code-to-valid-data', ['studentId' => $selectedStudentId], key('course-code-' . $selectedStudentId))
+                            @livewire('course-code-to-valid-shift', ['studentId' => $selectedStudentId], key('course-code-' . $selectedStudentId))
                         @endif
 
                         @if ($hasChecklist)

@@ -108,7 +108,7 @@
                                             <td>{{ $student->status }}</td>
                                           
                                             <td style="text-align: center;">
-                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->id }})">View Student</button>
+                                            <button class="btn btn-sm btn-primary" wire:click="editStudents({{ $student->student_id }})">View Student</button>
                                             </td>
                                         </tr>
                                     @endforeach

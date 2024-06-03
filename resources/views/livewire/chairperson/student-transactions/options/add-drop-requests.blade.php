@@ -193,6 +193,7 @@
                         <!-- <button wire:click="changeColor('plan')" class="btn btn-sm @if($activeButton === 'plan') btn-primary @else btn-outline-dark @endif font-weight-bold mr-2">Review Study Plan</button> -->
                     </div>
 
+
                     @if ($hasAddDrop)
                         <div>
                             <h3>Added Classes</h3>
@@ -250,6 +251,18 @@
                             @else
                                 <p>No Dropped Classes</p>
                             @endif
+
+                        @if ($selectedStudentId && $hasStudyPlan)
+                        <div>
+                            <!-- palitan to ng gawa ni gids -->
+                        </div>
+                        @endif
+
+                        @if ($selectedStudentId && $hasChecklist)
+                        <div>
+                            <!-- livewire kunwari -->
+                            @livewire('b-s-c-sgrades', ['studentId' => $selectedStudentId], key('bscs-grades-' . $selectedStudentId))
+
                         </div>
                     @endif
 

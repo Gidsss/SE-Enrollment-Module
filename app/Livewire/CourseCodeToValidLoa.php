@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Livewire;
+
 use App\Models\Course;
 use App\Models\Validation;
 use App\Models\Student;
-use App\Models\StudyPlanValidations;
+use App\Models\LOARequest;
 use Livewire\Component;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Livewire;
 
-class CourseCodeToValidData extends Component
+class CourseCodeToValidLoa extends Component
 {
     public $allowedCourseCodes = [];
     public $courses;
@@ -55,15 +56,16 @@ class CourseCodeToValidData extends Component
         $this->loadStudentData();
     }
 
+
     public function loadStudentData()
     {
-        $study_plan_validation = StudyPlanValidations::where('student_id', $this->studentId)->first();
-        if ($study_plan_validation) {
-            $this->studentName = $study_plan_validation->student_name;
-            $this->yearLevel = $study_plan_validation->yearlvl;
-            $this->studyPlanCodes = $study_plan_validation->study_plan;
+        $loa_request = LOARequest::where('student_id', $this->studentId)->first();
+        if ($loa_request) {
+            $this->studentName = $loa_request->student_name;
+            $this->yearLevel = $loa_request->yearlvl;
+            $this->studyPlanCodes = $loa_request->study_plan;
             $this->allowedCourseCodes = json_decode($this->studyPlanCodes);
-            $this->status = $study_plan_validation->status;
+            $this->status = $loa_request->status;
         }
     }
 
@@ -86,22 +88,22 @@ class CourseCodeToValidData extends Component
 
     public function pushReject(){
         // Get the validation record for the current student
-        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
+        $loa_request = LOARequest::where('student_id', $this->student_id)->first();
     
-        if ($study_plan_validations) {
-            $study_plan_validations->status = 'Revise';
-            $study_plan_validations->save();
+        if ($loa_request) {
+            $loa_request->status = 'Revise';
+            $loa_request->save();
         }
 
     }
 
     public function pushApprove(){
         // Get the validation record for the current student
-        $study_plan_validations = StudyPlanValidations::where('student_id', $this->student_id)->first();
+        $loa_request = LOARequest::where('student_id', $this->student_id)->first();
     
-        if ($study_plan_validations) {
-            $study_plan_validations->status = 'Approved';
-            $study_plan_validations->save();
+        if ($loa_request) {
+            $loa_request->status = 'Approved';
+            $loa_request->save();
         }
 
     }
@@ -110,7 +112,7 @@ class CourseCodeToValidData extends Component
         $courses = Course::all();
         $validations = Validation::all();
         $students = Student::all();
-        $study_plan_validations = StudyPlanValidations::all();
+        $loa_request = LOARequest::all();
 
         $displayedCourseCodes = $this->getDisplayedCourseCodes();
 
@@ -140,7 +142,7 @@ class CourseCodeToValidData extends Component
             }
         }
 
-        return view('livewire.course-code-to-valid-data', [
+        return view('livewire.course-code-to-valid-loa', [
             'validations' => $validations,
             'hasYear2' => $hasYear2,
             'hasYear3' => $hasYear3,
@@ -203,3 +205,4 @@ class CourseCodeToValidData extends Component
             ->sum('units');
     }
 }
+

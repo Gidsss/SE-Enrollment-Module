@@ -18,10 +18,12 @@ use App\Livewire\Chairperson\StudentTransactions\Options\LOARequests;
 
 // Irregular Student Components
 use App\Livewire\IrregularStudent\CreateStudyPlan\CreateStudyPlan;
+use App\Livewire\CourseData;
 use App\Livewire\IrregularStudent\DownloadSER\DownloadIrregularSER;
 use App\Livewire\IrregularStudent\ViewAssessment\ViewIrregularAssessment;
 use App\Livewire\IrregularStudent\IrregAssessment\IrregAssessment;
 use App\Livewire\IrregularStudent\IrregSER\IrregSER;
+use App\Livewire\CourseCodeShift;
 
 // Regular Student Components
 use App\Livewire\RegularStudent\CheckSchedule\CheckSchedule;
@@ -85,6 +87,7 @@ Route::middleware([RegularStudentMiddleware::class])->group(function () {
 
 Route::middleware([IrregularStudentMiddleware::class])->group(function () {
     Route::get('/irregular_student/irreg_schedule', CreateStudyPlan::class)->name('irreg_schedule'); // irregular student schedule
+    Route::post('/irregular_student/irreg_schedule/post', [CourseData::class, 'pushCourseCodesFinal'])->name('study_plan.post'); // loa request post
     Route::get('/irregular_student/irreg_assessment', ViewIrregularAssessment::class)->name('irreg_assessment'); // irregular student assessment
     Route::get('/irregular_student/irreg_ser', DownloadIrregularSER::class)->name('irreg_ser'); // irregular student ser
 });
@@ -97,4 +100,5 @@ Route::middleware([AcademicDirectiveMiddleware::class])->group(function () {
     Route::post('/academic_directive/shifting_request/post', [ShiftingRequestController::class, 'pushRequest'])->name('shifting_request.post'); // shifting request post
     Route::get('/academic_directive/add_drop_request', AddDropRequestController::class)->name('add_drop_request'); // add drop request
     Route::post('/academic_directive/add_drop_request/post', [AddDropRequestController::class, 'pushRequest'])->name('add_drop_request.post'); // add drop request post
+
 });

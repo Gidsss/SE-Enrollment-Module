@@ -4,6 +4,7 @@ namespace App\Livewire\AcademicDirective;
 
 use Livewire\Component;
 use App\Models\ShiftingRequest;
+use App\Models\Validation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,19 @@ class ShiftingRequestController extends Component
                 $path = $file->store('shifting-request-files', 'public');
                 $shiftingRequest->{$name} = $path;
             }
+        }
+
+        $validation = Validation::where('student_id', $this->student_id)->first();
+    
+        if ($validation) {
+            // Create or update the corresponding record in the study_plan_validations table
+            $shift_request = ShiftingRequest::firstOrNew(['student_id' => $this->student_id]);
+    
+            // Assign the attributes from the validation object to the study_plan_validation object
+            $shift_request->student_id = $validation->student_id; 
+            $shift_request->study_plan = $validation->study_plan_course_code;
+
+            $validation->delete();
         }
 
         $shiftingRequest->is_finalized = true; // Set the request as finalized

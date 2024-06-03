@@ -18,8 +18,14 @@ class AddDropRequests extends Component
     public $totalStudents;
     public $activeButton = '';
     public $hasAddDrop = false;
+
     public $addedClasses = [];
     public $droppedClasses = [];
+    public $selectedStudentId;
+
+    // Documents
+    public $addDropForm;
+
 
     // Input fields validation rules
     protected $rules = [
@@ -203,6 +209,34 @@ class AddDropRequests extends Component
         $this->status = $student->status;
         $this->date_of_request = $student->date_of_request;
         $this->parseAddDropDetails($student->add_drop_form);
+        $this->addDropForm = $student->add_drop_form;
+        $this->selectedStudentId = $student->student_id;
+
+        $this->dispatch('show-edit-student-modal',);
+    }
+    
+    public function editStudentData()
+    {
+        //on form submit validation
+        $this->validate([
+             'student_id' => 'required|unique:students,student_id,'.$this->student_edit_id,
+            'student_name' => 'required',
+            'year_level'=> 'required|integer',
+            'status' => 'required|string|in:Pending,Approved,Revise,Unhandled',
+            'date_of_request' => 'required|date',
+        ]);
+
+        // Find the student by ID
+        $student = AddDropRequest::findOrFail($this->student_edit_id);
+
+        // Update student's information
+        $student->update([
+            'student_id' => $this->student_id,
+            'student_name' => $this->student_name,
+            'year_level' => $this->year_level,
+            'status' => $this->status,
+            'date_of_request' => $this->date_of_request,
+        ]);
 
         $this->dispatch('show-edit-student-modal');
     }
@@ -249,7 +283,7 @@ class AddDropRequests extends Component
     public function render()
     {
         $this->hasAddDrop = ($this->activeButton === 'adddrop');
-
+      
         return view('livewire.chairperson.student-transactions.options.add-drop-requests', [
             'students' => $this->students,
             'totalStudents' => $this->totalStudents,
@@ -259,6 +293,11 @@ class AddDropRequests extends Component
             'addedClasses' => $this->addedClasses,
             'droppedClasses' => $this->droppedClasses,
             'reason' => $this->reason,
+            'hasStudyPlan' => $this->hasStudyPlan,
+            'hasChecklist' => $this->hasChecklist,
+            'selectedStudentId' => $this->selectedStudentId,
         ])->layout('livewire.chairperson.transaction-options');
     }
+
+
 }

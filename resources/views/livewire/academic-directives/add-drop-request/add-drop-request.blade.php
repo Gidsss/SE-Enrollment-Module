@@ -352,7 +352,7 @@
                                   </button>
                               </div>
                               <div class="modal-body">
-                                  @livewire('course-data')
+                                  <!-- aayos yung accordion pag yung gawa ni gids andito -->
                                   
                               </div>
                               <div class="modal-footer">
